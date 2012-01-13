@@ -1,0 +1,5 @@
+%script{ :src => "/javascripts/swfobject.js" }
+%script
+  swfobject.embedSWF("/javascripts/ErlyvideoPlayer.swf", "ui", "100%", "600", "9.0.0", {}, { file: "#{name}" }, {});
+
+%div{ :id => "ui" }

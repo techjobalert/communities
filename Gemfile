@@ -19,7 +19,7 @@ gem 'jquery-rails'
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the web server
-# gem 'unicorn'
+gem 'unicorn'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -57,3 +57,6 @@ gem 'mini_magick'                                                 # image proces
 
 gem 'ancestry'                                                    # nested obj, parents, childrens...
 gem 'acts-as-taggable-on'                                         # tags
+
+gem 'resque'
+gem 'haml'

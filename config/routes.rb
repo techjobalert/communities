@@ -1,4 +1,17 @@
 Orthodontic::Application.routes.draw do
+
+  resources :file, :only => [:index] do
+    collection do
+      post "upload", :action => 'upload'
+
+      get "load/:name", :action => 'load', :constraints => { :name => /.*/ }
+
+      post "convert/:name", :action => 'convert', :constraints => { :name => /.*/ }
+
+      post "merge/:name/:name2", :action => 'merge', :constraints => { :name => /.*/, :name2 => /.*/ }
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -55,4 +68,11 @@ Orthodontic::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+
+  # match '/upload' =>                    'application#upload',  :via => :post
+  # match '/file/:name' =>                'application#file',    :via => :get
+  # match '/file/conver/:name' =>        'application#convert', :via => :post
+  # match '/file/merge/:name/:name2' =>   'application#merge',   :via => :post
+
+  # root :to => 'home'
 end
