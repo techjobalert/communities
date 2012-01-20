@@ -8,6 +8,7 @@ capybara-*.html
 /log/*
 /tmp/*
 /public/system/*
+/public/stylesheets/*
 /coverage/
 /spec/tmp/*
 **.orig
