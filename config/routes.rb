@@ -12,5 +12,5 @@ Orthodontic::Application.routes.draw do
     end
   end
 
-  #root :to => "challenges#index"
+  root :to => "file#index"
 end
