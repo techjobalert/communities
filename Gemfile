@@ -59,4 +59,5 @@ gem 'ancestry'                                                    # nested obj, 
 gem 'acts-as-taggable-on'                                         # tags
 
 gem 'resque'
-gem 'haml'
+
+#gem 'acts_as_commentable'
