@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
+  <title>Internal server error 500</title>
+  <link href='http://fonts.googleapis.com/css?family=Signika:700' rel='stylesheet' type='text/css'>
   <style type="text/css">
     body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
     div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
+      font-family: 'Signika', sans-serif;
+      font-weight: 700;
+      width: auto;
+      margin: 4em auto 0 68px;
+      position: absolute;
+      top: 20%;
     }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+    h1 {
+      font-size: 7em;
+      color: #C4151C;
+      line-height: 0;
+      margin-bottom: 50px;
+    }
   </style>
 </head>
 
 <body>
-  <!-- This file lives in public/500.html -->
   <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
-    <p>We've been notified about this issue and we'll take a look at it shortly.</p>
+    <h1>500</h1>
+    <p>ОШИБКА СЕРВЕРА</p>
   </div>
 </body>
 </html>
