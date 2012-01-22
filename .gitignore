@@ -19,4 +19,4 @@ capybara-*.html
 /db/schema.rb
 /vendor/erlyvideo/*
 Gemfile.lock
-
+/vendor/erlyvideo/*
