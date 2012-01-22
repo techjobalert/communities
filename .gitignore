@@ -9,6 +9,7 @@ capybara-*.html
 /tmp/*
 /public/system/*
 /public/stylesheets/*
+/public/assets/*
 /coverage/
 /spec/tmp/*
 **.orig
@@ -17,3 +18,4 @@ pickle-email-*.html
 /db/*.sqlite3
 /db/schema.rb
 Gemfile.lock
+/vendor/erlyvideo/*
