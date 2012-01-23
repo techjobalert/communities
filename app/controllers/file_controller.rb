@@ -9,8 +9,7 @@ class FileController < ApplicationController
   end
 
   def load
-    @name = params[:name]
-    puts @name, params
+    @file_name = params[:name]
   end
 
   def convert
