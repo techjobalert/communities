@@ -9,3 +9,4 @@
 
 //= require AC_OETags
 //= require swfobject
+//= require video

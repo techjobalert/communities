@@ -38,17 +38,26 @@
 	} else if (hasRequestedVersion) {
 		// if we've detected an acceptable version
 		// embed the Flash Content SWF when all tests are passed
+		var _date = new Date();
+		var today = [_date.getDate(), _date.getMonth()+1, _date.getFullYear(), _date.getTime()].join("-");
+		var settings = ["server=rtmp://127.0.0.1/",
+										"fileName="+today+"_webcamvideo.mp4",
+										"fps=20",
+										"microRate=44",
+										"maxLength=0",
+										"height=320",
+										"width=420"
+										];
 		AC_FL_RunContent(
-				"FlashVars", "server=rtmp://62.75.189.166/&fileName=webcamvideo&fps=25&microRate=44&maxLength=0",
+				"FlashVars", settings.join("&"),
 				"src", "/assets/red5recorder",
-				"width", "320",
-				"height", "240",
-				"align", "middle",
+				"width", "350",
+				"height", "265",
+				"align", "right",
 				"id", "red5recorder",
 				"quality", "high",
 				// "bgcolor", "#869ca7",
 				"name", "red5recorder",
-				"server","rtmp://127.0.0.1/",
 				"allowScriptAccess","sameDomain",
 				"type", "application/x-shockwave-flash",
 				"pluginspage", "http://www.adobe.com/go/getflashplayer"
@@ -60,22 +69,12 @@
 	    document.write(alternateContent);  // insert non-flash content
 	  }
 </script>
-<noscript>
-  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-			id="red5recorder" width="100%" height="100%"
-			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-			<param name="movie" value="/assets/red5recorder.swf" />
-			<param name="quality" value="high" />
-			<param name="bgcolor" value="#869ca7" />
-			<param name="allowScriptAccess" value="sameDomain" />
-			<embed src="/assets/red5recorder.swf" quality="high" bgcolor="#869ca7"
-				width="100%" height="100%" name="red5recorder" align="middle"
-				play="true"
-				loop="false"
-				quality="high"
-				allowScriptAccess="sameDomain"
-				type="application/x-shockwave-flash"
-				pluginspage="http://www.adobe.com/go/getflashplayer">
-			</embed>
-	</object>
-</noscript>
+
+<div id="video-wrapper">
+	<video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="640" height="264"
+	    poster="http://video-js.zencoder.com/oceans-clip.png"
+	    data-setup="{}">
+
+	  <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
+	</video>
+</div>
