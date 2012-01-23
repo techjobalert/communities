@@ -45,7 +45,7 @@ gem 'devise'                                                      #
 #gem 'therubyracer'                                               # JS runtime
 gem 'client_side_validations'                                     # clientside validation by ajax
 gem 'kaminari'                                                    # Pagination
-gem 'activeadmin'                                                 # ActiveAdmin administration
+#gem 'activeadmin'                                                 # ActiveAdmin administration
 
 # Upload
 gem 'carrierwave'                                                 # upload processor
