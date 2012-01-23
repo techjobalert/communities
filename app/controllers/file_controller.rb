@@ -2,7 +2,7 @@ class FileController < ApplicationController
 
   def upload
     file = params[:file]
-    File.open('vendor/erlyvideo/movies/uploads' + file.original_filename, "wb") do |f|
+    File.open('vendor/erlyvideo/movies/uploads/' + file.original_filename, "wb") do |f|
       f.write(params[:file].read)
     end
     redirect_to "/file/load/#{file.original_filename}"
