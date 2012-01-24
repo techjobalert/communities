@@ -31,7 +31,7 @@
 			"quality", "high",
 			// "bgcolor", "#869ca7",
 			"name", "red5recorder",
-			"allowScriptAccess","sameDomain",
+			"allowScriptAccess","always",
 			"type", "application/x-shockwave-flash",
 			"pluginspage", "http://www.adobe.com/go/getflashplayer"
 		);
@@ -58,7 +58,7 @@
 				"quality", "high",
 				// "bgcolor", "#869ca7",
 				"name", "red5recorder",
-				"allowScriptAccess","sameDomain",
+				"allowScriptAccess","always",
 				"type", "application/x-shockwave-flash",
 				"pluginspage", "http://www.adobe.com/go/getflashplayer"
 		);
@@ -68,13 +68,5 @@
 	   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
 	    document.write(alternateContent);  // insert non-flash content
 	  }
+
 </script>
-
-<div id="video-wrapper">
-	<video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="640" height="320"
-	    poster="http://video-js.zencoder.com/oceans-clip.png"
-	    data-setup="{}">
-
-	  <source src="http://62.75.189.166:1234/uploads/<%= file_name %>" type='video/mp4' />
-	</video>
-</div>

@@ -1,6 +1,6 @@
 /*
 VideoJS Default Styles (http://videojs.com)
-Version 3.0.7
+Version GENERATED_AT_BUILD
 */
 
 /*
@@ -45,7 +45,7 @@ body.vjs-full-window {
   margin: 0 auto; padding: 0; cursor: pointer;
 
   /* Scale with the size of the player div. Works when poster is vertically shorter, but stretches when it's less wide. */
-  position: relative; width: 100%; max-height: 100%;
+  position: relative; width: 100%; max-height: 100%; 
 }
 
 
@@ -62,7 +62,7 @@ so you can upgrade to newer versions easier. You can remove all these styles by 
   position: absolute;
   bottom: 0; /* Distance from the bottom of the box/video. Keep 0. Use height to add more bottom margin. */
   left: 0; right: 0; /* 100% width of div */
-  opacity: 0.85;
+  opacity: 0.85; 
   display: none; /* Start hidden */
   margin: 0; padding: 0; /* Controls are absolutely position, so no padding necessary */
   height: 2.6em; /* Including any margin you want above or below control items */

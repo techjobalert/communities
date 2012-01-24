@@ -61,3 +61,5 @@ gem 'acts-as-taggable-on'                                         # tags
 gem 'resque'
 
 #gem 'acts_as_commentable'
+
+gem "mediaelement_rails"
