@@ -4,7 +4,20 @@
 </script>
 <div id='ui'></div>
 -->
-
-
-<%= render :partial => 'partials/red5recorder' %>
-<%= render :partial => 'partials/player', :locals => {:file_name => @file_name} %>
+<div class="fl-l" style="width:960px">
+  <div class="fl-r">
+    <%= render :partial => 'partials/webrecorder' %>
+  </div>
+  <div class="fl-l">
+    <%= render :partial => 'partials/player', :locals => {:file_name => @file_name} %>
+  </div>
+</div>
+<div style="clear:both">
+  <ul class="recorder-control fl-l">
+      <li id="recorder-stop-start" class="recorder-icon">record</li>
+    </ul>
+    <ul class="recorder-control fl-r">
+      <li id="recorder-status" class="recorder-icon"></li>
+      <li id="recorder-time" class="recorder-icon"></li>
+  </ul>
+</div>

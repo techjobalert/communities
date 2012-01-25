@@ -6,7 +6,3 @@
 //
 //= require jquery
 //= require jquery_ujs
-
-//= require AC_OETags
-//= require swfobject
-//= require video
