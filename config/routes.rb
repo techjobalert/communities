@@ -8,7 +8,7 @@ Orthodontic::Application.routes.draw do
 
       post "convert/:name", :action => 'convert', :constraints => { :name => /.*/ }
 
-      post "merge/:name/:name2", :action => 'merge', :constraints => { :name => /.*/, :name2 => /.*/ }
+      post "merge", :action => 'merge'
     end
   end
 

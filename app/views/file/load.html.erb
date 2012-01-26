@@ -12,11 +12,12 @@
     <%= render :partial => 'partials/player', :locals => {:file_name => @file_name} %>
   </div>
 
-  <div style="clear:both">
+  <div class="clearfix">
     <ul class="recorder-control fl-l">
         <li id="recorder-stop-start" class="button c-white">Start record</li>
 
         <li id="sync-stop-start" class="button c-white">Start Sync</li>
+        <li id="merge-video" class="button bg-green c-white">Merge video</li>
       </ul>
       <ul class="recorder-control fl-r">
         <li id="recorder-status" class="recorder-icon"></li>
@@ -29,44 +30,68 @@
   var videoPlayer = _V_("video_player");
       stopPoints = [0],
       syncBool = false,
+      presync = false,
       pauseCallback = function(){
-        var pos = videoPlayer.currentTime()
+        var pos = videoPlayer.currentTime();
         stopPoints.push(pos);
         console.log("add new stop point "+pos);
       },
       endedCallback = function(){
-        stopPoints.push(pos);
+        stopPoints.push(videoPlayer.duration());
         console.log("video end");
       },
       prestartSync = function(){
-        var duration = 5;
-        var intervalCount = 0;
-        var el = document.getElementById("recorder-status");
-        var interval = setInterval ( function(){
-          intervalCount++;
-          el.innerHTML = intervalCount;
-          if (intervalCount == duration){
-            clearInterval(interval);
-            setTimeout(function() { startSync(); }, 1000);
-          }
-        }
-        , 1000 );
+        if (presync) return false;
+        presync = true;
+        var duration = 5,
+            intervalCount = 0,
+            el = document.getElementById("recorder-status"),
+            interval = setInterval( function(){
+              intervalCount++;
+              el.innerHTML = intervalCount;
+              if (intervalCount == duration){
+                clearInterval(interval);
+                setTimeout(function() { startSync(); }, 1000);
+              }
+            }
+            , 1000 );
       },
       startSync = function(){
         videoPlayer.play();
         startRecord();
         document.getElementById("sync-stop-start").innerHTML = "Stop sync";
         syncBool = true;
+        presync = false;
       },
       stopSync = function(){
         videoPlayer.pause();
         stopRecord();
         document.getElementById("sync-stop-start").innerHTML = "Start sync";
         syncBool = false;
+      },
+      mergeFunc = function(){
+        var data = {  stopPoints: stopPoints,
+                      recordingFileName: recordingFileName,
+                      presentationVideoFileName: '<%= @file_name %>'
+                    };
+        $.ajax({
+          url: "/file/merge",
+          type: "POST",
+          dataType: "json",
+          data: data,
+          success: function(data){
+            console.log(data);
+          }
+        });
       };
 
   document.getElementById("sync-stop-start").addEventListener('click', function(){
     syncBool ? stopSync() : prestartSync();
+  }
+  ,false);
+
+  document.getElementById("merge-video").addEventListener('click', function(){
+    syncBool ? alert("Stop sync") : mergeFunc();
   }
   ,false);
 

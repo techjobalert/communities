@@ -18,7 +18,10 @@ ul.recorder-control {
 .fl-r {
   float: right;
 }
-
+.clearfix{
+  clear: both;
+  padding-top: 15px;
+}
 .recorder-icon {
   min-width: 16px;
   height: 16px;
@@ -27,13 +30,22 @@ ul.recorder-control {
 .button{
   min-width: 16px;
   min-height: 16px;
-  background-color: red;
+  background-color: darkRed;
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+  &:hover{
+    background-color: red;
+  }
 }
 .c-white{
   color: white;
+}
+.bg-green{
+  background-color: darkGreen;
+  &:hover{
+    background-color: green;
+  }
 }
 #recorder-status {
   color: red;
