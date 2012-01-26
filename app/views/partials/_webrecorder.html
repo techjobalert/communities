@@ -4,7 +4,7 @@
       <param name="quality" value="high" />
       <param name="bgcolor" value="#ffffff" />
       <param name="allowScriptAccess" value="always" />
-      <param name ="flashVars" value="recordingMode=video&serverURL=rtmp://62.75.189.166/&jsListener=jsListener&height=200&width=200" />
+      <param name ="flashVars" value="recordingMode=video&serverURL=rtmp://62.75.189.166/&jsListener=jsListener&height=600&width=600" />
       <embed name="recorder" src="/assets/WebcamRecorderApp.swf"
         quality="high" bgcolor="#ffffff"
         width="100%" height="100%"
@@ -17,30 +17,23 @@
         pluginspage="http://www.adobe.com/go/getflashplayer">
       </embed>
   </object>
-
-  <!-- <ul class="recorder-control fl-l">
-    <li id="recorder-stop-start" class="recorder-icon">record</li>
-  </ul>
-  <ul class="recorder-control fl-r">
-    <li id="recorder-status" class="recorder-icon"></li>
-    <li id="recorder-time" class="recorder-icon"></li>
-  </ul> -->
 </div>
 
 <script type="text/javascript">
-  var recordind = false;
-  function jsListener( type, arguments ) {
-    console.debug( type + ":" + arguments );
-  }
-$(function() {
+  var recordind = false,
+      recorder = document.getElementById("recorder"),
+      jsListener = function( type, arguments ) {
+        console.debug( type + ":" + arguments );
+      };
 
-  var recorder = document.getElementById("recorder");
-  document.getElementById("recorder-stop-start").addEventListener('click', function(){
-    recordind ? stopRecord() : record();
-  }
-  ,false);;
+  $(function() {
+    document.getElementById("recorder-stop-start").addEventListener('click', function(){
+      recordind ? stopRecord() : startRecord();
+    }
+    ,false);
+  });
 
-  function record(filename){
+  var startRecord = function(filename){
     if(!filename) {
       var _date = new Date();
       var today = [_date.getDate(), _date.getMonth()+1, _date.getFullYear(), _date.getTime()].join("-");
@@ -49,14 +42,13 @@ $(function() {
       recordind = true;
     }
     recorder.record(filename);
-    document.getElementById("recorder-stop-start").innerHTML = "stop";
+    document.getElementById("recorder-stop-start").innerHTML = "Stop record";
     document.getElementById("recorder-status").innerHTML = "Recording..";
   }
-  function stopRecord(){
+  var stopRecord = function(){
     recorder.stopRecording();
-    document.getElementById("recorder-stop-start").innerHTML = "start";
+    document.getElementById("recorder-stop-start").innerHTML = "Start record";
     document.getElementById("recorder-status").innerHTML = "";
     recordind = false;
   }
-});
 </script>

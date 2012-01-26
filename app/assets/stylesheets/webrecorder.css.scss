@@ -24,7 +24,17 @@ ul.recorder-control {
   height: 16px;
   //background-color: gray;
 }
-
+.button{
+  min-width: 16px;
+  min-height: 16px;
+  background-color: red;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.c-white{
+  color: white;
+}
 #recorder-status {
   color: red;
 }

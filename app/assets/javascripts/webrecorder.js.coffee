@@ -1,5 +1,5 @@
 $ ->
-  recorder = $("#recorder");
+  recorder = document.getElementById("recorder");
   if recorder.lenght
     recordind = false
 
