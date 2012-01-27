@@ -27,13 +27,6 @@
         console.debug( type + ":" + arguments );
       };
 
-  $(function() {
-    document.getElementById("recorder-stop-start").addEventListener('click', function(){
-      recordind ? stopRecord() : startRecord();
-    }
-    ,false);
-  });
-
   var startRecord = function(fileName){
     if(!fileName) {
       var _date = new Date();

@@ -5,44 +5,30 @@
 <div id='ui'></div>
 -->
 <div class="fl-l" style="width:960px">
-  <div class="fl-r">
-    <%= render :partial => 'partials/webrecorder' %>
-  </div>
   <div class="fl-l">
-    <%= render :partial => 'partials/player', :locals => {:file_name => @file_name} %>
-  </div>
+    <%= render :partial => 'partials/webrecorder' %>
 
-  <div class="clearfix">
-    <ul class="recorder-control fl-l">
-        <li id="recorder-stop-start" class="button c-white">Start record</li>
-
-        <li id="sync-stop-start" class="button c-white">Start Sync</li>
-        <li id="merge-video" class="button bg-green c-white">Merge video</li>
+    <div class="clearfix">
+      <ul class="recorder-control fl-l">
+          <li id="recorder-stop-start" class="button c-white">Start record</li>
+          <li id="merge-video" class="button bg-green c-white">Merge video</li>
+        </ul>
+        <ul class="recorder-control fl-r">
+          <li id="recorder-status" class="recorder-icon" style="padding-top: 5px;"></li>
       </ul>
-      <ul class="recorder-control fl-r">
-        <li id="recorder-status" class="recorder-icon"></li>
-        <li id="recorder-time" class="recorder-icon"></li>
-    </ul>
+    </div>
   </div>
+  <!-- <div class="fl-l">
+    <%#= render :partial => 'partials/player', :locals => {:file_name => @file_name} %>
+  </div> -->
+
 </div>
 
 <script>
-  var videoPlayer = _V_("video_player");
-      stopPoints = [0],
-      syncBool = false,
-      presync = false,
-      pauseCallback = function(){
-        var pos = videoPlayer.currentTime();
-        stopPoints.push(pos);
-        console.log("add new stop point "+pos);
-      },
-      endedCallback = function(){
-        stopPoints.push(videoPlayer.duration());
-        console.log("video end");
-      },
+  var prerecord = false,
       prestartSync = function(){
-        if (presync) return false;
-        presync = true;
+        if (prerecord) return false;
+        prerecord = true;
         var duration = 5,
             intervalCount = 0,
             el = document.getElementById("recorder-status"),
@@ -51,27 +37,13 @@
               el.innerHTML = intervalCount;
               if (intervalCount == duration){
                 clearInterval(interval);
-                setTimeout(function() { startSync(); }, 1000);
+                setTimeout(function() { startRecord(); prerecord=false; }, 1000);
               }
             }
             , 1000 );
       },
-      startSync = function(){
-        videoPlayer.play();
-        startRecord();
-        document.getElementById("sync-stop-start").innerHTML = "Stop sync";
-        syncBool = true;
-        presync = false;
-      },
-      stopSync = function(){
-        videoPlayer.pause();
-        stopRecord();
-        document.getElementById("sync-stop-start").innerHTML = "Start sync";
-        syncBool = false;
-      },
       mergeFunc = function(){
-        var data = {  stopPoints: stopPoints,
-                      recordingFileName: recordingFileName,
+        var data = {  recordingFileName: recordingFileName,
                       presentationVideoFileName: '<%= @file_name %>'
                     };
         $.ajax({
@@ -84,17 +56,12 @@
           }
         });
       };
-
-  document.getElementById("sync-stop-start").addEventListener('click', function(){
-    syncBool ? stopSync() : prestartSync();
-  }
-  ,false);
-
+  document.getElementById("recorder-stop-start").addEventListener('click', function(){
+      recordind ? stopRecord() : prestartSync();
+    }
+    ,false);
   document.getElementById("merge-video").addEventListener('click', function(){
-    syncBool ? alert("Stop sync") : mergeFunc();
+    recordind ? alert("Stop record") : mergeFunc();
   }
   ,false);
-
-  videoPlayer.addEvent("pause", pauseCallback);
-  videoPlayer.addEvent("ended", endedCallback);
 </script>

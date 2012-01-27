@@ -1,12 +1,54 @@
 class VideoMerge
   @queue = :video_merge
 
-  def self.perform(presentV, recordedV, posints)
-    upload_dir = File.dirname(__FILE__) + '/../../vendor/erlyvideo/videos/merged-video/'
+  def self.perform(presentV, recordedV, params)
+    erlyvideo_path = File.expand_path(File.dirname(__FILE__) + '/../../vendor/erlyvideo/videos/')
+    upload_dir = erlyvideo_path+'/merged-video/'
+    presentation_dir = erlyvideo_path +'/uploads/'
+    records_dir = erlyvideo_path +'/webcam-records/'
+    misc_dir = erlyvideo_path + '/misc/'
 
-    output = %x[cd #{upload_dir} && ffmpeg -i #{name}_wide.mp4 -vf "movie=#{name2} [mv]; [in][mv] overlay=320:0" -vcodec libx264 -preset medium out.mp4]
+    base_name = File.basename(presentV, ".mp4")
+    output_filename = [base_name,SecureRandom.hex(5)].join("_").insert(-1, ".mp4")
+    add_logo = false
+    logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
+      :pos => self.get_position('tl'),
+      :logo => misc_dir+'logo.png'
+    }
+
+    options = {
+      :output_filename => output_filename,
+      :presentV => presentation_dir+presentV,
+      :recordedV => records_dir+recordedV,
+      :logo => add_logo ? logo : "",
+      :pos => self.get_position()
+    }
+
+    # command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV} [mv]; [in][mv] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output_filename}' % options
+    command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output_filename}' % options
+    puts command
+    output = %x[cd #{upload_dir} && #{command}]
 
     puts output
     puts "Processed a job!"
+  end
+
+  def self.get_position(pos="")
+    case pos
+      when 'tr'
+        'main_w:0'
+      when 'tl'
+        '0:0'
+      when 'br'
+        'main_w-overlay_w:main_h-overlay_h'
+      when 'bl'
+        '0:main_h-overlay_h'
+      when 'tm'
+        '(main_w/2)-(overlay_w/2):5'
+      when 'bm'
+        '(main_w/2)-(overlay_w/2):main_h-overlay_h-5'
+      else
+        'main_w-overlay_w:main_h-overlay_h'
+      end
   end
 end
