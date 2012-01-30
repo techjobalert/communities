@@ -12,7 +12,7 @@ class VideoMerge
     output_filename = [base_name,SecureRandom.hex(5)].join("_").insert(-1, ".mp4")
     add_logo = false
     logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
-      :pos => self.get_position('tl'),
+      :pos => self.add_position('tl'),
       :logo => misc_dir+'logo.png'
     }
 
@@ -20,12 +20,20 @@ class VideoMerge
       :output_filename => output_filename,
       :presentV => presentation_dir+presentV,
       :recordedV => records_dir+recordedV,
-      :logo => add_logo ? logo : "",
-      :pos => self.get_position()
+      :pos => self.add_position(),
+      :pad => self.add_pad(),
     }
+
+    if p = params.position
+      if p == 'ml' or p == 'mr'
+        options.merger!({:pad => self.add_pad(p)})
+      end
+      options.merger!({:pos => self.add_position(p)})
+    end
 
     # command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV} [mv]; [in][mv] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output_filename}' % options
     command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output_filename}' % options
+    command2 = 'ffmpeg -i %{presentV} -vf "[in]setpts=PTS-STARTPTS, pad=%{pad},[T1]overlay=%{pos}[out];movie=%{recordedV},setpts=PTS-STARTPTS[T1]" -vcodec libx264 -preset medium %{output_filename}' % options
     puts command
     output = %x[cd #{upload_dir} && #{command}]
 
@@ -33,22 +41,37 @@ class VideoMerge
     puts "Processed a job!"
   end
 
-  def self.get_position(pos="")
+  def self.add_pad(pad="mr", w=480, h=480, color="black")
+    case pad
+    when mr
+      'in_w+#{w}:in_h:0:0:#{color}'
+    when ml
+      'in_w+#{w}:in_h:#{w}:0:#{color}'
+    else
+      'in_w+#{w}:in_h:0:0:#{color}'
+    end
+  end
+
+  def self.add_position(pos="")
     case pos
-      when 'tr'
-        'main_w:0'
-      when 'tl'
-        '0:0'
-      when 'br'
-        'main_w-overlay_w:main_h-overlay_h'
-      when 'bl'
-        '0:main_h-overlay_h'
-      when 'tm'
-        '(main_w/2)-(overlay_w/2):5'
-      when 'bm'
-        '(main_w/2)-(overlay_w/2):main_h-overlay_h-5'
-      else
-        'main_w-overlay_w:main_h-overlay_h'
-      end
+    when 'tr'
+      'main_w:0'
+    when 'tl'
+      '0:0'
+    when 'br'
+      'main_w-overlay_w:main_h-overlay_h'
+    when 'bl'
+      '0:main_h-overlay_h'
+    when 'mr'
+      'main_w-overlay_w:(main_h-overlay_h)/2'
+    when 'ml'
+      '0:(main_h-overlay_h)/2'
+    when 'tm'
+      '(main_w/2)-(overlay_w/2):5'
+    when 'bm'
+      '(main_w/2)-(overlay_w/2):main_h-overlay_h-5'
+    else
+      'main_w-overlay_w:main_h-overlay_h'
+    end
   end
 end

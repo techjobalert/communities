@@ -62,4 +62,4 @@ gem 'resque'
 
 #gem 'acts_as_commentable'
 
-gem "mediaelement_rails"
+gem 'acts_as_follower'
