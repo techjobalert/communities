@@ -18,4 +18,5 @@ capybara-*.html
 /db/*.sqlite3
 /db/schema.rb
 /vendor/erlyvideo/*
+/nbproject
 Gemfile.lock

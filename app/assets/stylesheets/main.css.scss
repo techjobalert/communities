@@ -1,0 +1,188 @@
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+
+body {
+  font-family: "Droid Sans", Arial, sans-serif;
+  background: url('/assets/body-bg.gif') #fff;}
+
+input {
+  font-family: "Droid Sans";}
+
+.clear {
+  clear: both;
+  font-size: 0px;
+  line-height: 0px;}
+
+.hidden {
+  display: none;}
+
+.center {
+  width: 960px;
+  margin: 0px auto;}
+
+#general-links {
+  background: #fff;
+  border-bottom: 1px solid #70a99a;
+  .container {
+    background: #70a99a;
+    border-bottom: 1px solid #fff;}
+  a {
+    float: right;
+    text-transform: uppercase;
+    color: #fff;
+    font: 10px/24px Arial;
+    margin: 0px 10px;
+    text-decoration: none;}}
+
+#auth {
+  position: relative;
+  background: url("/assets/auth-bg.gif") no-repeat scroll 0 110px transparent;
+  padding-top: 20px;
+  height: 460px;
+
+  .logo {
+    width: 281px;
+    height: 74px;
+    background: url("/assets/logo.png") no-repeat center transparent;
+    display: block;}
+
+  .buttons{
+      position: absolute;
+      right: 28px;
+      top: 51px;
+      height: 110px;
+      a {
+        text-decoration: none;
+        display: block;
+        float: left;
+        background: url("/assets/auth-btn-set.png");
+        font: bold 24px "Droid Sans";
+        text-align: center;
+
+        &.sign-up{
+          padding-top: 16px;
+          height: 89px;
+          width: 158px;
+          color: #1b1e26;
+          text-shadow: 1px 1px 0 #e0ff69;
+          -moz-text-shadow: 1px 1px 0 #e0ff69;
+          -webkit-text-shadow: 1px 1px 0 #e0ff69;
+          span{
+            text-shadow: 1px 1px 0 #677e0b;
+            -moz-text-shadow: 1px 1px 0 #677e0b;
+            -webkit-text-shadow: 1px 1px 0 #677e0b;}}
+
+        &.sign-in{
+          background-position: -159px 0;
+          padding-top: 8px;
+          height: 53px;
+          width: 141px;
+          color: #fff;
+          text-shadow: 1px 1px 0 #677e0b;
+          -moz-text-shadow: 1px 1px 0 #677e0b;
+          -webkit-text-shadow: 1px 1px 0 #677e0b;
+          span {
+            text-shadow: 1px 1px 0 #1b1e26;
+            -moz-text-shadow: 1px 1px 0 #1b1e26;
+            -webkit-text-shadow: 1px 1px 0 #1b1e26;}}
+
+        span {
+          font-size: 12px;
+          display: block;
+          color: #f2efbd;}}}
+
+  .container {
+    .content {
+      margin: 64px 0px 0 60px;
+      float: left;
+      width: 480px;
+      overflow: hidden;
+      padding-bottom: 27px;
+      background: url('/assets/auth-shdw.png') no-repeat bottom;
+      .text {
+        margin-bottom: 25px;
+        color: #fff;
+        font-size: 20px;
+        text-shadow: 1px 1px 0 #040a0f;
+        -moz-text-shadow: 1px 1px 0 #040a0f;
+        -webkit-text-shadow: 1px 1px 0 #040a0f;
+        text-align: center;}}
+      .media {
+        border: 1px solid #fff;
+        padding: 10px;
+        text-align: center;        
+        img {
+          display: block;
+          border: none;}
+        }
+    .sign-up {
+      width: 230px;
+      float: right;
+      margin: 60px 103px 0 0;
+      .inputs {
+        height: 260px;}
+      .toggler {
+        padding: 5px 0px 10px;
+        input {
+          position: absolute;
+          left: -999px;}
+        label {
+          cursor: pointer;
+          font-size: 14px;
+          margin-left: 5px;
+          padding-left: 25px;
+          background: url("/assets/auth-btn-set.png") no-repeat scroll -303px -22px transparent;
+          color: #ffffff;
+          &.checked{
+            background-position: -303px 1px;}}
+        b {
+          font-size: 16px;
+          color: #f2efbd; }}
+      p {
+        margin: 5px 0px;}}
+      .submit-btn {
+        background: #d0e95b; /* Old browsers */
+        /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2QwZTk1YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQyJSIgc3RvcC1jb2xvcj0iI2FjY2QyZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM5MmI0MGQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top, #d0e95b 0%, #accd2d 42%, #92b40d 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d0e95b), color-stop(42%,#accd2d), color-stop(100%,#92b40d)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #d0e95b 0%,#accd2d 42%,#92b40d 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #d0e95b 0%,#accd2d 42%,#92b40d 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #d0e95b 0%,#accd2d 42%,#92b40d 100%); /* IE10+ */
+        background: linear-gradient(top, #d0e95b 0%,#accd2d 42%,#92b40d 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e95b', endColorstr='#92b40d',GradientType=0 ); /* IE6-8 */
+
+        padding: 3px 0 8px;
+        font: bold 29px/30px "Droid Sans";
+        color: #1b1e26;
+        text-shadow: 1px 1px 0 #e0ff69;
+        -moz-text-shadow: 1px 1px 0 #e0ff69;
+        -webkit-text-shadow: 1px 1px 0 #e0ff69;
+        box-shadow: 0 0 3px #a1bc38 inset;
+        -moz-box-shadow: 0 0 3px #a1bc38 inset;
+        -webkit-box-shadow: 0 0 3px #a1bc38 inset;
+        text-align: center;
+        margin: 7px;
+        border-radius: 15px;
+        text-decoration: none;
+        display: block;
+        span {
+          font-size: 14px;
+          line-height: 0.5;
+          font-weight: normal;
+          display: block;}
+      }
+  }
+
+  input {
+    &[type="text"], &[type="email"], &[type="password"]{
+        border: 1px solid #d4dee0;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        padding: 8px;
+        width: 210px;
+        font-size: 14px;
+        box-shadow: 0 -2px 1px #837A81;
+        -moz-box-shadow: 0 -2px 1px #837A81;
+        -webkit-box-shadow: 0 -2px 1px #837A81;
+      }}}

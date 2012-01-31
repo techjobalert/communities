@@ -1,0 +1,55 @@
+!!!
+%html
+  %head
+    %title Orthodontic360
+    = stylesheet_link_tag "application", :debug => Rails.env.development?
+    = javascript_include_tag "application", :debug => Rails.env.development?
+    = csrf_meta_tags
+  %body
+    %header
+      #general-links
+        .container
+          .center
+            = link_to 'usefull link', '#'
+            = link_to 'usefull link', '#'
+            = link_to 'usefull link', '#'
+            = link_to 'usefull link', '#'
+            = link_to 'usefull link', '#'
+            .clear
+      #auth.center
+        = link_to '', root_path, :class => 'logo'
+        .buttons
+          = link_to '#', :class => 'sign-up' do
+            SIGN UP
+            %span quick blabla text
+          = link_to '#', :class => 'sign-in' do
+            SIGN IN
+            %span quick blabla text
+        .container
+          .content
+            .text
+              The quick brown fox jumps over the lazy dog.
+              Foxy parsons quiz and cajole the wiki-girl.
+            .media= image_tag "/assets/tmp/p1.jpg"
+          .sign-up
+            = form_for '/' do |f|
+              .inputs
+                .toggler
+                  %b I am
+                  = f.radio_button "radio", "doctor"
+                  = label '_radio', 'doctor', 'a Doctor', :class => 'doctor checked'
+                  = f.radio_button "radio", "patient"
+                  = label '_radio', 'patient', 'a Patient', :class => 'patient'
+                %p= f.text_field '', :placeholder => 'Full Name'
+                %p.doctor-only= f.text_field '', :placeholder => 'Profession and degree'
+                %p= f.text_field '', :placeholder => 'Email Address'
+                %p= f.password_field '', :placeholder => 'Password'
+                %p= f.password_field '', :placeholder => 'Verify Password'
+              = link_to '#', :class => 'submit-btn' do
+                SIGN UP
+                %span to create an account
+          .clear
+          
+
+    .clear{:style=>'height: 300px;'}
+    = yield
