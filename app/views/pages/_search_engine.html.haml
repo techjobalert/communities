@@ -1,0 +1,35 @@
+#search-engine.center
+  = link_to '', root_path, :class => 'logo'
+  .search
+    = text_field 'search', 'form', :placeholder => 'Search for presentations, articles & movies', :class => 'text-input'
+    = button_tag 'Search', :class => 'dark-button'
+  = link_to '#', :class => 'btn upload' do
+    Upload
+    %span
+  = link_to '#', :class => 'btn explore' do
+    Explore
+    %span
+  #explore-popup.hidden
+    .container
+      .content
+        .title A few words explain about explore
+        .column.with-border
+          %h3 Title here
+          %ul
+            %li some item here
+            %li= link_to 'some item here', '#'
+            %li some item here
+            %li some item here
+            %li= link_to 'some item here', '#'
+            %li= link_to 'some item here', '#'
+
+        .column
+          %h3 Title here
+          %ul
+            %li some item here
+            %li= link_to 'some item here', '#'
+            %li some item here
+            %li some item here
+            %li= link_to 'some item here', '#'
+            %li= link_to 'some item here', '#'
+        .clear

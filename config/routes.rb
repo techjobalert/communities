@@ -1,5 +1,8 @@
 Orthodontic::Application.routes.draw do
 
+  match "/home" => "pages#home"
+  match "/inner" => "pages#inner"
+
   resources :file, :only => [:index] do
     collection do
       post "upload", :action => 'upload'
