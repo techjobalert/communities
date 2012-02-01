@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %title Orthodontic360
+    = stylesheet_link_tag "application", :debug => Rails.env.development?
+    = javascript_include_tag "application", :debug => Rails.env.development?
+    = csrf_meta_tags
+  %body
+    %header
+      = render :partial => "pages/general_links"
+      = render :partial => "pages/search_engine"
+
+    %section.center
+      #main-content
+        .user-info
+          = image_tag '/assets/tmp/p3.png', :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD'
+          %span.title Yossy Mendelovich . MD
+        .light-button.sale
+          Our Ordothontics Sale
+          %span
+        .clear
+        .navigation
+          %ul
+            %li= link_to 'Home', '#', :class => 'selected'
+            %li= link_to 'Item', '#'
+            %li= link_to 'Settings', '#'
+            %li= link_to 'Account', '#'
+            %li= link_to 'Public', '#'
+            %li= link_to 'Colleagues', '#', :class => 'large'
+            %li= link_to 'Your profile', '#', :class => 'large'
+
+          
+        = yield
+      %footer
