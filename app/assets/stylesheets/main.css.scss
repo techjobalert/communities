@@ -376,7 +376,7 @@ section {
     .item {
       width: 280px;
       float: left;
-      margin: 0px 20px 0 19px;
+      margin: 0px 20px 30px 19px;
       .media {
         background: #e8e8e8;
         text-align: center;
@@ -390,4 +390,28 @@ section {
         }
       }
     }
+  }
+
+.pagination {
+  padding: 0px;
+  margin: 0 20px;
+
+  li {
+    list-style: none;
+    display: inline;
+    }
+  .current, a {
+    display: block;
+    float: left;
+    text-decoration: none;
+    background: #e1e1e1;
+    padding: 10px 13px;
+    border: 1px solid #aeaeae;
+    font-size: 12px;
+    margin-right: 5px;
+    color: #1b1e26;}
+  .current {
+    background: #70a99a;
+    border: 1px solid #669b8d;
+    color: #d9e8e4;}
   }

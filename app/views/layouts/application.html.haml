@@ -114,9 +114,10 @@
                 unknown printer.
             .clear
             %nav
-              %ul
+              %ul.pagination
                 %li= link_to 'Page 1 of 22', '#'
-                %li= link_to '1', '#'
+                %li
+                  %span.current 1
                 %li= link_to '2', '#'
                 %li= link_to '4', '#'
                 %li= link_to '5', '#'
@@ -124,6 +125,7 @@
                 %li= link_to '10', '#'
                 %li= link_to '20', '#'
                 %li= link_to 'Last Page>>', '#'
+              .clear
 
           
 
