@@ -126,7 +126,7 @@
               .light-button.follow
                 Folow Item
                 %span
-              .clear
+              
 
             / 2-й Вариант
             .tools.short
@@ -143,11 +143,11 @@
                 Folow Item
                 %span
 
-              .clear
+              
 
             / есть два варианта
             / 1 Вариант
-            .text
+            .text.pic
               = link_to image_tag('/assets/logo.png', :width => '200'), '#'
               %h2 Allergic reaction and nickel-free
               .body
@@ -173,9 +173,69 @@
                 adipiscing elit. Sed nec bibendum sapien.
                 Praesent convallis felis id nisi tempor volutpat.
                 Sed eget viverra augue.
-              
+
               = image_tag '/assets/tmp/p4.png', :class => 'preview'
               .clear
 
+            / 2 Вариант
+            .text.video.hidden
+              .preview
+                = image_tag '/assets/tmp/p5.png'
+              .body
+                = link_to image_tag('/assets/logo.png', :width => '200'), '#'
+                %h2 Allergic reaction and nickel-free
+              
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Phasellus metus mi, egestas eget cursus eu, egestas nec massa.
+                Sed ac dui nec arcu viverra pulvinar at quis erat.
+                Ut viverra consectetur erat ut vulputate. Integer
+                bibendum, nisi vel venenatis faucibus, augue libero
+                commodo tellus, nec pharetra risus erat sit amet
+                felis. Nullam at ipsum ac ante ullamcorper vehicula.
+                Cum sociis natoque penatibus et magnis dis parturient
+                montes, nascetur ridiculus mus. Suspendisse potenti.
+                Etiam semper enim egestas enim vehicula commodo. Nulla
+                quis urna ut neque sollicitudin facilisis. Cras
+                vitae velit id odio laoreet ullamcorper. Etiam
+                rhoncus convallis odio, quis lobortis ipsum
+                pellentesque id. Phasellus congue mollis turpis,
+                aliquam imperdiet est pharetra sit amet. Duis
+                placerat vehicula scelerisque.
+              .clear
+
+          #comments
+            %h3 Comments
+            .comments-panel
+              = link_to '#', :class => 'light-button new-comment' do
+                Make a comment
+                %br
+                on this Item
+                %span
+
+              %ul
+                %li
+                  = image_tag '/assets/tmp/p4.png', :width => '60', :height => '60'
+                  .body
+                    %b Kobi mori:
+                    %span Very nice. i like it and i think it should be in the movie
+                  .clear
+                  = link_to '+', '#', :class => 'like dark-button'
+                %li
+                  = image_tag '/assets/tmp/p3.png', :width => '60', :height => '60'
+                  .body
+                    %b Kobi mori:
+                    %span Very nice. i like it and i think it should be in the movie
+                  .clear
+                  = link_to '+', '#', :class => 'like dark-button'
+                %li
+                  = image_tag '/assets/tmp/p5.png', :width => '60', :height => '60'
+                  .body
+                    %b Kobi mori:
+                    %span Very nice. i like it and i think it should be in the movie
+                  .clear
+                  = link_to '+', '#', :class => 'like dark-button'
+              .clear
+
+              
         = yield
       %footer

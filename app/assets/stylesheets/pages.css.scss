@@ -152,7 +152,7 @@
   background: url('/assets/search-engine-bg.png') no-repeat 0 0px;
   margin-top: 35px;
   padding-top: 1px;
-  height: 140px;
+  height: 155px;
   position: relative;
   .logo {
     margin: 25px 0 0 32px;
@@ -356,7 +356,7 @@
   }
 
   .content {
-    padding: 20px;
+    padding: 20px 20px 0;
 
     h1 {
       font: normal 26px/50px "Droid Sans";      
@@ -379,6 +379,7 @@
       border-top: 1px solid #d4d2af;
       border-bottom: 1px solid #d4d2af;
       padding: 15px 0px;
+      height: 65px;
 
       .items {
         float: left;
@@ -434,23 +435,117 @@
     .text {
       border-bottom: 1px solid #d4d2af;
       padding: 20px 0;
+
       h2 {
         color: #2e6976;
         margin: 7px 0;
         font-size: 20px;}
+
       .body {
         font-size: 12px;
         line-height: 17px;
         float: left;
         margin: 7px 20px 7px 0px;
-        width: 665px;
         text-align: justify;}
+
       .preview {
-        float: left;
-        border: 2px solid #ddd;
+        float: left;}
+      
+
+      &.pic {
+        .body {
+          margin: 7px 20px 7px 0px;
+          width: 665px;}
+
+        .preview {
+          border: 2px solid #ddd;}
+        }
+
+      &.video {
+        .preview {
+          width: 435px;}
+        .body {
+          margin: 7px 0px 7px 20px;
+          width: 459px;}
+        }
+      }
+    }
+  #comments {
+    h3 {
+      margin: 15px 0 10px 20px;
+      font: normal 18px 'Droid Sans';}
+    .comments-panel {
+        background: #dfeeea;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        border-radius: 7px;
+        padding: 5px 15px 20px;}
+
+    ul {
+      width: 630px;
+      margin: 0px;
+      list-style: none;
+      padding: 0px;}
+
+    li {
+      -webkit-border-radius: 7px;
+      -moz-border-radius: 7px;
+      border-radius: 7px;
+      display: block;
+      background: #fff;
+      margin-top: 15px;
+      padding: 20px 15px;
+      position: relative}
+
+    img {
+      border: 1px solid #ddd;
+      display: block;
+      float: left;}
+
+    .body {
+      margin-left: 78px;}
+
+    b, span  {
+      display: block;
+      font-size: 16px;
+      padding: 2px 0 8px;
+      color: #777;}
+    }
+
+    .like {
+      position: absolute;
+      text-decoration: none;
+      width: 25px;
+      height: 25px;
+      padding: 0;
+      top: 8px;
+      right: 8px;
+      text-align: center;
+      font: bold 24px/25px 'Droid Sans';
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+    }
+
+    .new-comment {
+      float: right;
+      display: block;
+      font-size: 12px;
+      font-weight: normal;
+      width: 132px;
+      position: relative;
+      padding: 13px 18px;
+      margin-top: 15px;
+      span {
+        background: url("/assets/btn-icons-set.png") no-repeat scroll -27px 0px transparent;
+        display: block;
+        float: right;
+        height: 18px;
+        width: 33px;
+        position: absolute;
+        top: 16px;
+        right: 12px;
         }
       }
 
-      
-    }
   }
