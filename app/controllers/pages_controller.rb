@@ -4,6 +4,6 @@ class PagesController < ApplicationController
   def home
   end
 
-  def inner
+  def item
   end
 end
