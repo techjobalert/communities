@@ -270,6 +270,7 @@
   border-radius: 6px;
   background: #fff;
   position: relative;
+  overflow: hidden;
 
   .user-info {
     width: 650px;
@@ -293,10 +294,12 @@
     }
 
   .navigation {
+    height: 34px;
+    padding-left: 6px;
     ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;}
+      list-style: none;
+      padding: 0;
+      margin: 0;}
 
     li {
       display: inline;}
@@ -309,7 +312,6 @@
       height: 35px;
       background: url('/assets/main-content-nav-set.png') no-repeat 0 0;
       font-size: 16px;
-      text-transform: uppercase;
       color: #fff;
       font-weight: bold;
       -webkit-text-shadow: 1px 1px 0 #677e0b;
@@ -317,13 +319,138 @@
       text-shadow: 1px 1px 0 #677e0b;
       text-align: center;
       line-height: 35px;
-      &.large {
-        width: 150px;
-        background-position: 0 -56;}
+      z-index: 500;
+
+      span {
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 0;
+        display: none;}
+
       &.selected {
-        background-position: 0 -56;}
+        height: 80px;
+        background-position: 0 -56px;
+        color: #1b1e26;
+        -webkit-text-shadow: 1px 1px 0 #dcfb64;
+        -moz-text-shadow: 1px 1px 0 #dcfb64;
+        text-shadow: 1px 1px 0 #dcfb64;
+        span {
+          display: block;}}
+
+      &.large {
+        width: 146px;
+        background-position: -122px 0;
+        &.selected {
+          background-position: -122px -56px;}}      
+      }
     }
+
+  .panel {
+    border-top: 1px solid #b8b479;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background: url('/assets/main-content-bg.jpg') repeat-x 0 0;
+    width: 959px;    
+    padding-top: 30px;
   }
 
-  height: 500px;
+  .content {
+    padding: 20px;
+
+    h1 {
+      font: normal 26px/50px "Droid Sans";      
+      margin: 0px;}
+    .share {
+      float: right;
+      padding-top: 10px;
+      a {
+        float: left;
+        margin-left: 10px;
+        width: 27px;
+        height: 27px;
+        text-decoartion: none;
+        background: url('/assets/shared-icons27.png') repeat-x 0 0;
+        display: block;}
+      .tw {
+        background-position: -27px 0;}}
+
+    .tools {
+      border-top: 1px solid #d4d2af;
+      border-bottom: 1px solid #d4d2af;
+      padding: 15px 0px;
+
+      .items {
+        float: left;
+        height: 65px;
+        overflow: hidden;}
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-stile: none;}
+
+      li {
+        float: left;
+        display: block;}
+
+      img {
+        float: left;
+        border: 2px solid #ebebeb;}
+
+      .light-button.follow {
+        border-radius: 8px;
+        float: right;
+        font: normal 13px 'Droid Sans';
+        padding: 10px 5px 10px 11px;
+        margin-top: 13px;
+
+        span {
+          background: url("/assets/btn-icons-set.png") no-repeat scroll 0 -2px transparent;
+          display: block;
+          float: right;
+          height: 18px;
+          margin-left: 7px;
+          width: 18px;}
+        }
+
+      &.detail {
+        .items {
+          width: 790px;}
+
+        .title {
+          float: left;
+          font-size: 12px;
+          padding: 15px 20px 15px 10px;}}
+
+      &.short {
+        li {
+          padding-right: 10px;}
+        img {
+          float: left;
+          border: 2px solid #ebebeb;}}
+      }
+
+    .text {
+      border-bottom: 1px solid #d4d2af;
+      padding: 20px 0;
+      h2 {
+        color: #2e6976;
+        margin: 7px 0;
+        font-size: 20px;}
+      .body {
+        font-size: 12px;
+        line-height: 17px;
+        float: left;
+        margin: 7px 20px 7px 0px;
+        width: 665px;
+        text-align: justify;}
+      .preview {
+        float: left;
+        border: 2px solid #ddd;
+        }
+      }
+
+      
+    }
   }

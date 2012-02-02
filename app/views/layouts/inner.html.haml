@@ -21,14 +21,161 @@
         .clear
         .navigation
           %ul
-            %li= link_to 'Home', '#', :class => 'selected'
-            %li= link_to 'Item', '#'
-            %li= link_to 'Settings', '#'
-            %li= link_to 'Account', '#'
-            %li= link_to 'Public', '#'
-            %li= link_to 'Colleagues', '#', :class => 'large'
-            %li= link_to 'Your profile', '#', :class => 'large'
+            %li
+              = link_to '#', :class => 'selected' do
+                HOME
+                %span bla bla bla
 
-          
+            %li
+              = link_to '#' do
+                ITEM
+                %span bla bla bla
+
+            %li
+              = link_to '#' do
+                SETTINGS
+                %span bla bla bla
+
+            %li
+              = link_to '#' do
+                ACCOUNT
+                %span bla bla bla
+            %li
+              = link_to '#' do
+                PUBLIC
+                %span bla bla bla
+            %li
+              = link_to '#', :class => 'large' do
+                COLLEGUES
+                %span bla bla bla
+            %li
+              = link_to '#', :class => 'large' do
+                YOUR PROFILE
+                %span bla bla bla
+        .panel
+          .content
+            %h1
+              Allergic reaction and nickel-free
+              .share
+                = link_to '', '#', :class => 'fb'
+                = link_to '', '#', :class => 'tw'
+
+            / Может быть три варианта я их выложу тут все, чтобы отображать
+            / нужно убрать класс hidden
+
+            / 1-й Вариант
+            .tools.detail.hidden
+              .items
+                %ul
+                  %li
+                    .item
+                      = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                      .title
+                        Kobi
+                        %br
+                        Mori
+                  %li
+                    .item
+                      = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                      .title
+                        Kobi
+                        %br
+                        Mori
+                  %li
+                    .item
+                      = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                      .title
+                        Kobi
+                        %br
+                        Mori
+                  %li
+                    .item
+                      = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                      .title
+                        Kobi
+                        %br
+                        Mori
+                  %li
+                    .item
+                      = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                      .title
+                        Kobi
+                        %br
+                        Mori
+                  %li
+                    .item
+                      = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                      .title
+                        Kobi
+                        %br
+                        Mori
+                  %li
+                    .item
+                      = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                      .title
+                        Kobi
+                        %br
+                        Mori
+                  %li
+                    .item
+                      = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                      .title
+                        Kobi
+                        %br
+                        Mori
+              .light-button.follow
+                Folow Item
+                %span
+              .clear
+
+            / 2-й Вариант
+            .tools.short
+              .items
+                %ul
+                  %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                  %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                  %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                  %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                  %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                  %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+                      
+              .light-button.follow
+                Folow Item
+                %span
+
+              .clear
+
+            / есть два варианта
+            / 1 Вариант
+            .text
+              = link_to image_tag('/assets/logo.png', :width => '200'), '#'
+              %h2 Allergic reaction and nickel-free
+              .body
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Phasellus metus mi, egestas eget cursus eu, egestas nec massa.
+                Sed ac dui nec arcu viverra pulvinar at quis erat.
+                Ut viverra consectetur erat ut vulputate. Integer
+                bibendum, nisi vel venenatis faucibus, augue libero
+                commodo tellus, nec pharetra risus erat sit amet
+                felis. Nullam at ipsum ac ante ullamcorper vehicula.
+                Cum sociis natoque penatibus et magnis dis parturient
+                montes, nascetur ridiculus mus. Suspendisse potenti.
+                Etiam semper enim egestas enim vehicula commodo. Nulla
+                quis urna ut neque sollicitudin facilisis. Cras
+                vitae velit id odio laoreet ullamcorper. Etiam
+                rhoncus convallis odio, quis lobortis ipsum
+                pellentesque id. Phasellus congue mollis turpis,
+                aliquam imperdiet est pharetra sit amet. Duis
+                placerat vehicula scelerisque. Curabitur posuere
+                metus sit amet sem suscipit tempor. Vestibulum
+                nec purus quis justo blandit sollicitudin nec
+                sit amet mi. Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit. Sed nec bibendum sapien.
+                Praesent convallis felis id nisi tempor volutpat.
+                Sed eget viverra augue.
+              
+              = image_tag '/assets/tmp/p4.png', :class => 'preview'
+              .clear
+
         = yield
       %footer
