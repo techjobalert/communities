@@ -11,11 +11,10 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.0'
   gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier', '>= 1.0.3'
-  gem 'haml'
-  gem 'haml-rails'  
 end
 
 gem 'jquery-rails'
+gem 'haml-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -31,12 +30,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'heroku'
   gem 'sqlite3'
+  gem 'thin'
   gem 'turn', :require => false
 end
 
 group :production do
-  gem 'thin'
-  # gem 'pg'
   gem 'mysql2'
 end
 
@@ -47,7 +45,7 @@ gem 'devise'                                                      #
 #gem 'therubyracer'                                               # JS runtime
 gem 'client_side_validations'                                     # clientside validation by ajax
 gem 'kaminari'                                                    # Pagination
-#gem 'activeadmin'                                                 # ActiveAdmin administration
+gem 'activeadmin'                                                 # ActiveAdmin administration
 
 # Upload
 gem 'carrierwave'                                                 # upload processor
@@ -63,5 +61,5 @@ gem 'acts-as-taggable-on'                                         # tags
 gem 'resque'
 
 #gem 'acts_as_commentable'
-gem 'net-sftp'
+#gem 'net-sftp'
 gem 'acts_as_follower'
