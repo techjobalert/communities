@@ -6,4 +6,10 @@ class PagesController < ApplicationController
 
   def item
   end
+
+  def interesting_item
+  end
+
+  def items_you_follow
+  end
 end

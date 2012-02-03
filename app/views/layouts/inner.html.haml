@@ -55,7 +55,8 @@
 
         .panel
           = yield
-      = render :partial => 'relevant_items'
+      - if params[:controller] == 'pages' && params[:action] == 'item'
+        = render :partial => 'relevant_items'
   %footer
 
 

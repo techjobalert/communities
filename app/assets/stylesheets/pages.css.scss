@@ -405,7 +405,7 @@
         font: normal 13px 'Droid Sans';
         padding: 10px 5px 10px 11px;
         margin-top: 13px;
-
+        width: 95px;
         span {
           background: url("/assets/btn-icons-set.png") no-repeat scroll 0 -2px transparent;
           display: block;
@@ -416,6 +416,7 @@
         }
 
       .light-button.sell {
+        width: 200px;
         border-radius: 8px;
         float: right;
         font: normal 18px/26px 'Droid Sans';
@@ -455,7 +456,7 @@
         float: right;
         padding: 6px 5px 6px 15px;
         margin: 13px 10px 0 0px;
-        
+        width: 124px;
         span {
           background: url("/assets/btn-icons-set.png") no-repeat scroll -98px 0 transparent;
           display: block;
@@ -470,7 +471,7 @@
         padding: 6px 5px 6px 15px;
         margin: 13px 10px 0 0px;
         color: #ffffff;
-        
+        width: 150px;
         border: 1px solid #5c867b;
 
         span {
@@ -616,4 +617,31 @@
         }
       }
 
+    h3 {
+      margin-left: 18px;
+      margin-top: 16px;
+      position: relative;}
+
+    .light-button.buy-all {
+      float: right;
+      padding: 6px 5px 6px 15px;
+      margin: 13px 10px 0 0px;
+      position: absolute;
+      right: 10px;
+      top: -38px;
+      width: 150px;
+      span {
+        background: url("/assets/btn-icons-set.png") no-repeat scroll -98px 0 transparent;
+        display: block;
+        float: right;
+        height: 22px;
+        margin: 2px 0 0 15px;
+        width: 28px;}
+      }
+
+    .list {
+      border-left: none;
+      border-bottom: none;
+      border-right: none;
+      }
   }
