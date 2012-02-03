@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  layout "inner"
+  layout "inner", :except => :home
 
   def home
   end

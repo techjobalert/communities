@@ -13,7 +13,7 @@
     %section.center
       #main-content
         .user-info
-          = image_tag '/assets/tmp/p3.png', :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD'
+          = image_tag '/assets/tmp/p3.png', :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD', :class => 'popup-user-info'
           %span.title Yossy Mendelovich . MD
         .light-button.sale
           Our Ordothontics Sale
@@ -59,6 +59,134 @@
   %footer
 
 
-  #popup
+  #popup-user-info.popup-container.left
     .container
-    .corner.left
+      .user-info
+        = image_tag '/assets/tmp/p3.png', :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD'
+        %span.title Yossy Mendelovich . MD
+      .light-button.follow
+        Folow
+        %span
+      
+      .panel
+        %p
+          %b Specialization:
+          Show at most this number of pages Show at most thiser
+          of pages of pages Show  of pages Show
+        %p
+          %b Send a massege:
+          you can send a message directly to email about
+          profesional question
+
+        %p= text_area_tag 'description'
+
+        %p.right= button_tag 'Send', :class => 'light-button send green'
+      .panel
+        %p
+          %b Publication:
+          you can send a message directly to email about
+          profesional question you can send a message directly to email about
+          profesional question
+      .clear
+    %p.right= link_to 'Go to profile', '#', :class => 'light-button go-to-profile'
+    .corner
+
+  #popup-set-preview.popup-container.top
+    .container
+      = form_for '/' do |f|
+        %ul
+          %li
+            = f.radio_button "radio", "1"
+            = label '_radio', '1', 'Show at most this number of pages', :class => 'checked'
+            = f.text_field ''
+          %li
+            = f.radio_button "radio", "2"
+            = label '_radio', '2', 'Show at most this number of pages'
+            = f.text_field ''
+          %li
+            = f.radio_button "radio", "3"
+            = label '_radio', '3', 'Show at most this number of pages'
+            = f.text_field ''
+      %p
+        %strong Note:
+        Show at most this number of pages Show at most thiser of pages
+
+    .corner
+
+  #popup-item-info.popup-container.left
+    .container
+      %h3
+        Title goes here text title goes Title goes
+        here text title goes
+      %p
+        %span.date
+          %b Date
+          12/06/11
+          %b Reads:
+          135582
+      %p
+        %b.title Summery
+        %br
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard r since
+        the 1500s, when an unknown printer. Lorem Ipsum is simply dummy
+        text of the printing and typesetting industry. Lorem Ipsum has
+        been the industry's ser since the 1500s, when an unknown printer.
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has.
+
+      .authors
+        %b.title Authors
+        %ul
+          %li
+            = link_to '#' do
+              = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
+              %br
+              Yossy
+              %br
+              Mendelovich
+          %li
+            = link_to '#' do
+              = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
+              %br
+              Yossy
+              %br
+              Mendelovich
+          %li
+            = link_to '#' do
+              = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
+              %br
+              Yossy
+              %br
+              Mendelovich
+          %li
+            = link_to '#' do
+              = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
+              %br
+              Yossy
+              %br
+              Mendelovich
+        
+      %p
+        %b.title Keywords
+        %br
+        some word | Nickel | Tooth migration | some word | Nickel |
+        Tooth migration | some word | Nickel | Tooth migration |
+        some word | Nickel | Tooth migration |
+
+    .tools
+      = link_to '#', :class => 'light-button folow-item' do
+        Follow Item
+        %span
+      = link_to '#', :class => 'light-button go-to-article' do
+        Go to Article
+        %span
+      = link_to '#', :class => 'light-button make-pdf' do
+        Make PDF
+        %span
+      %br
+      = link_to '#', :class => 'light-button sell' do
+        %b Sell
+        this item
+
+    .corner
