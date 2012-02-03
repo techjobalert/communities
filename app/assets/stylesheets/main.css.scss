@@ -12,6 +12,10 @@ a {
   color: #2f6d7a;
   }
 
+h3 {
+  margin: 30px 0 10px 0px;
+  font: normal 18px 'Droid Sans';}
+
 .clear {
   clear: both;
   font-size: 0px;
@@ -54,6 +58,7 @@ a {
   }
 
 .light-button {
+  cursor: pointer;
   border: 1px solid #C3C093;
   -webkit-border-radius: 12px 12px 12px 12px;
   -moz-border-radius: 12px 12px 12px 12px;
@@ -299,4 +304,26 @@ section {
 
 footer {
   height: 70px;
+  }
+
+#popup {
+  background: url("/assets/popup-bg.png") repeat-y scroll right top #1C212A;
+  border: 2px solid #FFFFFF;
+  box-shadow: 2px 2px 5px #AAAAAA;
+  position: relative;
+  width: 450px;
+
+  .corner.left {
+    background: url("/assets/popup-corner.png") no-repeat scroll 0 0 transparent;
+    height: 41px;
+    left: -16px;
+    position: absolute;
+    top: 80px;
+    width: 17px;
+  }
+
+  height: 300px;
+  margin: 50px;
+  
+
   }

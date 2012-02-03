@@ -1,7 +1,7 @@
 Orthodontic::Application.routes.draw do
 
   match "/home" => "pages#home"
-  match "/inner" => "pages#inner"
+  match "/item" => "pages#item"
 
   resources :file, :only => [:index] do
     collection do

@@ -152,7 +152,7 @@
   background: url('/assets/search-engine-bg.png') no-repeat 0 0px;
   margin-top: 35px;
   padding-top: 1px;
-  height: 140px;
+  height: 155px;
   position: relative;
   .logo {
     margin: 25px 0 0 32px;
@@ -270,6 +270,7 @@
   border-radius: 6px;
   background: #fff;
   position: relative;
+  overflow: hidden;
 
   .user-info {
     width: 650px;
@@ -293,10 +294,12 @@
     }
 
   .navigation {
+    height: 34px;
+    padding-left: 6px;
     ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;}
+      list-style: none;
+      padding: 0;
+      margin: 0;}
 
     li {
       display: inline;}
@@ -309,7 +312,6 @@
       height: 35px;
       background: url('/assets/main-content-nav-set.png') no-repeat 0 0;
       font-size: 16px;
-      text-transform: uppercase;
       color: #fff;
       font-weight: bold;
       -webkit-text-shadow: 1px 1px 0 #677e0b;
@@ -317,13 +319,334 @@
       text-shadow: 1px 1px 0 #677e0b;
       text-align: center;
       line-height: 35px;
-      &.large {
-        width: 150px;
-        background-position: 0 -56;}
+      z-index: 500;
+
+      span {
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 0;
+        display: none;}
+
       &.selected {
-        background-position: 0 -56;}
+        height: 80px;
+        background-position: 0 -56px;
+        color: #1b1e26;
+        -webkit-text-shadow: 1px 1px 0 #dcfb64;
+        -moz-text-shadow: 1px 1px 0 #dcfb64;
+        text-shadow: 1px 1px 0 #dcfb64;
+        span {
+          display: block;}}
+
+      &.large {
+        width: 146px;
+        background-position: -122px 0;
+        &.selected {
+          background-position: -122px -56px;}}      
+      }
     }
+
+  .panel {
+    border-top: 1px solid #b8b479;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background: url('/assets/main-content-bg.jpg') repeat-x 0 0;
+    width: 959px;    
+    padding-top: 30px;
   }
 
-  height: 500px;
+  .content {
+    padding: 20px 20px 0;
+
+    h1 {
+      font: normal 26px/50px "Droid Sans";      
+      margin: 0px;}
+    .share {
+      float: right;
+      padding-top: 10px;
+      a {
+        float: left;
+        margin-left: 10px;
+        width: 27px;
+        height: 27px;
+        text-decoartion: none;
+        background: url('/assets/shared-icons27.png') repeat-x 0 0;
+        display: block;}
+      .tw {
+        background-position: -27px 0;}}
+
+    .tools {
+      border-top: 1px solid #d4d2af;
+      border-bottom: 1px solid #d4d2af;
+      padding: 15px 0px;
+      height: 65px;
+
+      .items {
+        float: left;
+        height: 65px;
+        overflow: hidden;}
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-stile: none;}
+
+      li {
+        float: left;
+        display: block;}
+
+      img {
+        float: left;
+        border: 2px solid #ebebeb;}
+
+      .light-button.follow {
+        border-radius: 8px;
+        float: right;
+        font: normal 13px 'Droid Sans';
+        padding: 10px 5px 10px 11px;
+        margin-top: 13px;
+
+        span {
+          background: url("/assets/btn-icons-set.png") no-repeat scroll 0 -2px transparent;
+          display: block;
+          float: right;
+          height: 18px;
+          margin-left: 7px;
+          width: 18px;}
+        }
+
+      .light-button.sell {
+        border-radius: 8px;
+        float: right;
+        font: normal 18px/26px 'Droid Sans';
+        padding: 6px 5px 6px 15px;
+        margin: 13px 10px 0 0px;
+        color: #ffffff;
+        -webkit-text-shadow: none;
+        -moz-text-shadow: none;
+        text-shadow: none;
+        border: 1px solid #90b30b;
+        background: #c0e046; /* Old browsers */
+        /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2MwZTA0NiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3NjkxMGEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top, #c0e046 0%, #76910a 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c0e046), color-stop(100%,#76910a)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #c0e046 0%,#76910a 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #c0e046 0%,#76910a 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #c0e046 0%,#76910a 100%); /* IE10+ */
+        background: linear-gradient(top, #c0e046 0%,#76910a 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0e046', endColorstr='#76910a',GradientType=0 ); /* IE6-8 */
+        input {
+          font-size: 16px;
+          padding: 4px;
+          border: none;
+          margin-left: 10px;
+          width: 60px;}
+        span {
+          background: url("/assets/btn-icons-set.png") no-repeat scroll -67px 0 transparent;
+          display: block;
+          float: right;
+          height: 26px;
+          margin-left: 15px;
+          width: 23px;}
+        }
+
+      .light-button.buy {
+        border-radius: 8px;
+        float: right;
+        font: normal 18px/26px 'Droid Sans';
+        padding: 6px 5px 6px 15px;
+        margin: 13px 10px 0 0px;
+        color: #ffffff;
+        -webkit-text-shadow: none;
+        -moz-text-shadow: none;
+        text-shadow: none;
+        border: 1px solid #5c867b;
+
+        background: #96c8bb; /* Old browsers */
+        /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzk2YzhiYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM1NTdlNzMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top, #96c8bb 0%, #557e73 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#96c8bb), color-stop(100%,#557e73)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #96c8bb 0%,#557e73 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #96c8bb 0%,#557e73 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #96c8bb 0%,#557e73 100%); /* IE10+ */
+        background: linear-gradient(top, #96c8bb 0%,#557e73 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#96c8bb', endColorstr='#557e73',GradientType=0 ); /* IE6-8 */
+        
+        span {
+          background: url("/assets/btn-icons-set.png") no-repeat scroll -98px 0 transparent;
+          display: block;
+          float: right;
+          height: 22px;
+          margin: 2px 0 0 15px;
+          width: 28px;}
+        }
+
+      .light-button.set-preview {
+        border-radius: 8px;
+        float: right;
+        font: normal 18px/26px 'Droid Sans';
+        padding: 6px 5px 6px 15px;
+        margin: 13px 10px 0 0px;
+        color: #ffffff;
+        -webkit-text-shadow: 1px 1px 0 #677e0b;
+        -moz-text-shadow: 1px 1px 0 #677e0b;
+        text-shadow: 1px 1px 0 #677e0b;
+        border: 1px solid #5c867b;
+
+        background: #96c8bb; /* Old browsers */
+        /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzk2YzhiYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM1NTdlNzMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top, #96c8bb 0%, #557e73 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#96c8bb), color-stop(100%,#557e73)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #96c8bb 0%,#557e73 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #96c8bb 0%,#557e73 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #96c8bb 0%,#557e73 100%); /* IE10+ */
+        background: linear-gradient(top, #96c8bb 0%,#557e73 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#96c8bb', endColorstr='#557e73',GradientType=0 ); /* IE6-8 */
+
+        span {
+          background: url("/assets/btn-icons-set.png") no-repeat scroll -129px 0 transparent;
+          display: block;
+          float: right;
+          height: 24px;
+          margin: 1px 0 0 15px;
+          width: 33px;}
+        }
+
+      &.detail {
+        .items {
+          width: 790px;}
+
+        .title {
+          float: left;
+          font-size: 12px;
+          padding: 15px 20px 15px 10px;}}
+
+      &.short {
+        li {
+          padding-right: 10px;}
+        img {
+          float: left;
+          border: 2px solid #ebebeb;}}
+      }
+
+    .text {
+      border-bottom: 1px solid #d4d2af;
+      padding: 20px 0;
+
+      h2 {
+        color: #2e6976;
+        margin: 7px 0;
+        font-size: 20px;}
+
+      .body {
+        font-size: 12px;
+        line-height: 17px;
+        float: left;
+        margin: 7px 20px 7px 0px;
+        text-align: justify;}
+
+      .preview {
+        float: left;}
+      
+
+      &.pic {
+        .body {
+          margin: 7px 20px 7px 0px;
+          width: 665px;}
+
+        .preview {
+          border: 2px solid #ddd;}
+        }
+
+      &.video {
+        .preview {
+          width: 435px;}
+        .body {
+          margin: 7px 0px 7px 20px;
+          width: 459px;}
+        }
+      }
+    }
+  #comments {
+    h3 {
+      margin: 15px 0 10px 20px;
+      font: normal 18px 'Droid Sans';}
+    .comments-panel {
+        background: #dfeeea;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        border-radius: 7px;
+        padding: 5px 15px 20px;}
+
+    ul {
+      width: 630px;
+      margin: 0px;
+      list-style: none;
+      padding: 0px;}
+
+    li {
+      -webkit-border-radius: 7px;
+      -moz-border-radius: 7px;
+      border-radius: 7px;
+      display: block;
+      background: #fff;
+      margin-top: 15px;
+      padding: 20px 15px;
+      position: relative}
+
+    img {
+      border: 1px solid #ddd;
+      display: block;
+      float: left;}
+
+    .body {
+      margin-left: 78px;}
+
+    b, span  {
+      display: block;
+      font-size: 16px;
+      padding: 2px 0 8px;
+      color: #777;}
+    }
+
+    .like {
+      position: absolute;
+      text-decoration: none;
+      width: 25px;
+      height: 25px;
+      padding: 0;
+      top: 8px;
+      right: 8px;
+      text-align: center;
+      font: bold 24px/25px 'Droid Sans';
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+    }
+
+    .new-comment {
+      float: right;
+      display: block;
+      font-size: 12px;
+      font-weight: normal;
+      width: 132px;
+      position: relative;
+      padding: 13px 18px;
+      margin-top: 15px;
+
+      span {
+        background: url("/assets/btn-icons-set.png") no-repeat scroll -27px 0px transparent;
+        display: block;
+        float: right;
+        height: 18px;
+        width: 33px;
+        position: absolute;
+        top: 16px;
+        right: 12px;
+        }
+      }
+
   }

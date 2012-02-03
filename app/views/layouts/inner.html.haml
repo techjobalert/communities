@@ -21,14 +21,44 @@
         .clear
         .navigation
           %ul
-            %li= link_to 'Home', '#', :class => 'selected'
-            %li= link_to 'Item', '#'
-            %li= link_to 'Settings', '#'
-            %li= link_to 'Account', '#'
-            %li= link_to 'Public', '#'
-            %li= link_to 'Colleagues', '#', :class => 'large'
-            %li= link_to 'Your profile', '#', :class => 'large'
+            %li
+              = link_to '#', :class => 'selected' do
+                HOME
+                %span bla bla bla
 
-          
-        = yield
-      %footer
+            %li
+              = link_to '#' do
+                ITEM
+                %span bla bla bla
+
+            %li
+              = link_to '#' do
+                SETTINGS
+                %span bla bla bla
+
+            %li
+              = link_to '#' do
+                ACCOUNT
+                %span bla bla bla
+            %li
+              = link_to '#' do
+                PUBLIC
+                %span bla bla bla
+            %li
+              = link_to '#', :class => 'large' do
+                COLLEGUES
+                %span bla bla bla
+            %li
+              = link_to '#', :class => 'large' do
+                YOUR PROFILE
+                %span bla bla bla
+
+        .panel
+          = yield
+      = render :partial => 'relevant_items'
+  %footer
+
+
+  #popup
+    .container
+    .corner.left
