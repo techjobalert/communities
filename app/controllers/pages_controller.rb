@@ -24,4 +24,7 @@ class PagesController < ApplicationController
   
   def user
   end
+  
+  def settings
+  end
 end

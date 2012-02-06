@@ -8,6 +8,7 @@ Orthodontic::Application.routes.draw do
   match "/account" => "pages#account"
   match "/account_purchased_item" => "pages#account_purchased_item"
   match "/user" => "pages#user"
+  match "/settings" => "pages#settings"
 
   resources :file, :only => [:index] do
     collection do
