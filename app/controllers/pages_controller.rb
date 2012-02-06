@@ -12,4 +12,10 @@ class PagesController < ApplicationController
 
   def items_you_follow
   end
+
+  def account
+  end
+
+  def account_purchased_item
+  end
 end
