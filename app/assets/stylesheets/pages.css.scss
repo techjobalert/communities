@@ -3,7 +3,7 @@
   background: url("/assets/auth-bg.gif") no-repeat scroll 0 110px transparent;
   padding-top: 20px;
   height: 460px;
-
+  
   .buttons{
     position: absolute;
     right: 28px;
@@ -16,7 +16,7 @@
       background: url("/assets/auth-btn-set.png");
       font: bold 24px "Droid Sans";
       text-align: center;
-
+      
       &.sign-up{
         padding-top: 16px;
         height: 89px;
@@ -31,7 +31,7 @@
           -webkit-text-shadow: 1px 1px 0 #677e0b;
         }
       }
-
+      
       &.sign-in{
         background-position: -159px 0;
         padding-top: 8px;
@@ -48,7 +48,7 @@
           -webkit-text-shadow: 1px 1px 0 #1b1e26;
         }
       }
-
+      
       span {
         font-size: 12px;
         display: block;
@@ -56,7 +56,7 @@
       }
     }
   }
-
+  
   .container {
     .content {
       margin: 64px 0px 0 60px;
@@ -84,7 +84,7 @@
         border: none;
       }
     }
-
+    
     #sign-up {
       width: 230px;
       float: right;
@@ -129,7 +129,7 @@
       background: -ms-linear-gradient(top, #d0e95b 0%,#accd2d 42%,#92b40d 100%); /* IE10+ */
       background: linear-gradient(top, #d0e95b 0%,#accd2d 42%,#92b40d 100%); /* W3C */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e95b', endColorstr='#92b40d',GradientType=0 ); /* IE6-8 */
-
+      
       padding: 3px 0 8px;
       font: bold 29px/30px "Droid Sans";
       color: #1b1e26;
@@ -152,7 +152,7 @@
       }
     }
   }
-
+  
   input {
     &[type="text"], &[type="email"], &[type="password"]{
       border: 1px solid #d4dee0;
@@ -203,7 +203,7 @@
       height: 30px;
       background: url('/assets/search-engine-set.png') no-repeat 0 0px;
     }
-
+    
     &.upload{
       color: #F2EFBD;
       display: block;
@@ -223,7 +223,7 @@
         background-position: 0px -33px;
       }
     }
-
+    
     &.explore {
       display: block;
       height: 31px;
@@ -247,7 +247,7 @@
   width: 330px;
   padding-bottom: 5px;
   z-index: 1000;
-
+  
   .container {
     background: #E0DDB1;
     border: 1px solid #C3C093;
@@ -256,7 +256,7 @@
     border-radius: 8px;
     padding: 5px 7px;
   }
-
+  
   .content {
     background: #fff;
     -webkit-border-radius: 6px;
@@ -268,29 +268,29 @@
       margin-bottom: 15px;
     }
   }
-
+  
   .column {
     width: 115px;
     float: left;
     padding-bottom: 5px;
   }
-
+  
   .with-border {
     border-right: 1px dashed #70a99a;
     margin-right: 40px;
   }
-
+  
   h3 {
     color: #2f6d7a;
     font-size: 14px;
   margin: 0px;}
-
+  
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-
+  
   li {
     font-size: 12px;
     padding: 5px 0px;
@@ -305,7 +305,7 @@
   background: #fff;
   position: relative;
   overflow: hidden;
-
+  
   .user-info {
     width: 650px;
     padding: 18px 0 18px 16px;
@@ -320,7 +320,7 @@
       vertical-align: top;
     }
   }
-
+  
   .light-button.sale {
     float: right;
     display: block;
@@ -328,7 +328,7 @@
     margin: 28px 15px 0 0;
     padding: 12px 40px 12px 20px;
   }
-
+  
   .navigation {
     height: 34px;
     padding-left: 6px;
@@ -337,11 +337,11 @@
       padding: 0;
       margin: 0;
     }
-
+    
     li {
       display: inline;
     }
-
+    
     a {
       text-decoration: none;
       display: block;
@@ -358,14 +358,14 @@
       text-align: center;
       line-height: 35px;
       z-index: 500;
-
+      
       span {
         font-size: 12px;
         font-weight: normal;
         line-height: 0;
         display: none;
       }
-
+      
       &.selected {
         height: 80px;
         background-position: 0 -56px;
@@ -377,7 +377,7 @@
           display: block;
         }
       }
-
+      
       &.large {
         width: 146px;
         background-position: -122px 0;
@@ -387,7 +387,7 @@
       }
     }
   }
-
+  
   .panel {
     border-top: 1px solid #b8b479;
     -webkit-border-radius: 8px;
@@ -397,10 +397,10 @@
     width: 959px;
     padding-top: 30px;
   }
-
+  
   .content {
     padding: 20px 20px 0;
-
+    
     h1 {
       font: normal 26px/50px "Droid Sans";
       margin: 0px;
@@ -421,35 +421,35 @@
         background-position: -27px 0;
       }
     }
-
+    
     .tools {
       border-top: 1px solid #d4d2af;
       border-bottom: 1px solid #d4d2af;
       padding: 15px 0px;
       height: 65px;
-
+      
       .items {
         float: left;
         height: 65px;
         overflow: hidden;
       }
-
+      
       ul {
         margin: 0;
         padding: 0;
         list-stile: none;
       }
-
+      
       li {
         float: left;
         display: block;
       }
-
+      
       img {
         float: left;
         border: 2px solid #ebebeb;
       }
-
+      
       .light-button.follow {
         border-radius: 8px;
         float: right;
@@ -466,7 +466,7 @@
           width: 18px;
         }
       }
-
+      
       .light-button.sell {
         width: 200px;
         border-radius: 8px;
@@ -505,7 +505,7 @@
           width: 23px;
         }
       }
-
+      
       .light-button.buy {
         float: right;
         padding: 6px 5px 6px 15px;
@@ -520,7 +520,7 @@
           width: 28px;
         }
       }
-
+      
       .light-button.set-preview {
         float: right;
         padding: 6px 5px 6px 15px;
@@ -528,7 +528,7 @@
         color: #ffffff;
         width: 150px;
         border: 1px solid #5c867b;
-
+        
         span {
           background: url("/assets/btn-icons-set.png") no-repeat scroll -129px 0 transparent;
           display: block;
@@ -538,19 +538,19 @@
           width: 33px;
         }
       }
-
+      
       &.detail {
         .items {
           width: 790px;
         }
-
+        
         .title {
           float: left;
           font-size: 12px;
           padding: 15px 20px 15px 10px;
         }
       }
-
+      
       &.short {
         li {
           padding-right: 10px;
@@ -561,17 +561,17 @@
         }
       }
     }
-
+    
     .text {
       border-bottom: 1px solid #d4d2af;
       padding: 20px 0;
-
+      
       h2 {
         color: #2e6976;
         margin: 7px 0;
         font-size: 20px;
       }
-
+      
       .body {
         font-size: 12px;
         line-height: 17px;
@@ -579,23 +579,23 @@
         margin: 7px 20px 7px 0px;
         text-align: justify;
       }
-
+      
       .preview {
         float: left;
       }
-
-
+      
+      
       &.pic {
         .body {
           margin: 7px 20px 7px 0px;
           width: 665px;
         }
-
+        
         .preview {
           border: 2px solid #ddd;
         }
       }
-
+      
       &.video {
         .preview {
           width: 435px;
@@ -619,14 +619,14 @@
       border-radius: 7px;
       padding: 5px 15px 20px;
     }
-
+    
     ul {
       width: 630px;
       margin: 0px;
       list-style: none;
       padding: 0px;
     }
-
+    
     li {
       -webkit-border-radius: 7px;
       -moz-border-radius: 7px;
@@ -637,17 +637,17 @@
       padding: 20px 15px;
       position: relative
     }
-
+    
     img {
       border: 1px solid #ddd;
       display: block;
       float: left;
     }
-
+    
     .body {
       margin-left: 78px;
     }
-
+    
     b, span  {
       display: block;
       font-size: 16px;
@@ -655,7 +655,7 @@
       color: #777;
     }
   }
-
+  
   .like {
     position: absolute;
     text-decoration: none;
@@ -670,7 +670,7 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
   }
-
+  
   .new-comment {
     float: right;
     display: block;
@@ -680,7 +680,7 @@
     position: relative;
     padding: 13px 18px;
     margin-top: 15px;
-
+    
     span {
       background: url("/assets/btn-icons-set.png") no-repeat scroll -27px 0px transparent;
       display: block;
@@ -692,13 +692,13 @@
       right: 12px;
     }
   }
-
+  
   h3 {
     margin-left: 18px;
     margin-top: 16px;
     position: relative;
   }
-
+  
   .light-button.buy-all {
     float: right;
     padding: 6px 5px 6px 15px;
@@ -716,7 +716,7 @@
       width: 28px;
     }
   }
-
+  
   .list {
     border-left: none;
     border-bottom: none;
@@ -733,7 +733,7 @@
   z-index: 20;
   position: relative;
   padding: 50px 20px 15px;
-
+  
   .item {
     width: 230px;
     height: 230px;
@@ -745,7 +745,7 @@
     position: relative;
     float: left;
   }
-
+  
   .title {
     background: #dfeeea;
     padding: 10px;
@@ -754,12 +754,12 @@
     border-radius: 10px 10px 0 0;
     font-size: 18px;
   }
-
+  
   .body {
     padding: 10px;
     font-size: 14px;
   }
-
+  
   .light-button {
     border: 1px solid #639e9f;
     font-size: 14px;
@@ -768,7 +768,7 @@
     -moz-box-shadow: none;
     box-shadow: none;
   }
-
+  
   .edit, .upload {
     position: absolute;
     bottom: 10px;
@@ -778,11 +778,11 @@
     -moz-border-radius: 6px;
     border-radius: 6px;
   }
-
+  
   .edit {
     right: 10px;
   }
-
+  
   .upload {
     display: block;
     float: left;
@@ -800,22 +800,22 @@
       margin-right: 7px;
     }
   }
-
+  
   ul {
     padding: 0px;
     margin: 10px 0;
   }
-
+  
   li {
     list-style: none;
     padding: 5px 10px 4px;
     span {color: #2f6d7a;}
   }
-
+  
   .odd {
     background: #dfeeea;
   }
-
+  
   .summ {
     font-size: 20px;
     color: #2f6d7a;
