@@ -1,0 +1,138 @@
+.b-user
+  .b-user-content
+    .b-user-info
+      .b-user-preview
+        / Тут два варианта 
+        / 1. Страница другого пользователя
+        = image_tag '/assets/tmp/p6.png', :width => '143', :height => '143'
+        .light-button.follow
+          Follow
+          %span
+
+        /2. Своя страница (разкоментировать)
+        =# link_to image_tag('/assets/user-upload-photo.jpg', :width => '143', :height => '143')
+        
+      .b-user-info-body
+        %h2.b-user-title Yossy Mendelovich . MD
+        %p
+          %strong Specialization:
+          Show at most this number of pages Show at most thiser 
+          of pages of pages Show  of pages Show 
+        %p
+          %strong Send a massege: 
+          you can send a message directly to email about profesional question
+
+        %p= text_area_tag 'description'
+
+        %p.right= button_tag 'Send', :class => 'light-button send green'
+    
+    %h2 Medical Profile
+      
+    %p
+      %strong Biography:
+      you can send a message directly to email about profesional question
+
+    %br
+        
+    %h2 Publications 
+    
+    .b-user-list
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      .clear
+
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      .clear
+  
+    %br
+    %h2 Approvals   
+    .b-user-list
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      .clear
+
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      = link_to '#', :class => 'item' do
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+        %b Lorem Ipsum 
+        is simply dummy text of the print
+      .clear
+
+
+  .b-user-sidebar
+    %h2.b-user-title Published with:
+    %ul
+      %li
+        = image_tag '/assets/tmp/p6.png', :width => '60', :height => '60'
+        .text
+          %b Yossy Mendelovich
+          Show at most this number of pages Show at most thiser 
+          of pages of pages Show  
+      %li
+        = image_tag '/assets/tmp/p6.png', :width => '60', :height => '60'
+        .text
+          %b Yossy Mendelovich
+          Show at most this number of pages Show at most thiser 
+          of pages of pages Show  
+      %li
+        = image_tag '/assets/tmp/p6.png', :width => '60', :height => '60'
+        .text
+          %b Yossy Mendelovich
+          Show at most this number of pages Show at most thiser 
+          of pages of pages Show  
+          
+.clear

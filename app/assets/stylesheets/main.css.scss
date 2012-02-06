@@ -240,7 +240,7 @@ section {
       
       &.selected {
         height: 98px;
-        background: url("/assets/media-nav-set.png") no-repeat -7px 0;
+        background: url("/assets/media-nav-set.png") no-repeat 0px 0;
         font-weight: bold;
       }
     }
@@ -251,6 +251,10 @@ section {
       a {
         width: 86px;
         line-height: 1;
+      }
+      
+      .selected {
+        background-position: -7px 0;
       }
     }
   }
