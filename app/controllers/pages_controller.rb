@@ -21,4 +21,7 @@ class PagesController < ApplicationController
 
   def account_purchased_item
   end
+  
+  def user
+  end
 end
