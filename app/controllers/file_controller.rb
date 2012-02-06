@@ -1,8 +1,10 @@
+require 'net/http'
+
 class FileController < ApplicationController
 
   def upload
     file = params[:file]
-    File.open('vendor/erlyvideo/videos/uploads/' + file.original_filename, "wb") do |f|
+    File.open('../video/video_storage/p_source/' + file.original_filename, "wb") do |f|
       f.write(params[:file].read)
     end
     redirect_to "/file/load/#{file.original_filename}"

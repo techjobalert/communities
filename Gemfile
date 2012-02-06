@@ -61,5 +61,5 @@ gem 'acts-as-taggable-on'                                         # tags
 gem 'resque'
 
 #gem 'acts_as_commentable'
-#gem 'net-sftp'
 gem 'acts_as_follower'
+gem 'em-http-request'
