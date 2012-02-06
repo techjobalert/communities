@@ -1,7 +1,10 @@
 class PagesController < ApplicationController
-  layout "inner", :except => :home
+  layout "inner", :except => [:home, :sign_in]
 
   def home
+  end
+  
+  def sign_in
   end
 
   def item
