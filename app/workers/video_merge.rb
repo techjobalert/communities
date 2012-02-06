@@ -2,14 +2,15 @@ class VideoMerge
   @queue = :video_merge
 
   def self.perform(presentV, recordedV, params)
-    erlyvideo_path = File.expand_path(File.dirname(__FILE__) + '/../../vendor/erlyvideo/videos/')
+    #erlyvideo_path = File.expand_path(File.dirname(__FILE__) + '/../../vendor/erlyvideo/video/')
+    erlyvideo_path = '/home/buildbot/video/'
     upload_dir = erlyvideo_path+'/merged-video/'
     presentation_dir = erlyvideo_path +'/uploads/'
     records_dir = erlyvideo_path +'/webcam-records/'
     misc_dir = erlyvideo_path + '/misc/'
 
     base_name = File.basename(presentV, ".mp4")
-    output_filename = [base_name,SecureRandom.hex(5)].join("_").insert(-1, ".mp4")
+    output_filename = [base_name,SecureRandom.hex(10)].join("_").insert(-1, ".mp4")
     add_logo = false
     logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
       :pos => self.add_position('tl'),
@@ -34,11 +35,7 @@ class VideoMerge
     # command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV} [mv]; [in][mv] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output_filename}' % options
     command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output_filename}' % options
     command2 = 'ffmpeg -i %{presentV} -vf "[in]setpts=PTS-STARTPTS, pad=%{pad},[T1]overlay=%{pos}[out];movie=%{recordedV},setpts=PTS-STARTPTS[T1]" -vcodec libx264 -preset medium %{output_filename}' % options
-    puts command
     output = %x[cd #{upload_dir} && #{command}]
-
-    puts output
-    puts "Processed a job!"
   end
 
   def self.add_pad(pad="mr", w=480, h=480, color="black")
