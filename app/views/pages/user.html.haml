@@ -2,10 +2,16 @@
   .b-user-content
     .b-user-info
       .b-user-preview
-        = image_tag '/assets/tmp/p6.png', :width => '145', :height => '145'
+        / Тут два варианта 
+        / 1. Страница другого пользователя
+        = image_tag '/assets/tmp/p6.png', :width => '143', :height => '143'
         .light-button.follow
           Follow
           %span
+
+        /2. Своя страница (разкоментировать)
+        =# link_to image_tag('/assets/user-upload-photo.jpg', :width => '143', :height => '143')
+        
       .b-user-info-body
         %h2.b-user-title Yossy Mendelovich . MD
         %p
