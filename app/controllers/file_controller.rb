@@ -16,18 +16,21 @@ class FileController < ApplicationController
   end
 
   def converted_pvideo
-    puts params
     pvideo_uuid = params[:filename].split("-").first()
     pvideo_file = params[:filename]
 
-    Dir.foreach("../video/video_storage/webcam_records/") do |f| 
-      f.include?(pvideo_uuid)
-      wvideo = f
-      break
+    Dir.foreach("../video/video_storage/webcam_records/") do |file| 
+      if f.include?(pvideo_uuid)
+        puts file #
+        wvideo = file
+        break
+      end
     end
+    puts pvideo_file, wvideo
     if pvideo_file and wvideo
       Resque.enqueue( VideoMerge, pvideo_file, wvideo, {})
     end
+    render :nothing => true
   end
   
   def webrecorder
