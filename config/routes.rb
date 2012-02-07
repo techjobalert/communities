@@ -18,7 +18,7 @@ Orthodontic::Application.routes.draw do
   resources :file, :only => [:index] do
     collection do
       post "upload", :action => 'upload_psource'
-      post "convert", :action => 'converted_pvideo'
+      post "converted_pvideo", :action => 'converted_pvideo'
 
       get "webrecorder", :action => 'webrecorder'
 
