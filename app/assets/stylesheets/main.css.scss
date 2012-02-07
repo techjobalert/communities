@@ -591,6 +591,8 @@ footer {
     height: 55px;
     padding: 6px;
     width: 390px;
+    max-width: 390px;
+    min-width: 390px;
   }
   
   .light-button {
