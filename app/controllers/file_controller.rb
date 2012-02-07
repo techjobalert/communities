@@ -16,6 +16,7 @@ class FileController < ApplicationController
   end
 
   def converted_pvideo
+    puts params
     pvideo_uuid = params[:filename].split("-").first()
     pvideo_file = params[:filename]
 
