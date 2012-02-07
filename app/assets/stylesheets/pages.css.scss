@@ -332,6 +332,16 @@
     padding: 12px 40px 12px 20px;
   }
   
+  .light-button.send-message {
+    float: right;
+    margin: 13px 10px 0 0;
+    padding: 6px 5px 6px 15px;
+    position: absolute;
+    right: 10px;
+    top: -38px;
+    width: 262px;
+  }
+  
   .navigation {
     height: 34px;
     padding-left: 6px;
@@ -837,7 +847,7 @@
 
 .b-sign-in {
   background: url("/assets/sign-in-bg.png") repeat-x bottom center;
-  #general-links .container {
+  .b-general-links .container {
     border-bottom: 1px solid #24515b;
   }
   
@@ -958,7 +968,7 @@
       font-size: 13px;
       padding: 10px 5px 10px 11px;
       margin: 13px auto;
-      width: 65px;
+      width: 67px;
       span {
         background: url("/assets/btn-icons-set.png") no-repeat scroll 0 -2px transparent;
         display: block;
@@ -1252,6 +1262,32 @@
       color: #1B1E26;
       background-position: 0 -60px;
     }
-  }   
-  
+  }  
+}
+.b-colleagues {
+  .b-colleagues-container{
+    padding: 10px 20px 10px 30px;
+    .b-colleagues-item {
+      display: block;
+      float: left;
+      height: 64px;
+      width: 140px;
+      color: #1b1e26;
+      text-decoration: none;
+      margin: 0 10px 25px 0;
+      
+      img {
+        border: 2px solid #ddd;
+        float: left;
+      }
+      
+      .title {
+        float: left;
+        font-size: 14px;
+        margin: 3px 0 0 7px;
+        overflow: hidden;
+        width: 68px;
+      }
+    }
+  }
 }

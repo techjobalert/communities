@@ -27,4 +27,7 @@ class PagesController < ApplicationController
   
   def settings
   end
+  
+  def colleagues
+  end
 end

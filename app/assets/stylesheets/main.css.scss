@@ -134,7 +134,7 @@ h3 {
   position: relative;
 }
 
-#general-links {
+.b-general-links {
   background: #fff;
   border-bottom: 1px solid #70a99a;
   .container {
@@ -245,6 +245,24 @@ section {
       &.paiments-info span{
         background-position: -451px 4px;
         height: 30px;
+      }
+      
+      &.followers span {
+        background-position: -112px -51px;    
+        width: 52px;
+      }
+      
+      &.published-together span{
+        background-position: -181px -51px;
+        height: 30px;
+      }
+      
+      &.following span{
+        background-position: -236px -51px;        
+      }
+      
+      &.patients span{
+        background-position: -296px -51px;        
       }
       
       &.selected {
@@ -577,7 +595,7 @@ footer {
       font-weight: bold;
     }
     
-    &.go-to-profile, &.folow-item, &.go-to-article, &.make-pdf {
+    &.go-to-profile, &.follow-item, &.go-to-article, &.make-pdf {
       margin-left: 3px;
       -webkit-border-radius: 7px;
       -moz-border-radius: 7px;
@@ -709,7 +727,7 @@ footer {
         margin-left: 7px;
         width: 28px;
       }
-      &.folow-item {
+      &.follow-item {
         width: 109px;
       }
       &.go-to-article {
