@@ -14,7 +14,8 @@
       display: block;
       float: left;
       background: url("/assets/auth-btn-set.png");
-      font: bold 24px "Droid Sans";
+      font-weight: bold;
+      font-size: 24px;
       text-align: center;
       
       &.sign-up{
@@ -131,7 +132,9 @@
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e95b', endColorstr='#92b40d',GradientType=0 ); /* IE6-8 */
       
       padding: 3px 0 8px;
-      font: bold 29px/30px "Droid Sans";
+      font-weight: bold;
+      font-size: 29px;
+      line-height: 30x;
       color: #1b1e26;
       text-shadow: 1px 1px 0 #e0ff69;
       -moz-text-shadow: 1px 1px 0 #e0ff69;
@@ -402,7 +405,9 @@
     padding: 20px 20px 0;
     
     h1 {
-      font: normal 26px/50px "Droid Sans";
+      font-weight: normal;
+      font-size: 26px;
+      line-height: 50px;
       margin: 0px;
     }
     .share {
@@ -453,7 +458,8 @@
       .light-button.follow {
         border-radius: 8px;
         float: right;
-        font: normal 13px 'Droid Sans';
+        font-weight: normal;
+        font-size: 13px;
         padding: 10px 5px 10px 11px;
         margin-top: 13px;
         width: 95px;
@@ -471,7 +477,9 @@
         width: 200px;
         border-radius: 8px;
         float: right;
-        font: normal 18px/26px 'Droid Sans';
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 26px;
         padding: 6px 5px 6px 15px;
         margin: 13px 10px 0 0px;
         color: #ffffff;
@@ -610,7 +618,8 @@
   #comments {
     h3 {
       margin: 15px 0 10px 20px;
-      font: normal 18px 'Droid Sans';
+      font-weight: normal;
+      font-size: 18px;
     }
     .comments-panel {
       background: #dfeeea;
@@ -665,7 +674,9 @@
     top: 8px;
     right: 8px;
     text-align: center;
-    font: bold 24px/25px 'Droid Sans';
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 25px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -724,7 +735,7 @@
   }
 }
 
-#purchased-item {
+.b-purchased-item {
   background: #ffffff;
   border-radius: 7px;
   -moz-border-radius: 7px;
@@ -869,7 +880,9 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e95b', endColorstr='#92b40d',GradientType=0 ); /* IE6-8 */
     
     padding: 3px 0 8px;
-    font: bold 29px/30px "Droid Sans";
+    font-weight: bold;
+    font-size: 29px;
+    line-height: 30px;
     color: #1b1e26;
     text-shadow: 1px 1px 0 #e0ff69;
     -moz-text-shadow: 1px 1px 0 #e0ff69;
@@ -941,7 +954,8 @@
     
     .follow {
       border-radius: 8px;
-      font: normal 13px 'Droid Sans';
+      font-weight: normal;
+      font-size: 13px;
       padding: 10px 5px 10px 11px;
       margin: 13px auto;
       width: 65px;
@@ -1051,4 +1065,193 @@
       padding-bottom: 5px;
     }
   }
+}
+
+.b-settings {
+  margin: 30px;
+  h2 {
+    font-size: 26px;
+    line-height: 30px; 
+    font-weight: normal;
+    margin: 15px 0 20px;
+  }
+  
+  .b-notification {
+    margin-left: 230px;
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    
+    li {
+      list-style: none;
+      padding: 7px 8px;
+      font-size: 12px;
+      width: 360px;
+    }
+    
+    .odd {
+      background: #dfeeea;
+    }
+    
+    .submit {
+      padding: 15px 0px;
+      text-align: right;
+      width: 376px;
+    }
+    
+    input[type="checkbox"] {
+      vertical-align: text-bottom;
+      margin-right: 10px;
+    }
+    
+    .b-settings-title {
+      font-size: 18px;
+      margin: 25px 0 10px;
+    }
+    
+    .light-button.green {
+      padding: 5px 15px;
+      font-size: 14px;
+      -webkit-text-shadow: none;
+      -moz-text-shadow: none;
+      text-shadow: none;
+      line-height: 1;
+    }
+  }
+  
+  .b-info {
+    margin-left: 210px;
+    .bio {
+      width: 400px;      
+      border: 1px solid #b8b479;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      margin: 0 0 20px;
+      position: relative;
+      .title {
+        background: #dfeeea;
+        padding: 10px 17px;
+        -webkit-border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        border-radius: 10px 10px 0 0;
+        font-size: 18px;
+        position: relative;
+        span {
+          color: #4f8b7b;
+          font-size: 12px;
+          position: absolute;
+          bottom: 10px;
+          right: 13px;
+          text-shadow: 1px 1px 0 #fff;
+        }
+      }
+      
+      .body {
+        padding: 17px;
+        font-size: 14px;
+        
+        textarea {
+          height: 55px;
+          padding: 6px;
+          width: 350px;  
+          background: none repeat scroll 0 0 #F1EFD1;
+          border: 1px solid #F1EFD1;
+          -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+          -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+          box-shadow: 0 2px 2px #D8DCC1 inset;
+        }
+        
+        .right {
+          text-align: right;
+          padding: 10px 0px 0;
+        }
+      }   
+    }
+    
+    .form {
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+      
+      li {
+        list-style: none;
+        padding: 5px 0;
+      }
+      
+      label {
+        display: block;
+        float: left;
+        font-size: 14px;
+        line-height: 30px;
+        width: 71px;
+      }
+      
+      input[type="text"] {
+        width: 200px;
+        padding: 5px 6px;
+        background: none repeat scroll 0 0 #F1EFD1;
+        border: 1px solid #F1EFD1;
+        -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+        -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+        box-shadow: 0 2px 2px #D8DCC1 inset;
+      }
+      
+      .right {
+        text-align: right;
+        padding: 10px 0px 0;
+        width: 286px;
+      }      
+    }
+    
+    .light-button.green {
+      padding: 5px 15px;
+      font-size: 14px;
+      -webkit-text-shadow: none;
+      -moz-text-shadow: none;
+      text-shadow: none;
+      line-height: 1;
+    }    
+  }  
+}
+
+.b-settings-nav {
+  position: absolute;
+  top: 252px;
+  left: -12px;
+  
+  a {
+    background: url("/assets/settings-set.png") no-repeat scroll 0 -127px transparent;
+    color: #518c7d;
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    height: 42px;
+    padding: 9px 0 7px 20px;
+    text-decoration: none;
+    width: 153px;
+    -webkit-text-shadow: 1px 1px 0 #fff;
+    -moz-text-shadow: 1px 1px 0 #fff;
+    text-shadow: 1px 1px 0 #fff;    
+    margin-bottom: 8px;
+    
+    span {
+      font-weight: normal;
+      font-size: 11px;
+      display: block;
+    }
+    
+    &:hover {
+      color: #1B1E26;
+      background-position: 0 1px;
+    }
+    
+    &.selected {
+      color: #1B1E26;
+      background-position: 0 -60px;
+    }
+  }   
+  
 }
