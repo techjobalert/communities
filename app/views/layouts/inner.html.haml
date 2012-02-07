@@ -9,64 +9,66 @@
     %header
       = render :partial => "pages/general_links"
       = render :partial => "pages/search_engine"
+    .center
+      %section
+        .wrapper
+          #main-content
+            .user-info
+              = image_tag '/assets/tmp/p3.png', :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD', :class => 'popup-user-info'
+              %span.title Yossy Mendelovich . MD
+            .light-button.sale
+              Our Ordothontics Sale
+              %span
+            .clear
+            .navigation
+              %ul
+                %li
+                  = link_to '#', :class => 'selected' do
+                    HOME
+                    %span bla bla bla
 
-    %section.center
-      .wrapper
-        #main-content
-          .user-info
-            = image_tag '/assets/tmp/p3.png', :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD', :class => 'popup-user-info'
-            %span.title Yossy Mendelovich . MD
-          .light-button.sale
-            Our Ordothontics Sale
-            %span
-          .clear
-          .navigation
-            %ul
-              %li
-                = link_to '#', :class => 'selected' do
-                  HOME
-                  %span bla bla bla
+                %li
+                  = link_to '#' do
+                    ITEM
+                    %span bla bla bla
 
-              %li
-                = link_to '#' do
-                  ITEM
-                  %span bla bla bla
+                %li
+                  = link_to '#' do
+                    SETTINGS
+                    %span bla bla bla
 
-              %li
-                = link_to '#' do
-                  SETTINGS
-                  %span bla bla bla
+                %li
+                  = link_to '#' do
+                    ACCOUNT
+                    %span bla bla bla
+                %li
+                  = link_to '#' do
+                    PUBLIC
+                    %span bla bla bla
+                %li
+                  = link_to '#', :class => 'large' do
+                    COLLEGUES
+                    %span bla bla bla
+                %li
+                  = link_to '#', :class => 'large' do
+                    YOUR PROFILE
+                    %span bla bla bla
 
-              %li
-                = link_to '#' do
-                  ACCOUNT
-                  %span bla bla bla
-              %li
-                = link_to '#' do
-                  PUBLIC
-                  %span bla bla bla
-              %li
-                = link_to '#', :class => 'large' do
-                  COLLEGUES
-                  %span bla bla bla
-              %li
-                = link_to '#', :class => 'large' do
-                  YOUR PROFILE
-                  %span bla bla bla
+            .panel
+              = yield
 
-          .panel
-            = yield
-        - if params[:controller] == 'pages' && params[:action] == 'item'
-          = render :partial => 'relevant_items'
 
-        - if params[:controller] == 'pages' && params[:action] == 'settings'
-          .b-settings-nav 
-            = link_to '#', :class => 'b-settings-nav-bio selected' do
-              Medical
-              %span Your medical information
-            = link_to '#', :class => 'b-settings-nav-notification' do
-              Notification
-              %span Email preferences...
+          - if params[:controller] == 'pages' && params[:action] == 'item'
+            = render :partial => 'relevant_items'
+
+          - if params[:controller] == 'pages' && params[:action] == 'settings'
+            .b-settings-nav 
+              = link_to '#', :class => 'b-settings-nav-bio selected' do
+                Medical
+                %span Your medical information
+              = link_to '#', :class => 'b-settings-nav-notification' do
+                Notification
+                %span Email preferences...
   %footer
 
 

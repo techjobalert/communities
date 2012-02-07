@@ -12,6 +12,8 @@ Orthodontic::Application.routes.draw do
   match "/user" => "pages#user"
   match "/settings" => "pages#settings"
   match "/colleagues" => "pages#colleagues"
+  match "/upload_page" => "pages#upload"
+  match "/admin_page" => "pages#admin"
 
   resources :file, :only => [:index] do
     collection do

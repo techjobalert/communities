@@ -285,7 +285,13 @@ section {
       }
     }
   }
-  
+  .list-title {
+    width: 390px;
+    float: right;
+    font-size: 12px;
+    color: #ffffff;
+    margin: 20px 20px 0 0;
+  }
   .filter {
     height: 58px;
     background: #f2efbd;
@@ -585,6 +591,8 @@ footer {
     height: 55px;
     padding: 6px;
     width: 390px;
+    max-width: 390px;
+    min-width: 390px;
   }
   
   .light-button {
