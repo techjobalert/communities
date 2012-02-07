@@ -16,11 +16,16 @@ class FileController < ApplicationController
   end
 
   def converted_pvideo
+    if not params[:filename]
+      render :nothing => true
+      return false
+    end
     pvideo_uuid = params[:filename].split("-").first()
     pvideo_file = params[:filename]
+    wvideo = ""
 
     Dir.foreach("../video/webcam_records/") do |file| 
-      if f.include?(pvideo_uuid)
+      if file.include?(pvideo_uuid)
         puts file #
         wvideo = file
         break

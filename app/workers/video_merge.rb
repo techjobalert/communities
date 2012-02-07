@@ -3,7 +3,7 @@ class VideoMerge
 
   def self.perform(presentV, recordedV, params)
     #erlyvideo_path = File.expand_path(File.dirname(__FILE__) + '/../../vendor/erlyvideo/video/')
-    video_path = '/home/buildbot/video/'
+    video_path = '/home/buildbot/video'
     upload_dir = video_path+'/merged/'
     presentation_dir = video_path +'/video_storage/p_video/'
     records_dir = video_path +'/webcam_records/'
@@ -25,7 +25,7 @@ class VideoMerge
       :pad => self.add_pad(),
     }
 
-    if p = params.position
+    if p = params[:position]
       if p == 'ml' or p == 'mr'
         options.merger!({:pad => self.add_pad(p)})
       end
