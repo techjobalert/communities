@@ -19,7 +19,7 @@ class FileController < ApplicationController
     pvideo_uuid = params[:filename].split("-").first()
     pvideo_file = params[:filename]
 
-    Dir.foreach("../video/video_storage/webcam_records/") do |file| 
+    Dir.foreach("../video/webcam_records/") do |file| 
       if f.include?(pvideo_uuid)
         puts file #
         wvideo = file
