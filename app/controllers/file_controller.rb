@@ -3,15 +3,16 @@ require 'net/http'
 class FileController < ApplicationController
 
   def upload_psource
-    params[:files].each do |file|
-      File.open('../video/video_storage/p_source/' + file.original_filename, "wb") do |f|
-        f.write(file.read)
-      end
-      #uri = URI('http://192.168.0.251:3000/convert')
-      #res = Net::HTTP.post_form(uri, 'file' => file.original_filename)
+    uuid = params[:uuid]
+    file = params[:file]
+    uuid_filename = [uuid, file.original_filename].join("-")
+    File.open('../video/video_storage/p_source/' + uuid_filename , "wb") do |f|
+      f.write(file.read)
     end
+    uri = URI('http://192.168.0.251:3000/convert')
+    res = Net::HTTP.post_form(uri, 'file' => uuid_filename)
     #redirect_to "/file/load"
-    render :json => {:file => {:name => "123"}}
+    render :json => {:file => {:name => uuid_filename} }
   end
 
   def converted_pvideo
