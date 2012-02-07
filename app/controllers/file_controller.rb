@@ -10,7 +10,7 @@ class FileController < ApplicationController
       f.write(file.read)
     end
     uri = URI('http://192.168.0.251:3000/convert')
-    res = Net::HTTP.post_form(uri, 'file' => uuid_filename)
+    Net::HTTP.post_form(uri, 'file' => uuid_filename)
     #redirect_to "/file/load"
     render :json => {:file => {:name => uuid_filename} }
   end
