@@ -14,7 +14,8 @@
       display: block;
       float: left;
       background: url("/assets/auth-btn-set.png");
-      font: bold 24px "Droid Sans";
+      font-weight: bold;
+      font-size: 24px;
       text-align: center;
       
       &.sign-up{
@@ -131,7 +132,9 @@
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e95b', endColorstr='#92b40d',GradientType=0 ); /* IE6-8 */
       
       padding: 3px 0 8px;
-      font: bold 29px/30px "Droid Sans";
+      font-weight: bold;
+      font-size: 29px;
+      line-height: 30x;
       color: #1b1e26;
       text-shadow: 1px 1px 0 #e0ff69;
       -moz-text-shadow: 1px 1px 0 #e0ff69;
@@ -402,7 +405,9 @@
     padding: 20px 20px 0;
     
     h1 {
-      font: normal 26px/50px "Droid Sans";
+      font-weight: normal;
+      font-size: 26px;
+      line-height: 50px;
       margin: 0px;
     }
     .share {
@@ -453,7 +458,8 @@
       .light-button.follow {
         border-radius: 8px;
         float: right;
-        font: normal 13px 'Droid Sans';
+        font-weight: normal;
+        font-size: 13px;
         padding: 10px 5px 10px 11px;
         margin-top: 13px;
         width: 95px;
@@ -471,7 +477,9 @@
         width: 200px;
         border-radius: 8px;
         float: right;
-        font: normal 18px/26px 'Droid Sans';
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 26px;
         padding: 6px 5px 6px 15px;
         margin: 13px 10px 0 0px;
         color: #ffffff;
@@ -610,7 +618,8 @@
   #comments {
     h3 {
       margin: 15px 0 10px 20px;
-      font: normal 18px 'Droid Sans';
+      font-weight: normal;
+      font-size: 18px;
     }
     .comments-panel {
       background: #dfeeea;
@@ -665,7 +674,9 @@
     top: 8px;
     right: 8px;
     text-align: center;
-    font: bold 24px/25px 'Droid Sans';
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 25px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -869,7 +880,9 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e95b', endColorstr='#92b40d',GradientType=0 ); /* IE6-8 */
     
     padding: 3px 0 8px;
-    font: bold 29px/30px "Droid Sans";
+    font-weight: bold;
+    font-size: 29px;
+    line-height: 30px;
     color: #1b1e26;
     text-shadow: 1px 1px 0 #e0ff69;
     -moz-text-shadow: 1px 1px 0 #e0ff69;
@@ -941,7 +954,8 @@
     
     .follow {
       border-radius: 8px;
-      font: normal 13px 'Droid Sans';
+      font-weight: normal;
+      font-size: 13px;
       padding: 10px 5px 10px 11px;
       margin: 13px auto;
       width: 65px;

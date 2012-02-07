@@ -15,7 +15,8 @@ a {
 
 h3 {
   margin: 30px 0 10px 0px;
-  font: normal 18px 'Droid Sans';
+  font-weight: normal;
+  font-size: 18px;  
 }
 
 .clear {
@@ -45,7 +46,8 @@ h3 {
   border-radius: 7px;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
-  font: bold 14px "Droid Sans";
+  font-weight: bold;
+  font-size: 14px;
   color: #b6d051;
   text-shadow: 1px 1px 0 #000;
   -moz-text-shadow: 1px 1px 0 #000;
@@ -104,7 +106,9 @@ h3 {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#96c8bb', endColorstr='#557e73',GradientType=0 ); /* IE6-8 */
     
     border-radius: 8px;
-    font: normal 18px/26px 'Droid Sans';
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 26px;
     color: #ffffff;
     border: 1px solid #5c867b;
     -webkit-text-shadow: 1px 1px 0 #677e0b;
@@ -128,7 +132,7 @@ h3 {
 
 .wrapper {
   position: relative;
-  }
+}
 
 #general-links {
   background: #fff;
@@ -149,7 +153,8 @@ h3 {
 
 section {
   h1 {
-    font: normal 30px "Droid Sans";
+    font-weight: normal;
+    font-size: 30px;
     margin: 15px 0 20px;
   }
   
@@ -529,7 +534,8 @@ footer {
     -moz-border-radius: 8px;
     border-radius: 8px;
     float: right;
-    font: normal 13px 'Droid Sans';
+    font-weight: normal;
+    font-size: 13px;
     padding: 10px 5px 10px 11px;
     margin: 32px 18px 0 0;
     width: 65px;
@@ -723,7 +729,9 @@ footer {
       &.sell {
         width: 373px;
         border-radius: 8px;
-        font: normal 18px/26px 'Droid Sans';
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 26px;
         padding: 6px 5px;
         margin: 10px 0 0 3px;
         color: #ffffff;
