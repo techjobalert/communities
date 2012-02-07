@@ -6,7 +6,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-
+//
+//  Fileupload*
+//= require jquery.ui.widget
+//=	require jquery.iframe-transport
+//= require jquery.fileupload
+//= require jquery.fileupload-ui
+//
 //= require video
 //= require popup
 //= require main

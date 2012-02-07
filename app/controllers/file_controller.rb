@@ -2,16 +2,23 @@ require 'net/http'
 
 class FileController < ApplicationController
 
-  def upload
+  def upload_psource
     file = params[:file]
     File.open('../video/video_storage/p_source/' + file.original_filename, "wb") do |f|
       f.write(params[:file].read)
     end
-    redirect_to "/file/load/#{file.original_filename}"
+    uri = URI('http://192.168.0.251:3000/convert')
+    res = Net::HTTP.post_form(uri, 'file' => file.original_filename)
+
+    redirect_to "/file/load"
   end
 
-  def load
-    @file_name = params[:name]
+  def converted_pvideo
+    converted_pvideo
+  end
+  
+  def webrecorder
+    @uuid = SecureRandom.hex(10)
   end
 
   def convert
