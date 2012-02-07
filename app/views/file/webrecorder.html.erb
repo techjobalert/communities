@@ -10,8 +10,8 @@
 
     <div class="clearfix">
       <ul class="recorder-control fl-l">
-          <li id="recorder-stop-start" class="button c-white">Start record</li>
-          <li id="merge-video" class="button bg-green c-white">Merge video</li>
+          <li id="recorder-stop-start" class="button c-white">1.Start record</li>
+          <li id="merge-video" class="button bg-green c-white">3.Merge video</li>
         </ul>
         <ul class="recorder-control fl-r">
           <li id="recorder-status" class="recorder-icon" style="padding-top: 5px;"></li>
@@ -64,4 +64,32 @@
     recordind ? alert("Stop record") : mergeFunc();
   }
   ,false);
+</script>
+
+<span class="button bg-green c-white fileinput-button" style="margin-top:10px">
+    <span><i class="icon-plus icon-white"></i>2.Add presentation file</span>
+    <input type="file" name="files[]" multiple>
+</span>
+
+<script>
+$(function () {
+    $('.fileinput-button').fileupload({
+        dataType: 'json',
+        url: '/file/upload',
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        done: function (e, data) {
+          //$.each(data.result, function (index, file) {
+          //    $('<p/>').text(file.name).appendTo(document.body);
+          //});
+          alert('Your file uploaded');
+        },
+        progress: function (e, data) {
+          var progress = parseInt(data.loaded / data.total * 100, 10);
+          console.log(progress);
+        },
+        add: function (e, data) {
+          data.submit();
+        }
+    });
+});
 </script>
