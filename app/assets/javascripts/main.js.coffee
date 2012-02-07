@@ -31,8 +31,9 @@ $ ->
     $("#popup-set-preview").fadeOut "fast"
     
   $(".b-settings-nav a").live "click", ->
-    $(".b-settings-nav a").toggleClass "selected"
-    $(".b-settings-tab").toggleClass "hidden"
-    return false
+    unless $(this).hasClass("selected")
+      $(".b-settings-nav a").toggleClass "selected"
+      $(".b-settings-tab").toggleClass "hidden"
+    false
 
   

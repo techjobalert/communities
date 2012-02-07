@@ -1,0 +1,47 @@
+.b-admin-content
+  .b-admin-content-title Waiting for your approval:
+  .list
+    .header
+      .nav
+        = link_to '#', :class => 'movies selected' do
+          %span
+          Movies
+        = link_to '#', :class => 'articles' do
+          %span
+          Articles
+        = link_to '#', :class => 'presentations' do
+          %span
+          Presentations
+      .list-title
+        um, nisi vel venenatis faucibus, augue libero commodo tellus, nec 
+        pharetra risus erat sit amet felis. Nullam at ipsum ac ante
+      .clear
+      .list-content
+        .b-admin-content-body.video
+          .preview
+            = image_tag '/assets/tmp/p5.png'
+          .body
+            = link_to image_tag('/assets/logo.png', :width => '200'), '#'
+            %h2 Allergic reaction and nickel-free
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Phasellus metus mi, egestas eget cursus eu, egestas nec massa.
+            Sed ac dui nec arcu viverra pulvinar at quis erat.
+            Ut viverra consectetur erat ut vulputate. Integer
+            bibendum, nisi vel venenatis faucibus, augue libero
+            commodo tellus, nec pharetra risus erat sit amet
+            felis. Nullam at ipsum ac ante ullamcorper vehicula.
+            Cum sociis natoque penatibus et magnis dis parturient
+            montes, nascetur ridiculus mus. Suspendisse potenti.
+            Etiam semper enim egestas enim vehicula commodo. Nulla
+            quis urna ut neque sollicitudin facilisis. Cras
+            vitae velit id odio laoreet ullamcorper. Etiam
+            rhoncus convallis odio, quis lobortis ipsum
+            pellentesque id. Phasellus congue mollis turpis,
+            aliquam imperdiet est pharetra sit amet. Duis
+            placerat vehicula scelerisque.
+          .clear
+          
+        .b-admin-content-tools
+          = link_to 'Confirm','#', :class => 'light-button confirm'
+          = link_to 'Deny','#', :class => 'light-button deny'

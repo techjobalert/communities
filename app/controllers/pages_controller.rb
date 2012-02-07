@@ -1,5 +1,16 @@
 class PagesController < ApplicationController
-  layout "inner", :except => [:home, :sign_in]
+  
+  layout :determine_layout, :except => [:home, :sign_in]
+  
+  def determine_layout
+    if params[:action] == 'admin'
+      "administrator"
+    else
+      "inner"
+    end
+  end
+  
+  
 
   def home
   end
@@ -29,5 +40,11 @@ class PagesController < ApplicationController
   end
   
   def colleagues
+  end
+  
+  def upload
+  end
+  
+  def admin
   end
 end
