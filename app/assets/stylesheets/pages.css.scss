@@ -724,7 +724,7 @@
   }
 }
 
-#purchased-item {
+.b-purchased-item {
   background: #ffffff;
   border-radius: 7px;
   -moz-border-radius: 7px;
@@ -1051,4 +1051,193 @@
       padding-bottom: 5px;
     }
   }
+}
+
+.b-settings {
+  margin: 30px;
+  h2 {
+    font-size: 26px;
+    line-height: 30px; 
+    font-weight: normal;
+    margin: 15px 0 20px;
+  }
+  
+  .b-notification {
+    margin-left: 230px;
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    
+    li {
+      list-style: none;
+      padding: 7px 8px;
+      font-size: 12px;
+      width: 360px;
+    }
+    
+    .odd {
+      background: #dfeeea;
+    }
+    
+    .submit {
+      padding: 15px 0px;
+      text-align: right;
+      width: 376px;
+    }
+    
+    input[type="checkbox"] {
+      vertical-align: text-bottom;
+      margin-right: 10px;
+    }
+    
+    .b-settings-title {
+      font-size: 18px;
+      margin: 25px 0 10px;
+    }
+    
+    .light-button.green {
+      padding: 5px 15px;
+      font-size: 14px;
+      -webkit-text-shadow: none;
+      -moz-text-shadow: none;
+      text-shadow: none;
+      line-height: 1;
+    }
+  }
+  
+  .b-info {
+    margin-left: 210px;
+    .bio {
+      width: 400px;      
+      border: 1px solid #b8b479;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      margin: 0 0 20px;
+      position: relative;
+      .title {
+        background: #dfeeea;
+        padding: 10px 17px;
+        -webkit-border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        border-radius: 10px 10px 0 0;
+        font-size: 18px;
+        position: relative;
+        span {
+          color: #4f8b7b;
+          font-size: 12px;
+          position: absolute;
+          bottom: 10px;
+          right: 13px;
+          text-shadow: 1px 1px 0 #fff;
+        }
+      }
+      
+      .body {
+        padding: 17px;
+        font-size: 14px;
+        
+        textarea {
+          height: 55px;
+          padding: 6px;
+          width: 350px;  
+          background: none repeat scroll 0 0 #F1EFD1;
+          border: 1px solid #F1EFD1;
+          -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+          -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+          box-shadow: 0 2px 2px #D8DCC1 inset;
+        }
+        
+        .right {
+          text-align: right;
+          padding: 10px 0px 0;
+        }
+      }   
+    }
+    
+    .form {
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+      
+      li {
+        list-style: none;
+        padding: 5px 0;
+      }
+      
+      label {
+        display: block;
+        float: left;
+        font-size: 14px;
+        line-height: 30px;
+        width: 71px;
+      }
+      
+      input[type="text"] {
+        width: 200px;
+        padding: 5px 6px;
+        background: none repeat scroll 0 0 #F1EFD1;
+        border: 1px solid #F1EFD1;
+        -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+        -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+        box-shadow: 0 2px 2px #D8DCC1 inset;
+      }
+      
+      .right {
+        text-align: right;
+        padding: 10px 0px 0;
+        width: 286px;
+      }      
+    }
+    
+    .light-button.green {
+      padding: 5px 15px;
+      font-size: 14px;
+      -webkit-text-shadow: none;
+      -moz-text-shadow: none;
+      text-shadow: none;
+      line-height: 1;
+    }    
+  }  
+}
+
+.b-settings-nav {
+  position: absolute;
+  top: 252px;
+  left: -12px;
+  
+  a {
+    background: url("/assets/settings-set.png") no-repeat scroll 0 -127px transparent;
+    color: #518c7d;
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    height: 42px;
+    padding: 9px 0 7px 20px;
+    text-decoration: none;
+    width: 153px;
+    -webkit-text-shadow: 1px 1px 0 #fff;
+    -moz-text-shadow: 1px 1px 0 #fff;
+    text-shadow: 1px 1px 0 #fff;    
+    margin-bottom: 8px;
+    
+    span {
+      font-weight: normal;
+      font-size: 11px;
+      display: block;
+    }
+    
+    &:hover {
+      color: #1B1E26;
+      background-position: 0 1px;
+    }
+    
+    &.selected {
+      color: #1B1E26;
+      background-position: 0 -60px;
+    }
+  }   
+  
 }

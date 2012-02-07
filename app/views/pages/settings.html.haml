@@ -1,2 +1,63 @@
+.b-settings
+  %h2 Customize your settings
+  .b-notification.b-settings-tab.hidden
+    .b-settings-title Email me whenever:
+    = form_for '/' do |f|
+      %ul
+        %li.odd
+          = f.check_box "radio_1"
+          = label "_radio", "1", "Someone following me"
+        %li
+          = f.check_box "radio_1"
+          = label "_radio", "1", "Someone of my following has published something"
+        %li.odd
+          = f.check_box "radio_1"
+          = label "_radio", "1", "Someone following me"
+        %li
+          = f.check_box "radio_1"
+          = label "_radio", "1", "Someone of my following has published something"
+        %li.odd
+          = f.check_box "radio_1"
+          = label "_radio", "1", "Someone following me"
+        %li
+          = f.check_box "radio_1"
+          = label "_radio", "1", "Someone of my following has published something"
+        %li.odd
+          = f.check_box "radio_1"
+          = label "_radio", "1", "Someone following me"
+        %li
+          = f.check_box "radio_1"
+          = label "_radio", "1", "Someone of my following has published something"
+        %li.odd
+          = f.check_box "radio_1"
+          = label "_radio", "1", "Someone following me"
+        
 
-.clear
+        %li.submit= f.submit 'Save changes', :class => 'light-button green'
+
+
+  .b-info.b-settings-tab
+    .bio
+      .title 
+        Biography
+        %span Tell us more about yourself            
+      .body
+        = text_area_tag 'description'
+
+        .right= button_tag 'OK', :class => 'light-button green'
+
+    .form
+      = form_for '/' do |f|      
+        %ul
+          %li
+            = label "1", "1", "School"
+            = f.text_field ''
+          %li
+            = label "1", "1", "School"
+            = f.text_field ''
+          %li
+            = label "1", "1", "School"
+            = f.text_field ''
+          %li.right= button_tag 'OK', :class => 'light-button green'
+
+  / + две линки в лояуте inner.html.haml
