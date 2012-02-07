@@ -1,5 +1,7 @@
 Orthodontic::Application.routes.draw do
 
+  devise_for :users
+
   match "/home" => "pages#home"
   match "/sign_in" => "pages#sign_in"
   match "/item" => "pages#item"
@@ -13,9 +15,10 @@ Orthodontic::Application.routes.draw do
 
   resources :file, :only => [:index] do
     collection do
-      post "upload", :action => 'upload'
+      post "upload", :action => 'upload_psource'
+      post "convert", :action => 'converted_pvideo'
 
-      get "load/:name", :action => 'load', :constraints => { :name => /.*/ }
+      get "webrecorder", :action => 'webrecorder'
 
       post "convert/:name", :action => 'convert', :constraints => { :name => /.*/ }
 
@@ -23,5 +26,5 @@ Orthodontic::Application.routes.draw do
     end
   end
 
-  root :to => "file#index"
+  root :to => "file#webrecorder"
 end

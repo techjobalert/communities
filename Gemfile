@@ -62,4 +62,3 @@ gem 'resque'
 
 #gem 'acts_as_commentable'
 gem 'acts_as_follower'
-gem 'em-http-request'

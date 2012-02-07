@@ -1,17 +1,17 @@
-<!--
-<script>
-  swfobject.embedSWF("/assets/ErlyvideoPlayer.swf", "ui", "100%", "600", "9.0.0", {}, { file: '<%= @name %>' }, {});
-</script>
-<div id='ui'></div>
--->
 <div class="fl-l" style="width:960px">
   <div class="fl-l">
     <%= render :partial => 'partials/webrecorder' %>
 
     <div class="clearfix">
       <ul class="recorder-control fl-l">
-          <li id="recorder-stop-start" class="button c-white">Start record</li>
-          <li id="merge-video" class="button bg-green c-white">Merge video</li>
+          <li id="recorder-stop-start" class="button c-white">1.Start record</li>
+
+          <li class="button bg-green c-white fileinput-button">
+            <span><i class="icon-plus icon-white"></i>2.Add presentation file</span>
+            <input type="file" name="file" multiple>
+          </li>
+
+          <li id="merge-video" class="button bg-green c-white">3.Merge video</li>
         </ul>
         <ul class="recorder-control fl-r">
           <li id="recorder-status" class="recorder-icon" style="padding-top: 5px;"></li>
@@ -64,4 +64,28 @@
     recordind ? alert("Stop record") : mergeFunc();
   }
   ,false);
+</script>
+
+<script>
+$(function () {
+    $('.fileinput-button').fileupload({
+        dataType: 'json',
+        url: '/file/upload',
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        done: function (e, data) {
+          //$.each(data.result, function (index, file) {
+          //    $('<p/>').text(file.name).appendTo(document.body);
+          //});
+          alert('Your file uploaded');
+        },
+        progress: function (e, data) {
+          var progress = parseInt(data.loaded / data.total * 100, 10);
+          console.log(progress);
+        },
+        add: function (e, data) {
+          data.formData = {uuid: uuid};
+          data.submit();
+        }
+    });
+});
 </script>

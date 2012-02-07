@@ -3,14 +3,14 @@ class VideoMerge
 
   def self.perform(presentV, recordedV, params)
     #erlyvideo_path = File.expand_path(File.dirname(__FILE__) + '/../../vendor/erlyvideo/video/')
-    erlyvideo_path = '/home/buildbot/video/'
-    upload_dir = erlyvideo_path+'/merged-video/'
-    presentation_dir = erlyvideo_path +'/uploads/'
-    records_dir = erlyvideo_path +'/webcam-records/'
-    misc_dir = erlyvideo_path + '/misc/'
+    video_path = '/home/buildbot/video/'
+    upload_dir = video_path+'/merged/'
+    presentation_dir = video_path +'/video_storage/p_video/'
+    records_dir = video_path +'/webcam_records/'
+    misc_dir = video_path + '/misc/'
 
     base_name = File.basename(presentV, ".mp4")
-    output_filename = [base_name,SecureRandom.hex(10)].join("_").insert(-1, ".mp4")
+    #output_filename = [base_name,SecureRandom.hex(10)].join("_").insert(-1, ".mp4")
     add_logo = false
     logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
       :pos => self.add_position('tl'),
@@ -18,7 +18,7 @@ class VideoMerge
     }
 
     options = {
-      :output_filename => output_filename,
+      :output_filename => presentV,
       :presentV => presentation_dir+presentV,
       :recordedV => records_dir+recordedV,
       :pos => self.add_position(),
