@@ -1,4 +1,4 @@
-#auth {
+.b-auth {
   position: relative;
   background: url("/assets/auth-bg.gif") no-repeat scroll 0 110px transparent;
   padding-top: 20px;
@@ -175,7 +175,7 @@
 }
 
 
-#search-engine {
+.b-search-engine {
   background: url('/assets/search-engine-bg.png') no-repeat 0 0px;
   margin-top: 35px;
   padding-top: 1px;
@@ -244,7 +244,7 @@
   }
 }
 
-#explore-popup {
+.b-explore-popup {
   background: url('/assets/search-engine-shdw.png') no-repeat center bottom;
   position: absolute;
   right: 27px;
@@ -302,7 +302,7 @@
   }
 }
 
-#main-content {
+.main-content {
   border: 1px solid #b8b479;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -1783,6 +1783,5 @@
       text-shadow: 0 -1px 0 #29383b;
       font-size: 20px;
     }
-  }
-  
+  }  
 }

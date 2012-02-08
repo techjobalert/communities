@@ -153,7 +153,7 @@ h3 {
   }
 }
 
-section {
+.section {
   h1 {
     font-weight: normal;
     font-size: 30px;
@@ -175,7 +175,7 @@ section {
   -moz-border-radius: 7px;
   border-radius: 7px;
   
-  .header {
+  .list-header {
     background: #70a99a;
     z-index: 10;
     position: relative;
@@ -630,13 +630,13 @@ footer {
   }
 }
 
-#popup-user-info .container {
+.b-popup-user-info .container {
   margin-bottom: 18px;
   padding-bottom: 5px;
 }
 
 
-#popup-set-preview {
+.b-popup-set-preview {
   ul {
     margin: 10px;
     padding: 0;
@@ -674,7 +674,7 @@ footer {
   }
 }
 
-#popup-item-info{
+.b-popup-item-info{
   span.date {
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;

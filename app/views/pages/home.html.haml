@@ -1,7 +1,7 @@
-%header
+.header
   = render :partial => "pages/general_links"
   
-  #auth.center
+  .b-auth.center
     = link_to '', root_path, :class => 'logo'
     .buttons
       = link_to '#', :class => 'sign-up' do
@@ -36,80 +36,80 @@
       .clear
 .clear
 
-.center
-  %section
-    %h1
-      Featured on
-      %b Orthodontics
-      %span.unauthorized
-        %b= link_to 'Sign up', '#'
-        in order to view content
 
-    .container.list
-      .header
-        .nav
-          = link_to '#', :class => 'movies selected' do
-            %span
-            Movies
-          = link_to '#', :class => 'articles' do
-            %span
-            Articles
-          = link_to '#', :class => 'presentations' do
-            %span
-            Presentations
-        .filter
-          .field
-            .tags
-              .label Sort by
-              = link_to 'Viewed', '#', :class => 'selected'
-              = link_to 'Length', '#'
-              = link_to 'Date', '#'
-              = link_to 'Free', '#'
-              = link_to 'Paid', '#'
-              .clear
-            .search
-              = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'
-              = button_tag 'Go', :class => 'dark-button'
+.section.center
+  %h1
+    Featured on
+    %b Orthodontics
+    %span.unauthorized
+      %b= link_to 'Sign up', '#'
+      in order to view content
+
+  .container.list
+    .list-header
+      .nav
+        = link_to '#', :class => 'movies selected' do
+          %span
+          Movies
+        = link_to '#', :class => 'articles' do
+          %span
+          Articles
+        = link_to '#', :class => 'presentations' do
+          %span
+          Presentations
+      .filter
+        .field
+          .tags
+            .label Sort by
+            = link_to 'Viewed', '#', :class => 'selected'
+            = link_to 'Length', '#'
+            = link_to 'Date', '#'
+            = link_to 'Free', '#'
+            = link_to 'Paid', '#'
             .clear
-        .clear
-        .list-content
-          .item
-            .media= image_tag '/assets/tmp/p2.png'
-            .text
-              Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem
-              = link_to 'Ipsum has been', '#'
-              the industry's
-              standard dummy text ever since the 1500s, when an
-              unknown printer.
-          .item
-            .media= image_tag '/assets/tmp/p2.png'
-            .text
-              Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum has been the industry's
-              = link_to 'standard dummy', '#'
-              text ever since the 1500s, when an
-              unknown printer.
-          .item
-            .media= image_tag '/assets/tmp/p2.png'
-            .text
-              Lorem Ipsum is
-              = link_to 'simply dummy', '#'
-              text of the printing and
-              typesetting industry. Lorem Ipsum has been the industry's
-              standard dummy text ever since the 1500s, when an
-              unknown printer.
+          .search
+            = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'
+            = button_tag 'Go', :class => 'dark-button'
           .clear
-          %nav
-            %ul.pagination
-              %li= link_to 'Page 1 of 22', '#'
-              %li
-                %span.current 1
-              %li= link_to '2', '#'
-              %li= link_to '4', '#'
-              %li= link_to '5', '#'
-              %li= link_to '6', '#'
-              %li= link_to '10', '#'
-              %li= link_to '20', '#'
-              %li= link_to 'Last Page>>', '#'
-            .clear
+      .clear
+      .list-content
+        .item
+          .media= image_tag '/assets/tmp/p2.png'
+          .text
+            Lorem Ipsum is simply dummy text of the printing and
+            typesetting industry. Lorem
+            = link_to 'Ipsum has been', '#'
+            the industry's
+            standard dummy text ever since the 1500s, when an
+            unknown printer.
+        .item
+          .media= image_tag '/assets/tmp/p2.png'
+          .text
+            Lorem Ipsum is simply dummy text of the printing and
+            typesetting industry. Lorem Ipsum has been the industry's
+            = link_to 'standard dummy', '#'
+            text ever since the 1500s, when an
+            unknown printer.
+        .item
+          .media= image_tag '/assets/tmp/p2.png'
+          .text
+            Lorem Ipsum is
+            = link_to 'simply dummy', '#'
+            text of the printing and
+            typesetting industry. Lorem Ipsum has been the industry's
+            standard dummy text ever since the 1500s, when an
+            unknown printer.
+        .clear
+        %nav
+          %ul.pagination
+            %li= link_to 'Page 1 of 22', '#'
+            %li
+              %span.current 1
+            %li= link_to '2', '#'
+            %li= link_to '4', '#'
+            %li= link_to '5', '#'
+            %li= link_to '6', '#'
+            %li= link_to '10', '#'
+            %li= link_to '20', '#'
+            %li= link_to 'Last Page>>', '#'
+          .clear
