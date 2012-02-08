@@ -1,1 +1,181 @@
-1
+.b-upload
+  .hr
+  
+  .b-uplod-step-regular.steps
+    .b-upload-title 
+      %b Regular (Moveis, Presentation, Documents)
+    
+    = link_to 'Select File', '#', :class => 'select-file'
+
+    = link_to '#', :class => 'light-button green upload' do
+      Upload
+      %span
+    .btn-hint 
+      It can be presentations, 
+      %br
+      movie and articles.    
+
+  .b-uplod-step-make-conference.steps
+    .b-upload-title 
+      %b Make your conference
+    
+    = link_to 'Select Movie File', '#', :class => 'select-file'
+
+    = link_to '#', :class => 'light-button green upload' do
+      Upload
+      %span
+  
+  .hr
+
+  .b-uplod-step-describe-movie.steps
+    .b-upload-title Describe your movie    
+    = image_tag '/assets/tmp/p2.png', :width => '135', :height => '100', :class => 'preview'
+    = form_for '/' do |f|      
+      .block
+        .item
+          = label "1", "1", "Title"
+          = f.text_field ''
+        .item.abstract
+          = label "1", "1", "Abstract"
+          = f.text_area 'description'
+        
+      .block
+        .item.keywords
+          = label "1", "1", "Keywords"
+          = f.text_area 'description'
+    
+    .clear
+  .hr
+
+  .b-uplod-step-sell-movie.steps
+    .b-upload-title 
+      Sell your movie in the orthodentic store
+      .hint 
+        Get reward on your quality medical item.  Get reward on your quality medical item.
+
+    .block.pay-pal-form
+      = form_for '/' do |f|
+        %ul
+          %li
+            = label "1", "1", "Country"
+            = f.select "", ['Russia','England']
+          %li
+            = label "1", "1", "First name"
+            = f.text_field ''
+          %li
+            = label "1", "1", "Last name"
+            = f.text_field ''
+          %li
+            = label "1", "1", "Credit card number"
+            = f.text_field ''
+          %li
+            = label "1", "1", "Payment type"
+            = f.text_field ''
+          %li.exp
+            = label "1", "1", "Expiration date"
+            = f.text_field '', :class => 'd'
+            = f.text_field '', :class => 'm'
+            %span css
+            = f.text_field '', :class => 'css'
+            = link_to 'Whats this?'
+          %li
+            = label "1", "1", "Billing address 1"
+            = f.text_field ''
+          %li
+            = label "1", "1", "Billing address 2"
+            = f.text_field ''
+          %li
+            = label "1", "1", "City"
+            = f.text_field ''
+          %li
+            = label "1", "1", "State"
+            = f.select "", ['Russia','England']
+          %li.zip
+            = label "1", "1", "Zip code"
+            = f.text_field ''
+          %li
+            = label "1", "1", "Home Tel"
+            = f.text_field ''
+          %li
+            = label "1", "1", "Email"
+            = f.text_field ''
+
+          %li
+            = link_to '#', :class => 'light-button pay-pal' do
+              Save your information with 
+              %b PayPal
+    .block
+      .b-upload-title Allready have a PayPal account?
+      .field
+        .title Please log in
+        .body.pay-pal-auth-form
+          = form_for '/' do |f|
+            %ul
+              %li
+                = label "1", "1", "Email"
+                = f.email_field ''
+              %li
+                = label "1", "1", "Password"
+                = f.password_field ''
+              %li.right
+                = link_to '#', :class => 'light-button green log-in' do
+                  Log in 
+                  
+          .hint
+            Forgot 
+            = link_to 'email address', '#'
+            or 
+            = link_to 'password', '#'
+            ?
+
+      .field
+        .title Set your price
+        .body.set-price
+          = form_for '/' do |f|
+            = f.text_field ''
+  .hr
+  .clear
+
+  .b-uplod-step-set-preview.steps
+    .b-upload-title Set preview
+      
+    .block
+      = form_for '/' do |f|
+        %ul
+          %li
+            = f.radio_button "radio", "1"
+            = label '_radio', '1', 'Show at most this number of pages', :class => 'checked'
+            = f.text_field ''
+          %li
+            = f.radio_button "radio", "2"
+            = label '_radio', '2', 'Show at most this number of pages'
+            = f.text_field ''
+          %li
+            = f.radio_button "radio", "3"
+            = label '_radio', '3', 'Show at most this number of pages'
+            = f.text_field ''
+      %p
+        %strong Note:
+        Show at most this number of pages Show at most thiser of pages
+
+  .hr
+  .clear
+
+  .b-uplod-step-copyright.steps
+    .b-upload-title Copyright Verification
+      
+    .block
+      = form_for '/' do |f|
+        = f.check_box ''
+        = label '_radio', '1' do        
+          Lorem Ipsum is simply dummy text of the printing and typesetting 
+          industry. Lorem Ipsum has been the industry's standard dummy text 
+          ever since the 1500s, when an unknown printer took a galley of type 
+          and scrambled it to make a type specimen book. 
+
+  .hr
+  .clear
+
+  .tools
+    = link_to '#', :class => 'light-button green publish' do
+      Publish
