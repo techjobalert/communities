@@ -39,5 +39,7 @@ $ ->
       $(".b-settings-nav a").toggleClass "selected"
       $(".b-settings-tab").toggleClass "hidden"
     false
+    
+  
 
   
