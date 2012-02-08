@@ -4,7 +4,7 @@
 .clear
 
 .list
-  .header
+  .list-header
     .nav.account
       = link_to '#', :class => 'items selected' do
         %span
@@ -28,10 +28,12 @@
       .field
         .tags
           .label Filter by
-          = link_to 'Viewed', '#', :class => 'selected'
-          = link_to 'Date', '#'
-          = link_to 'Free/Paid', '#'
-          = link_to 'Length', '#'          
+          = form_for '/' do |f|
+            = f.select "", ['Viewed','Viewed']
+            = f.select "", ['Length','Length']
+            = f.select "", ['Date','Date']
+            = f.select "", ['Free','Free']
+            = f.select "", ['Paid','Paid']         
           .clear
         .search
           = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'
