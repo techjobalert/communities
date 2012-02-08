@@ -3,6 +3,10 @@
     <%= render :partial => 'partials/webrecorder' %>
 
     <div class="clearfix">
+      <div class="bar">
+        <div class="progress-bar"><div class="inner">0</div></div>
+        <p class="text" style="display:none;">merged file will available at http://89.209.76.243:5580/merged/</p>
+      </div>
       <ul class="recorder-control fl-l">
           <li id="recorder-stop-start" class="button c-white">1.Start record</li>
 
@@ -11,7 +15,7 @@
             <input type="file" name="file" multiple>
           </li>
 
-          <li id="merge-video" class="button bg-green c-white">3.Merge video</li>
+          <!-- <li id="merge-video" class="button bg-green c-white">3.Merge video</li> -->
         </ul>
         <ul class="recorder-control fl-r">
           <li id="recorder-status" class="recorder-icon" style="padding-top: 5px;"></li>
@@ -21,7 +25,6 @@
   <!-- <div class="fl-l">
     <%#= render :partial => 'partials/player', :locals => {:file_name => @file_name} %>
   </div> -->
-
 </div>
 
 <script>
@@ -68,6 +71,9 @@
 
 <script>
 $(function () {
+    var pbar = $(".progress-bar"),
+        pbarInner = pbar.children(".inner"),
+        spinner = $(".spinner .centered-div");
     $('.fileinput-button').fileupload({
         dataType: 'json',
         url: '/file/upload',
@@ -76,15 +82,22 @@ $(function () {
           //$.each(data.result, function (index, file) {
           //    $('<p/>').text(file.name).appendTo(document.body);
           //});
-          alert('Your file uploaded');
+          //
         },
         progress: function (e, data) {
           var progress = parseInt(data.loaded / data.total * 100, 10);
-          console.log(progress);
+          var _p = progress+"%";
+          pbarInner.text(_p).width(_p);
         },
         add: function (e, data) {
           data.formData = {uuid: uuid};
+          pbar.fadeIn();
+          $('<div class="spinner centered-div"></div>').appendTo('body');
           data.submit();
+        },
+        always: function (e, data) {
+          pbar.fadeOut();
+          $(".bar .text").fadeIn();
         }
     });
 });
