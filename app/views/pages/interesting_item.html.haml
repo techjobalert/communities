@@ -16,11 +16,12 @@
       .field
         .tags
           .label Sort by
-          = link_to 'Viewed', '#', :class => 'selected'
-          = link_to 'Length', '#'
-          = link_to 'Date', '#'
-          = link_to 'Free', '#'
-          = link_to 'Paid', '#'
+          = form_for '/' do |f|
+            = f.select "", ['Viewed','Viewed']
+            = f.select "", ['Length','Length']
+            = f.select "", ['Date','Date']
+            = f.select "", ['Free','Free']
+            = f.select "", ['Paid','Paid']
           .clear
         .search
           = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'

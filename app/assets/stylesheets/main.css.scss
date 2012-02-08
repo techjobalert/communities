@@ -303,6 +303,7 @@ h3 {
     -webkit-border-radius: 0 7px 0 0;
     -moz-border-radius: 0 7px 0 0;
     border-radius: 0 7px 0 0;
+    
     .field {
       background: #e0ddb1;
       -webkit-border-radius: 5px;
@@ -310,10 +311,16 @@ h3 {
       border-radius: 5px;
       padding: 4px 12px;
     }
+    
     .tags {
       width: 340px;
       font-size: 11px;
       float: left;
+      
+      select {
+        margin: 3px 1px 0 0;
+        max-width: 85px;
+      }
       a {
         border: 1px solid #c9c693;
         -webkit-border-radius: 7px;
