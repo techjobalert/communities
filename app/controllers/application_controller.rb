@@ -4,11 +4,14 @@ class ApplicationController < ActionController::Base
   
   #before_filter :authenticate_user!
 
-  protected
-  # def authenticate
-  #   authenticate_or_request_with_http_basic do |username, password|
-  #     username == "foo" && password == "bar"
-  #   end
-  # end
+	def after_sign_in_path_for(resource_or_scope)
+		puts resource_or_scope
+		
+	  # if session[:registered_from] == projects_register_path
+	  #   new_project_path
+	  # else
+	  #   account_index_path
+	  # end
+	end
 
 end
