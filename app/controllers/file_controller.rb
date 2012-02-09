@@ -26,12 +26,10 @@ class FileController < ApplicationController
 
     Dir.foreach("../video/webcam_records/") do |file| 
       if file.include?(pvideo_uuid)
-        puts file #
         wvideo = file
         break
       end
     end
-    puts pvideo_file, wvideo
     if pvideo_file and wvideo
       Resque.enqueue( VideoMerge, pvideo_file, wvideo, {})
     end
