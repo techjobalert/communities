@@ -18,7 +18,7 @@ class VideoMerge
     }
 
     options = {
-      :output_filename => presentV,
+      :output_filename => recordedV,
       :presentV => presentation_dir+presentV,
       :recordedV => records_dir+recordedV,
       :pos => self.add_position(),

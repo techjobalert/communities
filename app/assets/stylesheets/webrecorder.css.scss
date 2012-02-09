@@ -50,3 +50,31 @@ ul.recorder-control {
 #recorder-status {
   color: red;
 }
+
+.progress-bar{
+  width: 300px;
+  padding: 5px;
+  border: 1px solid gray;
+  margin: 5px;
+  display: none;
+  .inner{
+    width: 0px;
+    background-color: lightBlue;
+    text-align: center;
+  }
+}
+
+.spinner{
+  background: url("/assets/ajax-loader.gif") no-repeat ;
+  width: 32px;
+  height: 32px;
+}
+
+.centered-div{
+  display:block;
+
+  /*set the div in the center of the screen*/
+  position:absolute;
+  top:50%;
+  left:35%;
+}

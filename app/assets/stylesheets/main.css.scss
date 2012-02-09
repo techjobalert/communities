@@ -43,15 +43,15 @@ h3 {
 
 .dark-button{
   border: 1px solid #242835;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
   font-weight: bold;
   font-size: 14px;
   color: #b6d051;
-  text-shadow: 1px 1px 0 #000;
-  -moz-text-shadow: 1px 1px 0 #000;
   -webkit-text-shadow: 1px 1px 0 #000;
+  -moz-text-shadow: 1px 1px 0 #000;
+  text-shadow: 1px 1px 0 #000;
   padding: 6px;
   background: #505a75; /* Old browsers */
   /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -105,6 +105,8 @@ h3 {
     background: linear-gradient(top, #96c8bb 0%,#557e73 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#96c8bb', endColorstr='#557e73',GradientType=0 ); /* IE6-8 */
     
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
     border-radius: 8px;
     font-weight: normal;
     font-size: 18px;
@@ -121,11 +123,11 @@ h3 {
   padding: 8px 12px;
   font-size: 12px;
   border: 1px solid #c9c693;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
-  -moz-box-shadow: 0 2px 2px #dad8bf inset;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
   -webkit-box-shadow: 0 2px 2px #dad8bf inset;
+  -moz-box-shadow: 0 2px 2px #dad8bf inset;
   box-shadow: 0 2px 2px #dad8bf inset;
   background-color: #fff;
 }
@@ -151,7 +153,7 @@ h3 {
   }
 }
 
-section {
+.section {
   h1 {
     font-weight: normal;
     font-size: 30px;
@@ -169,25 +171,25 @@ section {
 
 .list {
   border: 1px solid #b8b479;
-  border-radius: 7px;
-  -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
   
-  .header {
+  .list-header {
     background: #70a99a;
     z-index: 10;
     position: relative;
-    border-radius: 7px;
-    -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
   }
   
   .nav {
     height: 68px;
     background: #70a99a;
-    border-radius: 7px 0 0;
-    -moz-border-radius: 7px 0 0;
     -webkit-border-radius: 7px 0 0;
+    -moz-border-radius: 7px 0 0;
+    border-radius: 7px 0 0;
     width: 323px;
     float: left;
     margin: -1px 0 0 -1px;
@@ -204,9 +206,9 @@ section {
       font-size: 14px;
       color: #1b1e26;
       text-decoration: none;
-      text-shadow: 1px 1px 0 #a0e1d1;
-      -moz-text-shadow: 1px 1px 0 #a0e1d1;
       -webkit-text-shadow: 1px 1px 0 #a0e1d1;
+      -moz-text-shadow: 1px 1px 0 #a0e1d1;
+      text-shadow: 1px 1px 0 #a0e1d1;
       
       span {
         background: url("/assets/media-nav-set.png") no-repeat;
@@ -298,25 +300,32 @@ section {
     padding: 5px 8px;
     width: 605px;
     float: right;
-    border-radius: 0 7px 0 0;
-    -moz-border-radius: 0 7px 0 0;
     -webkit-border-radius: 0 7px 0 0;
+    -moz-border-radius: 0 7px 0 0;
+    border-radius: 0 7px 0 0;
+    
     .field {
       background: #e0ddb1;
-      border-radius: 5px;
-      -moz-border-radius: 5px;
       -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
       padding: 4px 12px;
     }
+    
     .tags {
       width: 340px;
       font-size: 11px;
       float: left;
+      
+      select {
+        margin: 3px 1px 0 0;
+        max-width: 85px;
+      }
       a {
         border: 1px solid #c9c693;
-        border-radius: 7px;
-        -moz-border-radius: 7px;
         -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        border-radius: 7px;
         color: #1b1e26;
         font-size: 12px;
         display: block;
@@ -374,9 +383,9 @@ section {
   
   .list-content {
     background: #ffffff;
-    border-radius: 7px;
-    -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
     margin-top: -5px;
     z-index: 20;
     position: relative;
@@ -489,7 +498,7 @@ section {
   }
 }
 
-footer {
+.l-footer {
   height: 70px;
 }
 
@@ -628,13 +637,13 @@ footer {
   }
 }
 
-#popup-user-info .container {
+.b-popup-user-info .container {
   margin-bottom: 18px;
   padding-bottom: 5px;
 }
 
 
-#popup-set-preview {
+.b-popup-set-preview {
   ul {
     margin: 10px;
     padding: 0;
@@ -672,7 +681,7 @@ footer {
   }
 }
 
-#popup-item-info{
+.b-popup-item-info{
   span.date {
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
@@ -754,6 +763,8 @@ footer {
       
       &.sell {
         width: 373px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
         border-radius: 8px;
         font-weight: normal;
         font-size: 18px;

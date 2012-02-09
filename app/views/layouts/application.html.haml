@@ -6,7 +6,11 @@
     = javascript_include_tag "application", :debug => Rails.env.development?
     = csrf_meta_tags
   %body
+    = render :partial => "layouts/ie_fix"
+
+
     /%p.notice= notice
     /%p.alert= alert
     = yield
-    %footer
+
+    .l-footer
