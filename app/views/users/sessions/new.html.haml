@@ -1,0 +1,12 @@
+.b-sign-in
+  = render :partial => "pages/general_links"    
+  .b-sign-in-container
+    = link_to '', root_path, :class => 'b-sign-in-logo'
+    .b-sign-in-form
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|        
+        %p= f.text_field :email, :placeholder => 'Email Address'
+        %p= f.password_field :password, :placeholder => 'Password'
+               
+        = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit();" do
+          SIGN IN
+          %span to your account      
