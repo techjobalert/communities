@@ -10,13 +10,14 @@ class VideoMerge
     misc_dir = video_path + '/misc/'
 
     add_logo = false
+    output_filename = File.basename(presentV, ".flv") + "mp4"
     logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
       :pos => self.add_position('tl'),
       :logo => misc_dir+'logo.png'
     }
 
     options = {
-      :output_filename => File.basename(presentV, ".flv") + "mp4",
+      :output_filename => output_filename,
       :presentV => presentation_dir+presentV,
       :recordedV => records_dir+recordedV,
       :pos => self.add_position(),
