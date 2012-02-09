@@ -9,7 +9,7 @@ class VideoMerge
     records_dir = video_path +'/webcam_records/'
     misc_dir = video_path + '/misc/'
 
-    base_name = File.basename(presentV, ".mp4")
+    base_name = File.basename(presentV, ".flv")
     #output_filename = [base_name,SecureRandom.hex(10)].join("_").insert(-1, ".mp4")
     add_logo = false
     logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {

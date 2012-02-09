@@ -1,8 +1,10 @@
 Orthodontic::Application.routes.draw do
 
-  devise_for :users
+  get "home/index"
 
-  match "/home" => "pages#home"
+  devise_for :users
+  
+  
   match "/sign_in" => "pages#sign_in"
   match "/item" => "pages#item"
   match "/interesting_item" => "pages#interesting_item"
@@ -28,5 +30,5 @@ Orthodontic::Application.routes.draw do
     end
   end
 
-  root :to => "file#webrecorder"
+  root :to => "home#index"
 end
