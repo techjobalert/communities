@@ -4,7 +4,7 @@
   .b-auth.center
     = link_to '', root_path, :class => 'logo'
     .buttons
-      = link_to '#sign-up', :class => 'sign-up' do
+      = link_to '#', :class => 'sign-up' do
         SIGN UP
         %span quick blabla text
       = link_to '#', :class => 'sign-in' do
@@ -17,20 +17,21 @@
           Foxy parsons quiz and cajole the wiki-girl.
         .media= image_tag "/assets/tmp/p1.jpg"
       #sign-up
-        = form_for '/' do |f|
+        = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+          = devise_error_messages!
           .inputs
             .toggler
               %b I am
-              = f.radio_button "radio", "doctor"
-              = label '_radio', 'doctor', 'a Doctor', :class => 'doctor checked'
-              = f.radio_button "radio", "patient"
-              = label '_radio', 'patient', 'a Patient', :class => 'patient'
-            %p= f.text_field '', :placeholder => 'Full Name'
-            %p.doctor-only= f.text_field '', :placeholder => 'Profession and degree'
-            %p= f.text_field '', :placeholder => 'Email Address'
-            %p= f.password_field '', :placeholder => 'Password'
-            %p= f.password_field '', :placeholder => 'Verify Password'
-          = link_to '#', :class => 'submit-btn' do
+              = f.radio_button :role, "doctor"
+              = f.label :role_doctor, 'a Doctor', :class => 'doctor checked'
+              = f.radio_button :role, "patient"
+              = f.label :role_patient, 'a Patient', :class => 'patient'
+            %p= f.text_field :full_name, :placeholder => 'Full Name'
+            %p.doctor-only= f.text_field :profession_and_degree, :placeholder => 'Profession and degree'
+            %p= f.text_field :email, :placeholder => 'Email Address'
+            %p= f.password_field :password, :placeholder => 'Password'
+            %p= f.password_field :password_confirmation, :placeholder => 'Verify Password'
+          = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit();" do
             SIGN UP
             %span to create an account
       .clear
@@ -42,7 +43,7 @@
     Featured on
     %b Orthodontics
     %span.unauthorized
-      %b= link_to 'Sign up', '#'
+      %b= link_to 'Sign up', "#{root_path}#sign-up"
       in order to view content
 
   .container.list
@@ -113,3 +114,9 @@
             %li= link_to '20', '#'
             %li= link_to 'Last Page>>', '#'
           .clear
+
+
+- if current_user.present?
+  = link_to 'Logout', destroy_user_session_path, :method => 'DELETE'
+
+  

@@ -40,6 +40,6 @@ $ ->
       $(".b-settings-tab").toggleClass "hidden"
     false
     
-  
+
 
   
