@@ -42,6 +42,8 @@ end
 gem 'cancan'                                                      # Permissions
 gem 'devise'                                                      #
 
+gem 'default_value_for'
+
 #gem 'therubyracer'                                               # JS runtime
 gem 'client_side_validations'                                     # clientside validation by ajax
 gem 'kaminari'                                                    # Pagination
