@@ -6,7 +6,6 @@ Orthodontic::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations" }
   
   
-  match "/home" => "pages#home"
   match "/sign_in" => "pages#sign_in"
   match "/item" => "pages#item"
   match "/interesting_item" => "pages#interesting_item"

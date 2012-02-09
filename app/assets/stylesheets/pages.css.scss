@@ -13,12 +13,27 @@
       text-decoration: none;
       display: block;
       float: left;
-      background: url("/assets/auth-btn-set.png");
+      background: url("/assets/auth-btn-set.png") -174px 1px;
       font-weight: bold;
       font-size: 24px;
       text-align: center;
+      padding-top: 8px;
+      height: 53px;
+      width: 158px;        
+      color: #fff;     
+      -webkit-text-shadow: 1px 1px 0 #677e0b;
+      -moz-text-shadow: 1px 1px 0 #677e0b;
+      text-shadow: 1px 1px 0 #677e0b;
+      span {
+        -webkit-text-shadow: 1px 1px 0 #1b1e26;
+        -moz-text-shadow: 1px 1px 0 #1b1e26;
+        text-shadow: 1px 1px 0 #1b1e26;
+        font-size: 12px;
+        display: block;
+        color: #f2efbd;
+      }
       
-      &.sign-up{
+      &.selected {
         padding-top: 16px;
         height: 89px;
         width: 158px;
@@ -26,34 +41,12 @@
         -webkit-text-shadow: 1px 1px 0 #e0ff69;
         -moz-text-shadow: 1px 1px 0 #e0ff69;
         text-shadow: 1px 1px 0 #e0ff69;
+        background-position: 0 0;
         span{
           text-shadow: 1px 1px 0 #677e0b;
           -moz-text-shadow: 1px 1px 0 #677e0b;
           -webkit-text-shadow: 1px 1px 0 #677e0b;
         }
-      }
-      
-      &.sign-in{
-        background-position: -159px 0;
-        padding-top: 8px;
-        height: 53px;
-        width: 141px;
-        color: #fff;
-        margin-left: 12px;
-        -webkit-text-shadow: 1px 1px 0 #677e0b;
-        -moz-text-shadow: 1px 1px 0 #677e0b;
-        text-shadow: 1px 1px 0 #677e0b;
-        span {
-          -webkit-text-shadow: 1px 1px 0 #1b1e26;
-          -moz-text-shadow: 1px 1px 0 #1b1e26;
-          text-shadow: 1px 1px 0 #1b1e26;
-        }
-      }
-      
-      span {
-        font-size: 12px;
-        display: block;
-        color: #f2efbd;
       }
     }
   }
@@ -86,12 +79,18 @@
       }
     }
     
-    #sign-up {
+    .sign-tab {
       width: 230px;
       float: right;
       margin: 60px 103px 0 0;
-      .inputs {
-        height: 260px;
+      &#sign-up .inputs {
+        height: 256px;
+        padding-top: 1px;
+      }
+      
+      &#sign-in .inputs {
+        height: 207px;
+        padding-top: 50px;
       }
       .toggler {
         padding: 5px 0px 10px;
@@ -104,10 +103,10 @@
           font-size: 14px;
           margin-left: 5px;
           padding: 2px 0 2px 25px;
-          background: url("/assets/auth-btn-set.png") no-repeat scroll -303px -22px transparent;
+          background: url("/assets/auth-btn-set.png") no-repeat scroll -339px -22px transparent;
           color: #ffffff;
           &.checked{
-            background-position: -303px 1px;
+            background-position: -339px 1px;
           }
         }
         b {
@@ -119,6 +118,8 @@
         margin: 5px 0px;
       }
     }
+    
+    
     .submit-btn {
       background: #d0e95b; /* Old browsers */
       /* IE9 SVG, needs conditional override of 'filter' to 'none' */

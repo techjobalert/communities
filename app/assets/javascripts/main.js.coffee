@@ -1,9 +1,16 @@
 $ ->
-  $(".toggler label").live "click", ->
+  $("#sign-up .toggler label").live "click", ->
     elem = $(this)
     unless elem.hasClass("checked")
       $(".toggler label").toggleClass "checked"
       $(".doctor-only").toggleClass "hidden"
+      
+  $('.b-auth .buttons a').live "click", ->
+    elem = $(this)
+    unless elem.hasClass("selected")
+      $(".b-auth .buttons a").toggleClass "selected"
+      $(".sign-tab").toggleClass "hidden"
+    false
 
   $(".b-popup-set-preview label").live "click", ->
     $(".b-popup-set-preview label").removeClass "checked"
