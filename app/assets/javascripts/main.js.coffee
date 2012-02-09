@@ -11,6 +11,8 @@ $ ->
       $(".b-auth .buttons a").toggleClass "selected"
       $(".sign-tab").toggleClass "hidden"
     false
+    
+    
 
   $(".b-popup-set-preview label").live "click", ->
     $(".b-popup-set-preview label").removeClass "checked"

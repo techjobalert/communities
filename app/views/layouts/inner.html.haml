@@ -6,7 +6,10 @@
     = javascript_include_tag "application", :debug => Rails.env.development?
     = csrf_meta_tags
   %body
+    /%p.notice= notice
+    /%p.alert= alert
     = render :partial => "layouts/ie_fix"
+
     .header
       = render :partial => "pages/general_links"
       = render :partial => "pages/search_engine"

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   
   #before_filter :authenticate_user!
 
+
 	def after_sign_in_path_for(resource_or_scope)
 		puts resource_or_scope
 		
@@ -13,5 +14,6 @@ class ApplicationController < ActionController::Base
 	  #   account_index_path
 	  # end
 	end
+
 
 end
