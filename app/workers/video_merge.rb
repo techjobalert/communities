@@ -22,7 +22,7 @@ class VideoMerge
       :recordedV => records_dir+recordedV,
       :pos => self.add_position(),
       :pad => self.add_pad(),
-      :settings => '-map 0:0 -map 1:1 -acodec libfaac -vcodec libx264 -preset medium'
+      :settings => '-map 0:0 -map 1:1 -acodec libfaac -vcodec libx264 -preset medium',
       :metadata => '-title "OneWeekendInNYC" 
                     -author "Crazed Mule Productions, Inc." 
                     -copyright "2012" 
