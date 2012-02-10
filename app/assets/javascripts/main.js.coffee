@@ -4,7 +4,7 @@ $ ->
     unless elem.hasClass("checked")
       $(".toggler label").toggleClass "checked"
       $(".doctor-only").toggleClass "hidden"
-      
+  
   $('.b-auth .buttons a').live "click", ->
     elem = $(this)
     unless elem.hasClass("selected")
@@ -12,8 +12,9 @@ $ ->
       $(".sign-tab").toggleClass "hidden"
     false
     
+  $("a.sign-in").click()  if window.location.hash.indexOf("#sign-in") >= 0
     
-
+    
   $(".b-popup-set-preview label").live "click", ->
     $(".b-popup-set-preview label").removeClass "checked"
     $(this).addClass "checked"
@@ -48,7 +49,4 @@ $ ->
       $(".b-settings-nav a").toggleClass "selected"
       $(".b-settings-tab").toggleClass "hidden"
     false
-    
-
-
-  
+   

@@ -16,3 +16,4 @@
 //= require video
 //= require popup
 //= require main
+//= require rails.validations

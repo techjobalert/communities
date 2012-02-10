@@ -3,7 +3,7 @@ Orthodontic::Application.routes.draw do
   get "home/index"
 
   #devise_for :users
-  devise_for :users, :controllers => { :registrations => "registrations" }
+  devise_for :users, :controllers => { :registrations => "registrations"}
   
   
   match "/sign_in" => "pages#sign_in"
