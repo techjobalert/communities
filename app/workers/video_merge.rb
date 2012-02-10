@@ -32,8 +32,8 @@ class VideoMerge
     end
 
     # command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV} [mv]; [in][mv] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output_filename}' % options
-    command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output_filename}' % options
-    command2 = 'ffmpeg -i %{presentV} -vf "[in]setpts=PTS-STARTPTS, pad=%{pad},[T1]overlay=%{pos}[out];movie=%{recordedV},setpts=PTS-STARTPTS[T1]" -vcodec libx264 -preset medium %{output_filename}' % options
+    command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" -map 0:0 -map 1:1 -acodec libfaac -vcodec libx264 -preset medium %{output_filename}' % options
+    command2 = 'ffmpeg -i %{presentV} -vf "[in]setpts=PTS-STARTPTS, pad=%{pad},[T1]overlay=%{pos}[out];movie=%{recordedV},setpts=PTS-STARTPTS[T1]" -map 0:0 -map 1:1 -acodec libfaac -vcodec libx264 -preset medium %{output_filename}' % options
     output = %x[cd #{upload_dir} && #{command}]
   end
 
