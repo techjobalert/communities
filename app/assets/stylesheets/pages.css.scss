@@ -1218,7 +1218,9 @@
         float: left;
         font-size: 14px;
         line-height: 30px;
-        width: 71px;
+        width: 160px;
+        text-align: right;
+        margin-right: 10px;
       }
       
       input[type="text"] {
@@ -1234,7 +1236,7 @@
       .right {
         text-align: right;
         padding: 10px 0px 0;
-        width: 286px;
+        width: 384px;
       }      
     }
     

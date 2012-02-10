@@ -15,8 +15,11 @@ capybara-*.html
 /public/system/*
 /public/stylesheets/*
 /public/assets/*
+/public/uploads/*
 /db/*.sqlite3
 /db/schema.rb
 /vendor/erlyvideo/*
 /nbproject
 Gemfile.lock
+
+

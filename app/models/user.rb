@@ -6,10 +6,12 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
-    :full_name, :profession_and_degree, :role
+    :full_name, :profession_and_degree, :role, :avatar, :specialization, :bio
   
   validates :full_name, :role, :presence => true
   validates :role, :inclusion => %w(doctor patient)
   
   default_value_for :role, 'doctor'
+  
+  mount_uploader :avatar, AvatarUploader
 end
