@@ -6,90 +6,82 @@
     = javascript_include_tag "application", :debug => Rails.env.development?
     = csrf_meta_tags
   %body
-    /%p.notice= notice
-    /%p.alert= alert
+    .notice= notice
+    .alert= alert
     = render :partial => "layouts/ie_fix"
     .header
-      = render :partial => "pages/general_links"
-      = yield
+      = render :partial => "layouts/general_links"
+      
+      - if current_user.present?
+        = render :partial => "layouts/search_engine"
+      - else
+        = render :partial => "layouts/header_auth"      
     .clear
-    
     .section.center
-      %h1
-        Featured on
-        %b Orthodontics
-        %span.unauthorized
-          %b= link_to 'Sign up', "#{root_path}#sign-up"
-          in order to view content
+      - if current_user.present?
+        .section.center
+          .wrapper
+            .main-content
+              .user-info
+                = image_tag current_user.avatar_url(:thumb_70), :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD', :class => 'popup-user-info'
+                %span.title Yossy Mendelovich . MD
+              .light-button.sale
+                Our Ordothontics Sale
+                %span
+              .clear
+              .navigation
+                %ul
+                  %li
+                    = link_to root_path, :class => "#{ "selected" if params[:controller] == "home" && params[:action] == 'index'  }" do
+                      HOME
+                      %span bla bla bla
 
-      .container.list
-        .list-header
-          .nav
-            = link_to '#', :class => 'movies selected' do
-              %span
-              Movies
-            = link_to '#', :class => 'articles' do
-              %span
-              Articles
-            = link_to '#', :class => 'presentations' do
-              %span
-              Presentations
-          .filter
-            .field
-              .tags
-                .label Sort by
-                = link_to 'Viewed', '#', :class => 'selected'
-                = link_to 'Length', '#'
-                = link_to 'Date', '#'
-                = link_to 'Free', '#'
-                = link_to 'Paid', '#'
-                .clear
-              .search
-                = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'
-                = button_tag 'Go', :class => 'dark-button'
-              .clear
-          .clear
-          .list-content
-            .item
-              .media= image_tag '/assets/tmp/p2.png'
-              .text
-                Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem
-                = link_to 'Ipsum has been', '#'
-                the industry's
-                standard dummy text ever since the 1500s, when an
-                unknown printer.
-            .item
-              .media= image_tag '/assets/tmp/p2.png'
-              .text
-                Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's
-                = link_to 'standard dummy', '#'
-                text ever since the 1500s, when an
-                unknown printer.
-            .item
-              .media= image_tag '/assets/tmp/p2.png'
-              .text
-                Lorem Ipsum is
-                = link_to 'simply dummy', '#'
-                text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy text ever since the 1500s, when an
-                unknown printer.
-            .clear
-            %nav
-              %ul.pagination
-                %li= link_to 'Page 1 of 22', '#'
-                %li
-                  %span.current 1
-                %li= link_to '2', '#'
-                %li= link_to '4', '#'
-                %li= link_to '5', '#'
-                %li= link_to '6', '#'
-                %li= link_to '10', '#'
-                %li= link_to '20', '#'
-                %li= link_to 'Last Page>>', '#'
-              .clear
+                  %li
+                    = link_to '#' do
+                      ITEM
+                      %span bla bla bla
+
+                  %li
+                    = link_to edit_user_path(current_user), :class => "large #{ "selected" if params[:controller] == "users" && params[:action] == 'edit'  }" do
+                      SETTINGS
+                      %span bla bla bla
+
+                  %li
+                    = link_to '#' do
+                      ACCOUNT
+                      %span bla bla bla
+                  %li
+                    = link_to '#' do
+                      PUBLIC
+                      %span bla bla bla
+                  %li
+                    = link_to '#', :class => 'large' do
+                      COLLEGUES
+                      %span bla bla bla
+                  %li
+                    = link_to user_path(current_user), :class => "large #{ "selected" if params[:controller] == "users" && params[:action] == 'show'  }" do
+                      YOUR PROFILE
+                      %span bla bla bla
+
+              .panel
+                = yield
+            - if params[:controller] == 'users' && params[:action] == 'edit'
+              .b-settings-nav 
+                = link_to '#', :class => 'b-settings-nav-bio selected' do
+                  Medical
+                  %span Your medical information
+                = link_to '#', :class => 'b-settings-nav-notification' do
+                  Notification
+                  %span Email preferences...
+      - else
+        %h1
+          Featured on
+          %b Orthodontics
+          %span.unauthorized
+            %b= link_to 'Sign up', "#{root_path}#sign-up"
+            in order to view content
+
+        = render :partial => 'layouts/relevant_items'
 
 
     - if current_user.present?
