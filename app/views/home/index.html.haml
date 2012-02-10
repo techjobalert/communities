@@ -14,7 +14,7 @@
         The quick brown fox jumps over the lazy dog.
         Foxy parsons quiz and cajole the wiki-girl.
       .media= image_tag "/assets/tmp/p1.jpg"
-    #sign-up.sign-tab
+    #sign-up.sign-up-tab.sign-tab
       = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
         = devise_error_messages!
         .inputs
@@ -29,10 +29,11 @@
           %p= f.text_field :email, :placeholder => 'Email Address'
           %p= f.password_field :password, :placeholder => 'Password'
           %p= f.password_field :password_confirmation, :placeholder => 'Verify Password'
-        = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit();" do
+          
+        = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit(); return false;" do
           SIGN UP
           %span to create an account
-    #sign-in.sign-tab.hidden
+    .sign-in-tab.sign-tab.hidden
       = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
         = devise_error_messages!
         .inputs

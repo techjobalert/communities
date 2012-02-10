@@ -83,12 +83,12 @@
       width: 230px;
       float: right;
       margin: 60px 103px 0 0;
-      &#sign-up .inputs {
+      &.sign-up-tab .inputs {
         height: 256px;
         padding-top: 1px;
       }
       
-      &#sign-in .inputs {
+      &.sign-in-tab .inputs {
         height: 207px;
         padding-top: 50px;
       }
