@@ -2,7 +2,6 @@ class VideoMerge
   @queue = :video_merge
 
   def self.perform(presentV, recordedV, params)
-    #erlyvideo_path = File.expand_path(File.dirname(__FILE__) + '/../../vendor/erlyvideo/video/')
     video_path = '/home/buildbot/video'
     upload_dir = video_path+'/merged/'
     presentation_dir = video_path +'/video_storage/p_video/'

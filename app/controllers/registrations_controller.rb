@@ -7,8 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
     build_resource
     if not resource.save
       clean_up_passwords resource
-      respond_with :root #resource
-      #redirect_to "http://89.209.76.243:5580"
+      respond_with :root
     else
       begin
         super # this calls Devise::RegistrationsController#create

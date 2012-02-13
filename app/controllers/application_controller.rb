@@ -12,12 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource_or_scope)
-    #root_path
+    root_path
   end
   
   def authenticate
-    #unless current_user.present?
-    #  redirect_to root_path
-    #end
+    unless current_user.present?
+     redirect_to root_path
+    end
   end
 end
