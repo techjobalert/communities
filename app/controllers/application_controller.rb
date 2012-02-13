@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
-  before_filter :authenticate
 
   def after_sign_in_path_for(resource_or_scope)	
     # if session[:registered_from] == projects_register_path
@@ -15,9 +13,4 @@ class ApplicationController < ActionController::Base
     root_path
   end
   
-  def authenticate
-    unless current_user.present?
-     redirect_to root_path
-    end
-  end
 end

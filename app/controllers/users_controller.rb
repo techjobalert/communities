@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def show    
   end
   
@@ -35,5 +36,4 @@ class UsersController < ApplicationController
     end     
     
   end
-
 end
