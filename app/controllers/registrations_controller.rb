@@ -1,4 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
+  skip_before_filter :authenticate
+  
   def new
     super # no customization, simply call the devise implementation
   end
