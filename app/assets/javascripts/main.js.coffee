@@ -56,3 +56,4 @@ $ ->
     yearRange: '-99:+0'
     maxDate: 0
    
+  $('#user-avatar-uploader').attr('size','7')
