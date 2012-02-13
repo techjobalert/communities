@@ -7,10 +7,6 @@
     = csrf_meta_tags
   %body
     
-    = content_tag(:div, flash[:error], :id => "flash_error") if flash[:error]
-    = content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice]
-    = content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert]
-
     = render :partial => "layouts/ie_fix"
     .header
       = render :partial => "layouts/general_links"
@@ -90,6 +86,16 @@
     - if current_user.present?
       = link_to 'Logout', destroy_user_session_path, :method => 'DELETE'
 
-  
-
     .l-footer
+
+
+    - if flash.present?
+      - flash.each do |key, value|
+        = content_tag(:div, value.is_a?(Array) ? raw(value.join(". ")) : value, :class => "flash_#{key} notice")
+      %script
+        $(function(){
+        setTimeout('hideNotice()', 7000);
+        });
+        function hideNotice(){
+        $('.notice').fadeOut();
+        }

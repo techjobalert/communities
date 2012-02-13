@@ -15,9 +15,7 @@
 //= require jquery.fileupload
 //
 //= require video
-//= require popup
 //= require main
-//= require rails.validations
 
 //= require plupload/plupload.full
 //= require plupload/plupload.flash

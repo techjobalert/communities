@@ -1,5 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-  skip_before_filter :authenticate
   
   def new
     super # no customization, simply call the devise implementation
@@ -22,7 +21,7 @@ def create
       clean_up_passwords(resource)
       # Solution for displaying Devise errors on the homepage found on:
       # http://stackoverflow.com/questions/4101641/rails-devise-handling-devise-error-messages
-      flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages
+      flash[:error] = flash[:error].to_a.concat resource.errors.full_messages
       redirect_to root_path # HERE IS THE PATH YOU WANT TO CHANGE
     end
   end

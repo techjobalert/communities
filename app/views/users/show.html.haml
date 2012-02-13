@@ -7,7 +7,7 @@
             = image_tag(current_user.avatar_url(:thumb_143), :width => '143', :height => '143', :class => 'my-thumb_143')
           - else  
             = image_tag('/assets/user-upload-photo.jpg', :width => '143', :height => '143', :class => 'my-thumb_143')
-        .spinner.hidden
+        .spinner.hidden                 
         
       .b-user-info-body
         %h2.b-user-title= current_user.full_name
