@@ -1,8 +1,13 @@
 .b-user
   .b-user-content
     .b-user-info
-      .b-user-preview
-        = link_to image_tag('/assets/user-upload-photo.jpg', :width => '143', :height => '143')
+      .b-user-preview#upcontainer
+        = link_to upload_avatar_users_path(current_user), :id => 'pickfiles' do          
+          - if current_user.avatar.present?
+            = image_tag(current_user.avatar_url(:thumb_143), :width => '143', :height => '143', :class => 'my-thumb_143')
+          - else  
+            = image_tag('/assets/user-upload-photo.jpg', :width => '143', :height => '143', :class => 'my-thumb_143')
+        .spinner.hidden
         
       .b-user-info-body
         %h2.b-user-title= @user.full_name

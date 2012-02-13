@@ -3,9 +3,10 @@ Orthodontic::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations"}
   
   
-  resources :users, :only => [:show, :edit, :update], 
-    :path_names => { :edit => 'settings' } 
-  
+  resources :users, :only => [:show, :edit, :update], :path_names => { :edit => 'settings' }
+
+  match "/upload_avatar" => 'users#upload_avatar', :via => :post
+
   match "/sign_in" => "pages#sign_in"
   match "/item" => "pages#item"
   match "/interesting_item" => "pages#interesting_item"
