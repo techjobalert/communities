@@ -42,7 +42,9 @@ end
 gem 'cancan'                                                      # Permissions
 gem 'devise'                                                      #
 
+# Validators
 gem 'default_value_for'
+gem 'date_validator'
 
 #gem 'therubyracer'                                               # JS runtime
 gem 'client_side_validations'                                     # clientside validation by ajax

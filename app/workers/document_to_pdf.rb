@@ -2,9 +2,8 @@ class DocumentToPdf
   @queue = :document_to_prf
 
   def self.perform(document_path, save_to)
-  	video_path = '../../document'
-  	save_to ||= video_path+'/pdf'
-  	command = "libreoffice --headless -convert-to pdf fileToConvert.docx -outdir output/path/for/pdf"
-  	output = %x[cd #{upload_dir} && #{command}]
+  	document_path = '../../document'
+  	pdf_save_to ||= document_path+'/pdf'
+  	command = %x[libreoffice --headless -convert-to pdf #{document_path} -outdir #{pdf_save_to}]
   end
 end

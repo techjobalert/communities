@@ -6,8 +6,11 @@
     = javascript_include_tag "application", :debug => Rails.env.development?
     = csrf_meta_tags
   %body
-    .notice= notice
-    .alert= alert
+    
+    = content_tag(:div, flash[:error], :id => "flash_error") if flash[:error]
+    = content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice]
+    = content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert]
+
     = render :partial => "layouts/ie_fix"
     .header
       = render :partial => "layouts/general_links"
@@ -23,7 +26,7 @@
           .wrapper
             .main-content
               .user-info
-                = image_tag current_user.avatar_url(:thumb_70), :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD', :class => 'popup-user-info'
+                = image_tag current_user.avatar_url(:thumb_70), :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD', :class => 'popup-user-info my-thumb_70'
                 %span.title Yossy Mendelovich . MD
               .light-button.sale
                 Our Ordothontics Sale

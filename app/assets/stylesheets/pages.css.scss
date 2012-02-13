@@ -970,8 +970,27 @@
   
   .b-user-preview {
     float: left;
+    position: relative;
+    margin-bottom: 10px;
+
     img {
       border: 2px solid #ddd;  
+    }
+
+    #pickfiles {
+      display: block;
+      width: 147px;
+      height: 147px;      
+    }
+
+    .spinner {
+      width: 147px;
+      height: 147px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: url('/assets/ajax-loader.gif') no-repeat center center #fff;
+      opacity: 0.7;
     }
     
     .follow {
@@ -1208,6 +1227,10 @@
         padding: 0;
       }
       
+      img {
+        margin: 5px 0 5px 171px;
+      }
+
       li {
         list-style: none;
         padding: 5px 0;

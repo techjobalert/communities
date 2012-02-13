@@ -1,21 +1,29 @@
 class RegistrationsController < Devise::RegistrationsController
+  skip_before_filter :authenticate
+  
   def new
     super # no customization, simply call the devise implementation
   end
 
-  def create
+def create
     build_resource
-    if not resource.save
-      clean_up_passwords resource
-      respond_with :root
-    else
-      begin
-        super # this calls Devise::RegistrationsController#create
-      rescue Orthodontic::Error => e
-        e.errors.each { |error| resource.errors.add :base, error }
-        clean_up_passwords(resource)
-        respond_with_navigational(resource) { render_with_scope :new }
+
+    if resource.save
+      if resource.active_for_authentication?     
+        set_flash_message :notice, :signed_up if is_navigational_format?
+        sign_in(resource_name, resource)
+        respond_with resource, :location => redirect_location(resource_name, resource)
+      else
+        set_flash_message :notice, :inactive_signed_up, :reason => resource.inactive_message.to_s if is_navigational_format?
+        expire_session_data_after_sign_in!
+        respond_with resource, :location => after_inactive_sign_up_path_for(resource)
       end
+    else
+      clean_up_passwords(resource)
+      # Solution for displaying Devise errors on the homepage found on:
+      # http://stackoverflow.com/questions/4101641/rails-devise-handling-devise-error-messages
+      flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages
+      redirect_to root_path # HERE IS THE PATH YOU WANT TO CHANGE
     end
   end
 
@@ -26,10 +34,10 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource)
-    new_user_session_path
+    root_path
   end
 
   def after_inactive_sign_up_path_for(resource)
-    new_user_session_path
+    root_path
   end
 end

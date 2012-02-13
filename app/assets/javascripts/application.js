@@ -7,6 +7,7 @@
 //  System*
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //
 //  Fileupload*
 //= require jquery.ui.widget
@@ -17,3 +18,9 @@
 //= require popup
 //= require main
 //= require rails.validations
+
+//= require plupload/plupload.full
+//= require plupload/plupload.flash
+//= require plupload/plupload.html4
+//= require plupload/plupload.html5
+//= require plupload.base
