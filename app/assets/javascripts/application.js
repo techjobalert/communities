@@ -7,6 +7,7 @@
 //  System*
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //
 //  Fileupload*
 //= require jquery.ui.widget

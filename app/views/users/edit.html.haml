@@ -37,7 +37,7 @@
 
 
   .b-info.b-settings-tab
-    = form_for(@user) do |f|
+    = form_for(current_user) do |f|
       .bio
         .title 
           Biography
@@ -61,7 +61,10 @@
             = f.text_field :profession_and_degree           
           %li
             = f.label :avatar
-            = f.file_field :avatar          
+            = f.file_field :avatar, :size => 10
+          %li
+            = f.label :birthday
+            = f.text_field :birthday, :value => date_format(current_user.birthday), :id => 'datepicker'    
           
           %li.right= f.submit 'OK', :class => 'light-button green'
 

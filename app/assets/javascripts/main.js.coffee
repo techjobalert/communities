@@ -49,4 +49,10 @@ $ ->
       $(".b-settings-nav a").toggleClass "selected"
       $(".b-settings-tab").toggleClass "hidden"
     false
+
+  $("#datepicker").datepicker
+    changeMonth: true
+    changeYear: true
+    yearRange: '-99:+0'
+    maxDate: 0
    

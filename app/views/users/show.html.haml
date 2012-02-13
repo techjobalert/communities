@@ -3,29 +3,29 @@
     .b-user-info
       .b-user-preview#upcontainer
         = link_to '#', :id => 'pickfiles' do          
-          - if @user.avatar.present?
-            = image_tag(@user.avatar_url(:thumb_143), :width => '143', :height => '143', :class => 'my-thumb_143')
+          - if current_user.avatar.present?
+            = image_tag(current_user.avatar_url(:thumb_143), :width => '143', :height => '143', :class => 'my-thumb_143')
           - else  
             = image_tag('/assets/user-upload-photo.jpg', :width => '143', :height => '143', :class => 'my-thumb_143')
         .spinner.hidden
         
       .b-user-info-body
-        %h2.b-user-title= @user.full_name
-        - unless @user.specialization.blank?
+        %h2.b-user-title= current_user.full_name
+        - unless current_user.specialization.blank?
           %p
             %strong Specialization:
-            = @user.specialization
+            = current_user.specialization
         %p
           %strong Send a massege: 
           you can send a message directly to email about profesional question    
       .clear    
     
-    - unless @user.bio.blank?
+    - unless current_user.bio.blank?
       %h2 Medical Profile
         
       %p
         %strong Biography:
-        = @user.bio
+        = current_user.bio
 
       %br
         

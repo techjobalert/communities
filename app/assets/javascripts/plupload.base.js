@@ -19,7 +19,6 @@ $(function() {
   });
 
   uploader.init();
-
   
   uploader.bind("FilesAdded", function(up, files) {
     uploader.start();
@@ -44,7 +43,4 @@ $(function() {
   uploader.bind("Error", function(up, error) {
     alert(error.message);
   });
-
-
-
 });
