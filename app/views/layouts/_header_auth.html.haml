@@ -16,7 +16,7 @@
       .media= image_tag "/assets/tmp/p1.jpg"
     #sign-up.sign-up-tab.sign-tab
       = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-        = devise_error_messages!
+        / = devise_error_messages!
         .inputs
           .toggler
             %b I am

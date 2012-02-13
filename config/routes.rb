@@ -4,7 +4,7 @@ Orthodontic::Application.routes.draw do
   
   
   resources :users, :only => [:show, :edit, :update], 
-    :path_names => { :edit => 'settings' } 
+            :path_names => { :edit => 'settings' } 
   
   match "/sign_in" => "pages#sign_in"
   match "/item" => "pages#item"

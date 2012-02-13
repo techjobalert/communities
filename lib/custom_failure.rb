@@ -1,7 +1,5 @@
 class CustomFailure < Devise::FailureApp
   def redirect_url
-    #return super unless [:worker, :employer, :user].include?(scope) #make it specific to a scope
-     #new_user_session_url(:subdomain => 'secure')
      "#{root_url}#sign-in"
   end
 
@@ -10,6 +8,7 @@ class CustomFailure < Devise::FailureApp
     if http_auth?
       http_auth
     else
+      flash[:notice] = I18n.t(:unauthenticated, :scope => [ :devise, :failure ])
       redirect
     end
   end

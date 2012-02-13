@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  # before_filter :authenticate_user!
   before_filter :get_user 
   
   def show    
@@ -20,8 +21,8 @@ class UsersController < ApplicationController
   end
   
   protected
-    def get_user
-      @user = User.find(params[:id])
-    end
+  def get_user
+    @user = User.find(params[:id])
+  end
     
 end
