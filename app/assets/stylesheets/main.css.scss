@@ -810,6 +810,7 @@ h3 {
   -webkit-box-shadow: 0 0 10px #666;
   -moz-box-shadow: 0 0 10px #666;
   box-shadow: 0 0 10px #666;
+  z-index: 1000;
   
   &.flash_alert {
     background: #2F6A77;    
@@ -822,5 +823,37 @@ h3 {
   &.flash_error {
     background: #DF751F;
   }
-
 }
+
+.simple_captcha {
+  margin: 10px 0 0;
+    
+  .simple_captcha_field {
+    padding: 0px;
+
+
+    input[type="text"] {
+      width: 89px;
+      font-size: 16px;
+      border: none;
+      background-color: #efefef; }}
+
+  .simple_captcha_image {
+    margin: 0px 5px 0px 0px;
+    padding: 0px;
+    float: left;
+    overflow: hidden;
+    border-radius: 4px;
+    img {
+      display: block;
+      margin: 0px;
+      padding: 0px;
+      height: 35px;
+      width: 119px; } }
+
+  .simple_captcha_label {
+    font-size: 12px; }
+  }
+  
+
+  

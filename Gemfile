@@ -40,7 +40,8 @@ end
 
 # Permissions and Authorization
 gem 'cancan'                                                      # Permissions
-gem 'devise'                                                      #
+gem 'devise'
+gem "galetahub-simple_captcha", :require => "simple_captcha"
 
 # Validators
 gem 'default_value_for'
