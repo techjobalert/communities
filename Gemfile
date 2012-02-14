@@ -54,7 +54,8 @@ gem 'client_side_validations'
 # Pagination
 gem 'kaminari'
 # ActiveAdmin administration
-gem 'activeadmin'                                                 
+gem 'activeadmin'   
+gem "meta_search",    '>= 1.1.0.pre'                                              
 
 # upload processor
 gem 'carrierwave'             
