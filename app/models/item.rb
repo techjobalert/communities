@@ -12,4 +12,6 @@ class Item < ActiveRecord::Base
     has user_id, created_at, updated_at
   end
 
+  belongs_to :user
+
 end
