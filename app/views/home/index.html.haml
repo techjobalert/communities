@@ -28,44 +28,18 @@
           = button_tag 'Go', :class => 'dark-button'
         .clear
     .clear
+
     .list-content
-      .item
-        .media= image_tag '/assets/tmp/p2.png'
-        .text
-          Lorem Ipsum is simply dummy text of the printing and
-          typesetting industry. Lorem
-          = link_to 'Ipsum has been', '#'
-          the industry's
-          standard dummy text ever since the 1500s, when an
-          unknown printer.
-      .item
-        .media= image_tag '/assets/tmp/p2.png'
-        .text
-          Lorem Ipsum is simply dummy text of the printing and
-          typesetting industry. Lorem Ipsum has been the industry's
-          = link_to 'standard dummy', '#'
-          text ever since the 1500s, when an
-          unknown printer.
-      .item
-        .media= image_tag '/assets/tmp/p2.png'
-        .text
-          Lorem Ipsum is
-          = link_to 'simply dummy', '#'
-          text of the printing and
-          typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an
-          unknown printer.
+      - if @items.present? 
+        - @items.each do |item|
+          = link_to item_path(item), :class => 'item' do
+            .media= image_tag '/assets/tmp/p2.png'
+            .text= item.title
+        .clear 
+
+        = paginate @items
+
+      - else
+        .no-items No items
+
       .clear
-      %nav
-        %ul.pagination
-          %li= link_to 'Page 1 of 22', '#'
-          %li
-            %span.current 1
-          %li= link_to '2', '#'
-          %li= link_to '4', '#'
-          %li= link_to '5', '#'
-          %li= link_to '6', '#'
-          %li= link_to '10', '#'
-          %li= link_to '20', '#'
-          %li= link_to 'Last Page>>', '#'
-        .clear

@@ -1,6 +1,8 @@
 class Item < ActiveRecord::Base
 	acts_as_commentable
 	acts_as_taggable
+
+  paginates_per 3
   
   define_index do
     indexes title, :sortable => true

@@ -31,17 +31,17 @@
               .navigation
                 %ul
                   %li
-                    = link_to root_path, :class => "#{ "selected" if params[:controller] == "home" && params[:action] == 'index'  }" do
+                    = link_to root_path, :class => "#{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
                       HOME
                       %span bla bla bla
 
                   %li
-                    = link_to '#' do
+                    = link_to new_item_path , :class => "#{ 'selected' if params[:controller] == 'items' }" do
                       ITEM
                       %span bla bla bla
 
                   %li
-                    = link_to edit_user_path(current_user), :class => "large #{ "selected" if params[:controller] == "users" && params[:action] == 'edit'  }" do
+                    = link_to edit_user_path(current_user), :class => "large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'edit'  }" do
                       SETTINGS
                       %span bla bla bla
 
@@ -58,7 +58,7 @@
                       COLLEGUES
                       %span bla bla bla
                   %li
-                    = link_to user_path(current_user), :class => "large #{ "selected" if params[:controller] == "users" && params[:action] == 'show'  }" do
+                    = link_to user_path(current_user), :class => "large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show'  }" do
                       YOUR PROFILE
                       %span bla bla bla
 

@@ -3,7 +3,7 @@
   .search
     = text_field 'search', 'form', :placeholder => 'Search for presentations, articles & movies', :class => 'text-input'
     = button_tag 'Search', :class => 'dark-button'
-  = link_to '#', :class => 'btn upload' do
+  = link_to new_item_path, :class => 'btn upload' do
     Upload
     %span
   = link_to '#', :class => 'btn light-button explore' do

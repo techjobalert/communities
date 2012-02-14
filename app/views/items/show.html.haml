@@ -1,15 +1,182 @@
 %p#notice= notice
 
-%p
-  %b Title:
-  = @item.title
-%p
-  %b Description:
-  = @item.description
-%p
-  %b Paid:
-  = @item.paid
+.content
+  %h1
+    Allergic reaction and nickel-free
+    .share
+      = link_to '', '#', :class => 'fb'
+      = link_to '', '#', :class => 'tw'
 
-= link_to 'Edit', edit_item_path(@item)
-\|
-= link_to 'Back', items_path
+  / Может быть три варианта я их выложу тут все, чтобы отображать
+  / нужно убрать класс hidden
+
+  / 1-й Вариант
+  .tools.detail.hidden
+    .items
+      %ul
+        %li
+          .item
+            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+            .title
+              Kobi
+              %br
+              Mori
+        %li
+          .item
+            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+            .title
+              Kobi
+              %br
+              Mori
+        %li
+          .item
+            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+            .title
+              Kobi
+              %br
+              Mori
+        %li
+          .item
+            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+            .title
+              Kobi
+              %br
+              Mori
+        %li
+          .item
+            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+            .title
+              Kobi
+              %br
+              Mori
+        %li
+          .item
+            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+            .title
+              Kobi
+              %br
+              Mori
+        %li
+          .item
+            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+            .title
+              Kobi
+              %br
+              Mori
+        %li
+          .item
+            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+            .title
+              Kobi
+              %br
+              Mori
+    .light-button.follow
+      Follow Item
+      %span
+
+
+  / 2-й Вариант
+  .tools.short
+    .items
+      %ul
+        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+
+    .light-button.follow
+      Follow Item
+      %span
+
+    / кнопка в трех вариантах
+    / 1. Вариант
+    .light-button.sell
+      %b Sell
+      item
+      = text_field 'search', 'form'
+      %span
+
+    / 2. Вариант
+    .light-button.buy.green.hidden
+      %b Buy
+      item
+      %span
+
+    / 3. Вариант
+    .light-button.set-preview.green.hidden
+      %b Set
+      preview
+      %span
+
+  / есть два варианта
+  / 1 Вариант
+  
+  = @item.paid
+  .text.pic
+    = link_to image_tag('/assets/logo.png', :width => '200'), '#'
+    %h2= @item.title
+    .body= @item.description
+
+    = image_tag '/assets/tmp/p4.png', :class => 'preview'
+    .clear
+
+  / 2 Вариант
+  .text.video.hidden
+    .preview
+      = image_tag '/assets/tmp/p5.png'
+    .body
+      = link_to image_tag('/assets/logo.png', :width => '200'), '#'
+      %h2 Allergic reaction and nickel-free
+
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Phasellus metus mi, egestas eget cursus eu, egestas nec massa.
+      Sed ac dui nec arcu viverra pulvinar at quis erat.
+      Ut viverra consectetur erat ut vulputate. Integer
+      bibendum, nisi vel venenatis faucibus, augue libero
+      commodo tellus, nec pharetra risus erat sit amet
+      felis. Nullam at ipsum ac ante ullamcorper vehicula.
+      Cum sociis natoque penatibus et magnis dis parturient
+      montes, nascetur ridiculus mus. Suspendisse potenti.
+      Etiam semper enim egestas enim vehicula commodo. Nulla
+      quis urna ut neque sollicitudin facilisis. Cras
+      vitae velit id odio laoreet ullamcorper. Etiam
+      rhoncus convallis odio, quis lobortis ipsum
+      pellentesque id. Phasellus congue mollis turpis,
+      aliquam imperdiet est pharetra sit amet. Duis
+      placerat vehicula scelerisque.
+    .clear
+
+#comments
+  %h3 Comments
+  .comments-panel
+    = link_to '#', :class => 'light-button new-comment' do
+      Make a comment
+      %br
+      on this Item
+      %span
+
+    %ul
+      %li
+        = image_tag '/assets/tmp/p4.png', :width => '60', :height => '60'
+        .body
+          %b Kobi mori:
+          %span Very nice. i like it and i think it should be in the movie
+        .clear
+        = link_to '+', '#', :class => 'like dark-button'
+      %li
+        = image_tag '/assets/tmp/p3.png', :width => '60', :height => '60'
+        .body
+          %b Kobi mori:
+          %span Very nice. i like it and i think it should be in the movie
+        .clear
+        = link_to '+', '#', :class => 'like dark-button'
+      %li
+        = image_tag '/assets/tmp/p5.png', :width => '60', :height => '60'
+        .body
+          %b Kobi mori:
+          %span Very nice. i like it and i think it should be in the movie
+        .clear
+        = link_to '+', '#', :class => 'like dark-button'
+    .clear
