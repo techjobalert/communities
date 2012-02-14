@@ -59,6 +59,8 @@ gem 'mini_magick'                                                 # image proces
 # full text search
 gem 'thinking-sphinx', '2.0.10'                           		  # Sphinx support
 
+gem 'whenever'                                                    # Writing and deploying cron jobs
+
 gem 'ancestry'                                                    # nested obj, parents, childrens...
 gem 'acts-as-taggable-on'                                         # tags
 
