@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
     :birthday
   
   validates :full_name, :role, :presence => true
-  validates :role, :inclusion => %w(doctor patient)
+  validates :role, :inclusion => %w(doctor patient moderator)
 
   validates :birthday, :date => {
             :after => Proc.new { Time.now - 100.year }, 

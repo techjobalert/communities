@@ -38,7 +38,9 @@ group :production do
 end
 
 # Permissions and Authorization
-gem 'cancan'                                                      # Permissions
+# permissions
+gem 'cancan'
+# authorization
 gem 'devise'
 gem "galetahub-simple_captcha", :require => "simple_captcha"
 
@@ -47,24 +49,37 @@ gem 'default_value_for'
 gem 'date_validator'
 
 #gem 'therubyracer'                                               # JS runtime
-gem 'client_side_validations'                                     # clientside validation by ajax
-gem 'kaminari'                                                    # Pagination
-gem 'activeadmin'                                                 # ActiveAdmin administration
+# clientside validation by ajax
+gem 'client_side_validations'
+# Pagination
+gem 'kaminari'
+# ActiveAdmin administration
+gem 'activeadmin'   
+gem "meta_search",    '>= 1.1.0.pre'                                              
 
-# Upload
-gem 'carrierwave'                                                 # upload processor
-gem 'carrierwave_backgrounder'                                    # upload processor(background-jobs)
-gem 'mini_magick'                                                 # image processing
+# upload processor
+gem 'carrierwave'             
+# upload processor(background-jobs)
+gem 'carrierwave_backgrounder'
+# image processing
+gem 'mini_magick'
 
-# full text search
-gem 'thinking-sphinx', '2.0.10'                           		  # Sphinx support
+# full text search, Sphinx support
+gem 'thinking-sphinx', '2.0.10'
 
-gem 'whenever'                                                    # Writing and deploying cron jobs
+# Writing and deploying cron jobs
+gem 'whenever'
 
-gem 'ancestry'                                                    # nested obj, parents, childrens...
-gem 'acts-as-taggable-on'                                         # tags
-
+# nested obj, parents, childrens...
+gem 'ancestry'
+# Q redis client
 gem 'resque'
 
+# https://github.com/mbleigh/acts-as-taggable-on
+gem 'acts-as-taggable-on'
+# https://github.com/elight/acts_as_commentable_with_threading.git
 gem 'acts_as_commentable_with_threading', :git => "git://github.com/elight/acts_as_commentable_with_threading.git"
+# https://github.com/ryanto/acts_as_votable
+gem 'acts_as_votable'
+# https://github.com/tcocca/acts_as_follower
 gem 'acts_as_follower'

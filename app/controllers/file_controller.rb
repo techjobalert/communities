@@ -1,6 +1,7 @@
 require 'net/http'
 
 class FileController < ApplicationController
+  before_filter :authenticate_user!, :except => [:converted_pvideo]
 
   def upload_psource
     uuid = params[:uuid]
