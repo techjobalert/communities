@@ -12,8 +12,9 @@ class User < ActiveRecord::Base
   validates :full_name, :role, :presence => true
   validates :role, :inclusion => %w(doctor patient)
   validates :birthday, :date => {
-      :after => Proc.new { Time.now - 100.year }, 
-      :before => Proc.new { Time.now }}
+            :after => Proc.new { Time.now - 100.year }, 
+            :before => Proc.new { Time.now }
+            }, :allow_blank => true, :on => :update
   
   default_value_for :role, 'doctor'
   

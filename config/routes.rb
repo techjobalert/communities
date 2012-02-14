@@ -5,8 +5,11 @@ Orthodontic::Application.routes.draw do
   end
 
   devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
+  devise_scope :user do
+    match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
+  end
   
-  resources :users, :only => [:show, :edit, :update], :path_names => { :edit => 'settings' }
+  resources :users, :only => [:create, :show, :edit, :update], :path_names => { :edit => 'settings' }
 
   match "/upload_avatar" => 'users#upload_avatar', :via => :post
 
