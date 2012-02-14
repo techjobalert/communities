@@ -38,7 +38,9 @@
         = devise_error_messages!
         .inputs
           %p= f.text_field :email, :placeholder => 'Email Address'
-          %p= f.password_field :password, :placeholder => 'Password'          
+          %p= f.password_field :password, :placeholder => 'Password' 
+          - if session[:failure_counter].present? &&  session[:failure_counter] > 3
+            = show_simple_captcha(:label => '')
         = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit();" do
           SIGN IN
           %span to your account 
