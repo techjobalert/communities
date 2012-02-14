@@ -2,10 +2,14 @@ class SessionsController < Devise::SessionsController
   include SimpleCaptcha::ControllerHelpers
   
   def create
-    if simple_captcha_valid?
+    
+    session[:failure_counter].present? ? (session[:failure_counter] += 1) : session[:failure_counter] = 1
+
+    if session[:failure_counter] <= 3 || simple_captcha_valid?
       resource = warden.authenticate!(auth_options)
       set_flash_message(:notice, :signed_in) if is_navigational_format?
       sign_in(resource_name, resource)
+      session[:failure_counter] = 0
       redirect_to root_path
     else
       build_resource
@@ -21,5 +25,8 @@ class SessionsController < Devise::SessionsController
   def auth_options
     { :scope => resource_name, :recall => "#{controller_path}#new" }
   end
- 
+
 end
+
+ 
+    
