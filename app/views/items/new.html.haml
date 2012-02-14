@@ -37,7 +37,7 @@
             %li= msg
 
     = image_tag '/assets/tmp/p2.png', :width => '135', :height => '100', :class => 'preview'
-    = form_for @item do |f|     
+    = form_for @item do |f| 
       .block
         .item
           = f.label :title
@@ -51,8 +51,8 @@
         
       .block
         .item.keywords
-          = label "1", "1", "Keywords"
-          = f.text_area 'description'
+          = label :tag_list, "Keywords"
+          = f.text_area :tag_list
       .clear
       = f.submit 'Save', :class => 'light-button green'
     .clear

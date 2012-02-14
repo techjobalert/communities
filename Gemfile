@@ -77,7 +77,7 @@ gem 'resque'
 
 # https://github.com/mbleigh/acts-as-taggable-on
 gem 'acts-as-taggable-on'
-# https://github.com/elight/acts_as_commentable_with_threading.git
+# https://github.com/elight/acts_as_commentable_with_threading
 gem 'acts_as_commentable_with_threading', :git => "git://github.com/elight/acts_as_commentable_with_threading.git"
 # https://github.com/ryanto/acts_as_votable
 gem 'acts_as_votable'

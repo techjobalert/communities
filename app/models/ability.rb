@@ -25,7 +25,8 @@ class Ability
   def doctor
     patient
     # Item
-    can :manage, Item do |item| 
+    can :create, Item
+    can :update, Item do |item| 
       owner?(item)
     end
   end

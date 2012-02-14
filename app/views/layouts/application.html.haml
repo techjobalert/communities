@@ -23,7 +23,7 @@
             .main-content
               .user-info
                 = image_tag current_user.avatar_url(:thumb_70), :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD', :class => 'popup-user-info my-thumb_70'
-                %span.title Yossy Mendelovich . MD
+                %span.title= current_user.full_name
               .light-button.sale
                 Our Ordothontics Sale
                 %span
