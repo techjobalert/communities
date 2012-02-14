@@ -46,7 +46,19 @@ Orthodontic::Application.configure do
   config.assets.precompile += %w( video-js.js video-js.css )
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 =>  587,
+    :domain               => 'rthodontics360.ru',
+    :user_name            => 'provectusit.mailer@gmail.com',
+    :password             => 'provectusit.mailer23',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true }
+
+  # Mailer
+  config.action_mailer.default_url_options = { :host => "89.209.76.243:5580" }
 
   # Enable threaded mode
   # config.threadsafe!

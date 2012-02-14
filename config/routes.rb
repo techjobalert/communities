@@ -1,5 +1,9 @@
 Orthodontic::Application.routes.draw do
 
+  resources :items do
+    
+  end
+
   devise_for :users, :controllers => { :registrations => "registrations"}
   
   resources :users, :only => [:show, :edit, :update], :path_names => { :edit => 'settings' }

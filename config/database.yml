@@ -4,9 +4,13 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: mysql2
+  encoding: utf8
+  database: orthodontics360_development
   pool: 5
+  username: root
+  password: root
+  host: localhost
   timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
@@ -21,7 +25,7 @@ test:
 production:
   adapter: mysql2
   encoding: utf8
-  database: orthodontics360
+  database: orthodontics360_production
   pool: 5
   username: root
   password: root

@@ -13,14 +13,14 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+# Use unicorn as the web server
+gem 'unicorn'
+gem 'mysql2'
 gem 'jquery-rails'
 gem 'haml-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the web server
-gem 'unicorn'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
@@ -34,8 +34,7 @@ group :development, :test do
   gem 'turn', :require => false
 end
 
-group :production do
-  gem 'mysql2'
+group :production do  
 end
 
 # Permissions and Authorization
@@ -57,12 +56,12 @@ gem 'carrierwave_backgrounder'                                    # upload proce
 gem 'mini_magick'                                                 # image processing
 
 # full text search
-#gem 'thinking-sphinx', '2.0.10'                                   # Sphinx support
+gem 'thinking-sphinx', '2.0.10'                           		  # Sphinx support
 
 gem 'ancestry'                                                    # nested obj, parents, childrens...
 gem 'acts-as-taggable-on'                                         # tags
 
 gem 'resque'
 
-#gem 'acts_as_commentable'
+gem 'acts_as_commentable_with_threading', :git => "git://github.com/elight/acts_as_commentable_with_threading.git"
 gem 'acts_as_follower'

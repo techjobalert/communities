@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, 
-    :trackable, :validatable
+    :trackable, :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
@@ -18,4 +18,14 @@ class User < ActiveRecord::Base
   default_value_for :role, 'doctor'
   
   mount_uploader :avatar, AvatarUploader
+
+  define_index do
+    indexes full_name, :sortable => true
+    indexes specialization, :sortable => true
+    #where sanitize_sql(["published", true])
+    has created_at, updated_at
+  end
+
+  has_many :items
+  
 end

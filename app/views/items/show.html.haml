@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @item.title
+%p
+  %b Description:
+  = @item.description
+%p
+  %b Paid:
+  = @item.paid
+
+= link_to 'Edit', edit_item_path(@item)
+\|
+= link_to 'Back', items_path
