@@ -67,4 +67,5 @@ gem 'acts-as-taggable-on'                                         # tags
 gem 'resque'
 
 gem 'acts_as_commentable_with_threading', :git => "git://github.com/elight/acts_as_commentable_with_threading.git"
+gem 'acts_as_votable'
 gem 'acts_as_follower'
