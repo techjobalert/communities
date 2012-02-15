@@ -2,6 +2,9 @@ class Item < ActiveRecord::Base
   include PubUnpub
   include SettingsHelper
 
+  attr_accessible :title, :description
+  validates :title, :description, :presence => true
+
   acts_as_commentable
 	acts_as_taggable
   acts_as_followable
