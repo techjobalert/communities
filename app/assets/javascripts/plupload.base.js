@@ -6,7 +6,7 @@ $(function() {
       browse_button: "pickfiles",
       container: "upcontainer",
       max_file_size: "6mb",
-      url: "/upload_avatar.json",
+      url: "/users/upload_avatar.json",
       flash_swf_url: "assets/plupload/plupload.flash.swf",
       multipart: true,
       multipart_params: {

@@ -12,7 +12,7 @@ class Follow < ActiveRecord::Base
                       #implicit :subject  => self,
                       :secondary_subject  => 'followable',
                       :if => lambda { |followable| 
-                      	followable_type.in %w(Item Comment) and followable.published != false 
+                      	followable.class.name.in %w(Item Comment) and followable.published != false 
                        }
 
   def block!

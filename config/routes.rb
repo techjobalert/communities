@@ -7,7 +7,10 @@ Orthodontic::Application.routes.draw do
   resources :items do
     resources :comments do
       get "vote_up"
-    end  
+    end 
+    post "upload_avatar", :via => :post
+    post "follow", :via => :post 
+    delete "unfollow"
   end  
 
   devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
@@ -15,9 +18,11 @@ Orthodontic::Application.routes.draw do
     match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
   end
   
-  resources :users, :only => [:create, :show, :edit, :update], :path_names => { :edit => 'settings' }
-
-  match "/upload_avatar" => 'users#upload_avatar', :via => :post
+  resources :users, :only => [:create, :show, :edit, :update], :path_names => { :edit => 'settings' } do
+    post "upload_avatar", :via => :post
+    post "follow", :via => :post
+    delete "unfollow"
+  end
 
   match "/sign_in" => "pages#sign_in"
   match "/item" => "pages#item"

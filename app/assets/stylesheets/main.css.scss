@@ -12,7 +12,9 @@ input, textarea {
 a {
   color: #2f6d7a;
 }
-
+a[data-remote=true]{
+  text-decoration: none;
+}
 h3 {
   margin: 30px 0 10px 0px;
   font-weight: normal;
@@ -867,6 +869,3 @@ h3 {
   .simple_captcha_label {
     font-size: 12px; }
   }
-  
-
-  

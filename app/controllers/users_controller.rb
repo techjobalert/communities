@@ -39,6 +39,27 @@ class UsersController < ApplicationController
     end     
     
   end
+
+  def follow
+    following_user_id = params[:user_id]
+    @message = ""
+    if following_user_id != current_user.id
+      current_user.follow(following_user_id)
+    else
+      @message = "You cannot follow your self."
+    end
+  end
+
+  def unfollow
+    following_user_id = params[:user_id]
+    following_user = User.find(following_user_id)
+    if current_user.following?(following_user)
+      current_user.stop_following(following_user)
+    else
+      @message = "Some error."
+    end
+  end
+
   private
   def parse_settings(params)
     _settings={}  

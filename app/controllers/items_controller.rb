@@ -20,4 +20,32 @@ class ItemsController < InheritedResources::Base
     end
   end  
 
+  def follow
+    following_subject = Item.find(params[:item_id])
+    @message = ""
+    if not current_user.items.include?(following_subject.id) and following_subject
+      current_user.follow(following_subject)
+    else
+      @message = "You cannot follow your item."
+    end
+
+    respond_to do |format|
+      format.js     
+    end
+  end
+
+  def unfollow
+    following_subject = Item.find(params[:item_id])
+    @message = ""
+    if urrent_user.following?(following_subject) and following_subject
+      current_user.stop_following(following_subject)
+    else
+      @message = "Some error."
+    end
+    respond_to do |format|
+      format.js     
+    end
+  end
+
+  private
 end

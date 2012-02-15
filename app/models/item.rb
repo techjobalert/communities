@@ -2,7 +2,7 @@ class Item < ActiveRecord::Base
   include PubUnpub
   include SettingsHelper
 
-  attr_accessible :title, :description
+  attr_accessible :title, :description, :tag_list, :paid, :user, :user_id
   validates :title, :description, :presence => true
 
   acts_as_commentable

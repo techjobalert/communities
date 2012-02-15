@@ -84,9 +84,17 @@
         %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
         %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
 
-    .light-button.follow
-      Follow Item
-      %span
+    - if not current_user.following(@item)
+      = link_to item_follow_path(@item), :method => :post, :remote => true do
+        .light-button.follow
+          Follow Item
+          %span
+
+    - else
+      = link_to item_unfollow_path(@item), :method => :delete, :remote => true do
+        .light-button.follow
+          Unfollow Item
+          %span
 
     / кнопка в трех вариантах
     / 1. Вариант
@@ -113,7 +121,11 @@
   
   .text.pic
     = link_to image_tag('/assets/logo.png', :width => '200'), '#'
-    %h2= @item.title
+    - if @item.published?
+      %h2= @item.title
+    - else
+      %h2= @item.title + ' (unpublished)'
+
     .body= @item.description
 
     = image_tag '/assets/tmp/p4.png', :class => 'preview'
