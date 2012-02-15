@@ -1,0 +1,8 @@
+%li{:id => "comment-#{comment.id}"}
+  = image_tag comment.user.avatar_url(:thumb_60), :width => '60', :height => '60'
+  .body
+    %b= "#{comment.user.full_name}:"
+    %span= comment.body
+  .clear
+  - if user_signed_in?
+    = link_to '+', '#', :class => 'like dark-button' 

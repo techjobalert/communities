@@ -57,9 +57,3 @@ $ ->
     maxDate: 0
    
   $('#user-avatar-uploader').attr('size','7')
-
-
-
-
-
-

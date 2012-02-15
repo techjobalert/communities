@@ -1,0 +1,5 @@
+- if @notice[:type] != "error"
+  $("#comments ul").append("#{escape_javascript(render(:partial => 'comments/comment', :locals => {:comment => @comment}))}");
+$("#comments .comments-form").html("#{escape_javascript(render :partial => 'comments/form', :locals => {:commentable => @item, :url => item_comments_path(@item)})}");
+
+showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");

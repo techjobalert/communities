@@ -22,3 +22,16 @@
 //= require plupload/plupload.html4
 //= require plupload/plupload.html5
 //= require plupload.base
+
+function showHideNotice(type,message){
+  $('body').append('<div class="flash_' + type + ' notice">' + message + '</div>');
+  setTimeout(function(){
+    $(".notice").remove();
+  }, 7000);
+}
+
+function hideNotice(){
+  setTimeout(function(){
+    $(".notice").remove();
+  }, 7000);
+}
