@@ -130,9 +130,9 @@
       = @item.description
     .clear
 
-#comments
+#comments.b-comments
   %h3 Comments
-  .comments-panel
+  .b-comments-panel
     = link_to '#comment-form', :class => 'light-button new-comment slide-to' do
       Make a comment
       %br
@@ -145,7 +145,7 @@
           = render :partial => "comments/comment", :locals => {:comment => comment}
       .clear
 
-    .comments-form
+    .b-comments-form#comment-form
       = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
 
 
