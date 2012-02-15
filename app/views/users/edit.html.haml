@@ -5,28 +5,28 @@
     = form_for(current_user) do |f|
       %ul
         %li.odd
-          = f.check_box :settings[:following_me]
+          = f.check_box :settings_following_me
           = label "_radio", "following_me", "Someone following me"
         %li
-          = f.check_box "settings"
+          = f.check_box :settings_following_published
           = label "_radio", "following_published", "Someone of my following has published something"
         %li.odd
-          = f.check_box "settings"
+          = f.check_box :settings_added_as_author
           = label "_radio", "added_as_author", "Someone added you as a author of an item"
         %li
-          = f.check_box "settings"
+          = f.check_box :settings_following_item
           = label "_radio", "following_item", "Someone started following your item"
         %li.odd
-          = f.check_box "settings"
+          = f.check_box :settings_commented_item
           = label "_radio", "commented_item", "Someone commented on your item"
         %li
-          = f.check_box "settings"
+          = f.check_box :settings_recommended_comment
           = label "_radio", "recommended_comment", "Someone recommended your comment"
         %li.odd
-          = f.check_box "settings"
+          = f.check_box :settings_following_bought_item
           = label "_radio", "following_bought_item", "Someone you are following bought an item"
         %li
-          = f.check_box "settings"
+          = f.check_box :settings_item_changes
           = label "_radio", "item_changes", "Item you following as changed or updated (price, title, summary goes from paid to free and etc)"
         
         %li.submit= f.submit 'Save changes', :class => 'light-button green'

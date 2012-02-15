@@ -9,9 +9,11 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-
-      params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
-
+      
+      parse_settings(params)
+      if params[:user][:birthday]
+        params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
+      end
       if current_user.update_attributes params[:user]
         format.html { redirect_to edit_user_path(current_user), notice: "success" }
         format.json { head :ok }
@@ -37,4 +39,15 @@ class UsersController < ApplicationController
     end     
     
   end
+  private
+  def parse_settings(params)
+    _settings={}  
+    params[:user].each do |key, value|
+      if key =~ /^settings_(\w+)$/
+        _settings[$1.to_sym] = value
+      end
+    end
+    params[:user][:settings] = _settings
+  end
+
 end

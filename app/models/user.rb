@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, 
     :full_name, :profession_and_degree, :role, :avatar, :specialization, :bio,
-    :birthday
+    :birthday, :settings
   
   validates :full_name, :role, :presence => true
   validates :role, :inclusion => %w(doctor patient moderator)
@@ -39,6 +39,13 @@ class User < ActiveRecord::Base
     indexes specialization, :sortable => true
     #where sanitize_sql(["published", true])
     has created_at, updated_at
+  end
+
+  def method_missing(method_name, *args)
+    if method_name =~ /^settings_(\w+)$/
+      settings[$1.to_sym]
+      #self.all(:conditions => {$1 => args[0]})
+    end
   end
 
   has_many :items
