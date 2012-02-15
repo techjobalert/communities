@@ -4,5 +4,8 @@
     %b= "#{comment.user.full_name}:"
     %span= comment.body
   .clear
-  - if user_signed_in?
-    = link_to '+', '#', :class => 'like dark-button' 
+  
+  .like-container 
+    - unless current_user.voted_for? comment
+      = link_to '+', item_comment_vote_up_path(comment.commentable_id, comment),:remote => true ,:class => 'dark-button' 
+    .votes= comment.votes.size

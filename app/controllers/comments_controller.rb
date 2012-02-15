@@ -20,5 +20,11 @@ class CommentsController < ApplicationController
       end      
     end  
   end
+
+  def vote_up
+    @comment = Comment.find(params[:comment_id])
+    @comment.liked_by current_user
+  end
+
 end
 

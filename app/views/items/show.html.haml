@@ -139,8 +139,8 @@
       on this Item
       %span
 
-    - if @item.comment_threads.present?
-      %ul
+    %ul
+      - if @item.comment_threads.present?
         - @item.comment_threads.each do |comment|
           = render :partial => "comments/comment", :locals => {:comment => comment}
       .clear
