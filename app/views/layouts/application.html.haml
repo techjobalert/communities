@@ -31,12 +31,12 @@
               .navigation
                 %ul
                   %li
-                    = link_to root_path, :class => "#{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
+                    = link_to root_path, :remote => :true, :class => "#{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
                       HOME
                       %span bla bla bla
 
                   %li
-                    = link_to new_item_path , :class => "#{ 'selected' if params[:controller] == 'items' }" do
+                    = link_to new_item_path, :class => "#{ 'selected' if params[:controller] == 'items' }" do
                       ITEM
                       %span bla bla bla
 
@@ -62,7 +62,7 @@
                       YOUR PROFILE
                       %span bla bla bla
 
-              .panel
+              .panel#ajax-main-container
                 = yield
             - if params[:controller] == 'users' && params[:action] == 'edit'
               .b-settings-nav 

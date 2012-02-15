@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   
   acts_as_followable
   acts_as_follower
+  acts_as_voter
 
   define_index do
     indexes full_name, :sortable => true

@@ -635,14 +635,17 @@
         }
       }
     }
+  
   }
-  #comments {
+
+  .b-comments {
     h3 {
       margin: 15px 0 10px 20px;
       font-weight: normal;
       font-size: 18px;
     }
-    .comments-panel {
+
+    .b-comments-panel {
       background: #dfeeea;
       -webkit-border-radius: 7px;
       -moz-border-radius: 7px;
@@ -650,6 +653,24 @@
       padding: 5px 15px 20px;
     }
     
+    .b-comments-form {
+      textarea {
+        width: 617px;
+        max-width: 617px;
+        min-width: 617px;
+        font-size: 14px;
+        padding: 5px 6px;
+        background: none repeat scroll 0 0 #F1EFD1;
+        border: 1px solid #FFF;
+        -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+        -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+        box-shadow: 0 2px 2px #D8DCC1 inset; } 
+
+      input[type=submit] {
+        margin-left: 572px;
+      }
+    }
+
     ul {
       width: 630px;
       margin: 0px;
@@ -686,22 +707,35 @@
     }
   }
   
-  .like {
+  .like-container {
     position: absolute;
-    text-decoration: none;
-    width: 25px;
-    height: 25px;
-    padding: 0;
     top: 8px;
     right: 8px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 25px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-  }
+    
+    a {
+      text-decoration: none;
+      width: 25px;
+      height: 25px;
+      padding: 0;
+      text-align: center;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 25px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      display: block;
+      float: right;
+    }
+
+    .votes{
+      font-size: 12px;
+      color: #aaa;
+      float: left;
+      line-height: 25px;
+      margin-right: 10px;
+      }
+  }  
   
   .new-comment {
     float: right;
