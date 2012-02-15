@@ -2,10 +2,10 @@
   %h1 Customize your settings
   .b-notification.b-settings-tab.hidden
     .b-settings-title Email me whenever:
-    = form_for '/' do |f|
+    = form_for(current_user) do |f|
       %ul
         %li.odd
-          = f.check_box "settings"
+          = f.check_box :settings[:following_me]
           = label "_radio", "following_me", "Someone following me"
         %li
           = f.check_box "settings"

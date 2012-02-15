@@ -1,14 +1,14 @@
 module SettingsHelper
-  # Func for get settings value by key
+  # Func for get settings keyue by key
 
   def get_setting(key)
-    val = Settings.find_by_var(key.to_sym).value
-    if val.in?(["true", "false"])
-      eval(val)
-    elsif val.to_i
-      val.to_i
+    key = Settings.find_by_key(key.to_sym).value
+    if key.in?(["true", "false"])
+      ekey(key)
+    elsif key.to_i
+      key.to_i
     else
-      val
+      key
     end
   end
 
