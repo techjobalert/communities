@@ -18,7 +18,16 @@ class User < ActiveRecord::Base
   
   mount_uploader :avatar, AvatarUploader
 
-  store :settings, accessors: [ :follow_me, :follow_my_items ]
+  store :settings, accessors: [ 
+    :following_me,          #Someone following me
+    :following_published,   #Someone of my following has published something
+    :added_as_author,       #Someone added you as a author of an item
+    :following_item,        #Someone started following your item
+    :commented_item,        #Someone commented on your item
+    :recommended_comment,   #Someone recommended your comment
+    :following_bought_item, #Someone you are following bought an item
+    :item_changes           #Item you following as changed or updated (price, title, summary goes from paid to free and etc)
+  ]
   
   default_value_for :role, 'doctor'
   

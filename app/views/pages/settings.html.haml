@@ -5,34 +5,30 @@
     = form_for '/' do |f|
       %ul
         %li.odd
-          = f.check_box "radio_1"
-          = label "_radio", "1", "Someone following me"
+          = f.check_box "settings"
+          = label "_radio", "following_me", "Someone following me"
         %li
-          = f.check_box "radio_1"
-          = label "_radio", "1", "Someone of my following has published something"
+          = f.check_box "settings"
+          = label "_radio", "following_published", "Someone of my following has published something"
         %li.odd
-          = f.check_box "radio_1"
-          = label "_radio", "1", "Someone following me"
+          = f.check_box "settings"
+          = label "_radio", "added_as_author", "Someone added you as a author of an item"
         %li
-          = f.check_box "radio_1"
-          = label "_radio", "1", "Someone of my following has published something"
+          = f.check_box "settings"
+          = label "_radio", "following_item", "Someone started following your item"
         %li.odd
-          = f.check_box "radio_1"
-          = label "_radio", "1", "Someone following me"
+          = f.check_box "settings"
+          = label "_radio", "commented_item", "Someone commented on your item"
         %li
-          = f.check_box "radio_1"
-          = label "_radio", "1", "Someone of my following has published something"
+          = f.check_box "settings"
+          = label "_radio", "recommended_comment", "Someone recommended your comment"
         %li.odd
-          = f.check_box "radio_1"
-          = label "_radio", "1", "Someone following me"
+          = f.check_box "settings"
+          = label "_radio", "following_bought_item", "Someone you are following bought an item"
         %li
-          = f.check_box "radio_1"
-          = label "_radio", "1", "Someone of my following has published something"
-        %li.odd
-          = f.check_box "radio_1"
-          = label "_radio", "1", "Someone following me"
+          = f.check_box "settings"
+          = label "_radio", "item_changes", "Item you following as changed or updated (price, title, summary goes from paid to free and etc)"
         
-
         %li.submit= f.submit 'Save changes', :class => 'light-button green'
 
 
