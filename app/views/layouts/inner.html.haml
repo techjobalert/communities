@@ -11,11 +11,11 @@
     = content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice]
     = content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert]
 
-    = render :partial => "layouts/ie_fix"
+    = render :partial => "layouts/ie_fix", :inline => true
 
     .header
-      = render :partial => "pages/general_links"
-      = render :partial => "pages/search_engine"
+      = render :partial => "pages/general_links", :inline => true
+      = render :partial => "pages/search_engine", :inline => true
     
     .section.center
       .wrapper
@@ -66,7 +66,7 @@
 
 
         - if params[:controller] == 'pages' && params[:action] == 'item'
-          = render :partial => 'relevant_items'
+          = render :partial => 'relevant_items', :inline => true
 
         - if params[:controller] == 'pages' && params[:action] == 'settings'
           .b-settings-nav 

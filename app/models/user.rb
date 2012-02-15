@@ -11,15 +11,19 @@ class User < ActiveRecord::Base
   
   validates :full_name, :role, :presence => true
   validates :role, :inclusion => %w(doctor patient moderator)
-
-  validates :birthday, :date => {
+  validates :birthday, :date => { 
             :after => Proc.new { Time.now - 100.year }, 
             :before => Proc.new { Time.now }
             }, :allow_blank => true, :on => :update
   
+  mount_uploader :avatar, AvatarUploader
+
+  store :settings, accessors: [ :follow_me, :follow_my_items ]
+  
   default_value_for :role, 'doctor'
   
-  mount_uploader :avatar, AvatarUploader
+  acts_as_followable
+  acts_as_follower
 
   define_index do
     indexes full_name, :sortable => true

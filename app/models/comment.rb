@@ -1,4 +1,7 @@
 class Comment < ActiveRecord::Base
+  include PubUnpub
+  include SettingsHelper
+  
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
   
   validates_presence_of :body
@@ -9,8 +12,16 @@ class Comment < ActiveRecord::Base
   #acts_as_voteable
   
   # NOTE: Comments belong to a user
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   
+  # Scopes
+  scope :published, where(:published => true)
+  scope :unpublished, where(:published => false)
+  scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
+
+  # Handlers
+  before_create  :default_values
+
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
   # example in readme
@@ -23,6 +34,12 @@ class Comment < ActiveRecord::Base
     c
   end
   
+  fires :new_comment, :on                 => [:create, :update],
+                      :actor              => :user,
+                      #implicit :subject  => self,
+                      :secondary_subject  => 'commentable',
+                      :if => lambda { |comment| comment.published != false }
+
   #helper method to check if a comment has children
   def has_children?
     self.children.size > 0 
@@ -44,5 +61,11 @@ class Comment < ActiveRecord::Base
   # given the commentable class name and id 
   def self.find_commentable(commentable_str, commentable_id)
     commentable_str.constantize.find(commentable_id)
+  end
+
+
+  def default_values
+    self.published = !get_setting("comments_pre_moderation")
+    true
   end
 end
