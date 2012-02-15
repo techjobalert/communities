@@ -111,7 +111,6 @@
   / есть два варианта
   / 1 Вариант
   
-  = @item.paid
   .text.pic
     = link_to image_tag('/assets/logo.png', :width => '200'), '#'
     %h2= @item.title
@@ -126,55 +125,27 @@
       = image_tag '/assets/tmp/p5.png'
     .body
       = link_to image_tag('/assets/logo.png', :width => '200'), '#'
-      %h2 Allergic reaction and nickel-free
+      %h2= @item.title
 
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Phasellus metus mi, egestas eget cursus eu, egestas nec massa.
-      Sed ac dui nec arcu viverra pulvinar at quis erat.
-      Ut viverra consectetur erat ut vulputate. Integer
-      bibendum, nisi vel venenatis faucibus, augue libero
-      commodo tellus, nec pharetra risus erat sit amet
-      felis. Nullam at ipsum ac ante ullamcorper vehicula.
-      Cum sociis natoque penatibus et magnis dis parturient
-      montes, nascetur ridiculus mus. Suspendisse potenti.
-      Etiam semper enim egestas enim vehicula commodo. Nulla
-      quis urna ut neque sollicitudin facilisis. Cras
-      vitae velit id odio laoreet ullamcorper. Etiam
-      rhoncus convallis odio, quis lobortis ipsum
-      pellentesque id. Phasellus congue mollis turpis,
-      aliquam imperdiet est pharetra sit amet. Duis
-      placerat vehicula scelerisque.
+      = @item.description
     .clear
 
 #comments
   %h3 Comments
   .comments-panel
-    = link_to '#', :class => 'light-button new-comment' do
+    = link_to '#comment-form', :class => 'light-button new-comment slide-to' do
       Make a comment
       %br
       on this Item
       %span
 
-    %ul
-      %li
-        = image_tag '/assets/tmp/p4.png', :width => '60', :height => '60'
-        .body
-          %b Kobi mori:
-          %span Very nice. i like it and i think it should be in the movie
-        .clear
-        = link_to '+', '#', :class => 'like dark-button'
-      %li
-        = image_tag '/assets/tmp/p3.png', :width => '60', :height => '60'
-        .body
-          %b Kobi mori:
-          %span Very nice. i like it and i think it should be in the movie
-        .clear
-        = link_to '+', '#', :class => 'like dark-button'
-      %li
-        = image_tag '/assets/tmp/p5.png', :width => '60', :height => '60'
-        .body
-          %b Kobi mori:
-          %span Very nice. i like it and i think it should be in the movie
-        .clear
-        = link_to '+', '#', :class => 'like dark-button'
-    .clear
+    - if @item.comment_threads.present?
+      %ul
+        - @item.comment_threads.each do |comment|
+          = render :partial => "comments/comment", :locals => {:comment => comment}
+      .clear
+
+    .comments-form
+      = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
+
+

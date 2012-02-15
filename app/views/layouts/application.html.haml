@@ -93,9 +93,4 @@
       - flash.each do |key, value|
         = content_tag(:div, value.is_a?(Array) ? raw(value.join(". ")) : value, :class => "flash_#{key} notice")
       %script
-        $(function(){
-        setTimeout('hideNotice()', 7000);
-        });
-        function hideNotice(){
-        $('.notice').fadeOut();
-        }
+        $(function(){hideNotice();});        

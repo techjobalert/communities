@@ -5,7 +5,7 @@ Orthodontic::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   resources :items do
-    
+    resources :comments
   end
 
   devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
