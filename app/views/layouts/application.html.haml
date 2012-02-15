@@ -7,14 +7,14 @@
     = csrf_meta_tags
   %body
     
-    = render :partial => "layouts/ie_fix"
+    = render :partial => "layouts/ie_fix", :inline => true
     .header
-      = render :partial => "layouts/general_links"
+      = render :partial => "layouts/general_links", :inline => true
       
       - if current_user.present?
-        = render :partial => "layouts/search_engine"
+        = render :partial => "layouts/search_engine", :inline => true
       - else
-        = render :partial => "layouts/header_auth"      
+        = render :partial => "layouts/header_auth", :inline => true      
     .clear
     .section.center
       - if current_user.present?
@@ -80,7 +80,7 @@
             %b= link_to 'Sign up', "#{root_path}#sign-up"
             in order to view content
 
-        = render :partial => 'layouts/relevant_items'
+        = render :partial => 'layouts/relevant_items', :inline => true
 
 
     - if current_user.present?

@@ -6,10 +6,10 @@
 -->
 <div class="fl-l" style="width:960px">
   <div class="fl-r">
-    <%= render :partial => 'partials/webrecorder' %>
+    <%= render :partial => 'partials/webrecorder', :inline => true %>
   </div>
   <div class="fl-l">
-    <%= render :partial => 'partials/player', :locals => {:file_name => @file_name} %>
+    <%= render :partial => 'partials/player', :locals => {:file_name => @file_name}, :inline => true %>
   </div>
 
   <div class="clearfix">

@@ -11,15 +11,28 @@ class User < ActiveRecord::Base
   
   validates :full_name, :role, :presence => true
   validates :role, :inclusion => %w(doctor patient moderator)
-
-  validates :birthday, :date => {
+  validates :birthday, :date => { 
             :after => Proc.new { Time.now - 100.year }, 
             :before => Proc.new { Time.now }
             }, :allow_blank => true, :on => :update
   
+  mount_uploader :avatar, AvatarUploader
+
+  store :settings, accessors: [ 
+    :following_me,          #Someone following me
+    :following_published,   #Someone of my following has published something
+    :added_as_author,       #Someone added you as a author of an item
+    :following_item,        #Someone started following your item
+    :commented_item,        #Someone commented on your item
+    :recommended_comment,   #Someone recommended your comment
+    :following_bought_item, #Someone you are following bought an item
+    :item_changes           #Item you following as changed or updated (price, title, summary goes from paid to free and etc)
+  ]
+  
   default_value_for :role, 'doctor'
   
-  mount_uploader :avatar, AvatarUploader
+  acts_as_followable
+  acts_as_follower
 
   define_index do
     indexes full_name, :sortable => true

@@ -83,3 +83,7 @@ gem 'acts_as_commentable_with_threading', :git => "git://github.com/elight/acts_
 gem 'acts_as_votable'
 # https://github.com/tcocca/acts_as_follower
 gem 'acts_as_follower'
+# https://github.com/Shopify/active_merchant
+#gem 'activemerchant', :require => 'active_merchant'
+# https://github.com/jamesgolick/timeline_fu
+gem 'timeline_fu', :git => 'git://github.com/jamesgolick/timeline_fu.git'
