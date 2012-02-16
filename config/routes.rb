@@ -8,7 +8,6 @@ Orthodontic::Application.routes.draw do
     resources :comments do
       get "vote_up"
     end 
-    post "upload_avatar", :via => :post
     post "follow", :via => :post 
     delete "unfollow"
   end  

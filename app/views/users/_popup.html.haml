@@ -1,0 +1,36 @@
+.b-popup-user-info.popup-container.left{:id => "user_#{user.id}"}
+  .container
+    .user-info
+      = image_tag user.avatar_url(:thumb_70), :alt => 'Yossy Mendelovich . MD'
+      %span.title= user.full_name
+    - if user != current_user  
+      .light-button.follow
+        Folow
+        %span
+    
+    .panel
+      - unless user.specialization.blank?
+        %p
+          %b Specialization:
+          = user.specialization
+
+      - if user != current_user
+        %p
+          %b Send a massege:
+          you can send a message directly to email about
+          profesional question
+
+        %p= text_area_tag 'description'
+
+        %p.right= button_tag 'Send', :class => 'light-button send green'
+
+    .panel
+      %p
+        %b Publication:
+        you can send a message directly to email about
+        profesional question you can send a message directly to email about
+        profesional question
+    .clear
+
+  %p.right= link_to 'Go to profile', '#', :class => 'light-button go-to-profile'
+  .corner

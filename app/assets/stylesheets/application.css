@@ -9,7 +9,7 @@
  *= require file
  *= require home
  *= require items
- *= require_jquery-ui
+ *= require jquery-ui
  *= require users
  
  *= require jquery.fileupload-ui

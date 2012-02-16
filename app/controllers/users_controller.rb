@@ -26,16 +26,16 @@ class UsersController < ApplicationController
 
   def upload_avatar
     current_user.avatar = params[:file]
-    current_user.save!
-
     respond_to do |format|
-      @data = { 
-        :thumb_60 => current_user.avatar_url(:thumb_60), 
-        :thumb_70 => current_user.avatar_url(:thumb_70), 
-        :thumb_143 => current_user.avatar_url(:thumb_143),
-      }
-      
-      format.json { render json: @data.to_json }      
+      if current_user.save
+        @data = { 
+          :thumb_60 => current_user.avatar_url(:thumb_60), 
+          :thumb_70 => current_user.avatar_url(:thumb_70), 
+          :thumb_143 => current_user.avatar_url(:thumb_143),
+        }
+        
+        format.json { render json: @data.to_json }
+      end
     end     
     
   end
