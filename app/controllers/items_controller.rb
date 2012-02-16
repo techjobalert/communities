@@ -21,10 +21,10 @@ class ItemsController < InheritedResources::Base
   end  
 
   def follow
-    following_subject = Item.find(params[:item_id])
+    @following_item = Item.find(params[:item_id])
     @message = ""
-    if not current_user.items.include?(following_subject.id) and following_subject
-      current_user.follow(following_subject)
+    if @following_item and not current_user.items.include?(@following_item)
+      current_user.follow(@following_item)
     else
       @message = "You cannot follow your item."
     end
@@ -35,10 +35,10 @@ class ItemsController < InheritedResources::Base
   end
 
   def unfollow
-    following_subject = Item.find(params[:item_id])
+    @following_item = Item.find(params[:item_id])
     @message = ""
-    if urrent_user.following?(following_subject) and following_subject
-      current_user.stop_following(following_subject)
+    if current_user.following?(@following_item) and @following_item
+      current_user.stop_following(@following_item)
     else
       @message = "Some error."
     end

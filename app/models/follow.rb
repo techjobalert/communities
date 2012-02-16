@@ -10,10 +10,11 @@ class Follow < ActiveRecord::Base
   fires :new_follow,  :on                 => [:create, :destroy],
                       :actor              => :follower,
                       #implicit :subject  => self,
-                      :secondary_subject  => 'followable',
-                      :if => lambda { |followable| 
-                      	followable.class.name.in %w(User Item Comment) and followable.published != false 
-                       }
+                      :secondary_subject  => 'followable'
+                      # ,:if => lambda { |followable| 
+                      # 	followable.class.name.in %w(Item Comment) and followable.published != false 
+                      #  }
+
 
   def block!
     self.update_attribute(:blocked, true)
