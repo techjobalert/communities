@@ -83,14 +83,14 @@
         %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
         %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
         %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-
+    
+    - p @item, "111111111111111", current_user.following(@item), current_user.id
     - if current_user and @item.user.id != current_user.id
-      - if not current_user.following(@item)
+      - if not current_user.following?(@item)
         = link_to item_follow_path(@item), :method => :post, :remote => true do
           .light-button.follow
             Follow Item
             %span
-
       - else
         = link_to item_unfollow_path(@item), :method => :delete, :remote => true do
           .light-button.follow

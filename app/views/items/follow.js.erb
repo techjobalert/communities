@@ -1,0 +1,6 @@
+var fbutton = $(".light-button.follow");
+if (fbutton){
+	fbutton.text("Unfollow Item");
+	var link = fbutton.parent("a");
+	link.data("method", "delete").attr("href", '<%= item_unfollow_path(@following_item) %>');
+}
