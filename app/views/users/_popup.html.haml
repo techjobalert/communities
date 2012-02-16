@@ -4,14 +4,11 @@
       = image_tag user.avatar_url(:thumb_70), :alt => "#{user.full_name}"
       %span.title= user.full_name
     - if user != current_user  
-      - if current_user.following?(user)
-        = link_to user_follow_path(user), :method => :post, :class => "light-button follow" do
-          Folow
-          %span
-      - else
-        = link_to user_unfollow_path(user), :method => :delete, :class => "light-button follow unfollow" do
-          Unfolow
-          %span
+      .tools
+        - if current_user.following?(user)
+          = render :partial => "follows/unfollow", :locals => {:path => user_unfollow_path(user)}
+        - else
+          = render :partial => "follows/follow", :locals => {:path => user_follow_path(user)}          
     
     .panel
       - unless user.specialization.blank?
