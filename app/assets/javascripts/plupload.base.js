@@ -1,12 +1,13 @@
 $(function() {
+  return $.initPlupload = function(options) {
+    var uploader;
+    var settings;
 
-  if ($('#upcontainer').length){
-    var uploader = new plupload.Uploader({
+    settings = { 
       runtimes: "html5,html4,flash",
       browse_button: "pickfiles",
       container: "upcontainer",
-      max_file_size: "6mb",
-      url: "/users/upload_avatar.json",
+      max_file_size: "6mb",      
       flash_swf_url: "assets/plupload/plupload.flash.swf",
       multipart: true,
       multipart_params: {
@@ -18,7 +19,16 @@ $(function() {
           extensions: "jpg,jpeg,png,JPG,JPEG,PNG"
         }
       ]
-    });
+    };
+
+    // Extend base settings by options
+    $.extend(settings, options);
+    if ( !$("#"+settings.container) || !$("#"+settings.browse_button) ){
+      console.warn("missing plupload elements");
+      return false;
+    }
+
+    var uploader = new plupload.Uploader(settings);
 
     uploader.init();
     

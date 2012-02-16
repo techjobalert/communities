@@ -5,7 +5,7 @@ $ ->
       $(".toggler label").toggleClass "checked"
       $(".doctor-only").toggleClass "hidden"
   
-  $('.b-auth .buttons a').live "click", ->
+  $(".b-auth .buttons a").live "click", ->
     elem = $(this)
     unless elem.hasClass("selected")
       $(".b-auth .buttons a").toggleClass "selected"
@@ -35,7 +35,7 @@ $ ->
   $(".b-popup-user-info").live "mouseleave", ->
     $(this).fadeOut "fast"
 
-  $('.light-button.set-preview').toggle (->
+  $(".light-button.set-preview").toggle (->
     t = $(this).offset()
     $(".b-popup-set-preview").css(
       top: (t.top + 55) + "px"
@@ -50,10 +50,7 @@ $ ->
       $(".b-settings-tab").toggleClass "hidden"
     false
 
-  $("#datepicker").datepicker
-    changeMonth: true
-    changeYear: true
-    yearRange: '-99:+0'
-    maxDate: 0
-   
-  $('#user-avatar-uploader').attr('size','7')
+  $(".main-content .navigation a").live "click", ->
+    $(".l-settings-navigation").html("")
+    $(".main-content .navigation a").removeClass "selected"
+    $(this).addClass "selected"
