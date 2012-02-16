@@ -22,15 +22,19 @@ $ ->
   $(".b-search-engine .btn.explore").live "click", ->
     $(".b-explore-popup").toggleClass "hidden"
     
-  $(".popup-user-info").live "click", ->
-    if $(".b-popup-user-info:hidden").length
-      t = $(this).offset()
-      $(".b-popup-user-info").css(
-        top: (t.top - 33) + "px"
-        left: (t.left + 85) + "px"
-      ).fadeIn "fast"
-    else
-      $(".b-popup-user-info").fadeOut "fast"
+  $(".popup-user-info").live "mouseover", ->
+    id = $(this).attr "id"
+    if $("." + id).length
+      if $("." + id + ":hidden").length
+        t = $(this).offset()
+        $(".b-popup-user-info").css(
+          top: (t.top - 33) + "px"
+          left: (t.left + 85) + "px"
+        ).fadeIn "fast"
+      else
+        $(".b-popup-user-info").fadeOut "fast"
+    
+
     
   $(".b-popup-user-info").live "mouseleave", ->
     $(this).fadeOut "fast"

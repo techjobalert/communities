@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
 
-  def show    
+  def index
+    @users = User.all
+  end  
+
+  def show 
+    @user = params[:id] == current_user.id ? current_user : User.find(params[:id])
   end
   
   def edit    
@@ -37,8 +42,8 @@ class UsersController < ApplicationController
         format.json { render json: @data.to_json }
       end
     end     
-    
-  end
+  end  
+  
 
   def follow
     following_user_id = params[:user_id]
@@ -58,7 +63,7 @@ class UsersController < ApplicationController
     else
       @message = "Some error."
     end
-  end
+  end  
 
   private
   def parse_settings(params)

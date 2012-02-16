@@ -1,12 +1,17 @@
-.b-popup-user-info.popup-container.left{:id => "user_#{user.id}"}
+.b-popup-user-info.popup-container.left{:class => "popup-user-#{user.id}"}
   .container
     .user-info
-      = image_tag user.avatar_url(:thumb_70), :alt => 'Yossy Mendelovich . MD'
+      = image_tag user.avatar_url(:thumb_70), :alt => "#{user.full_name}"
       %span.title= user.full_name
     - if user != current_user  
-      .light-button.follow
-        Folow
-        %span
+      - if current_user.following?(user)
+        = link_to user_follow_path(user), :method => :post, :class => "light-button follow" do
+          Folow
+          %span
+      - else
+        = link_to user_unfollow_path(user), :method => :delete, :class => "light-button follow unfollow" do
+          Unfolow
+          %span
     
     .panel
       - unless user.specialization.blank?
@@ -32,5 +37,5 @@
         profesional question
     .clear
 
-  %p.right= link_to 'Go to profile', '#', :class => 'light-button go-to-profile'
+  %p.right= link_to 'Go to profile', user_path(user), :remote => :true, :class => 'light-button go-to-profile'
   .corner
