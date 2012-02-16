@@ -35,6 +35,7 @@
       padding: 10px 5px 10px 11px;
       margin: 13px auto;
       width: 67px;
+      display: block;
       span {
         background: url("/assets/btn-icons-set.png") no-repeat scroll 0 -2px transparent;
         display: block;
@@ -42,6 +43,9 @@
         height: 18px;
         margin-left: 7px;
         width: 18px;
+      }
+      &.unfollow {
+        width: 80px;
       }
     }
   }
@@ -346,4 +350,32 @@
       background-position: 0 -60px;
     }
   }  
+}
+
+.b-colleagues {
+  .b-colleagues-container{
+    padding: 10px 20px 10px 30px;
+    .b-colleagues-item {
+      display: block;
+      float: left;
+      height: 64px;
+      width: 140px;
+      color: #1b1e26;
+      text-decoration: none;
+      margin: 0 10px 25px 0;
+      
+      img {
+        border: 2px solid #ddd;
+        float: left;
+      }
+      
+      .title {
+        float: left;
+        font-size: 14px;
+        margin: 3px 0 0 7px;
+        overflow: hidden;
+        width: 68px;
+      }
+    }
+  }
 }

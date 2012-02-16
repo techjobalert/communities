@@ -17,7 +17,7 @@ Orthodontic::Application.routes.draw do
     match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
   end
   
-  resources :users, :only => [:create, :show, :edit, :update], :path_names => { :edit => 'settings' } do
+  resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
     post "upload_avatar", :via => :post
     post "follow", :via => :post
     delete "unfollow"

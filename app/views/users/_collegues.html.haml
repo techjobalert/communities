@@ -1,0 +1,49 @@
+%h3 
+  Your Colleagues
+
+  .light-button.send-message.green
+    %b Send 
+    your followers a message 
+
+.b-colleagues.list
+  .list-header
+    .nav.account
+      = link_to '#', :class => 'followers selected' do 
+        %span
+        Followers
+      = link_to '#', :class => 'published-together' do
+        %span
+        Published
+        %br
+        together        
+      = link_to '#', :class => 'following' do
+        %span
+        Following
+      = link_to '#', :class => 'patients' do
+        %span
+        Patients
+    .filter.account
+      .field
+        .tags
+          .label Filter by
+          = form_for '/' do |f|
+            = f.select "", ['Degree','Degree']
+            = f.select "", ['Location','Location']
+            = f.select "", ['Specialization','Specialization']
+            = f.select "", ['Num’ of publishing','Num’ of publishing']
+              
+          .clear
+        .search
+          = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'
+          = button_tag 'Go', :class => 'dark-button'
+        .clear
+    .clear
+    .list-content
+      .b-colleagues-container
+        - if users.present?
+          - users.each do |user|
+            = link_to user_path(user), :remote => :true, :class => 'b-colleagues-item' do
+              = image_tag user.avatar_url(:thumb_60), :width => '60', :height => '60'
+              .title= raw user.full_name.gsub(" ","<br>")
+            
+        .clear

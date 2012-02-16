@@ -1,1 +1,5 @@
-$("#ajax-main-container").html("#{escape_javascript(render :partial => 'show')}");
+$("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user})}");
+
+- if @user != current_user
+  $(".main-content .navigation a").removeClass("selected");
+  $(".tab-collegues").addClass("selected");
