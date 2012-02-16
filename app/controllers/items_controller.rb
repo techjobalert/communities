@@ -46,6 +46,4 @@ class ItemsController < InheritedResources::Base
       format.js     
     end
   end
-
-  private
 end

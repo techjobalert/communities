@@ -10,6 +10,7 @@ class Item < ActiveRecord::Base
   acts_as_followable
   
   # Scopes
+  default_scope where(:published => true)
   scope :published, where(:published => true)
   scope :unpublished, where(:published => false)
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
