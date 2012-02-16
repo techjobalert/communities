@@ -15,7 +15,6 @@ class Comment < ActiveRecord::Base
   belongs_to :user, :counter_cache => true
   
   # Scopes
-  default_scope where(:published => true)
   scope :published, where(:published => true)
   scope :unpublished, where(:published => false)
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))

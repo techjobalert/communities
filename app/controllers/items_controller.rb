@@ -3,7 +3,7 @@ class ItemsController < InheritedResources::Base
   load_and_authorize_resource
   
   def index
-    @items = Item.page params[:page]
+    @items = Item.published.page params[:page]
   end
   
   def create
