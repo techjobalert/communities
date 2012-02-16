@@ -1,5 +1,9 @@
-$("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user})}");
+- Rails.logger.info "###################################{params}"
+- if !@popup
+  $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user})}");
 
-- if @user != current_user
-  $(".main-content .navigation a").removeClass("selected");
-  $(".tab-collegues").addClass("selected");
+  - if @user != current_user
+    $(".main-content .navigation a").removeClass("selected");
+    $(".tab-collegues").addClass("selected");
+- else
+  $(".popup-user-#{@user.id}").html("#{escape_javascript(render :partial => 'popup', :locals => {:user => @user})}");

@@ -13,7 +13,7 @@
             var uploaderProfile = $.initPlupload({url: "#{user_upload_avatar_path(user)}"+".json"});   
         - else
           = image_tag user.avatar_url(:thumb_143)
-          .tools
+          .tools{:class => "tools-user-#{@user.id}"}
             - if current_user.following?(user)
               = render :partial => "follows/unfollow", :locals => {:path => user_unfollow_path(user)}
             - else

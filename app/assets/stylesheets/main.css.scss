@@ -530,6 +530,16 @@ h3 {
   font-size: 12px;
   font-weight: 16px;
   z-index: 1000;
+
+  .spinner {
+    height: 200px;
+    background: url('/assets/ajax-loader.gif') no-repeat center center #fff;
+    width: 100%;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+    border: 1px solid #bfbd9a;
+  }
   
   .container {
     background: #fff;
@@ -597,8 +607,8 @@ h3 {
       width: 18px;
     }
 
-    &.unfolow {
-      width: 80px
+    &.unfollow {
+      width: 76px;
     }
   }
   

@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show 
     @user = params[:id] == current_user.id ? current_user : User.find(params[:id])
+    @popup = (params[:type].present? && params[:type] == "popup")       
   end
   
   def edit    

@@ -1,1 +1,1 @@
-$('.b-user-preview .tools').html("#{escape_javascript(render :partial => "follows/unfollow", :locals => {:path => user_follow_path(@following_user)})}");
+$(".tools.tools-user-#{@following_user.id}").html("#{escape_javascript(render :partial => "follows/unfollow", :locals => {:path => user_unfollow_path(@following_user)})}");

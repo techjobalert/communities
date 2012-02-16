@@ -23,20 +23,30 @@ $ ->
     $(".b-explore-popup").toggleClass "hidden"
     
   $(".popup-user-info").live "mouseover", ->
+    $(".popup-container").fadeOut "fast"    
     id = $(this).attr "id"
+    t = $(this).offset()    
+    settings = 
+      top: (t.top - 43) + "px"
+      left: (t.left + 85) + "px"
     if $("." + id).length
-      if $("." + id + ":hidden").length
-        t = $(this).offset()
-        $(".b-popup-user-info").css(
-          top: (t.top - 33) + "px"
-          left: (t.left + 85) + "px"
-        ).fadeIn "fast"
-      else
-        $(".b-popup-user-info").fadeOut "fast"
-    
+      if $("." + id + ":hidden").length        
+        $("." + id).css(settings).fadeIn "fast"      
+    else
+      $(".tmp .popup-container")
+        .clone()
+        .addClass(id + " left b-popup-user-info")
+        .appendTo("body")
+        .css(settings)
+        .fadeIn "fast"
+      $.get "/users/" + parseInt(id.replace(/\D+/g, "")),
+        type: "popup"
+      , (() ->), "script"
+
+        
 
     
-  $(".b-popup-user-info").live "mouseleave", ->
+  $(".popup-container").live "mouseleave", ->
     $(this).fadeOut "fast"
 
   $(".light-button.set-preview").toggle (->
