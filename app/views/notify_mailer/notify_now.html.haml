@@ -11,18 +11,18 @@
 - if @notify.subject_type == "Item"
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
-    = "#{@notify.event_type.split("_").first}ed item"
+    = "#{@notify.event_type.split("_").first}d item"
     = link_to @notify.subject.title, item_url(@notify.subject)
 
 - if @notify.subject_type == "User"
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
-    = "#{@notify.event_type.split("_").first}ed profile"
+    = "#{@notify.event_type.split("_").first}d profile"
 
 - if @notify.subject_type == "Comment"
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
-    = "#{@notify.event_type.split("_").first}ed comment "
+    = "#{@notify.event_type.split("_").first}d comment "
     = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
 
 = "Email created #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}"
