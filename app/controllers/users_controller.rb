@@ -2,15 +2,33 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
 
   def index
-    @users = User.all
+    @tab = params[:tab].present? ? params[:tab] : 'followers'
+
+    case @tab
+      when "followers"
+        @users = current_user.followers.select { |f| f.role == 'doctor'}       
+
+      when "published_together"
+        @users = User.all
+
+      when "following"
+        @users = current_user.following_by_type('User')        
+
+      when "patients"
+        @users = current_user.followers.select { |f| f.role == 'patient'}  
+
+      else
+        @users = current_user.followers.select { |f| f.role == 'doctor'} 
+        @tab = "followers"    
+    end
   end  
 
   def show 
     @user = params[:id] == current_user.id ? current_user : User.find(params[:id])
-    @popup = (params[:type].present? && params[:type] == "popup")       
+    @popup = (params[:type].present? && params[:type] == "popup")
   end
   
-  def edit    
+  def edit
   end
 
   def update

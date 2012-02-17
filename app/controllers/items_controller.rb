@@ -2,6 +2,12 @@ class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:show, :index]
   load_and_authorize_resource
   
+
+  def show 
+    @item = Item.find(params[:id])
+    @popup = (params[:type].present? && params[:type] == "popup")       
+  end
+
   def index
     @items = Item.published.page params[:page]
   end

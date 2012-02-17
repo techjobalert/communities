@@ -13,18 +13,40 @@
             var uploaderProfile = $.initPlupload({url: "#{user_upload_avatar_path(user)}"+".json"});   
         - else
           = image_tag user.avatar_url(:thumb_143)
-          .tools{:class => "tools-user-#{@user.id}"}
+          .tools
             - if current_user.following?(user)
-              = render :partial => "follows/unfollow", :locals => {:path => user_unfollow_path(user)}
+              = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id}" do
+                Unfolow
+                %span
             - else
-              = render :partial => "follows/follow", :locals => {:path => user_follow_path(user)}
+              = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id}" do
+                Folow
+                %span
         
       .b-user-info-body
         %h2.b-user-title= user.full_name
+        - unless user.birthday.blank?
+          %p
+            %strong Birthday:
+            = user.birthday
+            
+        - unless user.profession_and_degree.blank?
+          %p
+            %strong Profession and degree 
+            = user.profession_and_degree       
+        
         - unless user.specialization.blank?
           %p
             %strong Specialization:
             = user.specialization
+        - if (user != current_user)    
+          %p
+            %strong Send a massege: 
+            you can send a message directly to email about profesional question
+
+          %p= text_area_tag 'description'
+
+          %p.right= button_tag 'Send', :class => 'light-button send green'
         
       .clear    
     

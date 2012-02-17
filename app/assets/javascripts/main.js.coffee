@@ -12,8 +12,7 @@ $ ->
       $(".sign-tab").toggleClass "hidden"
     false
     
-  $("a.sign-in").click()  if window.location.hash.indexOf("#sign-in") >= 0
-    
+  $("a.sign-in").click()  if window.location.hash.indexOf("#sign-in") >= 0    
     
   $(".b-popup-set-preview label").live "click", ->
     $(".b-popup-set-preview label").removeClass "checked"
@@ -43,8 +42,26 @@ $ ->
         type: "popup"
       , (() ->), "script"
 
-        
-
+  $(".popup-item-info").live "mouseover", ->
+    $(".popup-container").fadeOut "fast"    
+    id = $(this).attr "id"
+    t = $(this).offset()    
+    settings = 
+      top: (t.top - 43) + "px"
+      left: (t.left + 285) + "px"
+    if $("." + id).length
+      if $("." + id + ":hidden").length        
+        $("." + id).css(settings).fadeIn "fast"      
+    else
+      $(".tmp .popup-container")
+        .clone()
+        .addClass(id + " left b-popup-item-info")
+        .appendTo("body")
+        .css(settings)
+        .fadeIn "fast"
+      $.get "/items/" + parseInt(id.replace(/\D+/g, "")),
+        type: "popup"
+      , (() ->), "script"
     
   $(".popup-container").live "mouseleave", ->
     $(this).fadeOut "fast"
@@ -68,3 +85,8 @@ $ ->
     $(".l-settings-navigation").html("")
     $(".main-content .navigation a").removeClass "selected"
     $(this).addClass "selected"
+
+  $(".list-header .nav a").live "click", ->   
+    unless $(this).hasClass("selected")
+      $(".list-header .nav a").removeClass "selected"
+      $(this).addClass("selected")

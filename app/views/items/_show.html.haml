@@ -84,19 +84,15 @@
         %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
         %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
     
-
-    - if current_user and @item.user.id != current_user.id
-      .item-follow-unfollow
-        - if not current_user.following?(@item)
-          = link_to item_follow_path(@item), :method => :post, :remote => true do
-            .light-button.follow
-              Follow
-              %span
-        - else
-          = link_to item_unfollow_path(@item), :method => :delete, :remote => true do
-            .light-button.follow
-              Unfollow
-              %span
+    - if current_user and item.user.id != current_user.id
+      - if not current_user.following?(item)
+        = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id}" do          
+          Follow Item
+          %span
+      - else
+        = link_to item_unfollow_path(item), :method => :delete, :remote => true, :class => "light-button follow follow-item-#{item.id}" do
+          Unfollow Item
+          %span
 
     / кнопка в трех вариантах
     / 1. Вариант
@@ -162,4 +158,4 @@
     .b-comments-form#comment-form
       = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
 
-= render :partial => 'show', :locals => {:item => @item}
+

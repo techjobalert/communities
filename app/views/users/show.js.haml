@@ -1,9 +1,11 @@
-- Rails.logger.info "###################################{params}"
-- if !@popup
+- if @popup
+  $(".popup-user-#{@user.id}").html("#{escape_javascript(render :partial => 'popup', :locals => {:user => @user})}");  
+- else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user})}");
 
+  $(".main-content .navigation a").removeClass("selected");
   - if @user != current_user
-    $(".main-content .navigation a").removeClass("selected");
-    $(".tab-collegues").addClass("selected");
-- else
-  $(".popup-user-#{@user.id}").html("#{escape_javascript(render :partial => 'popup', :locals => {:user => @user})}");
+    $(".tab-public").addClass("selected");
+  - else
+    $(".tab-profile").addClass("selected");
+    

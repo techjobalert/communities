@@ -41,6 +41,8 @@ class User < ActiveRecord::Base
   fires :update_profile,  :on     => :update,
                           :actor  => :self
 
+  scope :role_is, lambda {|role| where(:role => role)}
+
   define_index do
     indexes full_name, :sortable => true
     indexes specialization, :sortable => true
