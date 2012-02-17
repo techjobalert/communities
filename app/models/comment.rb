@@ -13,6 +13,10 @@ class Comment < ActiveRecord::Base
   
   # NOTE: Comments belong to a user
   belongs_to :user, :counter_cache => true
+  belongs_to :item, :counter_cache => true
+
+  belongs_to :commentable, :polymorphic => true
+  has_many :comments, :as => :commentable
   
   # Scopes
   scope :published, where(:published => true)
@@ -34,11 +38,11 @@ class Comment < ActiveRecord::Base
     c
   end
   
-  fires :new_comment, :on                 => [:create, :update],
-                      :actor              => :user,
-                      #implicit :subject  => self,
-                      :secondary_subject  => 'commentable',
-                      :if => lambda { |comment| comment.published != false }
+  fires :create_comment,  :on                 => :create,
+                          :actor              => :user,
+                          #implicit :subject  => self,
+                          :secondary_subject  => :commentable
+                          # ,:if => lambda { |comment| comment.published != false }
 
   #helper method to check if a comment has children
   def has_children?

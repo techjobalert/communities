@@ -7,14 +7,13 @@ class Follow < ActiveRecord::Base
   belongs_to :followable, :polymorphic => true
   belongs_to :follower,   :polymorphic => true
 
-  fires :new_follow,  :on                 => [:create, :destroy],
-                      :actor              => :follower,
-                      #implicit :subject  => self,
-                      :secondary_subject  => 'followable'
-                      # ,:if => lambda { |followable| 
-                      # 	followable.class.name.in %w(Item Comment) and followable.published != false 
-                      #  }
+  fires :follow,    :on                 => :create,
+                    :actor              => :follower,
+                    :secondary_subject  => 'followable'
 
+  fires :unfollow,  :on                 => :destroy,
+                    :actor              => :follower,
+                    :secondary_subject  => 'followable'
 
   def block!
     self.update_attribute(:blocked, true)

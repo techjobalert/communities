@@ -10,7 +10,7 @@ puts "[START] DATABASE-SEED"
   if s
     puts "[exist]'#{key}' = #{value[0]}"
   end
-  Settings.create!({:key => key, :value => value[0], :description => value[1]}) if s.nil?
+  Settings.create!({:key => key, :value => value[0].to_s, :description => value[1]}) if s.nil?
 end
 
 puts "[FINISH] DATABASE-SEED"

@@ -34,7 +34,7 @@ group :development, :test do
   gem 'turn', :require => false
 end
 
-group :production do  
+group :production do
 end
 
 # Permissions and Authorization
