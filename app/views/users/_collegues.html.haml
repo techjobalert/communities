@@ -8,18 +8,18 @@
 .b-colleagues.list
   .list-header
     .nav.account
-      = link_to users_path(:tab => "followers"), :remote => true, :class => 'followers selected' do 
+      = link_to users_path(:tab => "followers"), :remote => true, :class => "followers #{ 'selected' if @tab == 'followers'}" do 
         %span
         Followers
-      = link_to users_path(:tab => "published_together"), :remote => true, :class => 'published-together' do
+      = link_to users_path(:tab => "published_together"), :remote => true, :class => "published-together #{ 'selected' if @tab == 'published_together'}" do
         %span
         Published
         %br
         together        
-      = link_to users_path(:tab => "following"), :remote => true, :class => 'following' do
+      = link_to users_path(:tab => "following"), :remote => true, :class => "following #{ 'selected' if @tab == 'following'}" do
         %span
         Following
-      = link_to users_path(:tab => "patients"), :remote => true, :class => 'patients' do
+      = link_to users_path(:tab => "patients"), :remote => true, :class => "patients #{ 'selected' if @tab == 'patients'}" do
         %span
         Patients
     .filter.account
@@ -45,5 +45,7 @@
             = link_to user_path(user), :remote => :true, :class => 'b-colleagues-item' do
               = image_tag user.avatar_url(:thumb_60), :width => '60', :height => '60', :class => 'popup-user-info', :id => "popup-user-#{user.id}"
               .title= raw user.full_name.gsub(" ","<br>")
+        - else
+          .no-items No items
             
         .clear

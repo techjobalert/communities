@@ -2,9 +2,9 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
 
   def index
-    params[:tab].blank? && params[:tab] = 'followers'
+    @tab = params[:tab].present? ? params[:tab] : 'followers'
 
-    case params[:tab]
+    case @tab
       when "followers"
         @users = current_user.followers.select { |f| f.role == 'doctor'}       
 
@@ -15,7 +15,11 @@ class UsersController < ApplicationController
         @users = current_user.following_by_type('User')        
 
       when "patients"
-        @users = current_user.followers.select { |f| f.role == 'patient'}        
+        @users = current_user.followers.select { |f| f.role == 'patient'}  
+
+      else
+        @users = current_user.followers.select { |f| f.role == 'doctor'} 
+        @tab = "followers"    
     end
   end  
 

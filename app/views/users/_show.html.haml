@@ -25,10 +25,28 @@
         
       .b-user-info-body
         %h2.b-user-title= user.full_name
+        - unless user.birthday.blank?
+          %p
+            %strong Birthday:
+            = user.birthday
+            
+        - unless user.profession_and_degree.blank?
+          %p
+            %strong Profession and degree 
+            = user.profession_and_degree       
+        
         - unless user.specialization.blank?
           %p
             %strong Specialization:
             = user.specialization
+        - if (user != current_user)    
+          %p
+            %strong Send a massege: 
+            you can send a message directly to email about profesional question
+
+          %p= text_area_tag 'description'
+
+          %p.right= button_tag 'Send', :class => 'light-button send green'
         
       .clear    
     

@@ -85,3 +85,8 @@ $ ->
     $(".l-settings-navigation").html("")
     $(".main-content .navigation a").removeClass "selected"
     $(this).addClass "selected"
+
+  $(".list-header .nav a").live "click", ->   
+    unless $(this).hasClass("selected")
+      $(".list-header .nav a").removeClass "selected"
+      $(this).addClass("selected")
