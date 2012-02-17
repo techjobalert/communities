@@ -1,24 +1,28 @@
 %h2= "Dear, #{@notify.actor.full_name}!"
+/ Follow/Unfollow
+- if @notify.subject_type == "Follow"
+  %h3= "#{@notify.actor.full_name} #{@notify.event_type == "follow" ? start : stop } following"
+  - if secondary_subject_type == "Item"
+    = link_to @notify.secondary_subject.title, item_url(@notify.secondary_subject)
+  - elsif secondary_subject_type == "User"
+    = link_to @notify.secondary_subject.full_name, user_url(@notify.secondary_subject)
 
-  / Follow/Unfollow
-  - if @notify.subject_type == "Follow"
-    %h3= "#{@notify.actor.full_name} #{@notify.event_type == "follow" ? start : stop } following"
-    - if secondary_subject_type == "Item"
-      = link_to @notify.secondary_subject.title item_url(@notify.secondary_subject)
-    - elsif secondary_subject_type == "User"
-      = link_to @notify.secondary_subject.full_name user_url(@notify.secondary_subject)
+/ Create/Update Item
+- if @notify.subject_type == "Item"
+  %h3
+    = link_to @notify.actor.full_name, user_url(@notify.actor)
+    = "#{@notify.event_type.split("_").first}ed item"
+    = link_to @notify.subject.title, item_url(@notify.subject)
 
-  / Create/Update Item
-  - elsif @notify.subject_type == "Item"
-    %h3
-      = link_to @notify.actor.full_name user_url(@notify.actor)
-      = "#{@notify.event_type.split("_").first}ed new item"
-      = link_to @notify.subject.title, item_url(@notify.subject)
+- if @notify.subject_type == "User"
+  %h3
+    = link_to @notify.actor.full_name, user_url(@notify.actor)
+    = "#{@notify.event_type.split("_").first}ed profile"
 
-  - elsif @notify.subject_type == "User"
-    %h3
-    event_type
-      = link_to @notify.actor.full_name user_url(@notify.actor)
-      = "#{@notify.event_type.split("_").first}ed new profile"
+- if @notify.subject_type == "Comment"
+  %h3
+    = link_to @notify.actor.full_name, user_url(@notify.actor)
+    = "#{@notify.event_type.split("_").first}ed comment "
+    = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
 
 = "Email created #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}"

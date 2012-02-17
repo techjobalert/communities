@@ -40,9 +40,7 @@ class Comment < ActiveRecord::Base
   
   fires :create_comment,  :on                 => :create,
                           :actor              => :user,
-                          #implicit :subject  => self,
                           :secondary_subject  => :commentable
-                          # ,:if => lambda { |comment| comment.published != false }
 
   #helper method to check if a comment has children
   def has_children?
