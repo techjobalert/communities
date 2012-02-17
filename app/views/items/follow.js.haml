@@ -1,0 +1,5 @@
+var fbutton = $(".follow-item-#{@following_item.id}");
+if (fbutton){
+fbutton.text("Unfollow Item").append("<span/>");
+fbutton.data("method", "delete").attr("href", "#{item_unfollow_path(@following_item)}");
+}

@@ -13,11 +13,15 @@
             var uploaderProfile = $.initPlupload({url: "#{user_upload_avatar_path(user)}"+".json"});   
         - else
           = image_tag user.avatar_url(:thumb_143)
-          .tools{:class => "tools-user-#{@user.id}"}
+          .tools
             - if current_user.following?(user)
-              = render :partial => "follows/unfollow", :locals => {:path => user_unfollow_path(user)}
+              = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id}" do
+                Unfolow
+                %span
             - else
-              = render :partial => "follows/follow", :locals => {:path => user_follow_path(user)}
+              = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id}" do
+                Folow
+                %span
         
       .b-user-info-body
         %h2.b-user-title= user.full_name

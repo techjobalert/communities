@@ -1,1 +1,5 @@
-$(".tools.tools-user-#{@following_user.id}").html("#{escape_javascript(render :partial => "follows/unfollow", :locals => {:path => user_unfollow_path(@following_user)})}");
+var fbutton = $(".follow-user-#{@following_user.id}");
+if (fbutton){
+fbutton.text("Unfollow").append("<span/>");
+fbutton.data("method", "delete").attr("href", "#{user_unfollow_path(@following_user)}");
+}

@@ -1,0 +1,75 @@
+.container
+  %h3= item.title
+    
+  %p
+    %span.date
+      %b Date
+      12/06/11
+      %b Reads:
+      135582
+  %p
+    %b.title Summery
+    %br
+    = item.description
+
+  .authors
+    %b.title Authors
+    %ul
+      %li
+        = link_to '#' do
+          = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
+          %br
+          Yossy
+          %br
+          Mendelovich
+      %li
+        = link_to '#' do
+          = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
+          %br
+          Yossy
+          %br
+          Mendelovich
+      %li
+        = link_to '#' do
+          = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
+          %br
+          Yossy
+          %br
+          Mendelovich
+      %li
+        = link_to '#' do
+          = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
+          %br
+          Yossy
+          %br
+          Mendelovich
+    
+  %p
+    %b.title Keywords
+    %br
+    some word | Nickel | Tooth migration | some word | Nickel |
+    Tooth migration | some word | Nickel | Tooth migration |
+    some word | Nickel | Tooth migration |
+
+.tools  
+  - if current_user.following?(item)
+    = link_to item_unfollow_path(item), :remote => true, :method => :delete, :class => "light-button follow-item follow-item-#{item.id}" do
+      Unfollow Item
+      %span
+  - else
+    = link_to item_follow_path(item), :remote => true, :method => :post, :class => "light-button follow-item follow-item-#{item.id}" do
+      Follow Item
+      %span
+  
+  = link_to item_path(item), :remote => true, :class => 'light-button go-to-article' do
+    Go to Article
+    %span
+  = link_to '#', :class => 'light-button make-pdf' do
+    Make PDF
+    %span
+  %br
+  = link_to '#', :class => 'light-button sell' do
+    %b Sell
+    this item
+.corner 
+

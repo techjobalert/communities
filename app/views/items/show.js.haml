@@ -1,0 +1,6 @@
+- if @popup
+  $(".popup-item-#{@item.id}").html("#{escape_javascript(render :partial => 'popup', :locals => {:item => @item})}");  
+- else
+  $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:item => @item})}");  
+  
+    
