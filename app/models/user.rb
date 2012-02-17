@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
   acts_as_follower
   acts_as_voter
 
+  scope :role_is, lambda {|role| where(:role => role)}
+
   define_index do
     indexes full_name, :sortable => true
     indexes specialization, :sortable => true

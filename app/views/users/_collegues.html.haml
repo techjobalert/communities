@@ -8,18 +8,18 @@
 .b-colleagues.list
   .list-header
     .nav.account
-      = link_to '#', :class => 'followers selected' do 
+      = link_to users_path(:tab => "followers"), :remote => true, :class => 'followers selected' do 
         %span
         Followers
-      = link_to '#', :class => 'published-together' do
+      = link_to users_path(:tab => "published_together"), :remote => true, :class => 'published-together' do
         %span
         Published
         %br
         together        
-      = link_to '#', :class => 'following' do
+      = link_to users_path(:tab => "following"), :remote => true, :class => 'following' do
         %span
         Following
-      = link_to '#', :class => 'patients' do
+      = link_to users_path(:tab => "patients"), :remote => true, :class => 'patients' do
         %span
         Patients
     .filter.account

@@ -2,7 +2,21 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
 
   def index
-    @users = User.all
+    params[:tab].blank? && params[:tab] = 'followers'
+
+    case params[:tab]
+      when "followers"
+        @users = current_user.followers.select { |f| f.role == 'doctor'}       
+
+      when "published_together"
+        @users = User.all
+
+      when "following"
+        @users = current_user.following_by_type('User')        
+
+      when "patients"
+        @users = current_user.followers.select { |f| f.role == 'patient'}        
+    end
   end  
 
   def show 
