@@ -6,7 +6,6 @@ class TimelineEvent < ActiveRecord::Base
   after_create :after_create_handler
 
   def after_create_handler
-  	p self
 	  Resque.enqueue(NotifyNow, id)
   end
 end

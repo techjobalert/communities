@@ -1,11 +1,13 @@
 %h2= "Dear, #{@notify.actor.full_name}!"
 / Follow/Unfollow
 - if @notify.subject_type == "Follow"
-  %h3= "#{@notify.actor.full_name} #{@notify.event_type == "follow" ? start : stop } following"
-  - if secondary_subject_type == "Item"
-    = link_to @notify.secondary_subject.title, item_url(@notify.secondary_subject)
-  - elsif secondary_subject_type == "User"
-    = link_to @notify.secondary_subject.full_name, user_url(@notify.secondary_subject)
+  %h3
+    = link_to @notify.actor.full_name, user_url(@notify.actor)
+    = "#{@notify.event_type == "follow" ? 'start' : 'stop' } following #{@notify.secondary_subject_type.underscore}"
+    - if @notify.secondary_subject_type == "Item"
+      = link_to @notify.secondary_subject.title, item_url(@notify.secondary_subject)
+    - elsif @notify.secondary_subject_type == "User"
+      = link_to @notify.secondary_subject.full_name, user_url(@notify.secondary_subject)
 
 / Create/Update Item
 - if @notify.subject_type == "Item"
@@ -24,5 +26,5 @@
     = link_to @notify.actor.full_name, user_url(@notify.actor)
     = "#{@notify.event_type.split("_").first}d comment "
     = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
-
+%br
 = "Email created #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}"

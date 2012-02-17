@@ -11,9 +11,9 @@ class Follow < ActiveRecord::Base
                     :actor              => :follower,
                     :secondary_subject  => 'followable'
 
-  fires :unfollow,  :on                 => :destroy,
-                    :actor              => :follower,
-                    :secondary_subject  => 'followable'
+  # fires :unfollow,  :on                 => :destroy,
+  #                   :actor              => :follower,
+  #                   :secondary_subject  => 'followable'
 
   def block!
     self.update_attribute(:blocked, true)

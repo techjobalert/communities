@@ -7,6 +7,8 @@ class NotifyNow
   	
   	if event.subject_type == "Comment"
   		followers = event.subject.commentable.followers
+  	elsif event.subject_type == "Follow"
+  		followers = event.subject.followable.followers
   	else
   		followers = event.followers
   	end
