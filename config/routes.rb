@@ -3,25 +3,25 @@ Orthodontic::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
+  
+  devise_scope :user do
+    match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
+  end
 
   resources :items do
     resources :comments do
       get "vote_up"
     end 
-    post "follow", :via => :post 
+    post "follow"
     delete "unfollow"
-  end  
-
-  devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
-  devise_scope :user do
-    match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
   end
-  
+
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
     post "upload_avatar", :via => :post
-    post "follow", :via => :post
+    post "follow"
     delete "unfollow"
-  end
+  end  
 
   match "/sign_in" => "pages#sign_in"
   match "/item" => "pages#item"
@@ -39,11 +39,8 @@ Orthodontic::Application.routes.draw do
     collection do
       post "upload", :action => 'upload_psource'
       get "converted_pvideo", :action => 'converted_pvideo'
-
       get "webrecorder", :action => 'webrecorder'
-
       post "convert/:name", :action => 'convert', :constraints => { :name => /.*/ }
-
       post "merge", :action => 'merge'
     end
   end

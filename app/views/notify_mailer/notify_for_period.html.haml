@@ -1,0 +1,93 @@
+%h2= "Уважаемый, #{@notify_summary.user.full_name}!"
+
+- frmt = "%d %B %Y"
+%p
+  За период с
+  = Russian::strftime(@notify_summary.from_date, frmt)
+  по
+  = Russian::strftime(@notify_summary.to_date, frmt)
+
+- if @notify_summary.challenges
+  - for challenge in @notify_summary.challenges
+    - if @notify_summary.challenge_voters(challenge.id)
+      %h3
+        За Ваш вызов
+        = link_to challenge.title, challenge_url(challenge)
+        проголосовали пользователи:
+      %p{:style => "margin-left: 20px"}
+        - for voter in @notify_summary.challenge_voters(challenge.id)
+          = link_to voter.full_name, profile_url(voter)
+
+
+    - if @notify_summary.challenge_comments(challenge)
+      %h3
+        Ваш вызов
+        = link_to challenge.title, challenge_url(challenge)
+        прокомментировали пользователи:
+      %p{:style => "margin-left: 20px"}
+        - for comment in @notify_summary.challenge_comments(challenge)
+          %p
+            %span= link_to comment.commenter.full_name, profile_url(comment.commenter)
+            %span= comment.content
+
+    - if @notify_summary.challenge_ideas(challenge)
+      %h3
+        Для Вашего вызова
+        = link_to challenge.title, challenge_url(challenge)
+        появились идеи:
+      %p{:style => "margin-left: 20px"}
+        - for idea in @notify_summary.challenge_ideas(challenge)
+          %p
+            %span= link_to idea.user.full_name, profile_url(idea.user)
+            %span= link_to idea.title, challenge_idea_url(idea.challenge, idea)
+
+- if @notify_summary.ideas
+  - for idea in @notify_summary.ideas
+    - if @notify_summary.idea_voters(idea)
+      %h3
+        За Вашу идею
+        = link_to idea.title, challenge_idea_url(idea.challenge, idea)
+        проголосовали пользователи:
+      %p{:style => "margin-left: 20px"}
+        - for voter in @notify_summary.idea_voters(idea)
+          = link_to voter.full_name, profile_url(voter)
+
+    - if @notify_summary.idea_comments(idea)
+      %h3
+        Вашу идею
+        = link_to idea.title, challenge_idea_url(idea.challenge, idea)
+        прокомментировали пользователи:
+      %p{:style => "margin-left: 20px"}
+        - for comment in @notify_summary.idea_comments(idea)
+          %div
+            %span
+              = link_to comment.commenter.full_name, profile_url(comment.commenter)
+            %span= comment.content
+
+    - if  @notify_summary.idea_reactions(idea)
+      %h3
+        Для Вашей идеи
+        = link_to idea.title, challenge_idea_url(idea.challenge, idea)
+        появились оценки:
+      %p{:style => "margin-left: 20px"}
+        - for reaction in @notify_summary.idea_reactions(idea)
+          %div
+            %span
+              = link_to reaction.user.full_name, profile_url(reaction.user)
+            %span= reaction.reaction_type.name
+
+-#- if @notify_summary.comments
+-#  - for comment in @notify_summary.comments
+-#    - if @notify_summary.comment_comments(comment)
+-#      - for sub_comment in @notify_summary.comment_comments(comment)
+-#        %h3
+-#          На ваш комментарий:
+-#          = comment.content
+-#        %p
+-#          пользователь
+-#          = link_to sub_comment.commenter.user.full_name, profile_url(sub_comment.commenter)
+-#          ответил:
+-#        %p= comment.content
+
+= "Письмо сформировано #{Russian::strftime(DateTime.now, "%d %B %Y %H:%M:%S")}"
+- puts "Template ok"
