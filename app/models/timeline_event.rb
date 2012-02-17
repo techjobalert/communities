@@ -6,10 +6,8 @@ class TimelineEvent < ActiveRecord::Base
   after_create :after_create_handler
 
   def after_create_handler
-  	if (subject_type != "Comment" and not subject.followers.empty? ) or 
-  			not subject.commentable.followers.empty?
-	  	Resque.enqueue(NotifyNow, id)
-	  end
+  	p self
+	  Resque.enqueue(NotifyNow, id)
   end
 end
 
