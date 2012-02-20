@@ -38,9 +38,9 @@ class Comment < ActiveRecord::Base
     c
   end
   
-  fires :create_comment,  :on                 => :create,
-                          :actor              => :user,
-                          :secondary_subject  => :commentable
+  fires :created_comment,  :on                 => :create,
+                           :actor              => :user,
+                           :secondary_subject  => :commentable
 
   #helper method to check if a comment has children
   def has_children?
