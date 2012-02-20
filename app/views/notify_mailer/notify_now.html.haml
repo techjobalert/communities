@@ -3,7 +3,7 @@
 - if @notify.subject_type == "Follow"
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
-    = "#{@notify.event_type.split("_").first} to follow #{@notify.secondary_subject_type.underscore}"
+    = "has #{@notify.event_type.split("_").first} to follow #{@notify.secondary_subject_type.underscore}"
     - if @notify.secondary_subject_type == "Item"
       = link_to @notify.secondary_subject.title, item_url(@notify.secondary_subject)
     - elsif @notify.secondary_subject_type == "User"

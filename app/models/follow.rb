@@ -7,11 +7,11 @@ class Follow < ActiveRecord::Base
   belongs_to :followable, :polymorphic => true
   belongs_to :follower,   :polymorphic => true
 
-  fires :starts_follow, :on                 => :create,
-                        :actor              => :follower,
-                        :secondary_subject  => 'followable'
+  fires :started_follow, :on                 => :create,
+                         :actor              => :follower,
+                         :secondary_subject  => 'followable'
 
-  # fires :stoped_follow,   :on                 => :destroy,
+  # fires :stopped_follow,  :on                 => :destroy,
   #                         :actor              => :follower,
   #                         :secondary_subject  => 'followable'
 
