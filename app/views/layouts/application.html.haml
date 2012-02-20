@@ -50,15 +50,15 @@
                       ACCOUNT
                       %span bla bla bla
                   %li
-                    = link_to user_path(current_user), :remote => :true, :class => "tab-public #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show'  }" do
+                    = link_to user_path(current_user), :remote => :true, :class => "tab-public #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show' && params[:type] != 'profile'  }" do
                       PUBLIC
                       %span bla bla bla
                   %li
-                    = link_to users_path, :remote => :true, :class => "tab-collegues" do
+                    = link_to users_path, :remote => :true, :class => "tab-collegues large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'index'}" do
                       COLLEGUES
                       %span bla bla bla
                   %li
-                    = link_to user_path(current_user, :type => "profile"), :remote => :true, :class => "tab-profile large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show'  }" do
+                    = link_to user_path(current_user, :type => "profile"), :remote => :true, :class => "tab-profile large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show' && params[:type] == 'profile'  }" do
                       YOUR PROFILE
                       %span bla bla bla
 
