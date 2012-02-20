@@ -35,7 +35,7 @@
             .text= item.description
         .clear 
 
-        = paginate items
+        = paginate items, :remote => true
 
       - else
         .no-items No items

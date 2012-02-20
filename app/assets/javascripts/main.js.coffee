@@ -114,6 +114,9 @@ $ ->
     $(".main-content .navigation a").removeClass "selected"
     $(this).addClass "selected"
 
+  $(".go-to-profile, .go-to-article, .main-content .navigation a").live "click", ->
+    $(".popup-container").fadeOut "fast"
+
   $(".list-header .nav a").live "click", ->   
     unless $(this).hasClass("selected")
       $(".list-header .nav a").removeClass "selected"

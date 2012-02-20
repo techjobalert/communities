@@ -67,6 +67,20 @@
       -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
       box-shadow: 0 2px 2px #D8DCC1 inset;
     }
+
+    input {
+      &[type=text] {
+        padding: 6px;
+        width: 386px; 
+        max-width: 386px;
+        min-width: 386px;
+        background: none repeat scroll 0 0 #F1EFD1;
+        border: 1px solid #F1EFD1;
+        -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+        -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+        box-shadow: 0 2px 2px #D8DCC1 inset;
+      }
+    }
     
     .right {
       text-align: right;

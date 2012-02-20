@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
   def show 
     @user = params[:id] == current_user.id ? current_user : User.find(params[:id])
-    @popup = (params[:type].present? && params[:type] == "popup")
+    @type = params[:type].present? ? params[:type] : "public"
   end
   
   def edit
@@ -38,11 +38,12 @@ class UsersController < ApplicationController
       if params[:user][:birthday]
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end
+
       if current_user.update_attributes params[:user]
-        format.html { redirect_to edit_user_path(current_user), notice: "success" }
+        format.html { redirect_to user_path(current_user), notice: "success" }
         format.json { head :ok }
       else
-        format.html { redirect_to edit_user_path(current_user), notice: "error" }
+        format.html { redirect_to user_path(current_user), notice: "error" }
         format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
     end
