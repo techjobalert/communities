@@ -7,13 +7,13 @@ class Follow < ActiveRecord::Base
   belongs_to :followable, :polymorphic => true
   belongs_to :follower,   :polymorphic => true
 
-  fires :follow,    :on                 => :create,
-                    :actor              => :follower,
-                    :secondary_subject  => 'followable'
+  fires :started_follow, :on                 => :create,
+                         :actor              => :follower,
+                         :secondary_subject  => 'followable'
 
-  # fires :unfollow,  :on                 => :destroy,
-  #                   :actor              => :follower,
-  #                   :secondary_subject  => 'followable'
+  # fires :stopped_follow,  :on                 => :destroy,
+  #                         :actor              => :follower,
+  #                         :secondary_subject  => 'followable'
 
   def block!
     self.update_attribute(:blocked, true)

@@ -35,3 +35,17 @@ function hideNotice(){
     $(".notice").remove();
   }, 7000);
 }
+
+if (history && history.pushState) {
+  $(function() {
+    $("a[data-remote=true]").live("click", function(e) {
+      $.getScript(this.href);
+      history.pushState(null, document.title, this.href);
+      //#History.pushState(null, document.title, this.href);
+      e.preventDefault();
+    });
+    $(window).bind("popstate", function() {
+      $.getScript(location.href);
+    });
+  });
+}

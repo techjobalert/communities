@@ -23,14 +23,14 @@ class Item < ActiveRecord::Base
   belongs_to  :user, :counter_cache => true
   has_many    :comments
 
-  fires :create_item,  :on                 => :create,
-                       :actor              => :user
+  fires :created_item,    :on     => :create,
+                          :actor  => :user
 
-  fires :update_item,  :on                 => :update,
-                       :actor              => :user
+  fires :updated_item,    :on     => :update,
+                          :actor  => :user
 
-  fires :destroy_item, :on                 => :destroy,
-                       :actor              => :user
+  fires :destroyed_item,  :on     => :destroy,
+                          :actor  => :user
 
   define_index do
     indexes title,          :sortable => true
