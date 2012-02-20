@@ -22,6 +22,7 @@ class Item < ActiveRecord::Base
 
   belongs_to  :user, :counter_cache => true
   has_many    :comments
+  has_many    :authors
 
   fires :created_item,    :on     => :create,
                           :actor  => :user
