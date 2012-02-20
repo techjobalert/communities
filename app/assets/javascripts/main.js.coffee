@@ -24,72 +24,81 @@ $ ->
     $(".b-explore-popup").toggleClass "hidden"
     
   $(".popup-user-info").live "mouseover", ->
-    id = $(this).attr "id"
-    t = $(this).offset()
-
+    obj_id = $(this).attr "id"
+    obj_offset = $(this).offset()
+    window_width = $(window).width()
+    corner_class = ""
     timer_popup = window.setTimeout (->
-      settings = 
-        top: (t.top - 43) + "px"
-        left: (t.left + 85) + "px"
 
-      if $("." + id).length
-        if $("." + id + ":hidden").length
+      if (window_width - obj_offset.left > 500)
+        settings = 
+          top: (obj_offset.top - 43) + "px"
+          left: (obj_offset.left + 85) + "px"
+        corner_class = "left"
+      else
+        settings = 
+          top: (obj_offset.top - 43) + "px"
+          left: (obj_offset.left - 470) + "px"        
+
+      if $("." + obj_id).length
+        if $("." + obj_id + ":hidden").length
           $(".popup-container").fadeOut "fast"     
-          $("." + id).css(settings).fadeIn "fast"                
+          $("." + obj_id).css(settings).fadeIn "fast"                
       else
         $(".popup-container").fadeOut "fast" 
         $(".tmp .popup-container")
           .clone()
-          .addClass(id + " left b-popup-user-info")
+          .addClass(obj_id + " b-popup-user-info " + corner_class)
           .appendTo("body")
           .css(settings)
           .fadeIn "fast"
-        $.get "/users/" + parseInt(id.replace(/\D+/g, "")),
+        $.get "/users/" + parseInt(obj_id.replace(/\D+/g, "")),
           type: "popup"
         , (() ->), "script"
-    ), 1500
+    ), 1000
 
 
   $(".popup-item-info").live "mouseover", ->
 
-    id = $(this).attr "id"
-    t = $(this).offset()
+    obj_id = $(this).attr "id"
+    obj_offset = $(this).offset()
+    obj_width = $(this).width()
 
     timer_popup = window.setTimeout (->
       settings = 
-        top: (t.top - 43) + "px"
-        left: (t.left + 285) + "px"
+        top: (obj_offset.top - 100) + "px"
+        left: (obj_offset.left - (442 - obj_width)/2) + "px"
 
-      if $("." + id).length
-        if $("." + id + ":hidden").length
+      if $("." + obj_id).length
+        if $("." + obj_id + ":hidden").length
           $(".popup-container").fadeOut "fast"
-          $("." + id).css(settings).fadeIn "fast"      
+          $("." + obj_id).css(settings).fadeIn "fast"      
       else
         $(".popup-container").fadeOut "fast" 
         $(".tmp .popup-container")
           .clone()
-          .addClass(id + " left b-popup-item-info")
+          .addClass(obj_id + " b-popup-item-info")
           .appendTo("body")
           .css(settings)
           .fadeIn "fast"
-        $.get "/items/" + parseInt(id.replace(/\D+/g, "")),
+        $.get "/items/" + parseInt(obj_id.replace(/\D+/g, "")),
           type: "popup"
         , (() ->), "script"
-    ), 1500
+    ), 1000
 
   $(".popup-item-info, .popup-user-info").live "mouseleave", ->
-    id = $(this).attr "id"
-    unless $("." + id + ":visible").length
+    obj_id = $(this).attr "id"
+    unless $("." + obj_id + ":visible").length
       clearTimeout(timer_popup)
     
   $(".popup-container").live "mouseleave", ->
     $(this).fadeOut "fast"    
 
   $(".light-button.set-preview").toggle (->
-    t = $(this).offset()
+    obj_offset = $(this).offset()
     $(".b-popup-set-preview").css(
-      top: (t.top + 55) + "px"
-      left: (t.left - 135) + "px"
+      top: (obj_offset.top + 55) + "px"
+      left: (obj_offset.left - 135) + "px"
     ).fadeIn "fast"
   ), ->
     $(".b-popup-set-preview").fadeOut "fast"
