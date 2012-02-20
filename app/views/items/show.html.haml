@@ -88,15 +88,13 @@
     - if current_user and @item.user.id != current_user.id
       .item-follow-unfollow
         - if not current_user.following?(@item)
-          = link_to item_follow_path(@item), :method => :post, :remote => true do
-            .light-button.follow
-              Follow
-              %span
+          = link_to item_follow_path(@item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{@item.id}" do            
+            Follow item
+            %span
         - else
-          = link_to item_unfollow_path(@item), :method => :delete, :remote => true do
-            .light-button.follow
-              Unfollow
-              %span
+          = link_to item_unfollow_path(@item), :method => :delete, :remote => true, :class => "light-button follow follow-item-#{@item.id}" do
+            Unfollow item
+            %span
 
     / кнопка в трех вариантах
     / 1. Вариант
