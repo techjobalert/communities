@@ -374,9 +374,8 @@
       float: left;
       height: 64px;
       width: 140px;
-      color: #1b1e26;
-      text-decoration: none;
       margin: 0 10px 25px 0;
+      cursor: pointer;
       
       img {
         border: 2px solid #ddd;
@@ -388,7 +387,9 @@
         font-size: 14px;
         margin: 3px 0 0 7px;
         overflow: hidden;
-        width: 68px;
+        text-decoration: none;
+        color: #1b1e26;
+        width: 68px;        
       }
     }
   }

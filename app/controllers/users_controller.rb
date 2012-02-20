@@ -41,11 +41,19 @@ class UsersController < ApplicationController
       end
 
       if current_user.update_attributes params[:user]
-        format.html { redirect_to user_path(current_user), notice: "success" }
-        format.json { head :ok }
+        flash[:notice] = "success"
+        if  params[:type].present? &&  params[:type] == "profile"
+          format.html { redirect_to user_path(current_user, :type => "profile")}
+        else 
+          format.html { redirect_to edit_user_path(current_user)}
+        end        
       else
-        format.html { redirect_to user_path(current_user), notice: "error" }
-        format.json { render json: current_user.errors, status: :unprocessable_entity }
+        flash[:error] = "error"
+        if  params[:type].present? &&  params[:type] == "profile"
+          format.html { redirect_to user_path(current_user, :type => "profile")}
+        else 
+          format.html { redirect_to edit_user_path(current_user)}
+        end  
       end
     end
   end

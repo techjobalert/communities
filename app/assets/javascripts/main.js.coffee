@@ -55,7 +55,7 @@ $ ->
         $.get "/users/" + parseInt(obj_id.replace(/\D+/g, "")),
           type: "popup"
         , (() ->), "script"
-    ), 1000
+    ), 500
 
 
   $(".popup-item-info").live "mouseover", ->
@@ -84,7 +84,7 @@ $ ->
         $.get "/items/" + parseInt(obj_id.replace(/\D+/g, "")),
           type: "popup"
         , (() ->), "script"
-    ), 1000
+    ), 500
 
   $(".popup-item-info, .popup-user-info").live "mouseleave", ->
     obj_id = $(this).attr "id"

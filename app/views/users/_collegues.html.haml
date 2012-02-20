@@ -42,9 +42,10 @@
       .b-colleagues-container
         - if users.present?
           - users.each do |user|
-            = link_to user_path(user), :remote => :true, :class => 'b-colleagues-item' do
+            .b-colleagues-item
               = image_tag user.avatar_url(:thumb_60), :width => '60', :height => '60', :class => 'popup-user-info', :id => "popup-user-#{user.id}"
-              .title= raw user.full_name.gsub(" ","<br>")
+              = link_to raw(user.full_name.gsub(" ","<br>")), user_path(user), :remote => :true, :class => 'title'             
+              
         - else
           .no-items No items
             
