@@ -20,11 +20,11 @@ class NotifyNow
 
     if owner
       # If we have owner, we just notify only owner
-      NotifyMailer.notify_now(event, owner.email).deliver 
+      NotifyMailer.notify_now(event, owner).deliver 
 		else
       # Else notify all followers
       followers.each do |follower| 
-        NotifyMailer.notify_now(event, follower.email).deliver
+        NotifyMailer.notify_now(event, follower).deliver
       end
     end
   end
