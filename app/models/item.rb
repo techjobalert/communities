@@ -21,12 +21,11 @@ class Item < ActiveRecord::Base
   paginates_per 3
 
   belongs_to  :user, :counter_cache => true
-  has_many    :comments
-  # has_many    :authors
+  belongs_to  :creator, class_name: :User, inverse_of: :items
 
-  belongs_to :creator, class_name: :User, inverse_of: :items
-  has_many :contributions
-  has_many :contributors, through: :contributions
+  has_many    :comments, :dependent => :destroy
+  has_many    :contributions
+  has_many    :contributors, through: :contributions
 
 
 

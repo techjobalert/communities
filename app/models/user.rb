@@ -13,11 +13,12 @@ class User < ActiveRecord::Base
   acts_as_follower
   acts_as_voter
 
-  has_many :items
-  has_many :comments, :as => :commentable
+  has_many :items, :dependent => :destroy
+  has_many :comments, :as => :commentable, :dependent => :destroy
 
   has_many :contributions, foreign_key: :contributor_id
   has_many :items, through: :contributors
+  has_many :pay_accounts, :dependent => :destroy
   
   store :settings, accessors: [ 
         :following_me,          #Someone following me
