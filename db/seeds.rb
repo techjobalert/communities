@@ -2,8 +2,9 @@
 puts "[START] DATABASE-SEED"
 
 #Settings
-{ :comments_pre_moderation               => [false, 'comments pre moderation'],
-  :items_pre_moderation                  => [false, 'items premoderation'],
+{ :comments_pre_moderation              => [false, 	'comments pre moderation'],
+  :items_pre_moderation                 => [false, 	'items premoderation'],
+  :show_search_results_per_page			=> [10,		'show search results per page']
 }.each do |key, value|
   s = Settings.find_by_key(key)
   puts "[NEW] add '#{key}' = #{value[0]}" if s.nil?
