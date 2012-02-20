@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   def index
     @tab = params[:tab].present? ? params[:tab] : 'followers'
