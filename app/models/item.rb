@@ -22,7 +22,14 @@ class Item < ActiveRecord::Base
 
   belongs_to  :user, :counter_cache => true
   has_many    :comments
-  has_many    :authors
+  # has_many    :authors
+
+  belongs_to :creator, class_name: :User, inverse_of: :items
+  has_many :contributions
+  has_many :contributors, through: :contributions
+
+
+
 
   fires :created_item,    :on     => :create,
                           :actor  => :user
@@ -43,8 +50,9 @@ class Item < ActiveRecord::Base
   end
 
   def after_create_handler
-    p self
+    self.contributors << user  
   end
+
   def default_values
     self.published = !get_setting("items_pre_moderation")
     p !get_setting("items_pre_moderation")

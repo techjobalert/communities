@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
 
   has_many :items
   has_many :comments, :as => :commentable
+
+  has_many :contributions, foreign_key: :contributor_id
+  has_many :items, through: :contributors
   
   store :settings, accessors: [ 
         :following_me,          #Someone following me
