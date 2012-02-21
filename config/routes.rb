@@ -23,6 +23,10 @@ Orthodontic::Application.routes.draw do
     post "follow"
     delete "unfollow"
   end  
+  
+  # Search logic
+  #match '/search'         => "search#index"
+  #match '/search/qsearch' => "search#qsearch"
 
   match "/sign_in" => "pages#sign_in"
   match "/item" => "pages#item"
