@@ -33,7 +33,7 @@
           .item          
             .media= image_tag '/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
             .text= item.description
-
+        .clear
         = paginate items, :remote => true
 
       - else

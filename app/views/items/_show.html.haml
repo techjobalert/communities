@@ -68,9 +68,15 @@
               Kobi
               %br
               Mori
-    .light-button.follow
-      Follow Item
-      %span
+    - if current_user and item.user.id != current_user.id
+      - if not current_user.following?(item)
+        = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do          
+          Follow Item
+          %span
+      - else
+        = link_to item_unfollow_path(item), :method => :delete, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do
+          Unfollow Item
+          %span
 
 
   / 2-й Вариант
@@ -86,11 +92,11 @@
     
     - if current_user and item.user.id != current_user.id
       - if not current_user.following?(item)
-        = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id}" do          
+        = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do          
           Follow Item
           %span
       - else
-        = link_to item_unfollow_path(item), :method => :delete, :remote => true, :class => "light-button follow follow-item-#{item.id}" do
+        = link_to item_unfollow_path(item), :method => :delete, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do
           Unfollow Item
           %span
 
