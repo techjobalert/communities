@@ -2,8 +2,7 @@ class SearchController < ApplicationController
 
   def index
     @search_params = SearchParams.new(params)
-    @per_page ||= get_setting("show_search_results_per_page")
-    @search_results = @search_params.get_search_results.page(params[:page]).per(@per_page)
+    @search_results = @search_params.get_search_results.page(params[:page]).per(10)
     @count ||= @search_params.get_search_results.count
   end
 

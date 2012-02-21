@@ -1,8 +1,9 @@
 .b-search-engine.center
   = link_to '', root_path, :class => 'logo'
   .search
-    = text_field 'search', 'form', :placeholder => 'Search for presentations, articles & movies', :class => 'text-input'
-    = button_tag 'Search', :class => 'dark-button'
+    = form_tag search_path, :remote => true, :method => :get do
+      = text_field_tag SearchParams.query_param, nil, :placeholder => 'Search for presentations, articles & movies', :class => 'text-input'
+      = submit_tag 'Search', :class => 'dark-button'
   = link_to new_item_path, :class => 'btn upload' do
     Upload
     %span

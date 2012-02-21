@@ -25,20 +25,8 @@ Orthodontic::Application.routes.draw do
   end  
   
   # Search logic
-  #match '/search'         => "search#index"
-  #match '/search/qsearch' => "search#qsearch"
-
-  match "/sign_in" => "pages#sign_in"
-  match "/item" => "pages#item"
-  match "/interesting_item" => "pages#interesting_item"
-  match "/items_you_follow" => "pages#items_you_follow"
-  match "/account" => "pages#account"
-  match "/account_purchased_item" => "pages#account_purchased_item"
-  match "/user" => "pages#user"
-  match "/settings" => "pages#settings"
-  match "/colleagues" => "pages#colleagues"
-  match "/upload_page" => "pages#upload"
-  match "/admin_page" => "pages#admin"
+  match '/search'         => "search#index"
+  match '/search/qsearch' => "search#qsearch"
 
   resources :file, :only => [:index] do
     collection do
@@ -51,4 +39,26 @@ Orthodontic::Application.routes.draw do
   end
 
   root :to => "home#index"
+
+
+  # ----------------------------------------------------------------------------
+  # ----------------------------------------------------------------------------
+  # ----------------------------------------------------------------------------
+  # ----------------------------------------------------------------------------
+  match "/sign_in" => "pages#sign_in"
+  match "/item" => "pages#item"
+  match "/interesting_item" => "pages#interesting_item"
+  match "/items_you_follow" => "pages#items_you_follow"
+  match "/account" => "pages#account"
+  match "/account_purchased_item" => "pages#account_purchased_item"
+  match "/user" => "pages#user"
+  match "/settings" => "pages#settings"
+  match "/colleagues" => "pages#colleagues"
+  match "/upload_page" => "pages#upload"
+  match "/admin_page" => "pages#admin"
+  # ----------------------------------------------------------------------------
+  # ----------------------------------------------------------------------------
+  # ----------------------------------------------------------------------------
+  # ----------------------------------------------------------------------------
+  
 end
