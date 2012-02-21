@@ -21,6 +21,7 @@ class Ability
     can :manage, Comment do |comment|
       owner_or_published?(item)
     end
+    can :create, Comment
   end
 
   def doctor
