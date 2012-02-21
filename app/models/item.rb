@@ -27,9 +27,6 @@ class Item < ActiveRecord::Base
   has_many    :contributions
   has_many    :contributors, through: :contributions
 
-
-
-
   fires :created_item,    :on     => :create,
                           :actor  => :user
 
@@ -40,12 +37,11 @@ class Item < ActiveRecord::Base
                           :actor  => :user
 
   define_index do
-    indexes title,          :sortable => true
-    indexes description,    :sortable => true
+    indexes :title,          :sortable => true
+    indexes :description,    :sortable => true
     indexes user.full_name, :sortable => true
-    indexes paid
-    where sanitize_sql(["published", true])
-    has user_id, created_at, updated_at
+
+    has user_id, created_at
   end
 
   def after_create_handler
