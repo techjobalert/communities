@@ -36,12 +36,10 @@ class Item < ActiveRecord::Base
                           :actor  => :user
 
   define_index do
-
     indexes :title,          :sortable => true
     indexes :description,    :sortable => true
     indexes user.full_name,  :sortable => true
     has user_id, created_at
-
     set_property :enable_star => true
     set_property :min_infix_len => 1
   end
@@ -52,8 +50,6 @@ class Item < ActiveRecord::Base
 
   def default_values
     self.published = !get_setting("items_pre_moderation")
-    p !get_setting("items_pre_moderation")
-    p self.published
     true
   end
 end
