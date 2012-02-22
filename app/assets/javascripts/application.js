@@ -130,6 +130,5 @@ function showItemPopup(e) {
     $.get("/items/" + parseInt(obj_id.replace(/\D+/g, "")), {
       type: "popup"
     }, (function() {}), "script");
-  }
-  
+  }  
 }

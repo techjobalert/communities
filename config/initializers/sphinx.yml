@@ -1,0 +1,3 @@
+development:
+  port: 9316
+  mem_limit: 128M

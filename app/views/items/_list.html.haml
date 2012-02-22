@@ -22,8 +22,10 @@
             = f.select "", ['Paid','Paid']
           .clear
         .search
-          = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'
-          = button_tag 'Go', :class => 'dark-button'
+          = form_tag root_path, :remote => true, :method => :get do
+            = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input'
+            = submit_tag 'Go', :class => 'dark-button'
+          
         .clear
     .clear
 

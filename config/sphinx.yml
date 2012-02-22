@@ -1,0 +1,6 @@
+development:
+  port: 9316
+  mem_limit: 128M
+  enable_star: 1
+  min_prefix_len: 1
+
