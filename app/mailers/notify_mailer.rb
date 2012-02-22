@@ -6,4 +6,10 @@ class NotifyMailer < ActionMailer::Base
     @notify, @owner = notify, owner
     mail(:to => owner.email, :subject => "Changes in orthodontics360")
   end
+
+  def send_email_message(message_id)
+  	@message = Message.find(message_id)
+  	@from_user, @to_user, @message_text =  @message.user, @message.receiver, @message.receiver
+  	mail(:to => @to_user.email, :subject => "[orthodontics360] Direct message from #{@from_user.fullname}")
+  end
 end
