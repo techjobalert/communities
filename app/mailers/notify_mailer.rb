@@ -9,7 +9,9 @@ class NotifyMailer < ActionMailer::Base
 
   def send_email_message(message_id)
   	@message = Message.find(message_id)
-  	@from_user, @to_user, @message_text =  @message.user, @message.receiver, @message.receiver
-  	mail(:to => @to_user.email, :subject => "[orthodontics360] Direct message from #{@from_user.fullname}")
+  	@from_user = @message.user
+  	@to_user = @message.receiver
+  	@message_text = @message.body
+  	mail(:to => @to_user.email, :subject => "[orthodontics360] Direct message from #{@from_user.full_name}")
   end
 end
