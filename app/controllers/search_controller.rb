@@ -1,11 +1,13 @@
 class SearchController < ApplicationController
+  include SettingsHelper
 
   def index
     unless params[:q].include?("*")
       params[:q] = "*#{params[:q]}*"
     end
     @search_params = SearchParams.new(params)
-    @search_results = @search_params.get_search_results.page(params[:page]).per(3)    
+    per_page = get_setting("show_search_results_per_page")
+    @search_results = @search_params.get_search_results.page(params[:page]).per(per_page)    
   end
 
   def qsearch
