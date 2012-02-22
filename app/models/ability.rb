@@ -17,7 +17,7 @@ class Ability
     guest
     can :read, [User, Item]
     can :update, User, :id => @user.id
-    can [:follow, :unfollow, :upload_avatar], [User, Item]
+    can [:follow, :unfollow, :upload_avatar, :send_message], [User, Item]
     can :manage, Comment do |comment|
       owner_or_published?(item)
     end

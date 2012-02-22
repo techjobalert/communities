@@ -43,10 +43,10 @@
           %p
             %strong Send a massege: 
             you can send a message directly to email about profesional question
-
-          %p= text_area_tag 'description'
-
-          %p.right= button_tag 'Send', :class => 'light-button send green'
+          = form_for(Message.new, :url => user_send_message_url(user), :remote => :true) do |f|
+            = imperavi :message_body, {:lang => 'en', :toolbar => 'mini'}
+            %p= f.text_area :body, :rows=>"5", :cols => "40", :placeholder => 'New message'
+            %p= f.submit "Send", :class => 'light-button send green'
         
       .clear    
     
