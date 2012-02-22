@@ -58,45 +58,17 @@
         = user.bio
 
       %br
-        
-    %h2 Publications 
     
-    .b-user-list
-      = link_to '#', :class => 'item' do
-        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
-        %b Lorem Ipsum 
-        is simply dummy text of the print
-      = link_to '#', :class => 'item' do
-        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
-        %b Lorem Ipsum 
-        is simply dummy text of the print
-      = link_to '#', :class => 'item' do
-        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
-        %b Lorem Ipsum 
-        is simply dummy text of the print
-      = link_to '#', :class => 'item' do
-        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
-        %b Lorem Ipsum 
-        is simply dummy text of the print
-      .clear
 
-      = link_to '#', :class => 'item' do
-        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
-        %b Lorem Ipsum 
-        is simply dummy text of the print
-      = link_to '#', :class => 'item' do
-        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
-        %b Lorem Ipsum 
-        is simply dummy text of the print
-      = link_to '#', :class => 'item' do
-        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
-        %b Lorem Ipsum 
-        is simply dummy text of the print
-      = link_to '#', :class => 'item' do
-        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
-        %b Lorem Ipsum 
-        is simply dummy text of the print
-      .clear
+    - if user.items.present?        
+      %h2 Publications       
+      .b-user-list
+        - each user.items do item
+          = link_to item_path(item), :class => 'item' do
+            = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100'
+            %b= item.title 
+            = item.description
+      
   
     %br
     %h2 Approvals   

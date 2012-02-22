@@ -37,7 +37,7 @@
             %li= msg
 
     = image_tag '/assets/tmp/p2.png', :width => '135', :height => '100', :class => 'preview'
-    = form_for @item do |f| 
+    = form_for @item, :validate => true do |f| 
       .block
         .item
           = f.label :title
