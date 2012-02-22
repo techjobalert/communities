@@ -12,7 +12,7 @@ class SearchParams
   def get_search_results
     return nil unless @query
 
-    options = {}
+    options = {:star => true}
     options.merge!(get_sort_options)
     options.merge!(get_paging_options)
 
