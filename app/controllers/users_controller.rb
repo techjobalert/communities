@@ -100,7 +100,7 @@ class UsersController < ApplicationController
     options = params[:message].merge!({:receiver_id => params[:user_id], :user_id => current_user.id})
     @message = Message.new(options)    
 
-    if params[:comment].blank? || params[:message][:body].blank?
+    if params[:message].blank? || params[:message][:body].blank?
       @notice = {:type => 'error', :message => "Message text can't be blank."}
     else      
       if @message.save
