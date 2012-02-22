@@ -16,6 +16,12 @@ class User < ActiveRecord::Base
   #has_many :items, :dependent => :destroy
   has_many :comments, :as => :commentable, :dependent => :destroy
 
+  has_many :messages_sended, :class_name => 'Message', 
+           :dependent => :destroy, foreign_key: :user_id
+  has_many :messages_received, :class_name => 'Message', 
+           :dependent => :destroy, foreign_key: :receiver_id, 
+            inverse_of: :user
+
   has_many :contributions, foreign_key: :contributor_id
   has_many :items, through: :contributions
   

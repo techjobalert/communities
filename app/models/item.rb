@@ -15,12 +15,12 @@ class Item < ActiveRecord::Base
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
 
   # Handlers
-  before_create   :default_values, :before_create_handler
+  before_create   :default_values, :add_to_contributors
 
   paginates_per 3
 
   belongs_to  :user, :counter_cache => true, class_name: :User, inverse_of: :items
-  belongs_to  :creator, class_name: :User, inverse_of: :items
+  # belongs_to  :creator, class_name: :User, inverse_of: :items
 
   has_many    :comments, :dependent => :destroy
   has_many    :contributions
@@ -43,7 +43,7 @@ class Item < ActiveRecord::Base
     has user_id, created_at
   end
 
-  def before_create_handler
+  def add_to_contributors
     self.contributors << user  
   end
 
