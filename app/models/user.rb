@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.collaborators user
+  def self.collaborators user    
     find_by_sql "SELECT C.* FROM users as C 
       JOIN contributions as B ON (C.id = B.contributor_id AND C.id <> #{user.id}) 
       JOIN contributions as A ON (B.item_id = A.item_id) 

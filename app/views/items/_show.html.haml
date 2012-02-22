@@ -12,62 +12,12 @@
   .tools.detail.hidden
     .items
       %ul
-        %li
-          .item
-            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-            .title
-              Kobi
-              %br
-              Mori
-        %li
-          .item
-            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-            .title
-              Kobi
-              %br
-              Mori
-        %li
-          .item
-            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-            .title
-              Kobi
-              %br
-              Mori
-        %li
-          .item
-            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-            .title
-              Kobi
-              %br
-              Mori
-        %li
-          .item
-            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-            .title
-              Kobi
-              %br
-              Mori
-        %li
-          .item
-            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-            .title
-              Kobi
-              %br
-              Mori
-        %li
-          .item
-            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-            .title
-              Kobi
-              %br
-              Mori
-        %li
-          .item
-            = image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-            .title
-              Kobi
-              %br
-              Mori
+        - item.contributors.each do |contributor| 
+          %li
+            .item
+              = image_tag contributor.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{contributor.id}"
+              .title= raw(contributor.full_name.gsub(" ","<br>"))
+       
     - if current_user and item.user.id != current_user.id
       - if not current_user.following?(item)
         = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do          
@@ -83,12 +33,9 @@
   .tools.short
     .items
       %ul
-        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
-        %li= image_tag '/assets/tmp/p3.png', :height => '60', :width => '60'
+        - item.contributors.each do |contributor| 
+          %li= image_tag contributor.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{contributor.id}"
+        
     
     - if current_user and item.user.id != current_user.id
       - if not current_user.following?(item)

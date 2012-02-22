@@ -1,0 +1,10 @@
+- if collaborators.present?
+  .b-user-sidebar
+    %h2.b-user-title Published with:
+    %ul
+      - collaborators.each do |collaborator|
+        %li
+          = image_tag collaborator.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{collaborator.id}"
+          .text
+            %b= collaborator.full_name
+            = collaborator.specialization

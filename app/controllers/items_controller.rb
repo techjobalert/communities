@@ -4,7 +4,7 @@ class ItemsController < InheritedResources::Base
   
 
   def show 
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:id])    
     @popup = (params[:type].present? && params[:type] == "popup")       
   end
 
