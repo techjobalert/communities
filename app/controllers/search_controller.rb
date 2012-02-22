@@ -5,10 +5,9 @@ class SearchController < ApplicationController
     unless params[:q].include?("*")
       params[:q] = "*#{params[:q]}*"
     end
-    per_page = get_setting("show_search_results_per_page")
-    params.merge!({SearchParams.per_page_param => per_page})
     @search_params = SearchParams.new(params)
-    @search_results = @search_params.get_search_results.page(params[:page])
+    per_page = get_setting("show_search_results_per_page")
+    @search_results = @search_params.get_search_results.page(params[:page]).per(per_page)    
   end
 
   def qsearch
