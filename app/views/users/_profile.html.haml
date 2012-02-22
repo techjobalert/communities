@@ -3,7 +3,7 @@
     .b-user-info
       .b-user-preview#upcontainer        
         = link_to '#', :id => 'pickfiles' do          
-          = image_tag("#{user.avatar? ? user.avatar_url(:thumb_143) : '/assets/user-upload-photo.jpg'}")
+          = image_tag "#{user.avatar? ? user.avatar_url(:thumb_143) : '/assets/user-upload-photo.jpg'}", :class => "my-thumb_143"
           
         .spinner.hidden 
         :javascript
@@ -43,34 +43,10 @@
       %h2 Publications      
       = render :partial => 'list_of_items', :locals => {:items => user.items}
       %br
-    
-      
+          
     - if false 
       %h2 Approvals   
       = render :partial => 'list_of_items', :locals => {:items => user.items}
 
-
-
-  .b-user-sidebar
-    %h2.b-user-title Published with:
-    %ul
-      %li
-        = image_tag '/assets/tmp/p6.png', :width => '60', :height => '60'
-        .text
-          %b Yossy Mendelovich
-          Show at most this number of pages Show at most thiser 
-          of pages of pages Show  
-      %li
-        = image_tag '/assets/tmp/p6.png', :width => '60', :height => '60'
-        .text
-          %b Yossy Mendelovich
-          Show at most this number of pages Show at most thiser 
-          of pages of pages Show  
-      %li
-        = image_tag '/assets/tmp/p6.png', :width => '60', :height => '60'
-        .text
-          %b Yossy Mendelovich
-          Show at most this number of pages Show at most thiser 
-          of pages of pages Show  
-          
+  = render :partial => 'sidebar', :locals => {:collaborators => collaborators}  
 .clear

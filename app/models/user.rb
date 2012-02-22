@@ -68,5 +68,12 @@ class User < ActiveRecord::Base
       #self.all(:conditions => {$1 => args[0]})
     end
   end
+
+  def self.collaborators user    
+    find_by_sql "SELECT C.* FROM users as C 
+      JOIN contributions as B ON (C.id = B.contributor_id AND C.id <> #{user.id}) 
+      JOIN contributions as A ON (B.item_id = A.item_id) 
+      WHERE A.contributor_id = #{user.id} GROUP BY B.contributor_id"    
+  end  
   
 end

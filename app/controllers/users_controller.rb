@@ -10,7 +10,7 @@ class UsersController < ApplicationController
         @users = current_user.followers.select { |f| f.role == 'doctor'}       
 
       when "published_together"
-        @users = User.all
+        @users = User.collaborators current_user
 
       when "following"
         @users = current_user.following_by_type('User')        
@@ -26,6 +26,7 @@ class UsersController < ApplicationController
 
   def show 
     @user = params[:id] == current_user.id ? current_user : User.find(params[:id])
+    @collaborators = User.collaborators @user
     @type = params[:type].present? ? params[:type] : "public"
   end
   

@@ -13,43 +13,25 @@
     = item.description
 
   .authors
-    %b.title Authors
-    %ul
-      %li
-        = link_to '#' do
-          = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
-          %br
-          Yossy
-          %br
-          Mendelovich
-      %li
-        = link_to '#' do
-          = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
-          %br
-          Yossy
-          %br
-          Mendelovich
-      %li
-        = link_to '#' do
-          = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
-          %br
-          Yossy
-          %br
-          Mendelovich
-      %li
-        = link_to '#' do
-          = image_tag '/assets/tmp/p3.png', :width => '45', :height => '45', :alt => 'Yossy Mendelovich . MD'
-          %br
-          Yossy
-          %br
-          Mendelovich
+    - if item.contributors.present?
+      %b.title Authors
+      %ul 
+        - item.contributors.each do |contributor|       
+          %li
+            = link_to user_path(contributor), :remote => true do
+              = image_tag contributor.avatar_url(:thumb_45), :width => '45', :height => '45'
+              %br
+              = raw(contributor.full_name.gsub(" ","<br>"))          
     
-  %p
-    %b.title Keywords
-    %br
-    some word | Nickel | Tooth migration | some word | Nickel |
-    Tooth migration | some word | Nickel | Tooth migration |
-    some word | Nickel | Tooth migration |
+  - if item.tags.present?
+    %p
+      %b.title Keywords
+      %br
+      - item.tags.each do |tag|
+        = tag.name
+        |
+  
+    
 
 .tools  
   - if current_user.following?(item)

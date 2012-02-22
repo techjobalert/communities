@@ -1,20 +1,20 @@
 - case @type
   - when "popup"
-    $(".popup-user-#{@user.id}").html("#{escape_javascript(render :partial => 'popup', :locals => {:user => @user})}");
+    $(".popup-user-#{@user.id}").html("#{escape_javascript(render :partial => 'popup', :locals => {:user => @user, :collaborators => @collaborators})}");
 
   - when "profile"
     $(".main-content .navigation a").removeClass("selected");
     - if @user == current_user
       $(".tab-profile").addClass("selected");
-      $("#ajax-main-container").html("#{escape_javascript(render :partial => 'profile', :locals => {:user => @user})}");
+      $("#ajax-main-container").html("#{escape_javascript(render :partial => 'profile', :locals => {:user => @user, :collaborators => @collaborators})}");
       $("#datepicker").datepicker({changeMonth: true,changeYear: true,yearRange: "-99:+0",maxDate: 0});  
     - else
       $(".tab-collegues").addClass("selected");
-      $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user})}");
+      $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators})}");
      
 
   - else
-    $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user})}");
+    $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators})}");
     $(".main-content .navigation a").removeClass("selected");
     - if @user == current_user
       $(".tab-public").addClass("selected");      
