@@ -60,6 +60,8 @@ class User < ActiveRecord::Base
     indexes specialization, :sortable => true
     #where sanitize_sql(["published", true])
     has created_at, updated_at
+    set_property :enable_star => true
+    set_property :min_infix_len => 1
   end
 
   def method_missing(method_name, *args)
