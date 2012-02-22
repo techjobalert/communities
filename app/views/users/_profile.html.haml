@@ -50,27 +50,14 @@
       = render :partial => 'list_of_items', :locals => {:items => user.items}
 
 
-
-  .b-user-sidebar
-    %h2.b-user-title Published with:
-    %ul
-      %li
-        = image_tag '/assets/tmp/p6.png', :width => '60', :height => '60'
-        .text
-          %b Yossy Mendelovich
-          Show at most this number of pages Show at most thiser 
-          of pages of pages Show  
-      %li
-        = image_tag '/assets/tmp/p6.png', :width => '60', :height => '60'
-        .text
-          %b Yossy Mendelovich
-          Show at most this number of pages Show at most thiser 
-          of pages of pages Show  
-      %li
-        = image_tag '/assets/tmp/p6.png', :width => '60', :height => '60'
-        .text
-          %b Yossy Mendelovich
-          Show at most this number of pages Show at most thiser 
-          of pages of pages Show  
-          
+  - if collaborators.present?
+    .b-user-sidebar
+      %h2.b-user-title Published with:
+      %ul
+        - collaborators.each do |collaborator|
+          %li
+            = image_tag collaborator.avatar_path(:thumb_60), :width => '60', :height => '60'
+            .text
+              %b= collaborator.full_name
+              = collaborator.specialization
 .clear
