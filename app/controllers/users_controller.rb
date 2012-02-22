@@ -96,9 +96,21 @@ class UsersController < ApplicationController
   end
 
   def send_message
-    p "=-----------------"
-    p params
-    # Message.new(params[:])
+
+    options = params[:message].merge!({:receiver_id => params[:user_id], :user_id => current_user.id})
+    @message = Message.new(options)    
+
+    if params[:comment].blank? || params[:message][:body].blank?
+      @notice = {:type => 'error', :message => "Message text can't be blank."}
+    else      
+      if @message.save
+        @notice = {:type => 'notice', 
+          :message => "Message was successfully sended."}        
+      else
+        @notice = {:type => 'error', 
+          :message => "Error. Message not created."}
+      end      
+    end 
   end
 
   private
