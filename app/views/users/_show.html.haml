@@ -44,7 +44,8 @@
             %strong Send a massege: 
             you can send a message directly to email about profesional question
 
-          %p= text_area_tag 'description'
+          = imperavi :message, {:lang => 'ru', :toolbar => 'mini'}
+          %p= text_area_tag 'message'
 
           %p.right= button_tag 'Send', :class => 'light-button send green'
         

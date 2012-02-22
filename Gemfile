@@ -48,9 +48,10 @@ gem "galetahub-simple_captcha", :require => "simple_captcha"
 gem 'default_value_for'
 gem 'date_validator'
 
-#gem 'therubyracer'                                               # JS runtime
+# JS runtime
+#gem 'therubyracer'
 # clientside validation by ajax
-gem 'client_side_validations'
+gem 'client_side_validations', :git => 'https://github.com/bcardarella/client_side_validations.git'
 # Pagination
 gem 'kaminari'
 # ActiveAdmin administration
@@ -87,3 +88,5 @@ gem 'acts_as_follower'
 #gem 'activemerchant', :require => 'active_merchant'
 # https://github.com/jamesgolick/timeline_fu
 gem 'timeline_fu', :git => 'git://github.com/jamesgolick/timeline_fu.git'
+# https://github.com/tanraya/imperavi-rails
+gem 'imperavi-rails', :git => 'git://github.com/kapkaev/imperavi-rails.git'

@@ -22,6 +22,7 @@
 //= require plupload/plupload.html4
 //= require plupload/plupload.html5
 //= require plupload.base
+//= require imperavi-rails/imperavi
 
 function showHideNotice(type,message){
   $('body').append('<div class="flash_' + type + ' notice">' + message + '</div>');
