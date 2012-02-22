@@ -15,12 +15,11 @@ class Item < ActiveRecord::Base
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
 
   # Handlers
-  before_create   :default_values
-  after_create    :after_create_handler
+  before_create   :default_values, :before_create_handler
 
   paginates_per 3
 
-  belongs_to  :user, :counter_cache => true
+  belongs_to  :user, :counter_cache => true, class_name: :User, inverse_of: :items
   belongs_to  :creator, class_name: :User, inverse_of: :items
 
   has_many    :comments, :dependent => :destroy
@@ -39,12 +38,12 @@ class Item < ActiveRecord::Base
   define_index do
     indexes :title,          :sortable => true
     indexes :description,    :sortable => true
-    indexes user.full_name, :sortable => true
+    indexes user.full_name,  :sortable => true
 
     has user_id, created_at
   end
 
-  def after_create_handler
+  def before_create_handler
     self.contributors << user  
   end
 

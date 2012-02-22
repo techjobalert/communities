@@ -93,7 +93,13 @@ class UsersController < ApplicationController
     else
       @message = "Some error."
     end
-  end  
+  end
+
+  def send_message
+    p "=-----------------"
+    p params
+    # Message.new(params[:])
+  end
 
   private
   def parse_settings(params)
