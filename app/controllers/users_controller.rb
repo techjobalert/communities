@@ -105,7 +105,8 @@ class UsersController < ApplicationController
     else      
       if @message.save
         @notice = {:type => 'notice', 
-          :message => "Message was successfully sended."}        
+          :message => "Message was successfully sended."}
+        Resque.enqueue(SendMessage, @message.id)
       else
         @notice = {:type => 'error', 
           :message => "Error. Message not created."}
