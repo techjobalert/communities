@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
         :item_changes           #Item you following as changed or updated (price, title, summary goes from paid to free and etc)
   ]
 
-  validates :full_name, :role, :presence => true
+  validates :full_name, :presence => true
   validates :role, :inclusion => %w(doctor patient moderator)
   validates :birthday, :date => { 
             :after => Proc.new { Time.now - 100.year }, 
