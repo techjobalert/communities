@@ -7,36 +7,36 @@ class UsersController < ApplicationController
 
     case @tab
       when "followers"
-        @users = current_user.followers.select { |f| f.role == 'doctor'}       
+        @users = current_user.followers.select { |f| f.role == 'doctor'}
 
       when "published_together"
         @users = User.collaborators current_user
 
       when "following"
-        @users = current_user.following_by_type('User')        
+        @users = current_user.following_by_type('User')
 
       when "patients"
-        @users = current_user.followers.select { |f| f.role == 'patient'}  
+        @users = current_user.followers.select { |f| f.role == 'patient'}
 
       else
-        @users = current_user.followers.select { |f| f.role == 'doctor'} 
-        @tab = "followers"    
+        @users = current_user.followers.select { |f| f.role == 'doctor'}
+        @tab = "followers"
     end
-  end  
+  end
 
-  def show 
+  def show
     @user = params[:id] == current_user.id ? current_user : User.find(params[:id])
     @collaborators = User.collaborators @user
     @type = params[:type].present? ? params[:type] : "public"
   end
-  
+
   def edit
   end
 
   def update
     respond_to do |format|
-      
-      parse_settings(params)
+
+      # parse_settings(params)
       if params[:user][:birthday]
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end
@@ -45,16 +45,16 @@ class UsersController < ApplicationController
         flash[:notice] = "success"
         if  params[:type].present? &&  params[:type] == "profile"
           format.html { redirect_to user_path(current_user, :type => "profile")}
-        else 
+        else
           format.html { redirect_to edit_user_path(current_user)}
-        end        
+        end
       else
         flash[:error] = "error"
         if  params[:type].present? &&  params[:type] == "profile"
           format.html { redirect_to user_path(current_user, :type => "profile")}
-        else 
+        else
           format.html { redirect_to edit_user_path(current_user)}
-        end  
+        end
       end
     end
   end
@@ -63,17 +63,17 @@ class UsersController < ApplicationController
     current_user.avatar = params[:file]
     respond_to do |format|
       if current_user.save
-        @data = { 
-          :thumb_60 => current_user.avatar_url(:thumb_60), 
-          :thumb_70 => current_user.avatar_url(:thumb_70), 
+        @data = {
+          :thumb_60 => current_user.avatar_url(:thumb_60),
+          :thumb_70 => current_user.avatar_url(:thumb_70),
           :thumb_143 => current_user.avatar_url(:thumb_143),
         }
-        
+
         format.json { render json: @data.to_json }
       end
-    end     
-  end  
-  
+    end
+  end
+
 
   def follow
     following_user_id = params[:user_id]
@@ -99,31 +99,20 @@ class UsersController < ApplicationController
   def send_message
 
     options = params[:message].merge!({:receiver_id => params[:user_id], :user_id => current_user.id})
-    @message = Message.new(options)    
+    @message = Message.new(options)
 
     if params[:message].blank? || params[:message][:body].blank?
       @notice = {:type => 'error', :message => "Message text can't be blank."}
-    else      
+    else
       if @message.save
-        @notice = {:type => 'notice', 
+        @notice = {:type => 'notice',
           :message => "Message was successfully sended."}
         Resque.enqueue(SendMessage, @message.id)
       else
-        @notice = {:type => 'error', 
+        @notice = {:type => 'error',
           :message => "Error. Message not created."}
-      end      
-    end 
-  end
-
-  private
-  def parse_settings(params)
-    _settings={}  
-    params[:user].each do |key, value|
-      if key =~ /^settings_(\w+)$/
-        _settings[$1.to_sym] = value
       end
     end
-    params[:user][:settings] = _settings
   end
 
 end

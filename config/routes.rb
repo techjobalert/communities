@@ -2,19 +2,19 @@ Orthodontic::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  
+
   mount ImperaviRails::Engine => "/imperavi"
-  
+
   devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
-  
+
   devise_scope :user do
     match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
   end
-  
+
   resources :items do
     resources :comments do
       get "vote_up"
-    end 
+    end
     post "follow"
     delete "unfollow"
   end
@@ -24,8 +24,8 @@ Orthodontic::Application.routes.draw do
     post "follow"
     post "send_message"
     delete "unfollow"
-  end  
-  
+  end
+
   # Search logic
   match '/search'         => "search#index"
   match '/search/qsearch' => "search#qsearch"
@@ -62,5 +62,5 @@ Orthodontic::Application.routes.draw do
   # ----------------------------------------------------------------------------
   # ----------------------------------------------------------------------------
   # ----------------------------------------------------------------------------
-  
+
 end
