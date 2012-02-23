@@ -52,8 +52,7 @@ class User < ActiveRecord::Base
   default_value_for :role, 'doctor'
 
   fires :update_profile,  :on     => :update,
-                          :actor  => :self,
-                          :if => lambda { |user| user.signed_in? }
+                          :actor  => :self
 
   scope :role_is, lambda {|role| where(:role => role)}
 
