@@ -36,24 +36,29 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
 
-      # parse_settings(params)
       if params[:user][:birthday]
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end
 
       if current_user.update_attributes params[:user]
         flash[:notice] = "success"
+        @notice = {:type => 'notice', :message => "Profile successfully updated."}
         if  params[:type].present? &&  params[:type] == "profile"
           format.html { redirect_to user_path(current_user, :type => "profile")}
+          format.js
         else
           format.html { redirect_to edit_user_path(current_user)}
+          format.js
         end
       else
         flash[:error] = "error"
+        @notice = {:type => 'error', :message => "Profile not updated."}
         if  params[:type].present? &&  params[:type] == "profile"
           format.html { redirect_to user_path(current_user, :type => "profile")}
+          format.js
         else
           format.html { redirect_to edit_user_path(current_user)}
+          format.js
         end
       end
     end

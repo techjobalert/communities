@@ -2,7 +2,7 @@
   %h1 Customize your settings
   .b-notification.b-settings-tab.hidden
     .b-settings-title Email me whenever:
-    = form_for(current_user) do |f|
+    = form_for(current_user, :remote => true) do |f|
       %ul
         %li.odd
           = f.check_box :following_me
@@ -34,6 +34,15 @@
 
   .b-info.b-settings-tab
     = form_for(current_user, :remote => true) do |f|
+      .form
+        %ul
+          %li
+            = f.label :city
+            = f.text_field :city
+          %li
+            = f.label :school
+            = f.text_field :school
+
       .bio
         .title
           Biography
@@ -41,10 +50,4 @@
         .body
           = f.text_area :bio
 
-      .form
-        %ul
-          %li
-            = f.label :full_name
-            = f.text_field :full_name
-
-          %li.right= f.submit 'OK', :class => 'light-button green'
+      .right= f.submit 'OK', :class => 'light-button green'

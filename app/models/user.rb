@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
                   :full_name, :profession_and_degree, :role, :avatar, :specialization,
                   :birthday, :following_me, :following_published, :added_as_author,
                   :following_item,  :commented_item, :recommended_comment,
-                  :following_bought_item, :item_changes
+                  :following_bought_item, :item_changes, :city, :school
 
   acts_as_followable
   acts_as_follower
