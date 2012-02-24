@@ -52,9 +52,9 @@
       = render :partial => 'list_of_items', :locals => {:items => user.items}
       %br
      
-    - if false 
+    - if user.following_by_type("Item").present? 
       %h2 Approvals   
-      = render :partial => 'list_of_items', :locals => {:items => user.items}
+      = render :partial => 'list_of_items', :locals => {:items => user.following_by_type("Item")}
 
   = render :partial => 'sidebar', :locals => {:collaborators => collaborators}
 .clear
