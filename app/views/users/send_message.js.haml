@@ -1,4 +1,4 @@
 - if @notice[:type] != "error"
-  document.message_body_redactor.setHtml("<p>&nbsp;</p>")
+  redactor.setHtml('<p>&nbsp;</p>');
 
 showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");

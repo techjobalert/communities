@@ -3,3 +3,5 @@
     = render :partial => 'profile', :locals => {:user => @user, :collaborators => @collaborators}    
   - else
     = render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators}
+    = imperavi :message_body, {:lang => 'en', :toolbar => 'mini'}
+  
