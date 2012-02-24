@@ -25,9 +25,7 @@
         you can send a message directly to email about
         profesional question
 
-      %p= text_area_tag 'description'
-
-      %p.right= button_tag 'Send', :class => 'light-button send green'
+      = render :partial => 'send_message', :locals => {:user => user}
 
   .panel
     %p

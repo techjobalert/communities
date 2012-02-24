@@ -11,7 +11,7 @@
     - else
       $(".tab-collegues").addClass("selected");
       $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators})}");
-     
+      
 
   - else
     $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators})}");
@@ -21,5 +21,6 @@
     - else
       $(".tab-collegues").addClass("selected");
       
-    
+- unless @user == current_user      
+  $('#message_body').redactor({"paths":{"stylesheets":["/assets/imperavi-rails/imperavi/wym.css"],"toolbar":"/imperavi/toolbar/mini.js","language":"/imperavi/language/en.js","typograf":"/imperavi/typograf","dialogs":{"file":"/imperavi/file","fileEdit":"/imperavi/file_edit","image":"/imperavi/image","imageEdit":"/imperavi/image_edit","link":"/imperavi/link","table":"/imperavi/table","video":"/imperavi/video"},"images":{"upload":"","download":"","list":""},"files":{"upload":"","download":"","remove":""}},"lang":"en","toolbar":"mini"});
     

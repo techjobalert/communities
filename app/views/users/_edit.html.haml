@@ -34,14 +34,14 @@
 
   .b-info.b-settings-tab
     = form_for(current_user, :remote => true) do |f|
-      .form
-        %ul
-          %li
-            = f.label :city
-            = f.text_field :city
-          %li
-            = f.label :school
-            = f.text_field :school
+      / .form
+      /   %ul
+      /     %li
+      /       = f.label :city
+      /       = f.text_field :city
+      /     %li
+      /       = f.label :school
+      /       = f.text_field :school
 
       .bio
         .title

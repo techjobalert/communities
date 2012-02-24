@@ -7,4 +7,7 @@ class HomeController < ApplicationController
       @items = Item.published.page(params[:page])
     end
   end
+
+  def new_captcha    
+  end  
 end

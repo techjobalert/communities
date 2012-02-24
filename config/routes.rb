@@ -5,10 +5,12 @@ Orthodontic::Application.routes.draw do
 
   mount ImperaviRails::Engine => "/imperavi"
 
-  devise_for :users, :controllers => { :registrations => "registrations", :sessions => "sessions"}
+  devise_for :users, :controllers => { 
+    :registrations => "registrations", :sessions => "sessions"}
 
   devise_scope :user do
-    match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
+    match '/confirm/:confirmation_token', :to => "devise/confirmations#show", 
+      :as => "user_confirm", :only_path => false
   end
 
   resources :items do
@@ -30,12 +32,16 @@ Orthodontic::Application.routes.draw do
   match '/search'         => "search#index"
   match '/search/qsearch' => "search#qsearch"
 
+  # Captcha refresh
+  match '/captcha_refresh'  => "home#new_captcha"
+
   resources :file, :only => [:index] do
     collection do
       post "upload", :action => 'upload_psource'
       get "converted_pvideo", :action => 'converted_pvideo'
       get "webrecorder", :action => 'webrecorder'
-      post "convert/:name", :action => 'convert', :constraints => { :name => /.*/ }
+      post "convert/:name", :action => 'convert', :constraints => { 
+        :name => /.*/ }
       post "merge", :action => 'merge'
     end
   end

@@ -40,8 +40,6 @@ $ ->
       clearTimeout(timer_popup)
       showItemPopup e
 
-      
-
   $(".popup-item-info, .popup-user-info").live "mouseleave", ->
     obj_id = $(this).attr "id"
     unless $("." + obj_id + ":visible").length
@@ -77,3 +75,34 @@ $ ->
     unless $(this).hasClass("selected")
       $(".list-header .nav a").removeClass "selected"
       $(this).addClass("selected")
+
+  $(".refresh-captcha").live "click", ->
+    $(".simple_captcha").html('<div class="loading">Loading...</div>');
+
+  $("#message_body").redactor
+    paths:
+      stylesheets: [ "/assets/imperavi-rails/imperavi/wym.css" ]
+      toolbar: "/imperavi/toolbar/mini.js"
+      language: "/imperavi/language/en.js"
+      typograf: "/imperavi/typograf"
+      dialogs:
+        file: "/imperavi/file"
+        fileEdit: "/imperavi/file_edit"
+        image: "/imperavi/image"
+        imageEdit: "/imperavi/image_edit"
+        link: "/imperavi/link"
+        table: "/imperavi/table"
+        video: "/imperavi/video"
+
+      images:
+        upload: ""
+        download: ""
+        list: ""
+
+      files:
+        upload: ""
+        download: ""
+        remove: ""
+
+    lang: "en"
+    toolbar: "mini"

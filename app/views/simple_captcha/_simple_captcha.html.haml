@@ -3,5 +3,6 @@
     = simple_captcha_options[:image]
   .simple_captcha_field
     = simple_captcha_options[:field]
+    = link_to image_tag("/assets/refresh.png"), "/captcha_refresh", :class => "refresh-captcha no-history", :remote => true, :title => "Refresh captcha"
   .simple_captcha_label
     = simple_captcha_options[:label]
