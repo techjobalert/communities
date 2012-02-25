@@ -101,14 +101,10 @@
       %br
       on this Item
       %span
-
-    %ul
-      - if @item.comment_threads.present?
-        - @item.comment_threads.each do |comment|
-          = render :partial => "comments/comment", :locals => {:comment => comment}
-      .clear
-
     .b-comments-form#comment-form
       = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
-
-
+    %ul
+      - if @item.comment_threads.present?
+        - @item.comment_threads.order('comments.created_at DESC').each do |comment|
+          = render :partial => "comments/comment", :locals => {:comment => comment}
+      .clear
