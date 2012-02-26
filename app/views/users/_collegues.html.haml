@@ -1,7 +1,7 @@
 %h3 
   Your Colleagues
 
-  .light-button.send-message.green
+  .light-button.send-message.green#send-message-dialog
     %b Send 
     your followers a message 
 
@@ -50,3 +50,34 @@
           .no-items No items
             
         .clear
+
+%div{ :id => "send-message", :title=>"Send message to your followers", :style=>"display:none;" }
+  %p
+    %textarea
+
+:javascript
+  $( "#send-message:ui-dialog" ).dialog( "destroy" );
+  
+  $( "#send-message" ).dialog({
+    resizable: false,
+    autoOpen: false,
+    height:400,
+    modal: true,
+    buttons: {
+      "Send message": function() {
+        $.ajax({
+          type: 'POST',
+          url: '#{user_send_message_to_followers_path(current_user)}',
+          data: { 'message': {'body': $( "#send-message>p>textarea")[0].value } },
+          dataType: 'script'
+        });
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+  $( "#send-message-dialog" ).click(function() {
+      $( "#send-message" ).dialog( "open" );
+      return false;
+    });

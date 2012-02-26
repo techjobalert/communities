@@ -22,9 +22,10 @@ Orthodontic::Application.routes.draw do
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
-    post "upload_avatar", :via => :post
+    post "upload_avatar"
     post "follow"
     post "send_message"
+    post "send_message_to_followers"
     delete "unfollow"
   end
 

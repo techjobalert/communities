@@ -1,0 +1,5 @@
+- if @notice[:type] != "error"
+  $("#send-message>p>textarea")[0].value = "";
+
+$("#send-message").dialog( "close" );
+showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");

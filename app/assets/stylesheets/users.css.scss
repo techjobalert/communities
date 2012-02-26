@@ -414,3 +414,15 @@
     }
   }
 }
+#send-message.ui-dialog-content.ui-widget-content{
+  overflow: initial;
+  p{
+    height: 95%;
+    textarea{
+    width: 100%;
+    height: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+  }
+  }
+}

@@ -102,9 +102,9 @@ class UsersController < ApplicationController
   end
 
   def send_message
-
     options = params[:message].merge!({:receiver_id => params[:user_id], :user_id => current_user.id})
-    @message = Message.new(options)
+
+    @message = Message.new(options, params)
 
     if params[:message].blank? || params[:message][:body].blank?
       @notice = {:type => 'error', :message => "Message text can't be blank."}
@@ -114,10 +114,36 @@ class UsersController < ApplicationController
           :message => "Message was successfully sended."}
         Resque.enqueue(SendMessage, @message.id)
       else
+        @notice = {:type => 'error',:message => "Error. Message not created."}
+      end
+    end
+
+  end
+
+  def send_message_to_followers
+    sended_messages_count = 0
+    @notice = {}
+    if params[:message].blank? || params[:message][:body].blank?
+      @notice = {:type => 'error', :message => "Message text can't be blank."}
+    else
+      current_user.followers.each do |f|
+        options = params[:message].merge!({:receiver_id => f.id, :user_id => current_user.id})
+        @message = Message.new(options, params)
+        if @message.save
+          sended_messages_count += 1
+          Resque.enqueue(SendMessage, @message.id)
+        end
+      end
+      if sended_messages_count != 0
+        @notice = {:type => 'notice',
+        :message => "Messages was successfully sended to #{sended_messages_count} followers"}
+      elsif sended_messages_count == 0
         @notice = {:type => 'error',
-          :message => "Error. Message not created."}
+        :message => "Messages isn't sended becouse you haven't followers"}
+      else
+        @notice = {:type => 'error',:message => "Error. Messages send."} 
       end
     end
   end
-
+  
 end
