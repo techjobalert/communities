@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
                   :full_name, :profession_and_degree, :role, :avatar, :specialization,
                   :birthday, :following_me, :following_published, :added_as_author,
                   :following_item,  :commented_item, :recommended_comment,
-                  :following_bought_item, :item_changes, :city, :school
+                  :following_bought_item, :item_changes, :educations, :educations_attributes
 
   acts_as_followable
   acts_as_follower
@@ -26,8 +26,10 @@ class User < ActiveRecord::Base
 
   has_many :contributions, foreign_key: :contributor_id
   has_many :items, through: :contributions
-
   has_many :pay_accounts, :dependent => :destroy
+  has_many :educations, :dependent => :destroy
+
+  accepts_nested_attributes_for :educations, :allow_destroy => true
 
   store :settings, accessors: [
         :following_me,          #Someone following me

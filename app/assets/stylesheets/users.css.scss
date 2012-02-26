@@ -220,6 +220,11 @@
   
   .b-info {
     margin-left: 210px;
+    .education {
+      width: 400px;      
+      margin: 0 0 20px;
+      position: relative;
+    }
     .bio {
       width: 400px;      
       border: 1px solid #b8b479;
@@ -271,7 +276,12 @@
         }
       }   
     }
-    
+    .edu-fields{
+      border-radius: 10px;
+      border: 1px solid #B8B479;
+      padding: 0 0 15px 0;
+      margin-bottom: 15px;
+    }
     .form {
       ul {
         margin: 0;
@@ -288,6 +298,10 @@
       li {
         list-style: none;
         padding: 5px 0;
+        &.remove{
+          float:right;
+          padding-right: 15px;
+        }
       }
       
       label {
@@ -301,7 +315,7 @@
       }
       
       input[type="text"] {
-        width: 200px;
+        width: 160px;
         padding: 5px 6px;
         background: none repeat scroll 0 0 #F1EFD1;
         border: 1px solid #F1EFD1;
@@ -315,6 +329,12 @@
         padding: 10px 0px 0;
         width: 384px;
       }      
+    }
+    
+    .right {
+      text-align: right;
+      padding: 10px 0px 0;
+      width: 384px;
     }
     
     .light-button.green {

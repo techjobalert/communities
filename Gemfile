@@ -90,3 +90,5 @@ gem 'acts_as_follower'
 gem 'timeline_fu', :git => 'git://github.com/jamesgolick/timeline_fu.git'
 # https://github.com/tanraya/imperavi-rails
 gem 'imperavi-rails', :git => 'git://github.com/kapkaev/imperavi-rails.git'
+# https://github.com/justinfrench/formtastic
+gem 'formtastic'

@@ -31,11 +31,11 @@ class UsersController < ApplicationController
   end
 
   def edit
+    # current_user.educations.build
   end
 
   def update
     respond_to do |format|
-
       if params[:user][:birthday]
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end
