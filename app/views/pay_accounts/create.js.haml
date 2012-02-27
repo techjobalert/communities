@@ -3,3 +3,4 @@ $("#ajax-main-container").html("#{escape_javascript(render :partial => 'account/
   showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
 
 $("#account-form").dialog( "close" );
+$(".payments-info").addClass("selected");
