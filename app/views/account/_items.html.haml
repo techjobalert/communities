@@ -1,0 +1,32 @@
+%h3
+  Your Account
+
+.clear
+
+.list
+  .list-header
+    = render :partial => "navigation"
+    .list-content
+      - if items.present?
+        - items.each do |item|
+          .item
+            .tools
+              .price= "Price: #{item.paid? ? '5.00$' : 'free'}"
+              = link_to 'Change price', '#', :class => 'change'
+              = link_to item_path(item), :method => "delete", :remote => true , :confirm => 'Are you sure?', :class => 'delete' do
+                Delete Item
+                %span
+            .media
+              = image_tag '/assets/tmp/p2.png'
+              .info
+                .purchase
+                  %span
+                  Purchase: 30,0000
+                .view
+                  %span
+                  = "Views: #{item.views_count}" 
+
+            .text= item.description     
+        .clear
+        = paginate items, :remote => true
+        .clear

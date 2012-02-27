@@ -46,7 +46,7 @@
                       %span bla bla bla
 
                   %li
-                    = link_to '#' do
+                    = link_to items_account_path(), :remote => :true, :class => "#{'selected' if params[:controller] == 'account'}" do
                       ACCOUNT
                       %span bla bla bla
                   %li
