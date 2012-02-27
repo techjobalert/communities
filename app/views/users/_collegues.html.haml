@@ -27,10 +27,13 @@
         .tags
           .label Filter by
           = form_for '/' do |f|
-            = f.select "", ['Degree','Degree']
-            = f.select "", ['Location','Location']
-            = f.select "", ['Specialization','Specialization']
-            = f.select "", ['Num’ of publishing','Num’ of publishing']
+            -if @tab != 'patients' 
+              = f.select "", ['Degree','Degree']
+              = f.select "", ['Location','Location']
+              = f.select "", ['Specialization','Specialization']
+              = f.select "", ['Num’ of publishing','Num’ of publishing']
+            - elsif @tab == 'patients'
+              = f.select "", ['Location','Location']
               
           .clear
         .search
