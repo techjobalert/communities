@@ -29,9 +29,9 @@ class Ability
     # Item
     can :create, Item
     can [:send_message_to_followers, :unfollow], [User, Item]
-    can [:update, :follow, :unfollow], Item do |item| 
+    can [:update, :follow, :unfollow, :destroy], Item do |item| 
       owner_or_published?(item)
-    end
+    end    
   end
 
   def moderator

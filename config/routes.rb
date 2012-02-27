@@ -26,6 +26,7 @@ Orthodontic::Application.routes.draw do
     end
     post "follow"
     delete "unfollow"
+    delete "delete"
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
