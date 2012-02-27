@@ -3,7 +3,7 @@ class Item < ActiveRecord::Base
   include SettingsHelper
 
   attr_accessible :title, :description, :tag_list, :paid, :user, :user_id, 
-    :views_count
+    :views_count, :deleted, :amount
   validates :title, :description, :presence => true
 
   acts_as_commentable
@@ -14,6 +14,8 @@ class Item < ActiveRecord::Base
   scope :published, where(:published => true)
   scope :unpublished, where(:published => false)
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
+
+  default_scope where(:deleted => false).order("created_at DESC")
 
   # Handlers
   before_create   :default_values, :add_to_contributors
@@ -51,7 +53,6 @@ class Item < ActiveRecord::Base
 
   def default_values
     self.published = !get_setting("items_pre_moderation")
-    self.views_count = 0
     true
   end
 end

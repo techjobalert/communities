@@ -1,1 +1,4 @@
 $("#ajax-main-container").html("#{escape_javascript(render :partial => 'items', :locals => {:items => @items})}");
+
+- if @notice.present?
+  showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");

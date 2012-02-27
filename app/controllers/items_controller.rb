@@ -52,4 +52,17 @@ class ItemsController < InheritedResources::Base
       format.js     
     end
   end
+
+  def destroy 
+    @item = Item.find(params[:id])
+    @item.deleted = true
+
+    if @item.save
+      notice = {:type => 'notice', :message => "successfully"}
+    else
+      notice = {:type => 'error', :message => "Some error."}
+    end
+
+    redirect_to(items_account_path(:notice => notice))
+  end
 end
