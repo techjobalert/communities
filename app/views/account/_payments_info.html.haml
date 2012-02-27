@@ -5,22 +5,22 @@
 
 .list
   .list-header
-    = render :partial => "navigation"
+    = render :partial => "account/navigation"
     .b-purchased-item
       .item
         .title Account Info
         .body
-          Viza Number:
-          %br
-          123456789
-          %br
-          Date: 1.9.1985
-          %br
-          Kobi Mori
-          %br
-          Anatot 36, Tel Aviv
-          %br
-          Israel
+          - if current_user.pay_accounts.present?
+            - pay_account = current_user.pay_accounts.first
+            Number:
+            %br
+            = pay_account.number
+            %br
+            = "Date: #{pay_account.month}.#{pay_account.year}"
+            %br
+            = "#{pay_account.first_name} #{pay_account.last_name}"
+            %br
+            
         = link_to "#{current_user.pay_accounts.present? ? 'Edit' : 'Create'}", '#', :class => 'light-button green edit', :id => "account-form-dialog"
     
       .item
@@ -71,8 +71,8 @@
         = f.label :number, "Credit card number"
         = f.text_field :number
       %p
-        = f.label :type, "Payment type"
-        = f.text_field :type
+        = f.label :payment_type, "Payment type"
+        = f.text_field :payment_type
       %p.exp
         = label :month, "Expiration date"
         = f.text_field :month, :class => 'd'

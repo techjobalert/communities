@@ -1,6 +1,7 @@
 class PayAccountsController < ApplicationController
   def create
     params[:pay_account]['user_id'] = current_user.id
+    params[:pay_account]['active'] = true
     @pay_account = PayAccount.new(params[:pay_account]) 
     
     if @pay_account.save
@@ -11,7 +12,7 @@ class PayAccountsController < ApplicationController
   end
 
   def update
-    @pay_account = PayAccount.new(params[:pay_account])
+    @pay_account = current_user.pay_accounts.first
     
     if @pay_account.update_attributes params[:pay_account]
       @notice = {:type => "notice", :message => "successfull"}        

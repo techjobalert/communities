@@ -1,3 +1,5 @@
 $("#ajax-main-container").html("#{escape_javascript(render :partial => 'account/payments_info')}");
 - if @notice.present?
   showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
+
+$("#account-form").dialog( "close" );
