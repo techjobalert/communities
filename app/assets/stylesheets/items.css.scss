@@ -201,55 +201,10 @@
       display: block;
     }
     
-    .pay-pal-form {
-      select {
-        margin-top: 2px;
-      }
-      
-      .exp {
-        .d, .m {width: 16px;}
-        .css {width: 22px;}
-        span {
-          margin: 0 5px 0 10px;
-        }
-        a {
-          font-size: 11px;
-          color: #76787d;
-          margin-left: 10px;
-        }
-      }
-      
-      .zip input {
-        width: 73px;
-      }
-      
-      label {
-        font-size: 12px; 
-        display: block;
-        width: 110px;
-        float: left;
-        margin-right: 10px;
-        text-align: right;
-        line-height: 30px;
-      }
-      
-      .pay-pal {
-        border: medium none;
-        -webkit-border-radius: 7px;
-        -moz-border-radius: 7px;
-        border-radius: 7px;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-        display: block;
-        font-size: 13px;
-        font-weight: normal;
-        margin-left: 120px;
-        width: 205px;
-        padding: 8px 12px;
-      }
+    .pay-pal-form label {
+      width: 110px;
     }
-    
+
     .pay-pal-auth-form {
       label {
         font-size: 12px; 
@@ -404,6 +359,69 @@
       font-size: 20px;
     }
   }  
+}
+
+.pay-pal-form {
+  select {
+    margin-top: 2px;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"], textarea {
+    width: 200px;
+    padding: 5px 6px;
+    background: none repeat scroll 0 0 #F1EFD1;
+    border: 1px solid #F1EFD1;
+    -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+    -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+    box-shadow: 0 2px 2px #D8DCC1 inset;
+  }
+
+  p {
+    margin: 5px 0;
+  }
+  
+  .exp {
+    .d, .m {width: 16px;}
+    .css {width: 22px;}
+    span {
+      margin: 0 5px 0 10px;
+    }
+    a {
+      font-size: 11px;
+      color: #76787d;
+      margin-left: 10px;
+    }
+  }
+  
+  .zip input {
+    width: 73px;
+  }
+  
+  label {
+    font-size: 12px; 
+    display: block;
+    width: 150px;
+    float: left;
+    margin-right: 10px;
+    text-align: right;
+    line-height: 30px;
+  }
+  
+  .pay-pal {
+    border: medium none;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    margin-left: 120px;
+    width: 205px;
+    padding: 8px 12px;
+  }
 }
 
 .field_with_errors {

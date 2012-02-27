@@ -1,5 +1,9 @@
 Orthodontic::Application.routes.draw do
 
+  get "pay_accounts/create"
+
+  get "pay_accounts/update"
+
   #get "account/items"
 
   #get "account/purchase"
@@ -37,12 +41,13 @@ Orthodontic::Application.routes.draw do
     delete "unfollow"    
   end
 
+  resources :pay_accounts, :only => [:create, :update]
+
   # Account
   match 'account/items'           => 'account#items',           :via => :get, :as => :items_account
   match 'account/purchase'        => 'account#purchase',        :via => :get, :as => :purchase_account
   match 'account/payments_info'   => 'account#payments_info',   :via => :get, :as => :payments_info_account
   match 'account/purchased_items' => 'account#purchased_items', :via => :get, :as => :purchased_items_account
-
 
   # Search logic
   match '/search'         => "search#index"
