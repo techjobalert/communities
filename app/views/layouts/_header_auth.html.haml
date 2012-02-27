@@ -15,7 +15,7 @@
         Foxy parsons quiz and cajole the wiki-girl.
       .media= image_tag "/assets/tmp/p1.jpg"
     #sign-up.sign-up-tab.sign-tab
-      = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+      = form_for(resource, :as => User.new, :url => registration_path(:user),:validate => true) do |f|
         / = devise_error_messages!
         .inputs
           .toggler
@@ -24,7 +24,7 @@
             = f.label :role_doctor, 'a Doctor', :class => 'doctor checked'
             = f.radio_button :role, "patient"
             = f.label :role_patient, 'a Patient', :class => 'patient'
-          %p= f.text_field :full_name, :placeholder => 'Full Name'
+          %p= f.text_field :full_name, :placeholder => 'Full Name', :validate => true
           %p.doctor-only= f.text_field :profession_and_degree, :placeholder => 'Profession and degree'
           %p= f.text_field :email, :placeholder => 'Email Address'
           %p= f.password_field :password, :placeholder => 'Password'
@@ -34,7 +34,7 @@
           SIGN UP
           %span to create an account
     .sign-in-tab.sign-tab.hidden
-      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name),:validate => true) do |f|
         = devise_error_messages!
         .inputs
           %p= f.text_field :email, :placeholder => 'Email Address'

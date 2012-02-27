@@ -922,3 +922,16 @@ h3 {
     opacity: 0.7;
   }
 }
+
+.field_with_errors
+  .message{
+    position: absolute;
+    float: left;
+    font-size: 11px;
+    width: 250px;
+    text-align: center;
+    line-height: 33px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 5px;
+  }
