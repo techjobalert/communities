@@ -6,12 +6,17 @@ class NotifyNow
   	followers, owner = nil
   	
   	if event.subject_type == "Comment"
-  		followers = event.subject.commentable.followers
+  		commentable = event.subject.commentable
+      if commentable.is_a? Item 
+        if commentable.user.commented_item == 1 or commentable.user.recommended_comment == 1
+          owner = commentable.user
+        end
+      end
   	elsif event.subject_type == "Follow"
       followable = event.subject.followable
-      if followable.is_a? User
+      if followable.is_a? User and followable.following_me == 1
         owner = event.subject.followable
-      elsif followable.is_a? Item
+      elsif followable.is_a? Item and followable.following_item == 1
         owner = event.subject.followable.user
       end
   	else
