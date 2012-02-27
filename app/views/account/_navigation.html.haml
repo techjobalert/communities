@@ -1,0 +1,35 @@
+.nav.account
+  = link_to items_account_path(), :remote => :true, :class => "items #{'selected' if params[:action] == 'items'}" do
+    %span
+    Your Items
+  = link_to purchase_account_path(), :remote => :true, :class => "your-purchase #{'selected' if params[:action] == 'purchase'}" do
+    %span
+    Your
+    %br
+    Purchase
+  = link_to purchased_items_account_path(), :remote => :true, :class => "purchased #{'selected' if params[:action] == 'purchased_items'}" do
+    %span
+    Purchased
+    %br
+    Item
+  = link_to payments_info_account_path(), :remote => :true, :class => "payments-info #{'selected' if params[:action] == 'payments_info'}" do
+    %span
+    Payments
+    %br
+    Info
+.filter.account
+  .field
+    .tags
+      .label Filter by
+      = form_for '/' do |f|
+        = f.select "", ['Viewed','Viewed']
+        = f.select "", ['Length','Length']
+        = f.select "", ['Date','Date']
+        = f.select "", ['Free','Free']
+        = f.select "", ['Paid','Paid']         
+      .clear
+    .search
+      = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'
+      = button_tag 'Go', :class => 'dark-button'
+    .clear
+.clear

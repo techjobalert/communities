@@ -2,7 +2,8 @@ class Item < ActiveRecord::Base
   include PubUnpub
   include SettingsHelper
 
-  attr_accessible :title, :description, :tag_list, :paid, :user, :user_id
+  attr_accessible :title, :description, :tag_list, :paid, :user, :user_id, 
+    :views_count
   validates :title, :description, :presence => true
 
   acts_as_commentable
@@ -50,6 +51,7 @@ class Item < ActiveRecord::Base
 
   def default_values
     self.published = !get_setting("items_pre_moderation")
+    self.views_count = 0
     true
   end
 end
