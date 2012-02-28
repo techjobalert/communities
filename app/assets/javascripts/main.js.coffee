@@ -25,7 +25,7 @@ $ ->
   $(".b-search-engine .btn.explore").on "click", ->
     $(".b-explore-popup").toggleClass "hidden"
 
-  $(".popup-user-info").live
+  $(document).on
     mouseover: (e) ->
       timer_popup = window.setTimeout(->
         showUserPopup e
@@ -33,8 +33,9 @@ $ ->
     click: (e) ->
       clearTimeout(timer_popup)
       showUserPopup e
+    , ".popup-user-info"
 
-  $(".popup-item-info").live
+  $(document).on
     mouseover: (e) ->
       timer_popup = window.setTimeout(->
         showItemPopup e
@@ -42,13 +43,14 @@ $ ->
     click: (e) ->
       clearTimeout(timer_popup)
       showItemPopup e
+    , ".popup-item-info"
 
-  $(".popup-item-info, .popup-user-info").on "mouseleave", ->
+  $(document).on "mouseleave", ".popup-item-info, .popup-user-info", ->
     obj_id = $(this).attr "id"
     unless $("." + obj_id + ":visible").length
       clearTimeout(timer_popup)
 
-  $(".popup-container").on "mouseleave", ->
+  $(document).on "mouseleave", ".popup-container", ->
     $(this).css("display","none")
 
   $(".light-button.set-preview").toggle (->
@@ -74,10 +76,10 @@ $ ->
   $(".go-to-profile, .go-to-article, .main-content .navigation a").on "click", ->
     $(".popup-container").fadeOut "fast"
 
-  $(".list-header .nav a").on "click", ->
+  $(document).on "click", ".list-header .nav a", ->
     unless $(this).hasClass("selected")
       $(".list-header .nav a").removeClass "selected"
       $(this).addClass("selected")
 
-  $(".refresh-captcha").on "click", ->
+  $(document).on "click", ".refresh-captcha", ->
     $(".simple_captcha").html('<div class="loading">Loading...</div>');
