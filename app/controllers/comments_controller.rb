@@ -5,21 +5,21 @@ class CommentsController < ApplicationController
 
   def create
     @item = Item.find(params[:item_id])
-    
+
     if params[:comment].blank? || params[:comment][:body].blank?
       @notice = {:type => 'error', :message => "Body can't be blank."}
-    else      
+    else
       @comment = @item.comment_threads.build_from(
         @item, current_user.id, params[:comment][:body])
 
       if @comment.save
-        @notice = {:type => 'notice', 
-          :message => "Comment was successfully created."}        
+        @notice = {:type => 'notice',
+          :message => "Comment was successfully created."}
       else
-        @notice = {:type => 'error', 
+        @notice = {:type => 'error',
           :message => "Error. Comments not created."}
-      end      
-    end  
+      end
+    end
   end
 
   def vote_up

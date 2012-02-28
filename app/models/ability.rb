@@ -12,7 +12,7 @@ class Ability
       owner_or_published?(obj)
     end
   end
-  
+
   def patient
     guest
     can :read, [User, Item]
@@ -29,9 +29,12 @@ class Ability
     # Item
     can :create, Item
     can [:send_message_to_followers, :unfollow], [User, Item]
-    can [:update, :follow, :unfollow, :destroy], Item do |item| 
+    can [:manage], Item do |item|
+      owner?(obj)
+    end
+    can [:read], Item do |item|
       owner_or_published?(obj)
-    end    
+    end
   end
 
   def moderator

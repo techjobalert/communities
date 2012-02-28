@@ -1,35 +1,35 @@
 class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:show, :index]
   load_and_authorize_resource
-  
 
-  def show 
-    @item = Item.find(params[:id])    
+
+  def show
+    @item = Item.find(params[:id])
     if (params[:type].present? && params[:type] == "popup")
       @popup = true
     else
       @popup = false
-      @item.increment!(:views_count)      
+      @item.increment!(:views_count)
     end
   end
 
   def index
     @items = Item.published.page params[:page]
   end
-  
+
   def create
     params[:item]['user_id'] = current_user.id
     @item = Item.new(params[:item])
- 
+
     respond_to do |format|
       if @item.save
-        format.html {redirect_to(@item, 
-          :notice => 'Item was successfully created.') }       
+        format.html {redirect_to(@item,
+          :notice => 'Item was successfully created.') }
       else
-        format.html {render :action => "new"}        
+        format.html {render :action => "new"}
       end
     end
-  end  
+  end
 
   def follow
     @following_item = Item.find(params[:item_id])
@@ -41,7 +41,7 @@ class ItemsController < InheritedResources::Base
     end
 
     respond_to do |format|
-      format.js     
+      format.js
     end
   end
 
@@ -54,11 +54,11 @@ class ItemsController < InheritedResources::Base
       @message = "Some error."
     end
     respond_to do |format|
-      format.js     
+      format.js
     end
   end
 
-  def destroy 
+  def destroy
     @item = Item.find(params[:id])
     @item.deleted = true
 
