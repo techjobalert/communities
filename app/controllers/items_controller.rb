@@ -5,7 +5,12 @@ class ItemsController < InheritedResources::Base
 
   def show 
     @item = Item.find(params[:id])    
-    @popup = (params[:type].present? && params[:type] == "popup")       
+    if (params[:type].present? && params[:type] == "popup")
+      @popup = true
+    else
+      @popup = false
+      @item.increment!(:views_count)      
+    end
   end
 
   def index
