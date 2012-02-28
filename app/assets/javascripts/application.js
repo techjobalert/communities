@@ -48,9 +48,11 @@ if (history && history.pushState) {
     $(document).on ("click", "a[data-remote=true]:not(.no-history)", function(e) {
       $.getScript(this.href);
       history.pushState(null, document.title, this.href);
+      $(".l-settings-navigation").html("");
     });
     $(window).bind("popstate", function() {
       $.getScript(location.href);
+      $(".l-settings-navigation").html("");    
     });
   });
 }

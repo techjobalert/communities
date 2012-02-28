@@ -30,7 +30,7 @@
               .navigation
                 %ul
                   %li
-                    = link_to root_path, :remote => :true, :class => "#{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
+                    = link_to root_path, :remote => :true, :class => "tab-home #{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
                       HOME
                       %span bla bla bla
 
@@ -40,12 +40,12 @@
                       %span bla bla bla
 
                   %li
-                    = link_to edit_user_path(current_user), :remote => :true, :class => "#{'selected' if params[:controller] == 'users' && params[:action] == 'edit'  }" do
+                    = link_to edit_user_path(current_user), :remote => :true, :class => "tab-settings #{'selected' if params[:controller] == 'users' && params[:action] == 'edit'  }" do
                       SETTINGS
                       %span bla bla bla
 
                   %li
-                    = link_to items_account_path(), :remote => :true, :class => "#{'selected' if params[:controller] == 'account'}" do
+                    = link_to items_account_path(), :remote => :true, :class => "tab-account #{'selected' if params[:controller] == 'account'}" do
                       ACCOUNT
                       %span bla bla bla
                   %li
