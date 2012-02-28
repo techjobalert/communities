@@ -43,14 +43,14 @@ class User < ActiveRecord::Base
         :item_changes           #Item you following as changed or updated (price, title, summary goes from paid to free and etc)
   ]
 
-  validates :full_name, :length => { :minimum => 4, :maximum => 40 },
+  validates :full_name, :length => { :minimum => 3, :maximum => 40 },
             :allow_blank => false
 
   validates :password, :confirmation => true,
             :unless => Proc.new { |a| a.password.blank? }
   validates :email, :uniqueness => true, :presence => true,
             :allow_blank => false
-  validates :profession_and_degree, :length => { :minimum => 4, :maximum => 40 },
+  validates :profession_and_degree, :length => { :minimum => 2, :maximum => 40 },
             :allow_blank => false, :unless => Proc.new { |a| a.role == "patient" }
   validates :role, :inclusion => %w(doctor patient moderator)
   validates :birthday, :date => {
