@@ -64,10 +64,11 @@ $ ->
       $(".b-settings-tab").toggleClass "hidden"
     false
 
-  $(".main-content .navigation a").live "click", ->
+  $(".main-content .navigation a").on "click", ->
     $(".l-settings-navigation").html("")
     $(".main-content .navigation a").removeClass "selected"
     $(this).addClass "selected"
+    false
 
   $(".go-to-profile, .go-to-article, .main-content .navigation a").live "click", ->
     $(".popup-container").fadeOut "fast"
