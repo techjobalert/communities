@@ -2,14 +2,14 @@ class Item < ActiveRecord::Base
   include PubUnpub
   include SettingsHelper
 
-  attr_accessible :title, :description, :tag_list, :paid, :user, :user_id, 
+  attr_accessible :title, :description, :tag_list, :paid, :user, :user_id,
     :views_count, :deleted, :amount
   validates :title, :description, :presence => true
 
   acts_as_commentable
 	acts_as_taggable
   acts_as_followable
-  
+
   # Scopes
   scope :published, where(:published => true)
   scope :unpublished, where(:published => false)
@@ -48,7 +48,7 @@ class Item < ActiveRecord::Base
   end
 
   def add_to_contributors
-    self.contributors << user  
+    self.contributors << user
   end
 
   def default_values
