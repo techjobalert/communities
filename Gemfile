@@ -55,11 +55,11 @@ gem 'client_side_validations', :git => 'https://github.com/bcardarella/client_si
 # Pagination
 gem 'kaminari'
 # ActiveAdmin administration
-gem 'activeadmin'   
-gem "meta_search",    '>= 1.1.0.pre'                                              
+gem 'activeadmin'
+gem "meta_search",    '>= 1.1.0.pre'
 
 # upload processor
-gem 'carrierwave'             
+gem 'carrierwave'
 # upload processor(background-jobs)
 gem 'carrierwave_backgrounder'
 # image processing
@@ -89,6 +89,6 @@ gem 'activemerchant', :require => 'active_merchant'
 # https://github.com/jamesgolick/timeline_fu
 gem 'timeline_fu', :git => 'git://github.com/jamesgolick/timeline_fu.git'
 # https://github.com/tanraya/imperavi-rails
-gem 'imperavi-rails', :git => 'git://github.com/kapkaev/imperavi-rails.git'
+gem 'imperavi-rails'
 # https://github.com/justinfrench/formtastic
 gem 'formtastic'
