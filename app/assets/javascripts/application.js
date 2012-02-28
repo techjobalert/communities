@@ -25,6 +25,9 @@
 //= require plupload/plupload.html4
 //= require plupload/plupload.html5
 //= require plupload.base
+//
+//  Misc*
+//= require jquery.html5-placeholder-shim
 //= require imperavi-rails/imperavi
 
 function showHideNotice(type,message){
