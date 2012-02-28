@@ -46,10 +46,11 @@ if (history && history.pushState) {
       $.getScript(this.href);
       history.pushState(null, document.title, this.href);
       //#History.pushState(null, document.title, this.href);
-      
+
     });
     $(window).bind("popstate", function() {
       $.getScript(location.href);
+      console.log(123)
     });
   });
 }

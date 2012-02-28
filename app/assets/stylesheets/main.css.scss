@@ -926,12 +926,13 @@ h3 {
 .field_with_errors
   .message{
     position: absolute;
-    float: left;
     font-size: 11px;
-    width: 250px;
+    width: 245px;
     text-align: center;
     line-height: 33px;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border-radius: 5px;
+    display: inline !important;
+    padding: 0 5px 0 5px;
   }
