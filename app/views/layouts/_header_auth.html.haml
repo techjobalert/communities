@@ -15,7 +15,7 @@
         Foxy parsons quiz and cajole the wiki-girl.
       .media= image_tag "/assets/tmp/p1.jpg"
     #sign-up.sign-up-tab.sign-tab
-      = form_for(resource, :as => User.new, :url => registration_path(:user),:validate => true) do |f|
+      = form_for(resource, :as => User.new, :url => registration_path(:user), :validate => true) do |f|
         / = devise_error_messages!
         .inputs
           .toggler

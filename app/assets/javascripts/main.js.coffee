@@ -25,7 +25,7 @@ $ ->
   $(".b-search-engine .btn.explore").on "click", ->
     $(".b-explore-popup").toggleClass "hidden"
 
-  $(".popup-user-info").on
+  $(".popup-user-info").live
     mouseover: (e) ->
       timer_popup = window.setTimeout(->
         showUserPopup e
@@ -34,7 +34,7 @@ $ ->
       clearTimeout(timer_popup)
       showUserPopup e
 
-  $(".popup-item-info").on
+  $(".popup-item-info").live
     mouseover: (e) ->
       timer_popup = window.setTimeout(->
         showItemPopup e

@@ -687,6 +687,8 @@
     
     .body {
       margin-left: 78px;
+      overflow: hidden;
+      word-wrap: break-word;
     }
     
     b, span  {
