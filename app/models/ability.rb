@@ -30,7 +30,7 @@ class Ability
     can :create, Item
     can [:send_message_to_followers, :unfollow], [User, Item]
     can [:manage], Item do |item|
-      owner?(obj)
+      owner?(item)
     end
     can [:read], Item do |item|
       owner_or_published?(item)
