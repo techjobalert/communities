@@ -11,11 +11,11 @@ class Item < ActiveRecord::Base
   acts_as_followable
 
   # Scopes
-  scope :published, where(:published => true)
+  scope :published, where(:published => true).order("created_at DESC")
   scope :unpublished, where(:published => false)
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
 
-  default_scope where(:deleted => false).order("created_at DESC")
+  default_scope where(:deleted => false)
 
   # Handlers
   before_create   :default_values, :add_to_contributors

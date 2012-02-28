@@ -760,7 +760,7 @@ h3 {
 
   .tools {
     height: 75px;
-    padding: 18px 24px;
+    padding: 18px 16px;
     text-align: center;
     line-height: 28px;
     .light-button {
@@ -776,24 +776,24 @@ h3 {
         width: 28px;
       }
       &.follow-item {
-        width: 119px;
+        width: 125px;
       }
       &.go-to-article {
-        width: 110px;
+        width: 115px;
         span {
           background-position: -26px -30px;
         }
       }
 
       &.make-pdf {
-        width: 100px;
+        width: 105px;
         span {
           background-position: -62px -32px;
         }
       }
 
       &.sell {
-        width: 378px;
+        width: 394px;
         -webkit-border-radius: 8px;
         -moz-border-radius: 8px;
         border-radius: 8px;
