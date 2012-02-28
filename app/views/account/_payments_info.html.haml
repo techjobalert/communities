@@ -1,0 +1,105 @@
+%h3
+  Your Account
+
+.clear
+
+.list
+  .list-header
+    = render :partial => "account/navigation"
+    .b-purchased-item
+      .item
+        .title Account Info
+        .body
+          - if current_user.pay_accounts.present?
+            - pay_account = current_user.pay_accounts.first
+            Number:
+            %br
+            = pay_account.number
+            %br
+            = "Date: #{pay_account.month}.#{pay_account.year}"
+            %br
+            = "#{pay_account.first_name} #{pay_account.last_name}"
+            %br
+            
+        = link_to "#{current_user.pay_accounts.present? ? 'Edit' : 'Create'}", '#', :class => 'light-button green edit', :id => "account-form-dialog"
+    
+      .item
+        .title Schedule
+        %ul
+          %li.odd 
+            September 2011
+            %span 30 USD
+          %li
+            September 2011
+            %span 30 USD
+          %li.odd
+            September 2011
+            %span 30 USD
+          %li
+            September 2011
+            %span 30 USD
+          %li.odd
+            September 2011
+            %span 30 USD
+          %li
+            September 2011
+            %span 30 USD
+
+      .item
+        .title Schedule
+        .summ 172 USD
+        = link_to '#', :class => 'light-button green upload' do
+          %span
+          Uplode more
+          %br
+          quality items
+
+          
+
+      .clear
+
+%div{ :id => "account-form", :title=>"Account Info" }
+  .pay-pal-form
+    = form_for (current_user.pay_accounts.present? ? current_user.pay_accounts.first : PayAccount.new()), :remote => true do |f|
+      %p
+        = f.label :first_name
+        = f.text_field :first_name
+      %p
+        = f.label :last_name
+        = f.text_field :last_name
+      %p
+        = f.label :number, "Credit card number"
+        = f.text_field :number
+      %p
+        = f.label :payment_type, "Payment type"
+        = f.text_field :payment_type
+      %p.exp
+        = label :month, "Expiration date"
+        = f.text_field :month, :class => 'd'
+        = f.text_field :year, :class => 'm'
+        %span cvs
+        = f.text_field :verification_value, :class => 'css'
+        = link_to 'Whats this?'
+     
+
+:javascript
+  $( "#account-form:ui-dialog" ).dialog( "destroy" );
+  
+  $( "#account-form" ).dialog({
+    resizable: false,
+    autoOpen: false,
+    width: 410,
+    modal: true,
+    buttons: {
+      "Save your information with PayPal": function() {
+        $('#account-form form').submit();
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+  $( "#account-form-dialog" ).click(function() {
+      $( "#account-form" ).dialog( "open" );
+      return false;
+    });

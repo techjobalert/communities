@@ -1,0 +1,2 @@
+module PayAccountsHelper
+end

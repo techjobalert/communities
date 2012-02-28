@@ -414,15 +414,20 @@
     }
   }
 }
+
 #send-message.ui-dialog-content.ui-widget-content{
   overflow: initial;
   p{
-    height: 95%;
-    textarea{
-    width: 100%;
-    height: 100%;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-  }
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+      background: none repeat scroll 0 0 #F1EFD1;
+      border: 1px solid #F1EFD1;
+      -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+      -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+      box-shadow: 0 2px 2px #D8DCC1 inset;
+      height: 150px;
+    }
   }
 }

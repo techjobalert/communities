@@ -34,8 +34,7 @@
           SIGN UP
           %span to create an account
     .sign-in-tab.sign-tab.hidden
-      = form_for(resource, :as => resource_name, :url => session_path(resource_name),:validate => true) do |f|
-        = devise_error_messages!
+      = form_for resource, :as => resource_name, :url => session_path(resource_name) do |f|
         .inputs
           %p= f.text_field :email, :placeholder => 'Email Address'
           %p= f.password_field :password, :placeholder => 'Password'
