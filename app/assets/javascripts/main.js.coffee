@@ -65,7 +65,6 @@ $ ->
     false
     
   $(document).on "click", ".main-content .navigation a", ->
-    $(".l-settings-navigation").html("")
     $(".main-content .navigation a").removeClass "selected"
     $(this).addClass "selected"
     false

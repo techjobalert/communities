@@ -425,7 +425,7 @@
 }
 
 .field_with_errors {
-  input {
+  input, textarea {
     border-color: red !important;
   }
 }

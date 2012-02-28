@@ -1,1 +1,4 @@
 $("#ajax-main-container").html("#{escape_javascript(render :partial => 'collegues', :locals => {:users => @users})}");
+
+$(".main-content .navigation a").removeClass("selected");
+$(".tab-collegues").addClass("selected");
