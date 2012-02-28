@@ -8,6 +8,6 @@ class HomeController < ApplicationController
     end
   end
 
-  def new_captcha    
-  end  
+  def new_captcha
+  end
 end

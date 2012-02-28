@@ -3,8 +3,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     @notice = {:type => 'error', :message => exception.message}
-    render :partial => "layouts/access_denied", :locals => {:notice => @notice}
-    # redirect_to root_url, :notice => exception.message
+    respond_to do |format|
+      format.html { redirect_to root_url, :notice => exception.message }
+      format.js { render :partial => "layouts/access_denied", :locals => {:notice => @notice} }
+    end
   end
 
   def after_sign_out_path_for(resource)
