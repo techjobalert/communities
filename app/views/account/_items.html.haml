@@ -12,7 +12,7 @@
           .item{:class => "#{'in-moderation' unless item.published?}"}
             .tools
               .price= "Price: #{item.paid? ? '5.00$' : 'free'}"
-              = link_to 'Change price', '#', :class => 'change'
+              = link_to 'Change price', '#', :class => 'change' if item.published?
               = link_to item_path(item), :method => "delete", :remote => true , :confirm => 'Are you sure?', :class => 'delete no-history' do
                 Delete Item
                 %span
