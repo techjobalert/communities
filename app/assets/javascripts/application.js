@@ -49,10 +49,12 @@ if (history && history.pushState) {
       $.getScript(this.href);
       history.pushState(null, document.title, this.href);
       $(".l-settings-navigation").html("");
+      $(".popup-container").css("display","none");
     });
     $(window).bind("popstate", function() {
       $.getScript(location.href);
       $(".l-settings-navigation").html("");    
+      $(".popup-container").css("display","none");
     });
   });
 }
@@ -113,6 +115,9 @@ function showItemPopup(e) {
   window_width = $(window).width();
 
   var settings;
+
+  if (obj_offset.top == 0) 
+    return false;
 
   left_offset = obj_offset.left - (442 - obj_width) / 2;
   if (left_offset < 0)

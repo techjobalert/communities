@@ -33,7 +33,7 @@ class Ability
       owner?(obj)
     end
     can [:read], Item do |item|
-      owner_or_published?(obj)
+      owner_or_published?(item)
     end
   end
 
