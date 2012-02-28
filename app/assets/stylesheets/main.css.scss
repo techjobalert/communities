@@ -923,7 +923,8 @@ h3 {
   }
 }
 
-.field_with_errors
+.field_with_errors{
+  border: 1px solid red;
   .message{
     position: absolute;
     font-size: 11px;
@@ -936,3 +937,4 @@ h3 {
     display: inline !important;
     padding: 0 5px 0 5px;
   }
+}
