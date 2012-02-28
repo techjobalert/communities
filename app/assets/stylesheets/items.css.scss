@@ -177,6 +177,16 @@
       .keywords textarea {
         height: 105px;
       }
+
+      .checkbox {
+        input[type="checkbox"]{
+          vertical-align: middle;
+        }
+
+        label {
+          line-height: 1.6;
+        }
+      }
     }
   }
   
@@ -421,11 +431,5 @@
     margin-left: 120px;
     width: 205px;
     padding: 8px 12px;
-  }
-}
-
-.field_with_errors {
-  input, textarea {
-    border-color: red !important;
   }
 }
