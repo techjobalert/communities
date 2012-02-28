@@ -42,11 +42,9 @@ function hideNotice(){
 
 if (history && history.pushState) {
   $(function() {
-    $("a[data-remote=true]:not(.no-history)").on("click", function(e) {
-      $.getScript(this.href);
-      history.pushState(null, document.title, this.href);
-      //#History.pushState(null, document.title, this.href);
-      
+    $(document).on ("click", "a[data-remote=true]:not(.no-history)", function(e) {
+      //$.getScript(this.href);
+      history.pushState(null, document.title, this.href);     
     });
     $(window).bind("popstate", function() {
       $.getScript(location.href);
