@@ -1,12 +1,12 @@
 .container
   %h3= item.title
-    
+
   %p
     %span.date
       %b Date
-      12/06/11
+      = item.created_at.strftime("%d/%m/%y")
       %b Reads:
-      135582
+      = item.views_count
   %p
     %b.title Summery
     %br
@@ -15,14 +15,14 @@
   .authors
     - if item.contributors.present?
       %b.title Authors
-      %ul 
-        - item.contributors.each do |contributor|       
+      %ul
+        - item.contributors.each do |contributor|
           %li
             = link_to user_path(contributor), :remote => true do
               = image_tag contributor.avatar_url(:thumb_45), :width => '45', :height => '45'
               %br
-              = raw(contributor.full_name.gsub(" ","<br>"))          
-    
+              = raw(contributor.full_name.gsub(" ","<br>"))
+
   - if item.tags.present?
     %p
       %b.title Keywords
@@ -31,7 +31,7 @@
         = tag.name
         |
 
-.tools  
+.tools
   - if current_user.following?(item)
     = link_to item_unfollow_path(item), :remote => true, :method => :delete, :class => "light-button follow-item follow-item-#{item.id} no-history" do
       Unfollow Item
@@ -40,7 +40,7 @@
     = link_to item_follow_path(item), :remote => true, :method => :post, :class => "light-button follow-item follow-item-#{item.id} no-history" do
       Follow Item
       %span
-  
+
   = link_to item_path(item), :remote => true, :class => 'light-button go-to-article' do
     Go to Article
     %span

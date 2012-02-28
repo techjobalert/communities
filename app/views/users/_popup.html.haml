@@ -2,7 +2,7 @@
   .user-info
     = image_tag user.avatar_url(:thumb_70), :alt => "#{user.full_name}"
     %span.title= user.full_name
-  - if user != current_user  
+  - if user != current_user
     .tools{:class => "tools-user-#{@user.id}"}
       - if current_user.following?(user)
         = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id} no-history" do
@@ -11,8 +11,8 @@
       - else
         = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id} no-history" do
           Folow
-          %span 
-  
+          %span
+
   .panel
     - unless user.specialization.blank?
       %p

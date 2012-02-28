@@ -24,9 +24,9 @@
                   = "Purchase: #{item.amount}"
                 .view
                   %span
-                  = "Views: #{item.views_count}" 
+                  = "Views: #{item.views_count}"
 
-            .text= item.description     
+            .text= item.description
         .clear
         = paginate items, :remote => true
         .clear
