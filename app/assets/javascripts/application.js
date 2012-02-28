@@ -53,7 +53,6 @@ if (history && history.pushState) {
     });
     $(window).bind("popstate", function() {
       $.getScript(location.href);
-      console.log(123)
     });
   });
 }
