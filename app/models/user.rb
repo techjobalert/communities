@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
@@ -45,6 +46,9 @@ class User < ActiveRecord::Base
 
   validates :full_name, :length => { :minimum => 3, :maximum => 40 },
             :allow_blank => false
+  validates_format_of :full_name, :with=> /\A[а-яА-Яa-zA-Z0-9_\.\-\s]+\Z/u,
+                      :allow_blank => false,
+                      :message => "Wrong name format"
 
   validates :password, :confirmation => true,
             :unless => Proc.new { |a| a.password.blank? }
