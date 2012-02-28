@@ -1,7 +1,7 @@
 timer_popup = undefined
 redactor = undefined
 $ ->
-  $("#sign-up .toggler label").live "click", ->
+  $("#sign-up .toggler label").on "click", ->
     $("#sign-up .toggler label").hasClass ""
     elem = $(this)
     $("#user_profession_and_degree").attr("data-validate", elem.hasClass "doctor" ? true : false)
@@ -9,7 +9,7 @@ $ ->
       $(".toggler label").toggleClass "checked"
       $(".doctor-only").toggleClass "hidden"
 
-  $(".b-auth .buttons a").live "click", ->
+  $(".b-auth .buttons a").on "click", ->
     elem = $(this)
     unless elem.hasClass("selected")
       $(".b-auth .buttons a").toggleClass "selected"
@@ -45,12 +45,12 @@ $ ->
       showItemPopup e
     , ".popup-item-info"
 
-  $(document).live "mouseleave", ".popup-item-info, .popup-user-info", ->
+  $(document).on "mouseleave", ".popup-item-info, .popup-user-info", ->
     obj_id = $(this).attr "id"
     unless $("." + obj_id + ":visible").length
       clearTimeout(timer_popup)
 
-  $(document).live "mouseleave", ".popup-container", ->
+  $(document).on "mouseleave", ".popup-container", ->
     $(this).css("display","none")
 
   $(".light-button.set-preview").toggle (->
@@ -68,7 +68,7 @@ $ ->
       $(".b-settings-tab").toggleClass "hidden"
     false
 
-  $(document).live "click", ".main-content .navigation a", ->
+  $(document).on "click", ".main-content .navigation a", ->
     $(".main-content .navigation a").removeClass "selected"
     $(this).addClass "selected"
     false
@@ -76,10 +76,10 @@ $ ->
   $(".go-to-profile, .go-to-article, .main-content .navigation a").live "click", ->
     $(".popup-container").fadeOut "fast"
 
-  $(document).live "click", ".list-header .nav a", ->
+  $(document).on "click", ".list-header .nav a", ->
     unless $(this).hasClass("selected")
       $(".list-header .nav a").removeClass "selected"
       $(this).addClass("selected")
 
-  $(document).live "click", ".refresh-captcha", ->
+  $(document).on "click", ".refresh-captcha", ->
     $(".simple_captcha").html('<div class="loading">Loading...</div>');
