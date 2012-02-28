@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
 
   validates :full_name, :length => { :minimum => 4, :maximum => 40 },
             :allow_blank => false
+
   validates :password, :confirmation => true,
             :unless => Proc.new { |a| a.password.blank? }
   validates :email, :uniqueness => true, :presence => true,

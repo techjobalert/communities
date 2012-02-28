@@ -18,7 +18,7 @@ a[data-remote=true]{
 h3 {
   margin: 30px 0 10px 0px;
   font-weight: normal;
-  font-size: 18px;  
+  font-size: 18px;
 }
 
 .clear {
@@ -94,7 +94,7 @@ h3 {
   background: -ms-linear-gradient(top, #f4f2c9 0%,#cdca97 100%); /* IE10+ */
   background: linear-gradient(top, #f4f2c9 0%,#cdca97 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f2c9', endColorstr='#cdca97',GradientType=0 ); /* IE6-8 */
-  
+
   &.green {
     background: #96c8bb; /* Old browsers */
     /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -106,7 +106,7 @@ h3 {
     background: -ms-linear-gradient(top, #96c8bb 0%,#557e73 100%); /* IE10+ */
     background: linear-gradient(top, #96c8bb 0%,#557e73 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#96c8bb', endColorstr='#557e73',GradientType=0 ); /* IE6-8 */
-    
+
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
@@ -172,7 +172,7 @@ h3 {
     font-size: 30px;
     margin: 15px 0 20px;
   }
-  
+
   .unauthorized {
     font-size: 12px;
     a {
@@ -187,7 +187,7 @@ h3 {
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
-  
+
   .list-header {
     background: #70a99a;
     z-index: 10;
@@ -196,7 +196,7 @@ h3 {
     -moz-border-radius: 7px;
     border-radius: 7px;
   }
-  
+
   .nav {
     height: 68px;
     background: #70a99a;
@@ -207,7 +207,7 @@ h3 {
     float: left;
     margin: -1px 0 0 -1px;
     padding-left: 15px;
-    
+
     a {
       display: block;
       width: 105px;
@@ -222,7 +222,7 @@ h3 {
       -webkit-text-shadow: 1px 1px 0 #a0e1d1;
       -moz-text-shadow: 1px 1px 0 #a0e1d1;
       text-shadow: 1px 1px 0 #a0e1d1;
-      
+
       span {
         background: url("/assets/media-nav-set.png") no-repeat;
         display: block;
@@ -230,63 +230,63 @@ h3 {
         height: 44px;
         margin: 0 auto;
       }
-      
+
       &.movies span{
         background-position: -115px 3px;
       }
-      
+
       &.articles span{
         background-position: -170px 3px;
       }
-      
+
       &.presentations span{
         background-position: -227px 3px;
       }
-      
+
       &.items span{
         background-position: -286px 12px;
       }
-      
+
       &.your-purchase span{
         background-position: -341px 5px;
         height: 30px;
       }
-      
+
       &.purchased span{
         background-position: -398px 2px;
         height: 30px;
       }
-      
+
       &.payments-info span{
         background-position: -451px 4px;
         height: 30px;
       }
-      
+
       &.followers span {
-        background-position: -112px -51px;    
+        background-position: -112px -51px;
         width: 52px;
       }
-      
+
       &.published-together span{
         background-position: -181px -51px;
         height: 30px;
       }
-      
+
       &.following span{
-        background-position: -236px -51px;        
+        background-position: -236px -51px;
       }
-      
+
       &.patients span{
-        background-position: -296px -51px;        
+        background-position: -296px -51px;
       }
-      
+
       &.selected {
         height: 98px;
         background: url("/assets/media-nav-set.png") no-repeat 0px 0;
         font-weight: bold;
       }
     }
-    
+
     &.account {
       padding-left: 7px;
       width: 346px;
@@ -294,7 +294,7 @@ h3 {
         width: 86px;
         line-height: 1;
       }
-      
+
       .selected {
         background-position: -7px 0;
       }
@@ -316,7 +316,7 @@ h3 {
     -webkit-border-radius: 0 7px 0 0;
     -moz-border-radius: 0 7px 0 0;
     border-radius: 0 7px 0 0;
-    
+
     .field {
       background: #e0ddb1;
       -webkit-border-radius: 5px;
@@ -324,12 +324,12 @@ h3 {
       border-radius: 5px;
       padding: 4px 12px;
     }
-    
+
     .tags {
       width: 340px;
       font-size: 11px;
       float: left;
-      
+
       select {
         margin: 3px 1px 0 0;
         max-width: 85px;
@@ -358,7 +358,7 @@ h3 {
         background: -ms-linear-gradient(top, #f0f9ff 17%,#f3f0c1 100%); /* IE10+ */
         background: linear-gradient(top, #f0f9ff 17%,#f3f0c1 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#f3f0c1',GradientType=0 ); /* IE6-8 */
-        
+
         &.selected {
           background: #1b1e26; /* Old browsers */
           /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -375,7 +375,7 @@ h3 {
         }
       }
     }
-    
+
     &.account {
       width: 590px;
       .tags {
@@ -384,7 +384,7 @@ h3 {
         }
       }
     }
-    
+
     .search {
       float: right;
       .text-input {
@@ -393,7 +393,7 @@ h3 {
       }
     }
   }
-  
+
   .list-content {
     background: #ffffff;
     -webkit-border-radius: 7px;
@@ -403,7 +403,7 @@ h3 {
     z-index: 20;
     position: relative;
     padding: 50px 0px 15px;
-    
+
     .item {
       text-decoration: none;
       color: #1b1e26;
@@ -415,25 +415,25 @@ h3 {
       &.in-moderation {
         opacity: 0.7;
       }
-      
+
       .tools {
         height: 20px;
         font-size: 12px;
         position: relative;
-        
+
         .price {
           font-weight: bold;
           color: #4b556e;
           float: left;
           margin-right: 20px;
         }
-        
+
         .change {
           color: #424242;
           position: absolute;
           float: left;
         }
-        
+
         .delete {
           font-size: 10px;
           color: #424242;
@@ -441,7 +441,7 @@ h3 {
           float: right;
           line-height: 19px;
           display: block;
-          
+
           span {
             background: url("/assets/edit-icon-set.png") no-repeat scroll 0 5px transparent;
             display: block;
@@ -452,18 +452,18 @@ h3 {
           }
         }
       }
-      
+
       .media {
         background: #e8e8e8;
         text-align: center;
         padding: 7px;
       }
-      
+
       .info {
         font-size: 12px;
         height: 20px;
         padding-top: 5px;
-        
+
         span {
           background: url("/assets/edit-icon-set.png") no-repeat 0 0;
           display: block;
@@ -495,7 +495,7 @@ h3 {
 .pagination {
   padding: 0px;
   margin: 0 20px;
-  
+
   li {
     list-style: none;
     display: inline;
@@ -545,7 +545,7 @@ h3 {
     border-radius: 9px;
     border: 1px solid #bfbd9a;
   }
-  
+
   .container {
     background: #fff;
     -webkit-border-radius: 9px;
@@ -553,7 +553,7 @@ h3 {
     border-radius: 9px;
     border: 1px solid #bfbd9a;
   }
-  
+
   &.left {
     background: url("/assets/popup-bg.png") repeat-y scroll right top #1C212A;
     .corner {
@@ -565,7 +565,7 @@ h3 {
       width: 17px;
     }
   }
-  
+
   &.top {
     .corner {
       background: url("/assets/popup-corner-set.png") no-repeat scroll -19px -1px transparent;
@@ -576,7 +576,7 @@ h3 {
       width: 41px;
     }
   }
-  
+
   .user-info {
     width: 650px;
     padding: 18px 0 18px 18px;
@@ -592,7 +592,7 @@ h3 {
       vertical-align: top;
     }
   }
-  
+
   .light-button.follow {
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
@@ -611,15 +611,15 @@ h3 {
       margin-left: 7px;
       width: 18px;
     }
-   
+
   }
-  
+
   .panel{
     border-top: 1px solid #D4D2AF;
     float: left;
     margin: 0 4%;
     width: 92%;}
-  
+
   textarea, input[type="text"] {
     background: none repeat scroll 0 0 #F1EFD1;
     border: 1px solid #F1EFD1;
@@ -627,14 +627,14 @@ h3 {
     -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
     box-shadow: 0 2px 2px #D8DCC1 inset;
   }
-  
+
   textarea {
     height: 100px;
     width: 402px;
     max-width: 402px;
     min-width: 402px;
   }
-  
+
   .light-button {
     &.send{
       padding: 7px 12px;
@@ -642,7 +642,7 @@ h3 {
       line-height: 1;
       font-weight: bold;
     }
-    
+
     &.go-to-profile, &.follow-item, &.go-to-article, &.make-pdf {
       margin-left: 3px;
       -webkit-border-radius: 7px;
@@ -652,15 +652,15 @@ h3 {
       font-weight: normal;
     }
   }
-  
+
   .right {
     text-align: right;
   }
-  
+
   b {
     color: #2f6d7a;
   }
-  
+
   h3 {
     font-size: 16px;
     margin: 10px 20px;
@@ -680,22 +680,22 @@ h3 {
     padding: 0;
     list-style: none;
   }
-  
+
   li {
     padding: 5px;
     font-size: 14px;
   }
-  
+
   input[type="text"] {
     margin-left: 5px;
     width: 72px;
   }
-  
+
   input[type=radio]{
     position: absolute;
     left: -99999px;
   }
-  
+
   label {
     cursor: pointer;
     font-size: 14px;
@@ -706,7 +706,7 @@ h3 {
       background-position: 0px 2px;
     }
   }
-  
+
   p {
     padding: 0px 20px;
   }
@@ -737,7 +737,7 @@ h3 {
         list-style: none;
         display: inline-block;
       }
-      
+
       a {
         color: #1b1e26;
         &:hover {
@@ -745,19 +745,19 @@ h3 {
         }
       }
     }
-    
+
     img {
       background: #fff;
       border: 1px solid #c8c8c7;
       padding: 3px;
     }
   }
-  
+
   p {
     line-height: 18px;
     padding: 0px 20px;
   }
-  
+
   .tools {
     height: 75px;
     padding: 18px 24px;
@@ -784,14 +784,14 @@ h3 {
           background-position: -26px -30px;
         }
       }
-      
+
       &.make-pdf {
         width: 100px;
         span {
           background-position: -62px -32px;
         }
       }
-      
+
       &.sell {
         width: 378px;
         -webkit-border-radius: 8px;
@@ -817,13 +817,13 @@ h3 {
         background: -ms-linear-gradient(top, #c0e046 0%,#76910a 100%); /* IE10+ */
         background: linear-gradient(top, #c0e046 0%,#76910a 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c0e046', endColorstr='#76910a',GradientType=0 ); /* IE6-8 */
-        
+
         b {color: #fff;}
-      }      
+      }
     }
   }
 }
-  
+
 
 .notice {
   color: #FFFFFF;
@@ -842,10 +842,10 @@ h3 {
   -moz-box-shadow: 0 0 10px #666;
   box-shadow: 0 0 10px #666;
   z-index: 1000;
-  
+
   &.flash_alert {
-    background: #2F6A77;    
-  } 
+    background: #2F6A77;
+  }
 
   &.flash_notice {
     background: #62B500;
@@ -858,7 +858,7 @@ h3 {
 
 .simple_captcha {
   margin: 10px 0 0;
-    
+
   .simple_captcha_field {
     padding: 0px;
     img {
@@ -898,23 +898,23 @@ h3 {
 
 #upcontainer{
 
-  position: relative; 
+  position: relative;
   display: block;
   width: 148px;
 
   img {
-    border: 2px solid #ddd;  
+    border: 2px solid #ddd;
   }
 
   #pickfiles {
     display: block;
     width: 147px;
-    height: 147px;      
+    height: 147px;
   }
 
   .spinner {
     width: 148px;
-    height: 153px; 
+    height: 153px;
     position: absolute;
     top: 0;
     left: 0;

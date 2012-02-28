@@ -62,19 +62,19 @@ function showUserPopup(e) {
     obj_offset = $(e.target).offset();
     window_width = $(window).width();
     window_height = $(window).height();
-    
-    if (window_width - obj_offset.left > 500)  
+
+    if (window_width - obj_offset.left > 500)
       left_offset = obj_offset.left + 85;
     else
       left_offset = obj_offset.left - 470;
-     
+
 
     if ($("." + obj_id).length) {
       if ($("." + obj_id + ":hidden").length) {
         $(".popup-container:visible").css("display","none");
 
         top_offset = ((window_height - obj_offset.top) > $("." + obj_id).height())
-          ? obj_offset.top - 43 
+          ? obj_offset.top - 43
           : window_height - $("." + obj_id).height() - 50;
 
         settings = {
@@ -90,7 +90,7 @@ function showUserPopup(e) {
         type: "popup"
       }, (function() {
         top_offset = ((window_height - obj_offset.top) > $("." + obj_id).height())
-          ? obj_offset.top - 43 
+          ? obj_offset.top - 43
           : window_height - $("." + obj_id).height() - 50;
 
         settings = {
@@ -112,9 +112,9 @@ function showItemPopup(e) {
   var settings;
 
   left_offset = obj_offset.left - (442 - obj_width) / 2;
-  if (left_offset < 0) 
+  if (left_offset < 0)
     left_offset = 20
-  else if (left_offset > (window_width - 480)) 
+  else if (left_offset > (window_width - 480))
     left_offset = window_width - 480;
 
   settings = {
@@ -133,7 +133,7 @@ function showItemPopup(e) {
     $.get("/items/" + parseInt(obj_id.replace(/\D+/g, "")), {
       type: "popup"
     }, (function() {}), "script");
-  }  
+  }
 }
 
 // Helper methods for user -> settings -> educations
