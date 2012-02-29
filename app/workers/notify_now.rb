@@ -15,9 +15,9 @@ class NotifyNow
   	elsif event.subject_type == "Follow"
       followable = event.subject.followable
       if followable.is_a? User and followable.following_me == 1
-        owner = event.subject.followable
-      elsif followable.is_a? Item and followable.following_item == 1
-        owner = event.subject.followable.user
+        owner = followable
+      elsif followable.is_a? Item and followable.user.following_item == 1
+        owner = followable.user
       end
   	else
   		if defined? event.followers
