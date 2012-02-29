@@ -155,3 +155,7 @@ function add_fields(link, association, content) {
   var regexp = new RegExp("new_" + association, "g")
   $(link).parent().before(content.replace(regexp, new_id));
 }
+
+$('a[data-remote=true]').live('ajax:success', function(event, xhr, settings) {
+  $('form[data-validate]').validate();
+});
