@@ -12,15 +12,15 @@
   .tools.detail.hidden
     .items
       %ul
-        - item.contributors.each do |contributor| 
+        - item.contributors.each do |contributor|
           %li
             .item
               = image_tag contributor.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{contributor.id}"
               .title= raw(contributor.full_name.gsub(" ","<br>"))
-       
+
     - if current_user and item.user.id != current_user.id
       - if not current_user.following?(item)
-        = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do          
+        = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do
           Follow Item
           %span
       - else
@@ -33,13 +33,13 @@
   .tools.short
     .items
       %ul
-        - item.contributors.each do |contributor| 
+        - item.contributors.each do |contributor|
           %li= image_tag contributor.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{contributor.id}"
-        
-    
+
+
     - if current_user and item.user.id != current_user.id
       - if not current_user.following?(item)
-        = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do          
+        = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do
           Follow Item
           %span
       - else
@@ -69,7 +69,7 @@
 
   / есть два варианта
   / 1 Вариант
-  
+
   .text.pic
     = link_to image_tag('/assets/logo.png', :width => '200'), '#'
     - if @item.published?
@@ -96,7 +96,7 @@
 #comments.b-comments
   %h3 Comments
   .b-comments-panel
-    = link_to '#comment-form', :class => 'light-button new-comment slide-to' do
+    = link_to '#', :class => 'light-button new-comment slide-to' do
       Make a comment
       %br
       on this Item
@@ -108,3 +108,8 @@
         - @item.comment_threads.order('comments.created_at DESC').each do |comment|
           = render :partial => "comments/comment", :locals => {:comment => comment}
       .clear
+:javascript
+  $(".light-button.new-comment.slide-to").on("click", function(){
+    $("form#new_comment").submit();
+    return false;
+  })

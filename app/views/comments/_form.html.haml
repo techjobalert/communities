@@ -2,4 +2,4 @@
   .notice= notice
 = form_for([commentable, commentable.comment_threads.build], :url => url, :remote => :true) do |f|
   %p= f.text_area :body, :rows=>"5", :placeholder => 'New comment'
-  %p= f.submit "Send", :class => 'light-button'
+  / %p= f.submit "Send", :class => 'light-button'
