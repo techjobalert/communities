@@ -927,7 +927,7 @@ h3 {
 
  .field_with_errors{
    input, textarea{
-     border: 1px solid red;
+     border: 1px solid red !important;
    }
 
    .message{
