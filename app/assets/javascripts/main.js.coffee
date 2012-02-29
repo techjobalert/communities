@@ -83,8 +83,3 @@ $ ->
 
   $(document).on "click", ".refresh-captcha", ->
     $(".simple_captcha").html('<div class="loading">Loading...</div>');
-
-  $(document).on "focus", ".field_with_errors.input-error input, .field_with_errors.input-error textarea", ->
-    console.log($(this).closest(".field_with_errors"))
-    $(this).closest(".field_with_errors").find(".message").remove()
-
