@@ -15,9 +15,10 @@ class Ability
 
   def patient
     guest
-    can :read, [User, Item]
+    can :read, [User]
     can :update, User, :id => @user.id
-    can [:follow, :upload_avatar, :send_message], [User, Item]
+    can [:follow, :unfollow], [User, Item]
+    can [:follow, :upload_avatar, :send_message], [User]
     can :manage, Comment do |comment|
       owner_or_published?(item)
     end
@@ -28,7 +29,7 @@ class Ability
     patient
     # Item
     can :create, Item
-    can [:send_message_to_followers, :unfollow], [User, Item]
+    can [:send_message_to_followers], [User]
     can [:manage], Item do |item|
       owner?(item)
     end
