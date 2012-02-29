@@ -2,3 +2,5 @@ $("#ajax-main-container").html("#{escape_javascript(render :partial => 'payments
 
 $(".main-content .navigation a").removeClass("selected");
 $(".tab-account").addClass("selected");
+
+if (jQuery.placeholder) jQuery.placeholder.shim();
