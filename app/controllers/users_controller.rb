@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if params[:user][:birthday]
+      if not params[:user][:birthday].nil?
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end
 
@@ -74,8 +74,9 @@ class UsersController < ApplicationController
           :thumb_70 => current_user.avatar_url(:thumb_70),
           :thumb_143 => current_user.avatar_url(:thumb_143),
         }
-
         format.json { render :json => @data.to_json }
+      else
+        format.json { render json: current_user.errors }
       end
     end
   end

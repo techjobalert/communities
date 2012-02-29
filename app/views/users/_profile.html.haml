@@ -13,7 +13,7 @@
 
       .b-user-info-body
         .form
-          = form_for(current_user, :remote => true) do |f|
+          = form_for(current_user, :remote => true, :validate => true) do |f|
             = hidden_field_tag "type", "profile"
             %h2.b-user-title= f.text_field :full_name
 
@@ -35,7 +35,7 @@
 
       %p
         %strong Biography:
-        = user.bio
+        = simple_format user.bio
 
       %br
 
