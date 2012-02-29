@@ -1,0 +1,8 @@
+- if @notice[:type] == "error"
+  $("#ajax-main-container").html("#{escape_javascript(render :partial => 'new')}");
+- else
+  $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:item => @item})}");
+
+showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
+$(".main-content .navigation a").removeClass("selected");
+$(".tab-item").addClass("selected");

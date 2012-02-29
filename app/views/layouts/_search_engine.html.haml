@@ -5,7 +5,7 @@
       = text_field_tag SearchParams.query_param, nil, :placeholder => 'Search for presentations, articles & movies', :class => 'text-input'
       = submit_tag 'Search', :class => 'dark-button'
   - if can? :create, Item
-    = link_to new_item_path, :class => 'btn upload' do
+    = link_to new_item_path, :remote => true, :class => 'btn upload' do
       Upload
       %span
   - else

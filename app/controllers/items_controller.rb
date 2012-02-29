@@ -1,10 +1,10 @@
 class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:show, :index]
+  before_filter :get_item, :except => [:index, :new, :create]
   load_and_authorize_resource
 
 
   def show
-    @item = Item.find(params[:id])
     if (params[:type].present? && params[:type] == "popup")
       @popup = true
     else
@@ -17,22 +17,22 @@ class ItemsController < InheritedResources::Base
     @items = Item.published.page params[:page]
   end
 
+  def new
+
+  end
+
+  def edit
+
+  end
+
   def create
     params[:item]['user_id'] = current_user.id
     @item = Item.new(params[:item])
-
-    respond_to do |format|
-      if @item.save
-        format.html {redirect_to(@item,
-          :notice => 'Item was successfully created.') }
-      else
-        format.html {render :action => "new"}
-      end
-    end
+    @notice = @item.save ? {:type => 'notice', :message => "successfully"} 
+      : {:type => 'error', :message => "Some error."}
   end
 
-  def follow
-    @following_item = Item.find(params[:item_id])
+  def follow    
     @message = ""
     if @following_item and not current_user.items.include?(@following_item)
       current_user.follow(@following_item)
@@ -46,7 +46,6 @@ class ItemsController < InheritedResources::Base
   end
 
   def unfollow
-    @following_item = Item.find(params[:item_id])
     @message = ""
     if current_user.following?(@following_item) and @following_item
       current_user.stop_following(@following_item)
@@ -58,16 +57,21 @@ class ItemsController < InheritedResources::Base
     end
   end
 
-  def destroy
-    @item = Item.find(params[:id])
+  def destroy    
     @item.deleted = true
-
-    if @item.save
-      notice = {:type => 'notice', :message => "successfully"}
-    else
-      notice = {:type => 'error', :message => "Some error."}
-    end
-
+    notice = @item.save ? {:type => 'notice', :message => "successfully"}    
+      : {:type => 'error', :message => "Some error."}
+    
     redirect_to(items_account_path(:notice => notice))
+  end
+
+  protected 
+
+  def get_item
+    if params[:id].present?
+      @item = Item.find(params[:id])
+    elsif params[:item_id].present?
+      @following_item = Item.find(params[:item_id])
+    end 
   end
 end
