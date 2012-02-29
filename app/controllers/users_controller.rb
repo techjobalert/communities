@@ -52,7 +52,9 @@ class UsersController < ApplicationController
         end
       else
         flash[:error] = "error"
-        @notice = {:type => 'error', :message => "Profile not updated."}
+        @notice = {:type => 'error', :message =>
+          "#{t current_user.errors.keys.first} #{current_user.errors.values.first.first.to_s}"
+        }
         if  params[:type].present? &&  params[:type] == "profile"
           format.html { redirect_to user_path(current_user, :type => "profile")}
           format.js
@@ -76,7 +78,10 @@ class UsersController < ApplicationController
         }
         format.json { render :json => @data.to_json }
       else
-        format.json { render json: current_user.errors }
+        @notice = {:type => 'error', :message =>
+          "#{t current_user.errors.keys.first} #{current_user.errors.values.first.first.to_s}"
+        }
+        format.js { render :partial => "layouts/notice", :locals => {:notice => @notice} }
       end
     end
   end
