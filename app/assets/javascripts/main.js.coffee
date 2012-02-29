@@ -83,3 +83,5 @@ $ ->
 
   $(document).on "click", ".refresh-captcha", ->
     $(".simple_captcha").html('<div class="loading">Loading...</div>');
+
+
