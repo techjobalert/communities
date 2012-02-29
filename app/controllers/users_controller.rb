@@ -41,7 +41,7 @@ class UsersController < ApplicationController
       end
 
       if current_user.update_attributes params[:user]
-        flash[:notice] = "success"
+        # flash[:notice] = "success"
         @notice = {:type => 'notice', :message => "Profile successfully updated."}
         if  params[:type].present? &&  params[:type] == "profile"
           format.html { redirect_to user_path(current_user, :type => "profile")}

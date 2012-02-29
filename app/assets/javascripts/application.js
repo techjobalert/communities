@@ -156,6 +156,4 @@ function add_fields(link, association, content) {
   $(link).parent().before(content.replace(regexp, new_id));
 }
 
-$('a[data-remote=true]').live('ajax:success', function(event, xhr, settings) {
-  $('form[data-validate]').validate();
-});
+// $('form[data-validate]').validate();
