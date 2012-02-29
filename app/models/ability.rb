@@ -15,7 +15,7 @@ class Ability
 
   def patient
     guest
-    can :read, [User]
+    can :read, User
     can :update, User, :id => @user.id
     can [:follow, :unfollow], [User, Item]
     can [:follow, :upload_avatar, :send_message], [User]
@@ -40,7 +40,7 @@ class Ability
 
   def moderator
     doctor
-    can [:read, :update], [Item, Comment]
+    can :update, [Item, Comment]
   end
 
   def admin

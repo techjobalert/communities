@@ -75,7 +75,7 @@ class UsersController < ApplicationController
           :thumb_143 => current_user.avatar_url(:thumb_143),
         }
 
-        format.json { render json: @data.to_json }
+        format.json { render :json => @data.to_json }
       end
     end
   end
