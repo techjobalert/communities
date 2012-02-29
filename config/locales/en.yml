@@ -4,3 +4,7 @@
 en:
   hello: "Hello world"
   profession_and_degree: "Profession and degree"
+  full_name: "Full name"
+  birthday: "Birthday"
+  avatar: "Avatar"
+  bio: "Biography"

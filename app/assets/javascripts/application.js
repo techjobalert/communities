@@ -46,7 +46,8 @@ function hideNotice(){
 if (history && history.pushState) {
   $(function() {
     $(document).on ("click", "a[data-remote=true]:not(.no-history)", function(e) {
-      $.getScript(this.href);
+      // fixing problem with double request
+      // $.getScript(this.href);
       history.pushState(null, document.title, this.href);
       $(".l-settings-navigation").html("");
       $(".popup-container").css("display","none");
@@ -156,4 +157,13 @@ function add_fields(link, association, content) {
   $(link).parent().before(content.replace(regexp, new_id));
 }
 
-// $('form[data-validate]').validate();
+// Click to link, if click has form inside, validate it
+$(function() {
+  $("a[data-remote=true]").on("ajax:complete", function(e, xhr, status){
+    if (xhr.responseText.indexOf("form") >= 0 && status == "success"){
+      setTimeout(function(){
+        $('form[data-validate]').validate();
+      },1000)
+    }
+  })
+})
