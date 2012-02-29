@@ -17,7 +17,7 @@ Orthodontic::Application.routes.draw do
 
   mount ImperaviRails::Engine => "/imperavi"
 
-  devise_for :users, :controllers => { 
+  devise_for :users, :controllers => {
     :registrations => "registrations", :sessions => "sessions"}
 
   devise_scope :user do
@@ -38,7 +38,7 @@ Orthodontic::Application.routes.draw do
     post "follow"
     post "send_message"
     post "send_message_to_followers"
-    delete "unfollow"    
+    delete "unfollow"
   end
 
   resources :pay_accounts, :only => [:create, :update]

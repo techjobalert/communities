@@ -1,3 +1,6 @@
 $("#ajax-main-container").html("#{escape_javascript(render :partial => 'edit')}");
+
 $(".main-content .navigation a").removeClass("selected");
 $(".tab-item").addClass("selected");
+
+$('form[data-validate]').validate();
