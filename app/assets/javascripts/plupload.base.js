@@ -7,7 +7,7 @@ $(function() {
       runtimes: "html5,html4,flash",
       browse_button: "pickfiles",
       container: "upcontainer",
-      max_file_size: "6mb",
+      max_file_size: "2mb",
       flash_swf_url: "assets/plupload/plupload.flash.swf",
       multipart: true,
       multipart_params: {

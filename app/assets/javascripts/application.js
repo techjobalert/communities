@@ -46,7 +46,7 @@ function hideNotice(){
 if (history && history.pushState) {
   $(function() {
     $(document).on ("click", "a[data-remote=true]:not(.no-history)", function(e) {
-      $.getScript(this.href);
+      //$.getScript(this.href);
       history.pushState(null, document.title, this.href);
       $(".l-settings-navigation").html("");
       $(".popup-container").css("display","none");
