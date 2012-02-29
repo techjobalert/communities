@@ -69,6 +69,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if current_user.save
         @data = {
+          :thumb_45 => current_user.avatar_url(:thumb_45),
           :thumb_60 => current_user.avatar_url(:thumb_60),
           :thumb_70 => current_user.avatar_url(:thumb_70),
           :thumb_143 => current_user.avatar_url(:thumb_143),
@@ -141,9 +142,9 @@ class UsersController < ApplicationController
         @notice = {:type => 'error',
         :message => "Messages isn't sended becouse you haven't followers"}
       else
-        @notice = {:type => 'error',:message => "Error. Messages send."} 
+        @notice = {:type => 'error',:message => "Error. Messages send."}
       end
     end
   end
-  
+
 end

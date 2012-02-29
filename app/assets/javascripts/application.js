@@ -53,7 +53,7 @@ if (history && history.pushState) {
     });
     $(window).bind("popstate", function() {
       $.getScript(location.href);
-      $(".l-settings-navigation").html("");    
+      $(".l-settings-navigation").html("");
       $(".popup-container").css("display","none");
     });
   });
@@ -116,7 +116,7 @@ function showItemPopup(e) {
 
   var settings;
 
-  if (obj_offset.top == 0) 
+  if (obj_offset.top == 0)
     return false;
 
   left_offset = obj_offset.left - (442 - obj_width) / 2;

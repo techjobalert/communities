@@ -1,52 +1,52 @@
 .b-user
   .b-user-content
     .b-user-info
-      .b-user-preview#upcontainer        
-        = link_to '#', :id => 'pickfiles' do          
+      .b-user-preview#upcontainer
+        = link_to '#', :id => 'pickfiles' do
           = image_tag "#{user.avatar? ? user.avatar_url(:thumb_143) : '/assets/user-upload-photo.jpg'}", :class => "my-thumb_143"
-          
-        .spinner.hidden 
+
+        .spinner.hidden
         :javascript
           $(function(){
-            var uploaderProfile = $.initPlupload({url: "#{user_upload_avatar_path(user)}"+".json"});   
+            var uploaderProfile = $.initPlupload({url: "#{user_upload_avatar_path(user)}"});
             })
 
       .b-user-info-body
         .form
           = form_for(current_user, :remote => true) do |f|
-            = hidden_field_tag "type", "profile" 
+            = hidden_field_tag "type", "profile"
             %h2.b-user-title= f.text_field :full_name
-            
+
             %p
               %strong Birthday:
-              = f.text_field :birthday, :value => date_format(current_user.birthday), :id => 'datepicker'        
+              = f.text_field :birthday, :value => date_format(current_user.birthday), :id => 'datepicker'
             %p
-              %strong Profession and degree 
+              %strong Profession and degree
               = f.text_field :profession_and_degree
             %p
               %strong Specialization:
               = f.text_area :specialization
             %p.right= f.submit 'Save', :class => 'light-button green'
-        
-      .clear    
-    
+
+      .clear
+
     - unless user.bio.blank?
       %h2 Medical Profile
-        
+
       %p
         %strong Biography:
         = user.bio
 
       %br
-      
-    - if user.items.present?   
-      %h2 Publications      
+
+    - if user.items.present?
+      %h2 Publications
       = render :partial => 'list_of_items', :locals => {:items => user.items}
       %br
-          
-    - if user.following_by_type("Item").present? 
-      %h2 Approvals   
+
+    - if user.following_by_type("Item").present?
+      %h2 Approvals
       = render :partial => 'list_of_items', :locals => {:items => user.following_by_type("Item")}
 
-  = render :partial => 'sidebar', :locals => {:collaborators => collaborators}  
+  = render :partial => 'sidebar', :locals => {:collaborators => collaborators}
 .clear

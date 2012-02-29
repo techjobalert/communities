@@ -5,7 +5,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   storage :file
-  
+
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
@@ -29,21 +29,21 @@ class AvatarUploader < CarrierWave::Uploader::Base
   version :thumb_143 do
      process :resize_to_fill => [143, 143]
   end
-  
+
   version :thumb_70 do
      process :resize_to_fill => [70, 70]
   end
-  
+
   version :thumb_60 do
      process :resize_to_fill => [60, 60]
   end
 
   version :thumb_45 do
-     process :resize_to_fill => [60, 60]
+     process :resize_to_fill => [45, 45]
   end
 
   def extension_white_list
-     %w(jpg jpeg gif png)
+     %w(jpg jpeg gif png JPG JPEG GIF PNG)
   end
 
 end
