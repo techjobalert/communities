@@ -13,47 +13,47 @@
               = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id}" do
                 Folow
                 %span
-        
+
       .b-user-info-body
         %h2.b-user-title= user.full_name
         - unless user.birthday.blank?
           %p
             %strong Birthday:
             = user.birthday
-            
+
         - unless user.profession_and_degree.blank?
           %p
-            %strong Profession and degree 
-            = user.profession_and_degree       
-        
+            %strong Profession and degree
+            = user.profession_and_degree
+
         - unless user.specialization.blank?
           %p
             %strong Specialization:
             = user.specialization
-        - if (user != current_user)    
+        - if (user != current_user)
           %p
-            %strong Send a massege: 
+            %strong Send a massege:
             you can send a message directly to email about profesional question
           = render :partial => 'send_message', :locals => {:user => user}
 
-      .clear    
-    
+      .clear
+
     - unless user.bio.blank?
       %h2 Medical Profile
-        
+
       %p
         %strong Biography:
-        = user.bio
+        = simple_format user.bio
 
-      %br    
+      %br
 
-    - if user.items.present?   
-      %h2 Publications      
+    - if user.items.present?
+      %h2 Publications
       = render :partial => 'list_of_items', :locals => {:items => user.items}
       %br
-     
-    - if user.following_by_type("Item").present? 
-      %h2 Approvals   
+
+    - if user.following_by_type("Item").present?
+      %h2 Approvals
       = render :partial => 'list_of_items', :locals => {:items => user.following_by_type("Item")}
 
   = render :partial => 'sidebar', :locals => {:collaborators => collaborators}
