@@ -141,9 +141,9 @@ class UsersController < ApplicationController
         @notice = {:type => 'error',
         :message => "Messages isn't sended becouse you haven't followers"}
       else
-        @notice = {:type => 'error',:message => "Error. Messages send."} 
+        @notice = {:type => 'error',:message => "Error. Messages send."}
       end
     end
   end
-  
+
 end

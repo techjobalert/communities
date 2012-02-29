@@ -3,11 +3,11 @@ $(function() {
     var uploader;
     var settings;
 
-    settings = { 
+    settings = {
       runtimes: "html5,html4,flash",
       browse_button: "pickfiles",
       container: "upcontainer",
-      max_file_size: "6mb",      
+      max_file_size: "6mb",
       flash_swf_url: "assets/plupload/plupload.flash.swf",
       multipart: true,
       multipart_params: {
@@ -16,7 +16,7 @@ $(function() {
       filters: [
         {
           title: "Images",
-          extensions: "jpg,jpeg,png,JPG,JPEG,PNG"
+          extensions: "jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF"
         }
       ]
     };
@@ -31,7 +31,7 @@ $(function() {
     var uploader = new plupload.Uploader(settings);
 
     uploader.init();
-    
+
     uploader.bind("FilesAdded", function(up, files) {
       uploader.start();
       up.refresh();
@@ -41,7 +41,7 @@ $(function() {
       var obj = jQuery.parseJSON(response.response);
       $.map(obj, function(value, key){
         $('.my-'+key).attr('src',value);
-      });    
+      });
     });
 
     uploader.bind("BeforeUpload", function(up, file, info) {
