@@ -8,15 +8,15 @@ class NotifyNow
   	if event.subject_type == "Comment"
   		commentable = event.subject.commentable
       if commentable.is_a? Item
-        if commentable.user.commented_item == 1 or commentable.user.recommended_comment == 1
+        if commentable.user.commented_item == "1" or commentable.user.recommended_comment == "1"
           owner = commentable.user
         end
       end
   	elsif event.subject_type == "Follow"
       followable = event.subject.followable
-      if followable.is_a? User and followable.following_me == 1
+      if followable.is_a? User and followable.following_me == "1"
         owner = followable
-      elsif followable.is_a? Item and followable.user.following_item == 1
+      elsif followable.is_a? Item and followable.user.following_item == "1"
         owner = followable.user
       end
   	else
@@ -30,7 +30,7 @@ class NotifyNow
     if owner
       # If we have owner, we just notify only owner
       NotifyMailer.notify_now(event, owner).deliver
-		else
+		elsif followers
       # Else notify all followers
       followers.each do |follower|
         NotifyMailer.notify_now(event, follower).deliver
