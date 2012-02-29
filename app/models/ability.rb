@@ -19,10 +19,6 @@ class Ability
     can :update, User, :id => @user.id
     can [:follow, :unfollow], [User, Item]
     can [:follow, :upload_avatar, :send_message], [User]
-    can :manage, Comment do |comment|
-      owner_or_published?(item)
-    end
-    can :create, Comment
   end
 
   def doctor
@@ -30,12 +26,13 @@ class Ability
     # Item
     can :create, Item
     can [:send_message_to_followers], [User]
-    can [:manage], Item do |item|
-      owner?(item)
-    end
     can [:read], Item do |item|
       owner_or_published?(item)
     end
+    can :manage, [Comment, Item] do |obj|
+      owner_or_published?(obj)
+    end
+    # can :create, Comment
   end
 
   def moderator

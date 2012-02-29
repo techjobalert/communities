@@ -4,10 +4,10 @@ class NotifyNow
   def self.perform(event_id)
   	event = TimelineEvent.find(event_id)
   	followers, owner = nil
-  	
+
   	if event.subject_type == "Comment"
   		commentable = event.subject.commentable
-      if commentable.is_a? Item 
+      if commentable.is_a? Item
         if commentable.user.commented_item == 1 or commentable.user.recommended_comment == 1
           owner = commentable.user
         end
@@ -20,15 +20,19 @@ class NotifyNow
         owner = event.subject.followable.user
       end
   	else
-  		followers = event.followers
+  		if defined? event.followers
+        followers = event.followers
+      else
+        p event
+      end
   	end
 
     if owner
       # If we have owner, we just notify only owner
-      NotifyMailer.notify_now(event, owner).deliver 
+      NotifyMailer.notify_now(event, owner).deliver
 		else
       # Else notify all followers
-      followers.each do |follower| 
+      followers.each do |follower|
         NotifyMailer.notify_now(event, follower).deliver
       end
     end
