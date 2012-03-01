@@ -10,15 +10,14 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
+      #TODO: create with Sphinx search
       # @items = Item.search(
       #   :with_all => {
       #     :tag_ids => @item.tags.collect(&:id),
       #     :title => @item.title
       #   }
-      @items = Item.except(@item).tagged_with(@item.tag_list,:any => true).page params[:page]
-      # @items = @items.find(:all, :conditions => ['title LIKE ? ', "%#{@item.title}%"])
-      p @items
-      p "-----------------------"
+      @items = Item.except(@item).where('title LIKE ? ', "%#{@item.title}%")
+      @items = @items.tagged_with(@item.tag_list,:any => true).page params[:page]
     end
   end
 
