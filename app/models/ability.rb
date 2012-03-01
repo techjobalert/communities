@@ -31,9 +31,8 @@ class Ability
       owner_or_published?(item)
     end
     can :manage, [Comment, Item] do |obj|
-      owner_or_published?(obj)
+      owner?(obj)
     end
-    # can :create, Comment
   end
 
   def moderator
