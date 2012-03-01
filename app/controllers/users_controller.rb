@@ -86,7 +86,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   def follow
     following_user_id = params[:user_id]
     @message = ""
@@ -152,5 +151,5 @@ class UsersController < ApplicationController
       end
     end
   end
-
+  
 end

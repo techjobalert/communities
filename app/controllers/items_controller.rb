@@ -23,7 +23,7 @@ class ItemsController < InheritedResources::Base
 
   def edit
 
-  end
+  end 
 
   def create
     params[:item]['user_id'] = current_user.id
