@@ -8,14 +8,14 @@ $ ->
     unless elem.hasClass("checked")
       $(".toggler label").toggleClass "checked"
       $(".doctor-only").toggleClass "hidden"
-    jQuery.placeholder.shim() if jQuery.placeholder
+    $.placeholder.shim() if $.placeholder
 
   $(".b-auth .buttons a").on "click", ->
     elem = $(this)     
     unless elem.hasClass("selected")
       $(".b-auth .buttons a").toggleClass "selected"
       $(".sign-tab").toggleClass "hidden"
-      jQuery.placeholder.shim() if jQuery.placeholder
+      $.placeholder.shim() if $.placeholder
     false    
 
   $("a.sign-in").click()  if window.location.hash.indexOf("#sign-in") >= 0
