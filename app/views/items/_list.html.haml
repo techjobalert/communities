@@ -1,16 +1,17 @@
 .list
   .list-header
-    .nav
-      = link_to '#', :class => 'movies selected' do
-        %span
-        Movies
-      = link_to '#', :class => 'articles' do
-        %span
-        Articles
-      = link_to '#', :class => 'presentations' do
-        %span
-        Presentations
-    .filter
+    - if current_user
+      .nav
+        = link_to '#', :class => 'movies selected' do
+          %span
+          Movies
+        = link_to '#', :class => 'articles' do
+          %span
+          Articles
+        = link_to '#', :class => 'presentations' do
+          %span
+          Presentations
+    .filter{:class=> ('stand-alone' if current_user.nil?)}
       .field
         .tags
           .label Sort by
