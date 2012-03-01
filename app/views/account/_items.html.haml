@@ -27,6 +27,34 @@
                   = "Views: #{item.views_count}"
 
             .text= item.description
+          %div{ :class => "change-price-form", :id => "change-price-form-#{item.id}", :title=>"Account Info", :style => "display: none;" }
+            .form
+              = form_for (item_path), :remote => true do |f|
+                %p
+                  = f.label :price
+                  = f.text_field :price
         .clear
         = paginate items, :remote => true
         .clear
+
+:javascript
+  $( ".change-price-form:ui-dialog" ).dialog( "destroy" );
+
+  $( ".change-price-form" ).dialog({
+    resizable: false,
+    autoOpen: false,
+    width: 410,
+    modal: true,
+    buttons: {
+      "Change price": function() {
+        $('.change-price-form form').submit();
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+  $( "a.change" ).click(function() {
+      $( "#account-form" ).dialog( "open" );
+      return false;
+    });
