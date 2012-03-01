@@ -11,8 +11,9 @@
         - items.each do |item|
           .item{:class => "#{'in-moderation' unless item.published?}"}
             .tools
-              .price= "Price: #{item.paid? ? '5.00$' : 'free'}"
-              = link_to 'Change price', '#', :class => 'change' if item.published?
+              - price = item.price > 0 ? "#{item.price}$" : 'free'
+              .price= "Price: #{price}"
+              = link_to 'Change price', '#', :class => 'change', :id => "change-price-#{item.id}" if item.published?
               = link_to item_path(item), :method => "delete", :remote => true , :confirm => 'Are you sure?', :class => 'delete no-history' do
                 Delete Item
                 %span
@@ -27,9 +28,9 @@
                   = "Views: #{item.views_count}"
 
             .text= item.description
-          %div{ :class => "change-price-form", :id => "change-price-form-#{item.id}", :title=>"Account Info", :style => "display: none;" }
+          %div{ :class => "change-price-form", :id => "form-change-price-#{item.id}", :title=>"Change price", :style => "display: none;" }
             .form
-              = form_for (item_path), :remote => true do |f|
+              = form_for item, :remote => true, :method => :put do |f|
                 %p
                   = f.label :price
                   = f.text_field :price
@@ -47,7 +48,7 @@
     modal: true,
     buttons: {
       "Change price": function() {
-        $('.change-price-form form').submit();
+        $( this ).find('form').submit();
       },
       Cancel: function() {
         $( this ).dialog( "close" );
@@ -55,6 +56,7 @@
     }
   });
   $( "a.change" ).click(function() {
-      $( "#account-form" ).dialog( "open" );
+      var id = $(this).attr("id")
+      $( "#form-" + id ).dialog( "open" );
       return false;
     });

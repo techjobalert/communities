@@ -3,7 +3,7 @@ class Item < ActiveRecord::Base
   include SettingsHelper
 
   attr_accessible :title, :description, :tag_list, :paid, :user, :user_id,
-    :views_count, :deleted, :amount
+    :views_count, :deleted, :amount, :price
   validates :title, :description, :presence => true
 
   acts_as_commentable
