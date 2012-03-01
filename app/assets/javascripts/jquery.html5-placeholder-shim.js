@@ -42,7 +42,7 @@
 
         var possible_line_height = {};
         if( !$this.is('textarea') && $this.css('height') != 'auto') {
-          possible_line_height = { lineHeight: $this.css('height'), whiteSpace: 'nowrap' };
+          possible_line_height = { whiteSpace: 'nowrap' };
         }
 
         var ol = $('<label />')
