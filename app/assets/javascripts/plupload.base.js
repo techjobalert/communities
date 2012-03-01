@@ -16,7 +16,7 @@ $(function() {
       filters: [
         {
           title: "Images",
-          extensions: "jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF"
+          extensions: "jpg,jpeg,png,JPG,JPEG,PNG"
         }
       ]
     };
