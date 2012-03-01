@@ -90,7 +90,9 @@ $ ->
   $("form[data-validate=true][data-remote=true]").live "change", ->
     $(this).validate()
 
-  $("#qsearch").autocomplete(
+  searchArray = ["#main-search", "#qsearch"]
+  for search in searchArray
+    search.autocomplete(
     source: "/search/qsearch"
     minLength: 3
     width: 100

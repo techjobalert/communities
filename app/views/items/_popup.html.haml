@@ -1,5 +1,5 @@
 .container
-  %h3= item.title
+  %h3= item.title.capitalize!
 
   %p
     %span.date
@@ -10,7 +10,7 @@
   %p
     %b.title Summery
     %br
-    = item.description.truncate(250, :separator => ' ')
+    = item.description.truncate(250, :separator => ' ').capitalize!
 
   .authors
     - if item.contributors.present?

@@ -24,7 +24,7 @@
         .search
           = form_tag root_path, :remote => true, :method => :get do
             = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input'
-            = submit_tag 'Go', :class => 'dark-button'
+            = submit_tag 'Go', :class => 'dark-button', :id => "qsearch"
 
         .clear
     .clear
@@ -34,7 +34,7 @@
         - items.each do |item|
           .item
             .media= image_tag '/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
-            .text= item.description.truncate(120, :separator => " ")
+            .text= item.description.truncate(120, :separator => " ").capitalize!
         .clear
         = paginate items, :remote => true
 
