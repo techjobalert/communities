@@ -24,8 +24,8 @@
           .clear
         .search
           = form_tag root_path, :remote => true, :method => :get do
-            = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input'
-            = submit_tag 'Go', :class => 'dark-button', :id => "qsearch"
+            = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
+            = submit_tag 'Go', :class => 'dark-button'
 
         .clear
     .clear
