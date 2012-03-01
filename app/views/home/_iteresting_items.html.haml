@@ -1,3 +1,4 @@
-%h3 Interesting item:
+-if current_user
+  %h3 Interesting item:
 
 = render :partial => 'items/list', :locals => {:items => @items}

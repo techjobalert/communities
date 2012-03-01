@@ -32,7 +32,7 @@
         |
 
 .tools
-  - if current_user.following?(item)
+  - if current_user and current_user.following?(item)
     = link_to item_unfollow_path(item), :remote => true, :method => :delete, :class => "light-button follow-item follow-item-#{item.id} no-history" do
       Unfollow Item
       %span

@@ -25,7 +25,7 @@ class FileController < ApplicationController
     pvideo_file = params[:filename]
     wvideo = ""
 
-    Dir.foreach("../video/webcam_records/") do |file| 
+    Dir.foreach("../video/webcam_records/") do |file|
       if file.include?(pvideo_uuid)
         wvideo = file
         break
@@ -36,7 +36,7 @@ class FileController < ApplicationController
     end
     render :nothing => true
   end
-  
+
   def webrecorder
     @uuid = SecureRandom.hex(10)
   end

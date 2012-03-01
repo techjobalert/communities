@@ -157,13 +157,13 @@ function add_fields(link, association, content) {
   $(link).parent().before(content.replace(regexp, new_id));
 }
 
-// Click to link, if click has form inside, validate it
-$(function() {
-  $("a[data-remote=true]").on("ajax:complete", function(e, xhr, status){
-    if (xhr.responseText.indexOf("form") >= 0 && status == "success"){
-      setTimeout(function(){
-        $('form[data-validate]').validate();
-      },1000)
-    }
-  })
-})
+// // Click to link, if click has form inside, validate it
+// $(function() {
+//   $("a[data-remote=true]").on("ajax:complete", function(e, xhr, status){
+//     if (xhr.responseText.indexOf("form") >= 0 && status == "success"){
+//       setTimeout(function(){
+//         $('form[data-validate]').validate();
+//       },1000)
+//     }
+//   })
+// })

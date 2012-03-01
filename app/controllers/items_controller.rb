@@ -28,11 +28,11 @@ class ItemsController < InheritedResources::Base
   def create
     params[:item]['user_id'] = current_user.id
     @item = Item.new(params[:item])
-    @notice = @item.save ? {:type => 'notice', :message => "successfully"} 
+    @notice = @item.save ? {:type => 'notice', :message => "successfully"}
       : {:type => 'error', :message => "Some error."}
   end
 
-  def follow    
+  def follow
     @message = ""
     if @following_item and not current_user.items.include?(@following_item)
       current_user.follow(@following_item)
@@ -57,21 +57,21 @@ class ItemsController < InheritedResources::Base
     end
   end
 
-  def destroy    
+  def destroy
     @item.deleted = true
-    notice = @item.save ? {:type => 'notice', :message => "successfully"}    
+    notice = @item.save ? {:type => 'notice', :message => "successfully"}
       : {:type => 'error', :message => "Some error."}
-    
+
     redirect_to(items_account_path(:notice => notice))
   end
 
-  protected 
+  protected
 
   def get_item
     if params[:id].present?
       @item = Item.find(params[:id])
     elsif params[:item_id].present?
       @following_item = Item.find(params[:item_id])
-    end 
+    end
   end
 end
