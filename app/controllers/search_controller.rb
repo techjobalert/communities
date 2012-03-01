@@ -16,11 +16,19 @@ class SearchController < ApplicationController
 
     @search_results = @search_params.get_search_results || []
     @search_results.map! do |item|
-      {
-        :title => item.title.truncate(40, :separator => ' '),
-        :content => item.description.truncate(50, :separator => ' '),
-        :url => polymorphic_path(item)
-      }
+      if item.is_a? User do
+        {
+          :title => item.full_name.truncate(40, :separator => ' '),
+          :content => item.bio.truncate(50, :separator => ' '),
+          :url => polymorphic_path(item)
+        }
+      elsif item.is_a? Item do
+        {
+          :title => item.title.truncate(40, :separator => ' '),
+          :content => item.description.truncate(50, :separator => ' '),
+          :url => polymorphic_path(item)
+        }
+      end
     end
     render :json => @search_results
   end
