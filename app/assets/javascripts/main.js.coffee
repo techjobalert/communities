@@ -11,12 +11,12 @@ $ ->
     $.placeholder.shim() if $.placeholder
 
   $(".b-auth .buttons a").on "click", ->
-    elem = $(this)     
+    elem = $(this)
     unless elem.hasClass("selected")
       $(".b-auth .buttons a").toggleClass "selected"
       $(".sign-tab").toggleClass "hidden"
       $.placeholder.shim() if $.placeholder
-    false    
+    false
 
   $("a.sign-in").click()  if window.location.hash.indexOf("#sign-in") >= 0
 
