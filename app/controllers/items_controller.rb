@@ -22,8 +22,18 @@ class ItemsController < InheritedResources::Base
   end
 
   def edit
-
+    
   end 
+
+  def update
+    if @item.update_attributes params[:item]
+      @notice = {:type => "notice", :message => "successfull"}
+    else
+      @notice = {:type => "error", :message => "error"}
+    end
+
+    @type = params[:type].present? ? params[:type] : false    
+  end
 
   def create
     params[:item]['user_id'] = current_user.id

@@ -1,0 +1,12 @@
+- if @type == "change_price"
+  - price = @item.price > 0 ? "#{@item.price}$" : 'free'
+  $("#item-#{@item.id} .price>span").html("#{price}");
+- else
+  $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:item => @item})}");
+
+  $(".main-content .navigation a").removeClass("selected");
+  $(".tab-item").addClass("selected");
+
+  $('form[data-validate]').validate();
+
+showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");

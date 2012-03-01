@@ -9,10 +9,13 @@
     .list-content
       - if items.present?
         - items.each do |item|
-          .item{:class => "#{'in-moderation' unless item.published?}"}
+          .item{:class => "#{'in-moderation' unless item.published?}", :id => "item-#{item.id}"}
             .tools
               - price = item.price > 0 ? "#{item.price}$" : 'free'
-              .price= "Price: #{price}"
+              .price
+                Price: 
+                %span= price
+
               = link_to 'Change price', '#', :class => 'change', :id => "change-price-#{item.id}" if item.published?
               = link_to item_path(item), :method => "delete", :remote => true , :confirm => 'Are you sure?', :class => 'delete no-history' do
                 Delete Item
@@ -31,6 +34,7 @@
           %div{ :class => "change-price-form", :id => "form-change-price-#{item.id}", :title=>"Change price", :style => "display: none;" }
             .form
               = form_for item, :remote => true, :method => :put do |f|
+                = hidden_field_tag "type" , "change_price"
                 %p
                   = f.label :price
                   = f.text_field :price
@@ -49,6 +53,7 @@
     buttons: {
       "Change price": function() {
         $( this ).find('form').submit();
+        $( this ).dialog( "close" );
       },
       Cancel: function() {
         $( this ).dialog( "close" );
