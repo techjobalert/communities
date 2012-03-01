@@ -9,7 +9,7 @@ class Ability
 
   def guest
     can :read, [ Item, Comment ] do |obj|
-      owner_or_published?(obj)
+      published?(obj)
     end
   end
 
@@ -25,6 +25,7 @@ class Ability
     patient
     # Item
     can :create, Item
+    can :create, Comment
     can [:send_message_to_followers], [User]
     can [:read], Item do |item|
       owner_or_published?(item)
