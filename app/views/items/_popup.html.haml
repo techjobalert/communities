@@ -10,7 +10,7 @@
   %p
     %b.title Summery
     %br
-    = item.description
+    = item.description.truncate(250, :separator => ' ')
 
   .authors
     - if item.contributors.present?

@@ -77,7 +77,8 @@
     - else
       %h2= @item.title + ' (unpublished)'
 
-    .body= @item.description
+    .body
+      = simple_format @item.description
 
     = image_tag '/assets/tmp/p4.png', :class => 'preview'
     .clear
