@@ -109,6 +109,10 @@
         - @item.comment_threads.order('comments.created_at DESC').each do |comment|
           = render :partial => "comments/comment", :locals => {:comment => comment}
       .clear
+
+%h3 Relevant items:
+
+
 :javascript
   $(".light-button.new-comment.slide-to").on("click", function(){
     $("form#new_comment").submit();

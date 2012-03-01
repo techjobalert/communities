@@ -10,6 +10,10 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
+      @items = Item.search(
+        :with_all => {:tag_ids => @item.tags.collect(&:id)},
+        :with => {:title => @item.title}
+      )
     end
   end
 
@@ -22,8 +26,8 @@ class ItemsController < InheritedResources::Base
   end
 
   def edit
-    
-  end 
+
+  end
 
   def update
     if @item.update_attributes params[:item]
@@ -32,7 +36,7 @@ class ItemsController < InheritedResources::Base
       @notice = {:type => "error", :message => "error"}
     end
 
-    @type = params[:type].present? ? params[:type] : false    
+    @type = params[:type].present? ? params[:type] : false
   end
 
   def create
