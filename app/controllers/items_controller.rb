@@ -10,10 +10,15 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
-      @items = Item.search(
-        :with_all => {:tag_ids => @item.tags.collect(&:id)},
-        :with => {:title => @item.title}
-      )
+      # @items = Item.search(
+      #   :with_all => {
+      #     :tag_ids => @item.tags.collect(&:id),
+      #     :title => @item.title
+      #   }
+      @items = Item.except(@item).tagged_with(@item.tag_list,:any => true).page params[:page]
+      # @items = @items.find(:all, :conditions => ['title LIKE ? ', "%#{@item.title}%"])
+      p @items
+      p "-----------------------"
     end
   end
 

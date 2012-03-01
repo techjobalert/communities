@@ -110,8 +110,9 @@
           = render :partial => "comments/comment", :locals => {:comment => comment}
       .clear
 
-%h3 Relevant items:
-
+- if @items
+  %br
+  = render :partial => 'items/list', :locals => {:items => @items}
 
 :javascript
   $(".light-button.new-comment.slide-to").on("click", function(){
