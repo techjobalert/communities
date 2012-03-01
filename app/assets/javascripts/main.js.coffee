@@ -8,6 +8,7 @@ $ ->
     unless elem.hasClass("checked")
       $(".toggler label").toggleClass "checked"
       $(".doctor-only").toggleClass "hidden"
+    jQuery.placeholder.shim() if jQuery.placeholder
 
   $(".b-auth .buttons a").on "click", ->
     elem = $(this)
