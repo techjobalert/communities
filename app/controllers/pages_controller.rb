@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
-  
+
   layout :determine_layout, :except => [:home, :sign_in]
-  
+
   def determine_layout
     if params[:action] == 'admin'
       "administrator"
@@ -9,12 +9,12 @@ class PagesController < ApplicationController
       "inner"
     end
   end
-  
-  
+
+
 
   def home
   end
-  
+
   def sign_in
   end
 
@@ -32,19 +32,19 @@ class PagesController < ApplicationController
 
   def account_purchased_item
   end
-  
+
   def user
   end
-  
+
   def settings
   end
-  
+
   def colleagues
   end
-  
+
   def upload
   end
-  
+
   def admin
   end
 end

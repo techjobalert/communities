@@ -85,3 +85,6 @@ $ ->
   $(document).on "click", ".popup-cleaner, .go-to-profile, .go-to-article, .main-content .navigation a", ->
     $(".popup-container").css("display","none");
     $(".l-settings-navigation").html("") if !$(this).hasClass "tab-settings"
+
+$("form[data-validate=true][data-remote=true]").live "change", ->
+  $(this).validate()
