@@ -9,20 +9,17 @@
     = render :partial => "layouts/ie_fix", :inline => true
 
     .header
-      = render :partial => "pages/general_links", :inline => true
+      = render :partial => "layouts/general_links"
       .b-admin-header.center
-        = link_to '', '#', :class => 'b-admin-header-logo'
+        = link_to '', root_path, :class => 'b-admin-header-logo'
         %h1.b-admin-header-title Administrator confirmation items
 
 
     .section.center
       .main-content
         .user-info
-          = image_tag '/assets/tmp/p3.png', :width => '70', :height => '70', :alt => 'Yossy Mendelovich . MD', :class => 'popup-user-info'
-          %span.title Yossy Mendelovich . MD
-        .light-button.sale
-          Our Ordothontics Sale
-          %span
+          = image_tag current_user.avatar_url(:thumb_70), :alt => "#{current_user.full_name}", :id => "popup-user-#{current_user.id}", :class => "popup-user-info my-thumb_70"
+          %span.title= current_user.full_name
         .clear
         .panel.no-padding
           = yield

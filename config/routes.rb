@@ -1,17 +1,5 @@
 Orthodontic::Application.routes.draw do
 
-  get "pay_accounts/create"
-
-  get "pay_accounts/update"
-
-  #get "account/items"
-
-  #get "account/purchase"
-
-  #get "account/purchased_items"
-
-  #get "account/payments_info"
-
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -43,6 +31,11 @@ Orthodontic::Application.routes.draw do
 
   resources :pay_accounts, :only => [:create, :update]
 
+  resources :moderator, :only => [:show, :index] do
+    post "confirm"
+    delete "deny"
+  end
+
   # Account
   match 'account/items'           => 'account#items',           :via => :get, :as => :items_account
   match 'account/purchase'        => 'account#purchase',        :via => :get, :as => :purchase_account
@@ -73,17 +66,17 @@ Orthodontic::Application.routes.draw do
   # ----------------------------------------------------------------------------
   # ----------------------------------------------------------------------------
   # ----------------------------------------------------------------------------
-  match "/sign_in"                => "pages#sign_in"
-  match "/item"                   => "pages#item"
-  match "/interesting_item"       => "pages#interesting_item"
-  match "/items_you_follow"       => "pages#items_you_follow"
-  match "/account"                => "pages#account"
-  match "/account_purchased_item" => "pages#account_purchased_item"
-  match "/user"                   => "pages#user"
-  match "/settings"               => "pages#settings"
-  match "/colleagues"             => "pages#colleagues"
-  match "/upload_page"            => "pages#upload"
-  match "/admin_page"             => "pages#admin"
+  # match "/sign_in"                => "pages#sign_in"
+  # match "/item"                   => "pages#item"
+  # match "/interesting_item"       => "pages#interesting_item"
+  # match "/items_you_follow"       => "pages#items_you_follow"
+  # match "/account"                => "pages#account"
+  # match "/account_purchased_item" => "pages#account_purchased_item"
+  # match "/user"                   => "pages#user"
+  # match "/settings"               => "pages#settings"
+  # match "/colleagues"             => "pages#colleagues"
+  # match "/upload_page"            => "pages#upload"
+  # match "/admin_page"             => "pages#admin"
   # ----------------------------------------------------------------------------
   # ----------------------------------------------------------------------------
   # ----------------------------------------------------------------------------

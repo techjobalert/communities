@@ -1,0 +1,32 @@
+.b-admin-content
+  .b-admin-content-title Waiting for your approval:
+  .list
+    .list-header
+      .nav
+        = link_to '#', :class => 'movies selected' do
+          %span
+          Movies
+        = link_to '#', :class => 'articles' do
+          %span
+          Articles
+        = link_to '#', :class => 'presentations' do
+          %span
+          Presentations
+      .list-title
+        um, nisi vel venenatis faucibus, augue libero commodo tellus, nec 
+        pharetra risus erat sit amet felis. Nullam at ipsum ac ante
+      .clear      
+      .list-content
+        .b-admin-content-body.video
+          .preview
+            = image_tag '/assets/tmp/p5.png'
+          .body
+            = link_to image_tag('/assets/logo.png', :width => '200'), '#'
+            %h2= @item.title
+
+            = @item.description
+          .clear
+          
+        .b-admin-content-tools
+          = link_to 'Confirm', '#', :class => 'light-button confirm'
+          = link_to 'Deny','#', :class => 'light-button deny'
