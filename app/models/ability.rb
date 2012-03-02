@@ -51,7 +51,7 @@ private
   end
 
   def published?(obj)
-    obj.try(:published)
+    obj.published?
   end
 
   def owner_or_published?(obj)

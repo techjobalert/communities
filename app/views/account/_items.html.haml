@@ -9,14 +9,14 @@
     .list-content
       - if items.present?
         - items.each do |item|
-          .item{:class => "#{'in-moderation' unless item.published?}", :id => "item-#{item.id}"}
+          .item{:class => "#{item.state}", :id => "item-#{item.id}"}
             .tools
               - price = item.price > 0 ? "#{item.price}$" : 'free'
               .price
                 Price: 
                 %span= price
 
-              = link_to 'Change price', '#', :class => 'change', :id => "change-price-#{item.id}" if item.published?
+              = link_to 'Change price', '#', :class => 'change', :id => "change-price-#{item.id}" unless item.moderated?
               = link_to item_path(item), :method => "delete", :remote => true , :confirm => 'Are you sure?', :class => 'delete no-history' do
                 Delete Item
                 %span

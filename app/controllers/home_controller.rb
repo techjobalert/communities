@@ -4,7 +4,7 @@ class HomeController < ApplicationController
       @items = ThinkingSphinx.search("#{params[:q]}", :classes => [Item])
         .page(params[:page]).per(3)
     else
-      @items = Item.published.page(params[:page])
+      @items = Item.state_is("published").page(params[:page])
     end
   end
 

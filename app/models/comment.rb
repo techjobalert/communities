@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  include PubUnpub
+  #include PubUnpub
   include SettingsHelper
   
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
@@ -19,12 +19,17 @@ class Comment < ActiveRecord::Base
   has_many :comments, :as => :commentable
   
   # Scopes
-  scope :published, where(:published => true)
-  scope :unpublished, where(:published => false)
+  scope :state_is, lambda {|state| where(:state => state)}
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
-
+  default_scope order('comments.created_at DESC')
   # Handlers
-  before_create  :default_values
+  # before_create  :default_values
+
+  state_machine :state, :initial => :moderated do    
+    event :publish do
+      transition :moderated => :published
+    end
+  end
 
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
@@ -65,9 +70,8 @@ class Comment < ActiveRecord::Base
     commentable_str.constantize.find(commentable_id)
   end
 
-
-  def default_values
-    self.published = !get_setting("comments_pre_moderation")
-    true
-  end
+  # def default_values
+  #   self.published = !get_setting("comments_pre_moderation")
+  #   true
+  # end
 end

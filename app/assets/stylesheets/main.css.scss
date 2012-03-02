@@ -412,8 +412,14 @@ h3 {
       cursor: pointer;
       margin: 0px 20px 30px 19px;
 
-      &.in-moderation {
+      &.moderated {
         opacity: 0.7;
+      }
+
+      &.denied {
+        .media {
+          background: red;
+        }
       }
 
       .tools {

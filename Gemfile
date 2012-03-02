@@ -92,3 +92,5 @@ gem 'timeline_fu', :git => 'git://github.com/jamesgolick/timeline_fu.git'
 gem 'imperavi-rails'
 # https://github.com/justinfrench/formtastic
 gem 'formtastic'
+#https://github.com/pluginaweek/state_machine
+gem 'state_machine'
