@@ -1,4 +1,7 @@
-$("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
+-if @render_only_items
+  $("#ajax-main-container.list-content").html("#{escape_javascript(render :partial => 'only_items')}");
+-else
+  $("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
 
 $(".main-content .navigation a").removeClass("selected");
 $(".tab-home").addClass("selected");

@@ -13,7 +13,12 @@ class Item < ActiveRecord::Base
   # Scopes
   scope :published, where(:published => true).order("created_at DESC")
   scope :unpublished, where(:published => false)
+  scope :new_in_last_day, where(:created_at => (Date.today.to_time..Time.now))
+  scope :new_in_last_week, where(:created_at => ((Time.now.weeks_ago 1)..Time.now))
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
+  scope :new_in_last_year, where(:created_at => ((Time.now.years_ago 1)..Time.now))
+  scope :paid, where("price != 0")
+  scope :free, where(:prive => 0 )
 
   default_scope where(:deleted => false)
 

@@ -90,11 +90,13 @@ $ ->
   $("form[data-validate=true][data-remote=true]").live "change", ->
     $(this).validate()
 
-  $("#main-search").autocomplete(
-    source: "/search/qsearch"
-    minLength: 3
-    width: 100
-    select: (event, ui) ->
-      window.location.assign ui.item.url
-  ).data("autocomplete")._renderItem = (ul, item) ->
-    $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo ul
+  msearch = $("#main-search")
+  if msearch.length
+    msearch.autocomplete(
+      source: "/search/qsearch"
+      minLength: 3
+      width: 100
+      select: (event, ui) ->
+        window.location.assign ui.item.url
+    ).data("autocomplete")._renderItem = (ul, item) ->
+      $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo ul
