@@ -38,9 +38,8 @@ Orthodontic::Application.routes.draw do
   delete  'moderator/items/:id/deny'    => 'moderator#item_deny',  :as => :deny_moderator_item
 
   get     'moderator/comments'             => 'moderator#comments',         :as => :moderator_comments
-  get     'moderator/comments/:id'         => 'moderator#comment_show',     :as => :moderator_comment
   get     'moderator/comments/:id/confirm' => 'moderator#comment_publish',  :as => :confirm_moderator_comment
-  delete  'moderator/comments/:id/deny'    => 'moderator#comment_deny',  :as => :deny_moderator_comment
+  delete  'moderator/comments/:id/deny'    => 'moderator#comment_deny',     :as => :deny_moderator_comment
 
   # Account
   match 'account/items'           => 'account#items',           :via => :get, :as => :items_account

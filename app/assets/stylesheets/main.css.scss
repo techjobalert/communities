@@ -235,7 +235,7 @@ h3 {
         background-position: -115px 3px;
       }
 
-      &.articles span{
+      &.articles span, &.comments span{
         background-position: -170px 3px;
       }
 
@@ -419,6 +419,7 @@ h3 {
       &.denied {
         .media {
           background: red;
+          color: #fff !important;
         }
       }
 
@@ -463,7 +464,8 @@ h3 {
         background: #e8e8e8;
         text-align: center;
         padding: 7px;
-      }
+        display: block;
+        text-decoration: none;}
 
       .info {
         font-size: 12px;
@@ -493,6 +495,9 @@ h3 {
         font-size: 12px;
         line-height: 18px;
         padding: 13px 5px;
+        display: block;
+        text-decoration: none;
+        color: #424242;
       }
     }
   }

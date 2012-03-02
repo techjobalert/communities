@@ -1,0 +1,19 @@
+.b-admin-content
+  .b-admin-content-title Waiting for your approval:
+  .list
+    .list-header
+      = render :partial => "navigations"
+      .list-content
+        .b-admin-content-body.video
+          .preview
+            = image_tag '/assets/tmp/p5.png'
+          .body
+            = link_to image_tag('/assets/logo.png', :width => '200'), '#'
+            %h2= @item.title
+
+            = @item.description
+          .clear
+          
+        .b-admin-content-tools
+          = link_to 'Confirm', confirm_moderator_item_path(@item), :class => 'light-button confirm', :remote => true
+          = link_to 'Deny', deny_moderator_item_path(@item), :method => "delete", :class => 'light-button deny', :remote => true

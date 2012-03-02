@@ -1,0 +1,28 @@
+.b-admin-content
+  .b-admin-content-title Waiting for your approval:
+  .list
+    .list-header
+      = render :partial => "navigations"
+      .list-content
+        .b-admin-content-comments
+          - if @comments.present?
+            %ul
+              - @comments.each do |comment|
+                %li{:id => "comment-#{comment.id}"}
+                  = image_tag comment.user.avatar_url(:thumb_60), :width => '60', :height => '60'
+                  
+                  %b= "#{comment.user.full_name}:"
+                  %br
+                  %span= comment.body
+                  .clear
+                  .b-admin-content-tools
+                    = link_to 'Confirm', confirm_moderator_comment_path(comment), :class => 'light-button confirm', :remote => true
+                    = link_to 'Deny', deny_moderator_comment_path(comment), :method => "delete", :class => 'light-button deny', :remote => true
+                  
+            .clear
+            = paginate @comments, :remote => true
+
+          - else
+            .no-items No items
+
+        .clear
