@@ -1,0 +1,17 @@
+.nav
+  = link_to moderator_path, :class => "movies #{'selected' if params[:action] == 'items'}", :remote => true do
+    %span
+    Movies
+  = link_to '#', :class => 'articles' do
+    %span
+    Articles
+  = link_to '#', :class => 'presentations' do
+    %span
+    Presentations
+  = link_to moderator_comments_path, :class => "comments #{'selected' if params[:action] == 'comments'}", :remote => true do
+    %span
+    Comments
+.list-title
+  um, nisi vel venenatis faucibus, augue libero commodo tellus, nec 
+  pharetra risus erat sit amet felis. Nullam at ipsum ac ante
+.clear

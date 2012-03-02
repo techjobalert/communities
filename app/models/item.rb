@@ -1,9 +1,9 @@
 class Item < ActiveRecord::Base
-  include PubUnpub
+  #include PubUnpub
   include SettingsHelper
 
   attr_accessible :title, :description, :tag_list, :paid, :user, :user_id,
-    :views_count, :deleted, :amount, :price
+    :views_count, :amount, :price, :state
   validates :title, :description, :presence => true
 
   acts_as_commentable
@@ -11,6 +11,8 @@ class Item < ActiveRecord::Base
   acts_as_followable
 
   # Scopes
+
+  scope :state_is, lambda {|state| where(:state => state)}
   scope :published, where(:published => true).order("created_at DESC")
   scope :unpublished, where(:published => false)
   scope :new_in_last_day, where(:created_at => (Date.today.to_time..Time.now))
@@ -20,10 +22,10 @@ class Item < ActiveRecord::Base
   scope :paid, where("price != 0")
   scope :free, where(:prive => 0 )
 
-  default_scope where(:deleted => false)
+  default_scope where("state <> 'archived'").order("created_at DESC")
 
   # Handlers
-  before_create   :default_values, :add_to_contributors
+  before_create  :add_to_contributors
 
   paginates_per 3
 
@@ -43,6 +45,31 @@ class Item < ActiveRecord::Base
   fires :destroyed_item,  :on     => :destroy,
                           :actor  => :user
 
+  state_machine :state, :initial => :moderated do
+    # after_transition :on => :publish do |item|
+    #   if self.user.has_attribute?(_get_counter_name)
+    #     self.user[_get_counter_name] +=1
+    #     self.user.save!
+    #   end
+    # end
+
+    event :moderate do
+      transition [:denied, :published] => :moderated
+    end
+
+    event :publish do
+      transition :moderated => :published
+    end
+
+    event :archive do
+      transition all => :archived
+    end
+
+    event :deny do
+      transition [:moderated, :published] => :denied
+    end
+  end
+
   define_index do
     indexes title,          :sortable => true
     indexes description,    :sortable => true
@@ -57,8 +84,4 @@ class Item < ActiveRecord::Base
     self.contributors << user
   end
 
-  def default_values
-    self.published = !get_setting("items_pre_moderation")
-    true
-  end
 end

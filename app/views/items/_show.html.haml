@@ -105,8 +105,8 @@
     .b-comments-form#comment-form
       = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
     %ul
-      - if @item.comment_threads.present?
-        - @item.comment_threads.order('comments.created_at DESC').each do |comment|
+      - if @item.comment_threads.state_is("published").present?
+        - @item.comment_threads.state_is("published").each do |comment|
           = render :partial => "comments/comment", :locals => {:comment => comment}
       .clear
 

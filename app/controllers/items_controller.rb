@@ -22,7 +22,7 @@ class ItemsController < InheritedResources::Base
   end
 
   def index
-    @items = Item.published.page params[:page]
+    @items = Item.state_is("published").page params[:page]
   end
 
   def new
@@ -34,6 +34,7 @@ class ItemsController < InheritedResources::Base
   end
 
   def update
+    @item.moderate
     if @item.update_attributes params[:item]
       @notice = {:type => "notice", :message => "successfull"}
     else
@@ -76,9 +77,11 @@ class ItemsController < InheritedResources::Base
   end
 
   def destroy
-    @item.deleted = true
-    notice = @item.save ? {:type => 'notice', :message => "successfully"}
-      : {:type => 'error', :message => "Some error."}
+    if  @item.archive
+      notice = {:type => 'notice', :message => "successfully"}
+    else
+      notice = {:type => 'error', :message => "Some error."}
+    end
 
     redirect_to(items_account_path(:notice => notice))
   end

@@ -22,7 +22,8 @@
           %span.title= current_user.full_name
         .clear
         .panel.no-padding
-          = yield
+          #ajax-main-container
+            = yield
 
 
     .l-footer

@@ -995,6 +995,33 @@
     font-size: 18px;
     color: #1b1e26;
   }
+
+  .b-admin-content-comments {
+    font-size: 14px;
+    color: #40475D;
+
+    img {
+      border: 1px solid #ddd;
+      float: left;
+      margin: 0 10px 0 0;
+    }
+    
+    li {
+      display: block;
+      overflow: hidden;
+      list-style: none;
+      padding: 20px 0 0;
+      border-top: 1px solid #dddddd;
+    }
+
+    ul {
+      margin: 0px 20px;
+      padding: 0px;
+    }
+  }
+
+  .list-header .nav {
+    width: 440px;}
   
   .b-admin-content-body {
     border-bottom: 1px solid #d4d2af;

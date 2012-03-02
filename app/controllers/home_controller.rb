@@ -1,42 +1,58 @@
 class HomeController < ApplicationController
+  has_scope :page, :default => 1
+  has_scope :length do |controller, scope, value|
+    value.include?("Any") ? scope : scope
+  end
+  has_scope :date do |controller, scope, value|
+    if value.include?("Any")
+      scope
+    else
+      case value
+      when "Today"
+        scope.new_in_last_day
+      when "1 Week"
+        scope.new_in_last_week
+      when "1 Month"
+        scope.new_in_last_month
+      when "1 Year"
+        scope.new_in_last_year
+      end
+    end
+  end
+  has_scope :price do |controller, scope, value|
+    if value.include?("Any")
+      scope
+    else
+      case value
+      when "Free"
+        scope.free
+      when "Paid"
+        scope.paid
+      end
+    end
+  end
+  has_scope :views do |controller, scope, value|
+    if value.include?("Any")
+      scope
+    else
+      case value
+      when "Most Viewed"
+        scope.order("views_count DESC")
+      when "Less Viewed"
+        scope.order("views_count ASC")
+      end
+    end
+  end
+
   def index
     if params[:q].present?
       @items = ThinkingSphinx.search("#{params[:q]}", :classes => [Item])
         .page(params[:page]).per(3)
-    elsif params[:filter]
-      _order_by, _scopes = []
-      _items = Item.published
-      _filter = params[:filter].select{|k,v| not v.include?("Any")}
-      _filter.each do |k,v|
-        case k
-        when "viewed"
-          if v.include?("More")
-            _order_by.push("views_count DESC")
-          elsif v.include?("Less")
-            _order_by.push("views_count ASC")
-          end
-        when "date"
-          if v.include?("Today")
-            _scopes.push(:new_in_last_day)
-          elsif v.include?("Week")
-            _scopes.push(:new_in_last_week)
-          elsif v.include?("Month")
-            _scopes.push(:new_in_last_month)
-          elsif v.include?("Year")
-            _scopes.push(:new_in_last_year)
-          end
-        when "price"
-          if v == "Free"
-            _scopes.push(:free)
-          elsif v == "Paid"
-            _scopes.push(:paid)
-          end
-        end
-      end
-      @items = _items.where()
-      .page(params[:page])
+    elsif params[:date]
+      @items = apply_scopes(Item.where(:published => true)).page(params[:page]).per(3)
+      @render_only_items = true
     else
-      @items = Item.published.page(params[:page])
+      @items = Item.state_is("published").page(params[:page])
     end
   end
 
