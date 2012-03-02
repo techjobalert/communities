@@ -1,16 +1,17 @@
 .list
   .list-header
-    .nav
-      = link_to '#', :class => 'movies selected' do
-        %span
-        Movies
-      = link_to '#', :class => 'articles' do
-        %span
-        Articles
-      = link_to '#', :class => 'presentations' do
-        %span
-        Presentations
-    .filter
+    - if current_user
+      .nav
+        = link_to '#', :class => 'movies selected' do
+          %span
+          Movies
+        = link_to '#', :class => 'articles' do
+          %span
+          Articles
+        = link_to '#', :class => 'presentations' do
+          %span
+          Presentations
+    .filter{:class=> ('stand-alone' if current_user.nil?)}
       .field
         .tags
           .label Sort by
@@ -23,7 +24,7 @@
           .clear
         .search
           = form_tag root_path, :remote => true, :method => :get do
-            = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input'
+            = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
             = submit_tag 'Go', :class => 'dark-button'
 
         .clear
@@ -34,7 +35,7 @@
         - items.each do |item|
           .item
             .media= image_tag '/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
-            .text= item.description.truncate(120, :separator => " ")
+            .text= item.description.truncate(120, :separator => " ").capitalize!
         .clear
         = paginate items, :remote => true
 
@@ -42,3 +43,15 @@
         .no-items No items
 
       .clear
+
+:javascript
+  $("#qsearch").autocomplete({
+    source: "/search/qsearch",
+    minLength: 3,
+    width: 100,
+    select: function(event, ui) {
+      return window.location.assign(ui.item.url);
+    }
+    }).data("autocomplete")._renderItem = function(ul, item) {
+      return $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo(ul);
+    };

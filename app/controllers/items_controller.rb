@@ -10,6 +10,14 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
+      #TODO: create with Sphinx search
+      # @items = Item.search(
+      #   :with_all => {
+      #     :tag_ids => @item.tags.collect(&:id),
+      #     :title => @item.title
+      #   }
+      @items = Item.except(@item).where('title LIKE ? ', "%#{@item.title}%")
+      @items = @items.tagged_with(@item.tag_list,:any => true).page params[:page]
     end
   end
 
@@ -22,8 +30,8 @@ class ItemsController < InheritedResources::Base
   end
 
   def edit
-    
-  end 
+
+  end
 
   def update
     @item.moderate
@@ -33,7 +41,7 @@ class ItemsController < InheritedResources::Base
       @notice = {:type => "error", :message => "error"}
     end
 
-    @type = params[:type].present? ? params[:type] : false    
+    @type = params[:type].present? ? params[:type] : false
   end
 
   def create

@@ -90,7 +90,7 @@ $ ->
   $("form[data-validate=true][data-remote=true]").live "change", ->
     $(this).validate()
 
-  $("#qsearch").autocomplete(
+  $("#main-search").autocomplete(
     source: "/search/qsearch"
     minLength: 3
     width: 100

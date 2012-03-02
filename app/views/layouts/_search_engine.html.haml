@@ -2,7 +2,7 @@
   = link_to '', root_path, :class => 'logo'
   .search
     = form_tag search_path, :remote => true, :method => :get do
-      = text_field_tag SearchParams.query_param, nil, :placeholder => 'Search for presentations, articles & movies', :class => 'text-input', :id => "qsearch"
+      = text_field_tag SearchParams.query_param, nil, :placeholder => 'Search for presentations, articles & movies', :class => 'text-input', :id => "main-search"
       = submit_tag 'Search', :class => 'dark-button'
   - if can? :create, Item
     = link_to new_item_path, :remote => true, :class => 'btn upload popup-cleaner' do
