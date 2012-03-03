@@ -46,49 +46,23 @@ function hideNotice(){
     $(".notice").remove();
   }, 7000);
 }
-(function(window,undefined){
 
-    // Prepare
-    var History = window.History; // Note: We are using a capital H instead of a lower h
-    if ( !History.enabled ) {
-         // History.js is disabled for this browser.
-         // This is because we can optionally choose to support HTML4 browsers or not.
-        return false;
-    }
-
-    // Bind to StateChange Event
-    History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
-        var State = History.getState(); // Note: We are using History.getState() instead of event.state
-        History.log(State.data, State.title, State.url);
-    });
+if (history && history.pushState) {
+  $(function() {
     $(document).on ("click", "a[data-remote=true]:not(.no-history)", function(e) {
-      History.pushState(null, document.title, this.href);
+      // fixing problem with double request
+      // $.getScript(this.href);
+      history.pushState(null, document.title, this.href);
       $(".l-settings-navigation").html("");
       $(".popup-container").css("display","none");
-    })
-    $(window).bind("onstatechange", function() {
+    });
+    $(window).bind("popstate", function() {
       $.getScript(location.href);
       $(".l-settings-navigation").html("");
       $(".popup-container").css("display","none");
-    })
-})(window);
-
-// if (history && history.pushState) {
-//   $(function() {
-//     $(document).on ("click", "a[data-remote=true]:not(.no-history)", function(e) {
-//       // fixing problem with double request
-//       // $.getScript(this.href);
-//       history.pushState(null, document.title, this.href);
-//       $(".l-settings-navigation").html("");
-//       $(".popup-container").css("display","none");
-//     });
-//     $(window).bind("popstate", function() {
-//       $.getScript(location.href);
-//       $(".l-settings-navigation").html("");
-//       $(".popup-container").css("display","none");
-//     });
-//   });
-// }
+    });
+  });
+}
 
 function showUserPopup(e) {
     var corner_class, obj_id, obj_offset, window_width, window_height, settings,
