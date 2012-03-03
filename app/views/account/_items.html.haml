@@ -7,7 +7,7 @@
   .list-header
     = render :partial => "navigation"
     .list-content
-      = render :partial => "account_items", :locals => {:items => items}
+      = render :partial => "account/account_items", :locals => {:items => items}
 
 :javascript
   $( ".change-price-form:ui-dialog" ).dialog( "destroy" );

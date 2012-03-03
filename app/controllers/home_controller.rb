@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   has_scope :filter_type do |controller, scope, value|
-    scope.where(:user_id => controller.current_user.id) if value != "basic"
+    value != "basic" ? scope.where(:user_id => controller.current_user.id) : scope
   end
   has_scope :page, :default => 1
   has_scope :length do |controller, scope, value|
