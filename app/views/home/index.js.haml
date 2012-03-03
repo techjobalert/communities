@@ -1,5 +1,6 @@
--if @render_only_items
-  $("#ajax-main-container.list-content").html("#{escape_javascript(render :partial => 'only_items')}");
+-if @render_items
+  - folder = @render_items == "basic" ? "items" : "account"
+  $("#ajax-main-container .list-content").html('#{escape_javascript(render :partial => "#{folder}/#{@render_items}_items", :locals => {:items => @items} )}');
 -else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
 

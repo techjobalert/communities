@@ -16,11 +16,12 @@
         .tags
           .label Sort by
           .filter-form
-            = form_tag root_path, :remote => true, :method => :get do
-              = select_tag "filter[viewed]","<option>Any Viewed</option><option selected='selected'>More Viewed</option><option>Less Viewed</option>".html_safe
-              = select_tag "filter[length]", "<option>Any Length</option>".html_safe
-              = select_tag "filter[date]",  "<option>Any Date</option><option selected='selected'>Today</option><option>1 Week</option><option>1 Month</option><option>1 Year</option>".html_safe
-              = select_tag "filter[price]", "<option>Any</option><option>Free</option><option>Paid</option>".html_safe
+            = form_for "", :url => root_path, :remote => true, :method => :get do |f|
+              = f.select "views", options_for_select(['Any Viewed','More Viewed', 'Less Viewed'], 'More Viewed')
+              = f.select "length", options_for_select(['Any Length'])
+              = f.select "date", options_for_select(['Any Date','Today', '1 Week', '1 Month', '1 Year'])
+              = f.select "price", options_for_select(['Any','Free', 'Paid'])
+              = f.hidden_field "filter_type", :value => "basic"
           .clear
         .search
           = form_tag root_path, :remote => true, :method => :get do
@@ -31,23 +32,10 @@
     .clear
 
     .list-content
-      - if items.present?
-        - items.each do |item|
-          .item
-            .media= image_tag '/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
-            .text= item.description.truncate(120, :separator => " ").capitalize!
-        .clear
-        = paginate items, :remote => true
-
-      - else
-        .no-items No items
-
-      .clear
+      = render :partial => "items/basic_items", :locals => {:items => items}
 
 :javascript
-  $("div.filter-form form select").on("change", function(){
-    $(this).parent('form').submit();
-  })
+
   $("#qsearch").autocomplete({
     source: "/search/qsearch",
     minLength: 3,

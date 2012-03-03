@@ -20,7 +20,7 @@ class Item < ActiveRecord::Base
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
   scope :new_in_last_year, where(:created_at => ((Time.now.years_ago 1)..Time.now))
   scope :paid, where("price != 0")
-  scope :free, where(:prive => 0 )
+  scope :free, where(:price => 0 )
 
   default_scope where("state <> 'archived'").order("created_at DESC")
 

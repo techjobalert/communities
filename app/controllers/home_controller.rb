@@ -1,4 +1,7 @@
 class HomeController < ApplicationController
+  has_scope :filter_type do |controller, scope, value|
+    scope.where(:user_id => controller.current_user.id) if value != "basic"
+  end
   has_scope :page, :default => 1
   has_scope :length do |controller, scope, value|
     value.include?("Any") ? scope : scope
@@ -36,7 +39,7 @@ class HomeController < ApplicationController
       scope
     else
       case value
-      when "Most Viewed"
+      when "More Viewed"
         scope.order("views_count DESC")
       when "Less Viewed"
         scope.order("views_count ASC")
@@ -48,9 +51,10 @@ class HomeController < ApplicationController
     if params[:q].present?
       @items = ThinkingSphinx.search("#{params[:q]}", :classes => [Item])
         .page(params[:page]).per(3)
-    elsif params[:date]
-      @items = apply_scopes(Item.where(:published => true)).page(params[:page]).per(3)
-      @render_only_items = true
+    elsif params[:filter_type]
+      _items = apply_scopes(Item.state_is("published"))
+      @items = _items.page(params[:page]).per(3) if _items
+      @render_items = params[:filter_type]
     else
       @items = Item.state_is("published").page(params[:page])
     end
