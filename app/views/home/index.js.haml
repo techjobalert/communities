@@ -1,10 +1,9 @@
 -if @render_items
   - folder = @render_items == "basic" ? "items" : "account"
-  $("#ajax-main-container .list-content").html('#{escape_javascript(render :partial => "#{folder}/#{@render_items}_items", :locals => {:items => @items} )}');
+  $("#ajax-main-container .list-content").html('#{escape_javascript(render :partial => "#{folder}/#{@render_items}_list", :locals => {:items => @items} )}');
 -else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
-
-$(".main-content .navigation a").removeClass("selected");
-$(".tab-home").addClass("selected");
+  $(".main-content .navigation a").removeClass("selected");
+  $(".tab-home").addClass("selected");
 
 if (jQuery.placeholder) jQuery.placeholder.shim();

@@ -48,8 +48,9 @@ Orthodontic::Application.routes.draw do
   match 'account/purchased_items' => 'account#purchased_items', :via => :get, :as => :purchased_items_account
 
   # Search logic
-  match '/search'         => "search#index"
-  match '/search/qsearch' => "search#qsearch"
+  match '/search'              => "search#index"
+  match '/search/qsearch-item' => "search#qsearch_item"
+  match '/search/qsearch-user' => "search#qsearch_user"
 
   # Captcha refresh
   match '/captcha_refresh' => "home#new_captcha"

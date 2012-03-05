@@ -7,7 +7,7 @@
   .list-header
     = render :partial => "navigation"
     .list-content
-      = render :partial => "account/account_items", :locals => {:items => items}
+      = render :partial => "account/account_list", :locals => {:items => items}
 
 :javascript
   $( ".change-price-form:ui-dialog" ).dialog( "destroy" );
@@ -32,3 +32,14 @@
       $( "#form-" + id ).dialog( "open" );
       return false;
     });
+
+  $("#qsearch").autocomplete({
+  source: "/search/qsearch-item",
+  minLength: 3,
+  width: 100,
+  select: function(event, ui) {
+    return window.location.assign(ui.item.url);
+  }
+  }).data("autocomplete")._renderItem = function(ul, item) {
+    return $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo(ul);
+  };

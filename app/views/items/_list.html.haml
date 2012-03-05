@@ -32,12 +32,12 @@
     .clear
 
     .list-content
-      = render :partial => "items/basic_items", :locals => {:items => items}
+      = render :partial => "items/basic_list", :locals => {:items => items}
 
 :javascript
 
   $("#qsearch").autocomplete({
-    source: "/search/qsearch",
+    source: "/search/qsearch-item",
     minLength: 3,
     width: 100,
     select: function(event, ui) {

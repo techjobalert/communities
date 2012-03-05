@@ -48,10 +48,16 @@ class HomeController < ApplicationController
   end
 
   def index
+    collegues = ["followers", "published_together", "following", "patients"]
+    _classes, @render_items  = Item, params[:filter_type]
+    if collegues.include? params[:filter_type]
+      _classes = User
+      @tmp_folder = "users"
+    end
     if params[:q].present?
-      @items = ThinkingSphinx.search("#{params[:q]}", :classes => [Item])
+      @items = ThinkingSphinx.search("#{params[:q]}", :classes => [_classes])
         .page(params[:page]).per(3)
-    elsif params[:filter_type]
+    elsif ["basic", "account"].include? params[:filter_type]
       _items = apply_scopes(Item.state_is("published"))
       @items = _items.page(params[:page]).per(3) if _items
       @render_items = params[:filter_type]
@@ -62,4 +68,5 @@ class HomeController < ApplicationController
 
   def new_captcha
   end
+
 end
