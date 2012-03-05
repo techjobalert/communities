@@ -21,15 +21,19 @@
   .field
     .tags
       .label Filter by
-      = form_for '/' do |f|
-        = f.select "", ['Viewed','Viewed']
-        = f.select "", ['Length','Length']
-        = f.select "", ['Date','Date']
-        = f.select "", ['Free','Free']
-        = f.select "", ['Paid','Paid']         
+      .filter-form
+        = form_for "", :url => root_path, :remote => true, :method => :get do |f|
+          = f.select "views", options_for_select(['Any Viewed','More Viewed', 'Less Viewed'], 'More Viewed')
+          = f.select "length", options_for_select(['Any Length'])
+          = f.select "date", options_for_select(['Any Date','Today', '1 Week', '1 Month', '1 Year'])
+          = f.select "price", options_for_select(['Any','Free', 'Paid'])
+          = f.hidden_field "filter_type", :value => "account"
       .clear
     .search
-      = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'
-      = button_tag 'Go', :class => 'dark-button'
+      = form_tag root_path, :remote => true, :method => :get do
+        = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
+        = hidden_field_tag "filter_type", "account"
+        = submit_tag 'Go', :class => 'dark-button'
+
     .clear
 .clear

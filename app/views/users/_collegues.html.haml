@@ -27,6 +27,7 @@
         .tags
           .label Filter by
           = form_for '/' do |f|
+            = hidden_field_tag "filter_type" , "#{@tab}"
             -if @tab != 'patients'
               = f.select "", ['Degree','Degree']
               = f.select "", ['Location','Location']
@@ -37,22 +38,15 @@
 
           .clear
         .search
-          = text_field 'search', 'form', :placeholder => 'Free search', :class => 'text-input'
-          = button_tag 'Go', :class => 'dark-button'
+          = form_tag root_path, :remote => true, :method => :get do
+            = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
+            = hidden_field_tag "filter_type" , "#{@tab}"
+            = submit_tag 'Go', :class => 'dark-button'
         .clear
     .clear
     .list-content
       .b-colleagues-container
-        - if users.present?
-          - users.each do |user|
-            .b-colleagues-item
-              = image_tag user.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{user.id}"
-              = link_to raw(user.full_name.gsub(" ","<br>")), user_path(user), :remote => :true, :class => 'title'
-
-        - else
-          .no-items No items
-
-        .clear
+        = render :partial => "colleagues_list", :locals => {:items => items}
 
 %div{ :id => "send-message", :title=>"Send message to your followers", :style=>"display:none;" }
   %p
@@ -84,3 +78,14 @@
       $( "#send-message" ).dialog( "open" );
       return false;
     });
+
+  $("#qsearch").autocomplete({
+    source: "/search/qsearch-user",
+    minLength: 3,
+    width: 100,
+    select: function(event, ui) {
+      return window.location.assign(ui.item.url);
+    }
+    }).data("autocomplete")._renderItem = function(ul, item) {
+      return $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo(ul);
+    };

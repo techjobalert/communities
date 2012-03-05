@@ -31,7 +31,7 @@ Orthodontic::Application.routes.draw do
 
   resources :pay_accounts, :only => [:create, :update]
 
-  
+
   get     'moderator'                   => 'moderator#items'
   get     'moderator/items/:id'         => 'moderator#item_show',     :as => :moderator_item
   get     'moderator/items/:id/confirm' => 'moderator#item_publish',  :as => :confirm_moderator_item
@@ -48,8 +48,9 @@ Orthodontic::Application.routes.draw do
   match 'account/purchased_items' => 'account#purchased_items', :via => :get, :as => :purchased_items_account
 
   # Search logic
-  match '/search'         => "search#index"
-  match '/search/qsearch' => "search#qsearch"
+  match '/search'              => "search#index"
+  match '/search/qsearch-item' => "search#qsearch_item"
+  match '/search/qsearch-user' => "search#qsearch_user"
 
   # Captcha refresh
   match '/captcha_refresh' => "home#new_captcha"

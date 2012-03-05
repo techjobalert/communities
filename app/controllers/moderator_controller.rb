@@ -8,7 +8,7 @@ class ModeratorController < ApplicationController
     @items = Item.state_is("moderated").page(params[:page]).per(3)
   end
 
-  def item_show    
+  def item_show
   end
 
   def item_publish
@@ -19,12 +19,12 @@ class ModeratorController < ApplicationController
   def item_deny
     @item.deny
     redirect_to moderator_path
-  end  
+  end
 
   def comments
     @comments = Comment.state_is("moderated").page(params[:page]).per(20)
   end
-  
+
   def comment_publish
     @comment.publish
     redirect_to moderator_comments_path
@@ -33,7 +33,7 @@ class ModeratorController < ApplicationController
   def comment_deny
     @comment.destroy
     redirect_to moderator_comments_path
-  end  
+  end
 
   protected
 

@@ -29,6 +29,10 @@
 //  Misc*
 //= require jquery.html5-placeholder-shim
 //= require imperavi-rails/imperavi
+//
+//  History.js
+// require history.js
+//= require jquery.history.js
 
 function showHideNotice(type,message){
   $('body').append('<div class="flash_' + type + ' notice">' + message + '</div>');

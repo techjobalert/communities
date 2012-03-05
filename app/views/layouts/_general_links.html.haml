@@ -1,6 +1,6 @@
 .b-general-links
   .container
     .center
-      = link_to 'admin', '/moderator' if current_user.admin?      
-      
+      = link_to 'admin', '/moderator' if current_user and current_user.admin?
+
       .clear

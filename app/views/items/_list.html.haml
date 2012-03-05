@@ -15,12 +15,13 @@
       .field
         .tags
           .label Sort by
-          = form_for '/' do |f|
-            = f.select "", ['Viewed','Viewed']
-            = f.select "", ['Length','Length']
-            = f.select "", ['Date','Date']
-            = f.select "", ['Free','Free']
-            = f.select "", ['Paid','Paid']
+          .filter-form
+            = form_for "", :url => root_path, :remote => true, :method => :get do |f|
+              = f.select "views", options_for_select(['Any Viewed','More Viewed', 'Less Viewed'], 'More Viewed')
+              = f.select "length", options_for_select(['Any Length'])
+              = f.select "date", options_for_select(['Any Date','Today', '1 Week', '1 Month', '1 Year'])
+              = f.select "price", options_for_select(['Any','Free', 'Paid'])
+              = f.hidden_field "filter_type", :value => "basic"
           .clear
         .search
           = form_tag root_path, :remote => true, :method => :get do
@@ -31,22 +32,12 @@
     .clear
 
     .list-content
-      - if items.present?
-        - items.each do |item|
-          .item
-            .media= image_tag '/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
-            .text= item.description.truncate(120, :separator => " ").capitalize!
-        .clear
-        = paginate items, :remote => true
-
-      - else
-        .no-items No items
-
-      .clear
+      = render :partial => "items/basic_list", :locals => {:items => items}
 
 :javascript
+
   $("#qsearch").autocomplete({
-    source: "/search/qsearch",
+    source: "/search/qsearch-item",
     minLength: 3,
     width: 100,
     select: function(event, ui) {

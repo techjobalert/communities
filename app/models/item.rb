@@ -11,10 +11,19 @@ class Item < ActiveRecord::Base
   acts_as_followable
 
   # Scopes
+
   scope :state_is, lambda {|state| where(:state => state)}
+  scope :published, where(:published => true).order("created_at DESC")
+  scope :unpublished, where(:published => false)
+  scope :new_in_last_day, where(:created_at => (Date.today.to_time..Time.now))
+  scope :new_in_last_week, where(:created_at => ((Time.now.weeks_ago 1)..Time.now))
   scope :new_in_last_month, where(:created_at => ((Time.now.months_ago 1)..Time.now))
-  
+  scope :new_in_last_year, where(:created_at => ((Time.now.years_ago 1)..Time.now))
+  scope :paid, where("price != 0")
+  scope :free, where(:price => 0 )
+
   default_scope where("state <> 'archived'").order("created_at DESC")
+
   # Handlers
   before_create  :add_to_contributors
 
@@ -35,7 +44,7 @@ class Item < ActiveRecord::Base
 
   fires :destroyed_item,  :on     => :destroy,
                           :actor  => :user
-  
+
   state_machine :state, :initial => :moderated do
     # after_transition :on => :publish do |item|
     #   if self.user.has_attribute?(_get_counter_name)
@@ -51,22 +60,23 @@ class Item < ActiveRecord::Base
     event :publish do
       transition :moderated => :published
     end
-    
+
     event :archive do
       transition all => :archived
     end
-    
+
     event :deny do
       transition [:moderated, :published] => :denied
     end
   end
-    
+
   define_index do
-    indexes title,          :sortable => true
-    indexes description,    :sortable => true
-    indexes user.full_name,  :sortable => true
+    indexes title,           :sortable => true
+    indexes description,     :sortable => true
+    indexes user.full_name,  :as => :author, :facet => true, :sortable => true
     has user_id, created_at
-    where sanitize_sql(["published", true])
+    where "state = 'published'"
+    # where sanitize_sql(["state", "published"])
     set_property :enable_star => true
     set_property :min_infix_len => 1
   end

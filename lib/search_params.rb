@@ -5,7 +5,7 @@ class SearchParams
   def initialize(_params)
     p = {self.class.per_page_param => 15}
     p.merge!(_params)
-    @query, @sort, @page, @per_page = p[self.class.query_param], p[self.class.sort_param], p[self.class.page_param], p[self.class.per_page_param]
+    @query, @sort, @page, @per_page, @classes = p[self.class.query_param], p[self.class.sort_param], p[self.class.page_param], p[self.class.per_page_param], p[:classes]
     @sort = nil unless @sort == 'newest' || @sort == 'oldest'
   end
 
@@ -15,7 +15,7 @@ class SearchParams
     options = {:star => true}
     options.merge!(get_sort_options)
     options.merge!(get_paging_options)
-
+    options.merge!(:classes => @classes)
     ThinkingSphinx.search @query, options
   end
 

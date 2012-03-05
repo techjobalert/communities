@@ -1,0 +1,12 @@
+- if items.present?
+  - items.each do |item|
+    .item
+      .media= image_tag '/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
+      .text= item.description.truncate(120, :separator => " ").capitalize!
+  .clear
+  = paginate @items, :remote => true
+
+- else
+  .no-items No items
+
+.clear
