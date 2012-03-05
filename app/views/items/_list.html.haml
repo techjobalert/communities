@@ -13,17 +13,18 @@
           Presentations
     .filter{:class=> ('stand-alone' if current_user.nil?)}
       .field
-        = form_tag root_path, :remote => true, :method => :get do
-          .tags
-            .label Sort by
-            .filter-form              
-              = select_tag "views", options_for_select(['Any Viewed','More Viewed', 'Less Viewed'], 'More Viewed')
-              = select_tag "length", options_for_select(['Any Length'])
-              = select_tag "date", options_for_select(['Any Date','Today', '1 Week', '1 Month', '1 Year'])
-              = select_tag "price", options_for_select(['Any','Free', 'Paid'])
-              = hidden_field_tag "filter_type", :value => "basic"
-            .clear
-          .search
+        .tags
+          .label Sort by
+          .filter-form
+            = form_for "", :url => root_path, :remote => true, :method => :get do |f|
+              = f.select "views", options_for_select(['Any Viewed','More Viewed', 'Less Viewed'], 'More Viewed')
+              = f.select "length", options_for_select(['Any Length'])
+              = f.select "date", options_for_select(['Any Date','Today', '1 Week', '1 Month', '1 Year'])
+              = f.select "price", options_for_select(['Any','Free', 'Paid'])
+              = f.hidden_field "filter_type", :value => "basic"
+          .clear
+        .search
+          = form_tag root_path, :remote => true, :method => :get do
             = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
             = submit_tag 'Go', :class => 'dark-button'
 
