@@ -374,7 +374,13 @@
         display: none;
       }
       
+      &.tab-item {
+        opacity: 0.5;
+        cursor: default;    
+      }
+
       &.selected {
+        opacity: 1;
         height: 80px;
         background-position: 0 -56px;
         color: #1b1e26;
@@ -385,7 +391,7 @@
           display: block;
         }
       }
-      
+
       &.large {
         width: 146px;
         background-position: -122px 0;
