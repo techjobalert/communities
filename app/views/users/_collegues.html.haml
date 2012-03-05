@@ -46,7 +46,7 @@
     .clear
     .list-content
       .b-colleagues-container
-        = render :partial => "colleagues_list", :locals => {:users => users}
+        = render :partial => "collegues_list", :locals => {:users => @users}
 
 %div{ :id => "send-message", :title=>"Send message to your followers", :style=>"display:none;" }
   %p
