@@ -1,10 +1,10 @@
-- if users.present?
-  - users.each do |user|
-    .b-colleagues-item
-      = image_tag user.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{user.id}"
-      = link_to text_with_br(user.full_name), user_path(user), :remote => :true, :class => 'title'
+.b-colleagues-container
+  - if users.present?
+    - users.each do |user|
+      .b-colleagues-item
+        = image_tag user.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{user.id}"
+        = link_to text_with_br(user.full_name), user_path(user), :remote => :true, :class => 'title'
+  - else
+    .no-items No items
 
-- else
-  .no-items No items
-
-.clear
+  .clear

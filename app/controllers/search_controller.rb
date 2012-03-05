@@ -22,9 +22,10 @@ def qsearch_item
   def qsearch_user
     @search_results = qsearch_base(params[:term], User)
     @search_results.map! do |user|
+      p user
       {
         :full_name => user.full_name.truncate(40, :separator => ' '),
-        :content => user.specialization.truncate(50, :separator => ' '),
+        # :content => user.specialization.truncate(50, :separator => ' '),
         :url => polymorphic_path(user)
       }
     end
