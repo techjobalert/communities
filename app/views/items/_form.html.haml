@@ -62,7 +62,7 @@
         - collegues.each do |user|
           .user
             = image_tag user.avatar_url(:thumb_60)
-            = raw user.full_name.gsub(" ","<br>")
+            = text_with_br user.full_name
             %br
             = link_to "#", :class => "delete-btn" do
               Delete
@@ -81,7 +81,8 @@
           - collegues.each do |user|
             %li
               = image_tag user.avatar_url(:thumb_45)
-              = user.full_name
+              = text_with_br user.full_name
+
   .hr
 
 
@@ -227,6 +228,7 @@
     resizable: false,
     autoOpen: false,
     width: 410,
+    height: 400,
     modal: true,
     buttons: {
       "Save": function() {
