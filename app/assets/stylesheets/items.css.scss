@@ -234,10 +234,8 @@
         }
       }
     }
-
-    #add-collegues-to-item {}
   }
-  
+
   .b-uplod-step-sell-movie {
     width: 100%;
     
@@ -479,5 +477,24 @@
     margin-left: 120px;
     width: 205px;
     padding: 8px 12px;
+  }
+}
+
+#add-collegues-to-item {
+  ul {
+    padding: 0;
+    margin: 0;}
+
+  li {
+    display: block;
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 14px;
+    list-style: none;}
+
+  img {
+    float: left;
+    border: 1px solid #ddd;
+    margin-right: 10px;
   }
 }

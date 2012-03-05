@@ -21,7 +21,7 @@
             = link_to user_path(contributor), :remote => true, :class => "popup-cleaner" do
               = image_tag contributor.avatar_url(:thumb_45), :width => '45', :height => '45'
               %br
-              = raw(contributor.full_name.gsub(" ","<br>"))
+              = text_with_br contributor.full_name
 
   - if item.tags.present?
     %p
