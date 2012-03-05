@@ -16,8 +16,8 @@
                   %span= comment.body
                   .clear
                   .b-admin-content-tools
-                    = link_to 'Confirm', confirm_moderator_comment_path(comment), :class => 'light-button confirm', :remote => true
-                    = link_to 'Deny', deny_moderator_comment_path(comment), :method => "delete", :class => 'light-button deny', :remote => true
+                    = link_to 'Confirm', confirm_moderator_comment_path(comment), :class => 'light-button confirm no-history', :remote => true
+                    = link_to 'Deny', deny_moderator_comment_path(comment), :method => "delete", :class => 'light-button deny no-history', :remote => true
                   
             .clear
             = paginate @comments, :remote => true
