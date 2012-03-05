@@ -23,7 +23,7 @@ class HomeController < ApplicationController
     end
   end
   has_scope :price do |controller, scope, value|
-    if value.include?("Any")
+    if value.include?("Free/Paid")
       scope
     else
       case value
