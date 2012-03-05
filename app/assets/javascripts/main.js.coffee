@@ -70,7 +70,7 @@ $ ->
       $(".b-settings-tab").toggleClass "hidden"
     false
 
-  $(document).on "click", ".main-content .navigation a", ->
+  $(document).on "click", ".main-content .navigation a:not(.tab-item)", ->
     $(".main-content .navigation a").removeClass "selected"
     $(this).addClass "selected"
     false
@@ -83,7 +83,7 @@ $ ->
   $(document).on "click", ".refresh-captcha", ->
     $(".simple_captcha").html('<div class="loading">Loading...</div>');
 
-  $(document).on "click", ".popup-cleaner, .go-to-profile, .go-to-article, .main-content .navigation a", ->
+  $(document).on "click", ".popup-cleaner, .go-to-profile, .go-to-article, .main-content .navigation a:not(.tab-item)", ->
     $(".popup-container").css("display","none");
     $(".l-settings-navigation").html("") if !$(this).hasClass "tab-settings"
 

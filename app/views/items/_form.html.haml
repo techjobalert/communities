@@ -68,11 +68,24 @@
               Delete
               %span
 
-    = link_to "Add persons", "", :class => 'light-button green'
-    .clear
-   
-    .clear
+    = link_to "Add persons", "", :class => 'light-button green', :confirm => 'Are you sure?', :id => "add-collegues-to-item-link"
+    .clear  
+
+    #add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
+      .form
+        %p= text_field_tag "search", "",:placeholder => "Search persons"
+
+      - collegues = User.all
+      - if collegues.present?
+        %ul
+          - collegues.each do |user|
+            %li
+              = image_tag user.avatar_url(:thumb_45)
+              = user.full_name
   .hr
+
+
+
 
   .b-uplod-step-sell-movie.steps
     .b-upload-title 
@@ -206,3 +219,28 @@
   .tools
     = link_to '#', :class => 'light-button green publish' do
       Publish
+
+:javascript
+  $( "#add-collegues-to-item-link:ui-dialog" ).dialog( "destroy" );
+
+  $( "#add-collegues-to-item" ).dialog({
+    resizable: false,
+    autoOpen: false,
+    width: 410,
+    modal: true,
+    buttons: {
+      "Save": function() {
+        $( this ).find('form').submit();        
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+
+  $( "#add-collegues-to-item-link" ).click(function() {
+    $( "#add-collegues-to-item").dialog( "open" );
+    return false;
+  });
+
+  
