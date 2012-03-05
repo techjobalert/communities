@@ -1,6 +1,6 @@
 class AccountController < ApplicationController
   def items
-    @items = current_user.items.page(params[:page]).per(3)
+    @items  = current_user.items.page(params[:page]).per(3)
     @notice = params[:notice]
   end
 
