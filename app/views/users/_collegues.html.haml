@@ -45,8 +45,7 @@
         .clear
     .clear
     .list-content
-      .b-colleagues-container
-        = render :partial => "collegues_list", :locals => {:users => @users}
+      = render :partial => "collegues_list", :locals => {:users => @users}
 
 %div{ :id => "send-message", :title=>"Send message to your followers", :style=>"display:none;" }
   %p
@@ -87,5 +86,5 @@
       return window.location.assign(ui.item.url);
     }
     }).data("autocomplete")._renderItem = function(ul, item) {
-      return $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo(ul);
+      return $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.full_name + "</a>").appendTo(ul);
     };

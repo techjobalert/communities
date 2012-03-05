@@ -53,16 +53,15 @@ class HomeController < ApplicationController
     if collegues.include? params[:filter_type]
       _classes = User
       @tmp_folder = "users"
+    elsif ["basic", "account"].include? params[:filter_type]
+      _items = apply_scopes(Item.state_is("published"))
+      @items = _items.page(params[:page]).per(3) if _items
+    else
+      @items = Item.state_is("published").page(params[:page])
     end
     if params[:q].present?
       @items = ThinkingSphinx.search("#{params[:q]}", :classes => [_classes])
         .page(params[:page]).per(3)
-    elsif ["basic", "account"].include? params[:filter_type]
-      _items = apply_scopes(Item.state_is("published"))
-      @items = _items.page(params[:page]).per(3) if _items
-      @render_items = params[:filter_type]
-    else
-      @items = Item.state_is("published").page(params[:page])
     end
   end
 
