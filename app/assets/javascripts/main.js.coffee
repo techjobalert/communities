@@ -90,8 +90,8 @@ $ ->
   $("form[data-validate=true][data-remote=true]").live "change", ->
     $(this).validate()
 
-  $("div.filter-form form select").live "change", ->
-    $(this).parent('form').submit()
+  # $("div.filter-form form select").live "change", ->
+  #   $(this).parent('form').submit()
 
   msearch = $("#main-search")
   if msearch.length

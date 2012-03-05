@@ -61,8 +61,8 @@ class User < ActiveRecord::Base
   validates :role, :inclusion => %w(doctor patient moderator)
   validates :birthday, :date => {
             :after => Proc.new { Time.now - 100.year },
-            :before => Proc.new { Time.now }
-            }, :allow_blank => true, :on => :update
+            :before => Proc.new { Time.now } },
+            :allow_blank => true, :on => :update
 
   mount_uploader :avatar, AvatarUploader
 

@@ -1,34 +1,34 @@
 .b-upload
   .hr
-  
+
   .b-uplod-step-regular.steps
-    .b-upload-title 
+    .b-upload-title
       %b Regular (Moveis, Presentation, Documents)
-    
+
     = link_to 'Select File', '#', :class => 'select-file'
 
     = link_to '#', :class => 'light-button green upload' do
       Upload
       %span
-    .btn-hint 
-      It can be presentations, 
+    .btn-hint
+      It can be presentations,
       %br
-      movie and articles.    
+      movie and articles.
 
   .b-uplod-step-make-conference.steps
-    .b-upload-title 
+    .b-upload-title
       %b Make your conference
-    
+
     = link_to 'Select Movie File', '#', :class => 'select-file'
 
     = link_to '#', :class => 'light-button green upload' do
       Upload
       %span
-  
+
   .hr
 
   .b-uplod-step-describe-movie.steps
-    .b-upload-title Describe your movie 
+    .b-upload-title Describe your movie
     -if @item.errors.any?
       #error_explanation
         %h2= "#{pluralize(@item.errors.count, "error")} prohibited this item from being saved:"
@@ -37,7 +37,7 @@
             %li= msg
 
     = image_tag '/assets/tmp/p2.png', :width => '135', :height => '100', :class => 'preview'
-    = form_for @item, :validate => true, :remote => true do |f| 
+    = form_for @item, :validate => true, :remote => true do |f|
       .block
         .item
           = f.label :title
@@ -55,8 +55,8 @@
   .hr
 
   .b-uplod-step-published-with.steps
-    .b-upload-title Published with    
-    - collegues = User.all  
+    .b-upload-title Published with
+    - collegues = User.all
     - if collegues.present?
       .collegues
         - collegues.each do |user|
@@ -69,7 +69,7 @@
               %span
 
     = link_to "Add persons", "", :class => 'light-button green', :confirm => 'Are you sure?', :id => "add-collegues-to-item-link"
-    .clear  
+    .clear
 
     #add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
       .form
@@ -89,9 +89,9 @@
 
 
   .b-uplod-step-sell-movie.steps
-    .b-upload-title 
+    .b-upload-title
       Sell your movie in the orthodentic store
-      .hint 
+      .hint
         Get reward on your quality medical item.  Get reward on your quality medical item.
 
     .block.pay-pal-form
@@ -143,7 +143,7 @@
 
           %li
             = link_to '#', :class => 'light-button pay-pal' do
-              Save your information with 
+              Save your information with
               %b PayPal
     .block
       .b-upload-title Allready have a PayPal account?
@@ -160,12 +160,12 @@
                 = f.password_field ''
               %li.right
                 = link_to '#', :class => 'light-button green log-in' do
-                  Log in 
-                  
+                  Log in
+
           .hint
-            Forgot 
+            Forgot
             = link_to 'email address', '#'
-            or 
+            or
             = link_to 'password', '#'
             ?
 
@@ -179,7 +179,7 @@
 
   .b-uplod-step-set-preview.steps
     .b-upload-title Set preview
-      
+
     .block
       = form_for '/' do |f|
         %ul
@@ -204,15 +204,15 @@
 
   .b-uplod-step-copyright.steps
     .b-upload-title Copyright Verification
-      
+
     .block
       = form_for '/' do |f|
         = f.check_box ''
-        = label '_radio', '1' do        
-          Lorem Ipsum is simply dummy text of the printing and typesetting 
-          industry. Lorem Ipsum has been the industry's standard dummy text 
-          ever since the 1500s, when an unknown printer took a galley of type 
-          and scrambled it to make a type specimen book. 
+        = label '_radio', '1' do
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text
+          ever since the 1500s, when an unknown printer took a galley of type
+          and scrambled it to make a type specimen book.
 
   .hr
   .clear
@@ -232,7 +232,7 @@
     modal: true,
     buttons: {
       "Save": function() {
-        $( this ).find('form').submit();        
+        $( this ).find('form').submit();
       },
       Cancel: function() {
         $( this ).dialog( "close" );
@@ -245,4 +245,3 @@
     return false;
   });
 
-  
