@@ -188,6 +188,53 @@
       }
     }
   }
+
+  .b-uplod-step-published-with {
+    .collegues {
+      overflow: hidden;
+      margin-bottom: 20px;
+      .user {
+        width: 198px;
+        float: left;
+        padding: 10px 20px 10px 0;
+        overflow: hidden;
+        img {
+          float: left;
+          margin-right: 10px;
+          border: 1px solid #ddd;
+        }
+
+        .delete-btn {
+          color: #424242;
+          display: block;
+          font-size: 10px;
+          line-height: 15px;
+          text-decoration: none;
+          border: 1px solid #eee;
+          float: left;
+          padding: 0 5px;
+          background: #f0f0f0;
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px;
+          margin-top: 4px;
+
+          span {
+            background: url("/assets/edit-icon-set.png") no-repeat scroll 0 3px transparent;
+            display: block;
+            float: right;
+            height: 12px;
+            margin-left: 5px;
+            width: 9px;
+          }
+
+          &:hover {
+            background: #ddd;
+          }
+        }
+      }
+    }
+  }
   
   .b-uplod-step-sell-movie {
     width: 100%;

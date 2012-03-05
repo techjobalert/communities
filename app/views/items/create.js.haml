@@ -1,5 +1,5 @@
 - if @notice[:type] == "error"
-  $("#ajax-main-container").html("#{escape_javascript(render :partial => 'new')}");
+  $("#ajax-main-container").html("#{escape_javascript(render :partial => 'form')}");
 - else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:item => @item})}");
 
