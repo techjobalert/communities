@@ -1,9 +1,9 @@
 %h3
   Your Colleagues
-
-  .light-button.send-message.green#send-message-dialog
-    %b Send
-    your followers a message
+  - if current_user.role? "doctor"
+    .light-button.send-message.green#send-message-dialog
+      %b Send
+      your followers a message
 
 .b-colleagues.list
   .list-header
@@ -49,29 +49,31 @@
   %p
     %textarea
 
-:javascript
-  $( "#send-message:ui-dialog" ).dialog( "destroy" );
+- if current_user.role? "doctor"
+  :javascript
+    $( "#send-message:ui-dialog" ).dialog( "destroy" );
 
-  $( "#send-message" ).dialog({
-    resizable: false,
-    autoOpen: false,
-    width: 400,
-    modal: true,
-    buttons: {
-      "Send message": function() {
-        $.ajax({
-          type: 'POST',
-          url: '#{user_send_message_to_followers_path(current_user)}',
-          data: { 'message': {'body': $( "#send-message>p>textarea")[0].value } },
-          dataType: 'script'
-        });
-      },
-      Cancel: function() {
-        $( this ).dialog( "close" );
+    $( "#send-message" ).dialog({
+      resizable: false,
+      autoOpen: false,
+      width: 400,
+      modal: true,
+      buttons: {
+        "Send message": function() {
+          $.ajax({
+            type: 'POST',
+            url: '#{user_send_message_to_followers_path(current_user)}',
+            data: { 'message': {'body': $( "#send-message>p>textarea")[0].value } },
+            dataType: 'script'
+          });
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
       }
-    }
-  });
-  $( "#send-message-dialog" ).click(function() {
+    });
+
+    $( "#send-message-dialog" ).click(function() {
       $( "#send-message" ).dialog( "open" );
       return false;
     });

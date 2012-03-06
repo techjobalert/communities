@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def text_with_br text
-    raw text.strip.gsub(" ","<br>")
+    raw text.strip().gsub(" ","<br>")
   end
 
   def link_to_remove_fields(name, f)

@@ -1,9 +1,10 @@
+- is_current_user = (user == current_user)
 .b-user
   .b-user-content
     .b-user-info
       .b-user-preview#upcontainer
         = image_tag user.avatar_url(:thumb_143)
-        - if user != current_user
+        - unless is_current_user
           .tools
             - if current_user.following?(user)
               = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id} no-history" do
@@ -30,7 +31,7 @@
           %p
             %strong Specialization:
             = user.specialization
-        - if (user != current_user)
+        - unless is_current_user
           %p
             %strong Send a massege:
             you can send a message directly to email about profesional question
@@ -49,12 +50,12 @@
 
     - if user.items.present?
       %h2 Publications
-      = render :partial => 'list_of_items', :locals => {:items => user.items}
+      = render :partial => 'list_of_items', :locals => {:items => user.items, :show_popup => !is_current_user}
       %br
 
     - if user.following_by_type("Item").present?
       %h2 Approvals
-      = render :partial => 'list_of_items', :locals => {:items => user.following_by_type("Item")}
+      = render :partial => 'list_of_items', :locals => {:items => user.following_by_type("Item"), :show_popup => !is_current_user}
 
-  = render :partial => 'sidebar', :locals => {:collaborators => collaborators}
+  = render :partial => 'sidebar', :locals => {:collaborators => collaborators, :show_popup => !is_current_user}
 .clear

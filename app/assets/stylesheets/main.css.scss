@@ -451,13 +451,13 @@ h3 {
           float: right;
           line-height: 19px;
           display: block;
+          width: 66px;
 
           span {
             background: url("/assets/edit-icon-set.png") no-repeat scroll 0 5px transparent;
             display: block;
             float: right;
             height: 15px;
-            margin-left: 5px;
             width: 9px;
           }
         }
@@ -501,6 +501,7 @@ h3 {
         display: block;
         text-decoration: none;
         color: #424242;
+        overflow: hidden;
       }
     }
   }
@@ -770,6 +771,7 @@ h3 {
   p {
     line-height: 18px;
     padding: 0px 20px;
+    overflow: hidden;
   }
 
   .tools {
@@ -843,7 +845,7 @@ h3 {
   color: #FFFFFF;
   font-size: 14px;
   left: 50%;
-  margin: 0 auto 0 -25%;
+  margin: 0 auto 0 -480px;
   position: fixed;
   top: 10px;
   width: 941px;

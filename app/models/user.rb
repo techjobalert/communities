@@ -100,4 +100,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def role?(name)
+    role == name
+  end
+
 end

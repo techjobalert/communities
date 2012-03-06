@@ -71,7 +71,7 @@
   / 1 Вариант
 
   .text.pic
-    = link_to image_tag('/assets/logo.png', :width => '200'), '#'
+    = image_tag('/assets/logo.png', :width => '200')
     - if @item.published?
       %h2= @item.title
     - else
@@ -88,7 +88,7 @@
     .preview
       = image_tag '/assets/tmp/p5.png'
     .body
-      = link_to image_tag('/assets/logo.png', :width => '200'), '#'
+      = image_tag('/assets/logo.png', :width => '200')
       %h2= @item.title
 
       = @item.description
@@ -105,8 +105,8 @@
     .b-comments-form#comment-form
       = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
     %ul
-      - if @item.comment_threads.state_is("published").present?
-        - @item.comment_threads.state_is("published").each do |comment|
+      - if @item.comment_threads.present?
+        - @item.comment_threads.each do |comment|
           = render :partial => "comments/comment", :locals => {:comment => comment}
       .clear
 

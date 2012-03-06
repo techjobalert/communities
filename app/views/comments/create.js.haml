@@ -1,4 +1,4 @@
-- if @notice[:type] != "error" && @comment.published?
+- if @notice[:type] != "error"
   $("#comments ul").prepend("#{escape_javascript(render(:partial => 'comments/comment', :locals => {:comment => @comment}))}");
 $("#comments .b-comments-form").html("#{escape_javascript(render :partial => 'comments/form', :locals => {:commentable => @item, :url => item_comments_path(@item)})}");
 
