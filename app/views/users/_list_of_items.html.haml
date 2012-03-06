@@ -2,7 +2,7 @@
   - items.each_slice(4) do |slice|
     - slice.each do |item|
       = link_to item_path(item), :class => 'item' do
-        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
+        = image_tag '/assets/tmp/p5.png', :width => '135', :height => '100', :class => "#{'popup-item-info' if show_popup}", :id => "popup-item-#{item.id}"
         %b= item.title
         = item.description.truncate(150, :separator => " ").capitalize!
     .clear

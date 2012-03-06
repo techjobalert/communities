@@ -41,12 +41,12 @@
 
     - if user.items.present?
       %h2 Publications
-      = render :partial => 'list_of_items', :locals => {:items => user.items}
+      = render :partial => 'list_of_items', :locals => {:items => user.items, :show_popup => true}
       %br
 
     - if user.following_by_type("Item").present?
       %h2 Approvals
-      = render :partial => 'list_of_items', :locals => {:items => user.following_by_type("Item")}
+      = render :partial => 'list_of_items', :locals => {:items => user.following_by_type("Item"), :show_popup => true}
 
-  = render :partial => 'sidebar', :locals => {:collaborators => collaborators}
+  = render :partial => 'sidebar', :locals => {:collaborators => collaborators, :show_popup => true}
 .clear

@@ -35,10 +35,11 @@
 //= require jquery.history.js
 
 function showHideNotice(type,message){
+  $(".notice").remove();
   $('body').append('<div class="flash_' + type + ' notice">' + message + '</div>');
   setTimeout(function(){
     $(".notice").remove();
-  }, 7000);
+  }, 5000);
 }
 
 function hideNotice(){

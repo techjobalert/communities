@@ -22,7 +22,7 @@ class Item < ActiveRecord::Base
   scope :paid, where("price != 0")
   scope :free, where(:price => 0 )
 
-  default_scope where("state <> 'archived'").order("created_at DESC")
+  default_scope where("state <> 'archived'")
 
   # Handlers
   before_create  :add_to_contributors
