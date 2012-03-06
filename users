@@ -1,0 +1,118 @@
+        new_admin_user_session GET        /admin/login(.:format)                                 active_admin/devise/sessions#new
+            admin_user_session POST       /admin/login(.:format)                                 active_admin/devise/sessions#create
+    destroy_admin_user_session DELETE|GET /admin/logout(.:format)                                active_admin/devise/sessions#destroy
+           admin_user_password POST       /admin/password(.:format)                              active_admin/devise/passwords#create
+       new_admin_user_password GET        /admin/password/new(.:format)                          active_admin/devise/passwords#new
+      edit_admin_user_password GET        /admin/password/edit(.:format)                         active_admin/devise/passwords#edit
+                               PUT        /admin/password(.:format)                              active_admin/devise/passwords#update
+               admin_dashboard            /admin(.:format)                                       admin/dashboard#index
+                   admin_users GET        /admin/users(.:format)                                 admin/users#index
+                               POST       /admin/users(.:format)                                 admin/users#create
+                new_admin_user GET        /admin/users/new(.:format)                             admin/users#new
+               edit_admin_user GET        /admin/users/:id/edit(.:format)                        admin/users#edit
+                    admin_user GET        /admin/users/:id(.:format)                             admin/users#show
+                               PUT        /admin/users/:id(.:format)                             admin/users#update
+                               DELETE     /admin/users/:id(.:format)                             admin/users#destroy
+                   admin_items GET        /admin/items(.:format)                                 admin/items#index
+                               POST       /admin/items(.:format)                                 admin/items#create
+                new_admin_item GET        /admin/items/new(.:format)                             admin/items#new
+               edit_admin_item GET        /admin/items/:id/edit(.:format)                        admin/items#edit
+                    admin_item GET        /admin/items/:id(.:format)                             admin/items#show
+                               PUT        /admin/items/:id(.:format)                             admin/items#update
+                               DELETE     /admin/items/:id(.:format)                             admin/items#destroy
+                admin_settings GET        /admin/settings(.:format)                              admin/settings#index
+                               POST       /admin/settings(.:format)                              admin/settings#create
+             new_admin_setting GET        /admin/settings/new(.:format)                          admin/settings#new
+            edit_admin_setting GET        /admin/settings/:id/edit(.:format)                     admin/settings#edit
+                 admin_setting GET        /admin/settings/:id(.:format)                          admin/settings#show
+                               PUT        /admin/settings/:id(.:format)                          admin/settings#update
+                               DELETE     /admin/settings/:id(.:format)                          admin/settings#destroy
+                admin_comments GET        /admin/comments(.:format)                              admin/comments#index
+                               POST       /admin/comments(.:format)                              admin/comments#create
+             new_admin_comment GET        /admin/comments/new(.:format)                          admin/comments#new
+            edit_admin_comment GET        /admin/comments/:id/edit(.:format)                     admin/comments#edit
+                 admin_comment GET        /admin/comments/:id(.:format)                          admin/comments#show
+                               PUT        /admin/comments/:id(.:format)                          admin/comments#update
+                               DELETE     /admin/comments/:id(.:format)                          admin/comments#destroy
+                imperavi_rails            /imperavi                                              ImperaviRails::Engine
+              new_user_session GET        /users/sign_in(.:format)                               sessions#new
+                  user_session POST       /users/sign_in(.:format)                               sessions#create
+          destroy_user_session DELETE     /users/sign_out(.:format)                              sessions#destroy
+                 user_password POST       /users/password(.:format)                              devise/passwords#create
+             new_user_password GET        /users/password/new(.:format)                          devise/passwords#new
+            edit_user_password GET        /users/password/edit(.:format)                         devise/passwords#edit
+                               PUT        /users/password(.:format)                              devise/passwords#update
+      cancel_user_registration GET        /users/cancel(.:format)                                registrations#cancel
+             user_registration POST       /users(.:format)                                       registrations#create
+         new_user_registration GET        /users/sign_up(.:format)                               registrations#new
+        edit_user_registration GET        /users/edit(.:format)                                  registrations#edit
+                               PUT        /users(.:format)                                       registrations#update
+                               DELETE     /users(.:format)                                       registrations#destroy
+             user_confirmation POST       /users/confirmation(.:format)                          devise/confirmations#create
+         new_user_confirmation GET        /users/confirmation/new(.:format)                      devise/confirmations#new
+                               GET        /users/confirmation(.:format)                          devise/confirmations#show
+                  user_confirm            /confirm/:confirmation_token(.:format)                 devise/confirmations#show {:only_path=>false}
+          item_comment_vote_up GET        /items/:item_id/comments/:comment_id/vote_up(.:format) comments#vote_up
+                 item_comments GET        /items/:item_id/comments(.:format)                     comments#index
+                               POST       /items/:item_id/comments(.:format)                     comments#create
+              new_item_comment GET        /items/:item_id/comments/new(.:format)                 comments#new
+             edit_item_comment GET        /items/:item_id/comments/:id/edit(.:format)            comments#edit
+                  item_comment GET        /items/:item_id/comments/:id(.:format)                 comments#show
+                               PUT        /items/:item_id/comments/:id(.:format)                 comments#update
+                               DELETE     /items/:item_id/comments/:id(.:format)                 comments#destroy
+                   item_follow POST       /items/:item_id/follow(.:format)                       items#follow
+                 item_unfollow DELETE     /items/:item_id/unfollow(.:format)                     items#unfollow
+                   item_delete DELETE     /items/:item_id/delete(.:format)                       items#delete
+                         items GET        /items(.:format)                                       items#index
+                               POST       /items(.:format)                                       items#create
+                      new_item GET        /items/new(.:format)                                   items#new
+                     edit_item GET        /items/:id/edit(.:format)                              items#edit
+                          item GET        /items/:id(.:format)                                   items#show
+                               PUT        /items/:id(.:format)                                   items#update
+                               DELETE     /items/:id(.:format)                                   items#destroy
+            user_upload_avatar POST       /users/:user_id/upload_avatar(.:format)                users#upload_avatar
+                   user_follow POST       /users/:user_id/follow(.:format)                       users#follow
+             user_send_message POST       /users/:user_id/send_message(.:format)                 users#send_message
+user_send_message_to_followers POST       /users/:user_id/send_message_to_followers(.:format)    users#send_message_to_followers
+                 user_unfollow DELETE     /users/:user_id/unfollow(.:format)                     users#unfollow
+                         users GET        /users(.:format)                                       users#index
+                               POST       /users(.:format)                                       users#create
+                     edit_user GET        /users/:id/settings(.:format)                          users#edit
+                          user GET        /users/:id(.:format)                                   users#show
+                               PUT        /users/:id(.:format)                                   users#update
+                  pay_accounts POST       /pay_accounts(.:format)                                pay_accounts#create
+                   pay_account PUT        /pay_accounts/:id(.:format)                            pay_accounts#update
+                     moderator GET        /moderator(.:format)                                   moderator#items
+                moderator_item GET        /moderator/items/:id(.:format)                         moderator#item_show
+        confirm_moderator_item GET        /moderator/items/:id/confirm(.:format)                 moderator#item_publish
+           deny_moderator_item DELETE     /moderator/items/:id/deny(.:format)                    moderator#item_deny
+            moderator_comments GET        /moderator/comments(.:format)                          moderator#comments
+     confirm_moderator_comment GET        /moderator/comments/:id/confirm(.:format)              moderator#comment_publish
+        deny_moderator_comment DELETE     /moderator/comments/:id/deny(.:format)                 moderator#comment_deny
+                 items_account GET        /account/items(.:format)                               account#items
+              purchase_account GET        /account/purchase(.:format)                            account#purchase
+         payments_info_account GET        /account/payments_info(.:format)                       account#payments_info
+       purchased_items_account GET        /account/purchased_items(.:format)                     account#purchased_items
+                        search            /search(.:format)                                      search#index
+                                          /search/qsearch-item(.:format)                         search#qsearch_item
+                                          /search/qsearch-user(.:format)                         search#qsearch_user
+               captcha_refresh            /captcha_refresh(.:format)                             home#new_captcha
+             upload_file_index POST       /file/upload(.:format)                                 file#upload_psource
+   converted_pvideo_file_index GET        /file/converted_pvideo(.:format)                       file#converted_pvideo
+        webrecorder_file_index GET        /file/webrecorder(.:format)                            file#webrecorder
+                               POST       /file/convert/:name(.:format)                          file#convert {:name=>/.*/}
+              merge_file_index POST       /file/merge(.:format)                                  file#merge
+                    file_index GET        /file(.:format)                                        file#index
+                          root            /                                                      home#index
+
+Routes for ImperaviRails::Engine:
+      file GET /file(.:format)           imperavi_rails/imperavi#file
+ file_edit GET /file_edit(.:format)      imperavi_rails/imperavi#file_edit
+     image GET /image(.:format)          imperavi_rails/imperavi#image
+image_edit GET /image_edit(.:format)     imperavi_rails/imperavi#image_edit
+      link GET /link(.:format)           imperavi_rails/imperavi#link
+     table GET /table(.:format)          imperavi_rails/imperavi#table
+     video GET /video(.:format)          imperavi_rails/imperavi#video
+   toolbar GET /toolbar/:type(.:format)  imperavi_rails/imperavi#toolbar
+  language GET /language/:lang(.:format) imperavi_rails/imperavi#language
+  typograf GET /typograf(.:format)       imperavi_rails/imperavi#typograf

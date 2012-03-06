@@ -87,4 +87,9 @@ class User < ActiveRecord::Base
       JOIN contributions as A ON (B.item_id = A.item_id)
       WHERE A.contributor_id = #{user.id} GROUP BY B.contributor_id"
   end
+  
+  def role?(name)
+    role == name
+  end
+
 end

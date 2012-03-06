@@ -501,6 +501,7 @@ h3 {
         display: block;
         text-decoration: none;
         color: #424242;
+        overflow: hidden;
       }
     }
   }
@@ -770,6 +771,7 @@ h3 {
   p {
     line-height: 18px;
     padding: 0px 20px;
+    overflow: hidden;
   }
 
   .tools {

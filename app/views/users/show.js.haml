@@ -2,7 +2,15 @@
   - when "popup"
     $(".popup-user-#{@user.id}").html("#{escape_javascript(render :partial => 'popup', :locals => {:user => @user, :collaborators => @collaborators})}");
 
-  - when "profile"
+  - when "public"
+    $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators})}");
+    $(".main-content .navigation a").removeClass("selected");
+    - if @user == current_user
+      $(".tab-public").addClass("selected");      
+    - else
+      $(".tab-collegues").addClass("selected");
+
+  - else
     $(".main-content .navigation a").removeClass("selected");
     - if @user == current_user
       $(".tab-profile").addClass("selected");
@@ -12,14 +20,6 @@
       $(".tab-collegues").addClass("selected");
       $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators})}");
       
-
-  - else
-    $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators})}");
-    $(".main-content .navigation a").removeClass("selected");
-    - if @user == current_user
-      $(".tab-public").addClass("selected");      
-    - else
-      $(".tab-collegues").addClass("selected");
       
 - unless @user == current_user      
   redactor = $('#message_body').redactor({"paths":{"stylesheets":["/assets/imperavi-rails/imperavi/wym.css"],"toolbar":"/imperavi/toolbar/mini.js","language":"/imperavi/language/en.js","typograf":"/imperavi/typograf","dialogs":{"file":"/imperavi/file","fileEdit":"/imperavi/file_edit","image":"/imperavi/image","imageEdit":"/imperavi/image_edit","link":"/imperavi/link","table":"/imperavi/table","video":"/imperavi/video"},"images":{"upload":"","download":"","list":""},"files":{"upload":"","download":"","remove":""}},"lang":"en","toolbar":"mini"});
