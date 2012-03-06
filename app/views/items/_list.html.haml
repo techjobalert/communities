@@ -13,20 +13,19 @@
           Presentations
     .filter{:class=> ('stand-alone' if current_user.nil?)}
       .field
-        .tags
-          .label Sort by
-          .filter-form
-            = form_for "", :url => root_path, :remote => true, :method => :get do |f|
-              = f.select "views", options_for_select(['Any Viewed','More Viewed', 'Less Viewed'], 'More Viewed')
+        = form_for "", :url => search_items_path, :remote => true, :method => :get do |f|
+          .tags
+            .label Sort by
+            .filter-form
+              = f.select "views", options_for_select(['Any Viewed','More Viewed', 'Less Viewed'])
               = f.select "length", options_for_select(['Any Length'])
               = f.select "date", options_for_select(['Any Date','Today', '1 Week', '1 Month', '1 Year'])
-              = f.select "price", options_for_select(['Any','Free', 'Paid'])
+              = f.select "price", options_for_select(['Free/Paid','Free', 'Paid'])
               = f.hidden_field "filter_type", :value => "basic"
-          .clear
-        .search
-          = form_tag root_path, :remote => true, :method => :get do
-            = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
-            = submit_tag 'Go', :class => 'dark-button'
+            .clear
+          .search
+            = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
+            = f.submit 'Go', :class => 'dark-button'
 
         .clear
     .clear
@@ -34,15 +33,15 @@
     .list-content
       = render :partial => "items/basic_list", :locals => {:items => items}
 
-:javascript
+// :javascript
 
-  $("#qsearch").autocomplete({
-    source: "/search/qsearch-item",
-    minLength: 3,
-    width: 100,
-    select: function(event, ui) {
-      return window.location.assign(ui.item.url);
-    }
-    }).data("autocomplete")._renderItem = function(ul, item) {
-      return $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo(ul);
-    };
+//   $("#qsearch").autocomplete({
+//     source: "/search/qsearch-item",
+//     minLength: 3,
+//     width: 100,
+//     select: function(event, ui) {
+//       return window.location.assign(ui.item.url);
+//     }
+//     }).data("autocomplete")._renderItem = function(ul, item) {
+//       return $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo(ul);
+//     };

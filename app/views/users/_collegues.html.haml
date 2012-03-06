@@ -24,10 +24,9 @@
         Patients
     .filter.account
       .field
-        .tags
-          .label Filter by
-          = form_for '/' do |f|
-            = hidden_field_tag "filter_type" , "#{@tab}"
+        = form_for "", :url => search_users_path, :remote => true, :method => :get do |f|
+          .tags
+            .label Filter by
             -if @tab != 'patients'
               = f.select "", ['Degree','Degree']
               = f.select "", ['Location','Location']
@@ -36,13 +35,12 @@
             - elsif @tab == 'patients'
               = f.select "", ['Location','Location']
 
+            .clear
+          .search
+            = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
+            = f.hidden_field "filter_type" , :value => "#{@tab}"
+            = f.submit 'Go', :class => 'dark-button'
           .clear
-        .search
-          = form_tag root_path, :remote => true, :method => :get do
-            = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
-            = hidden_field_tag "filter_type" , "#{@tab}"
-            = submit_tag 'Go', :class => 'dark-button'
-        .clear
     .clear
     .list-content
       = render :partial => "collegues_list", :locals => {:users => @users}
@@ -77,14 +75,3 @@
       $( "#send-message" ).dialog( "open" );
       return false;
     });
-
-  $("#qsearch").autocomplete({
-    source: "/search/qsearch-user",
-    minLength: 3,
-    width: 100,
-    select: function(event, ui) {
-      return window.location.assign(ui.item.url);
-    }
-    }).data("autocomplete")._renderItem = function(ul, item) {
-      return $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.full_name + "</a>").appendTo(ul);
-    };

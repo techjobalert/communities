@@ -22,7 +22,6 @@ def qsearch_item
   def qsearch_user
     @search_results = qsearch_base(params[:term], User)
     @search_results.map! do |user|
-      p user
       {
         :full_name => user.full_name.truncate(40, :separator => ' '),
         # :content => user.specialization.truncate(50, :separator => ' '),
@@ -33,7 +32,7 @@ def qsearch_item
   end
 
   private
-  def qsearch_base(term, klasses)
+  def qsearch_base(term, klass)
     _params = {
       SearchParams.query_param => term,
       SearchParams.page_param => 1,

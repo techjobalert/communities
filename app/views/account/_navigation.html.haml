@@ -19,21 +19,19 @@
     Info
 .filter.account
   .field
-    .tags
-      .label Filter by
-      .filter-form
-        = form_for "", :url => root_path, :remote => true, :method => :get do |f|
-          = f.select "views", options_for_select(['Any Viewed','More Viewed', 'Less Viewed'], 'More Viewed')
+    = form_for "", :url => search_items_path, :remote => true, :method => :get do |f|
+      .tags
+        .label Filter by
+        .filter-form
+          = f.select "views", options_for_select(['Any Viewed','More Viewed', 'Less Viewed'])
           = f.select "length", options_for_select(['Any Length'])
           = f.select "date", options_for_select(['Any Date','Today', '1 Week', '1 Month', '1 Year'])
-          = f.select "price", options_for_select(['Any','Free', 'Paid'])
-          = f.hidden_field "filter_type", :value => "account"
-      .clear
-    .search
-      = form_tag root_path, :remote => true, :method => :get do
-        = text_field_tag "q", nil, :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
-        = hidden_field_tag "filter_type", "account"
-        = submit_tag 'Go', :class => 'dark-button'
+          = f.select "price", options_for_select(['Free/Paid','Free', 'Paid'])
+        .clear
+      .search
+        = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
+        = f.hidden_field "filter_type", :value => "account"
+        = f.submit 'Go', :class => 'dark-button'
 
     .clear
 .clear

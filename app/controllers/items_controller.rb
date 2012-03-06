@@ -1,5 +1,5 @@
 class ItemsController < InheritedResources::Base
-  before_filter :authenticate_user!, :except => [:show, :index]
+  before_filter :authenticate_user!, :except => [:show, :index, :search]
   before_filter :get_item, :except => [:index, :new, :create]
   load_and_authorize_resource
 
@@ -10,19 +10,13 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
-      #TODO: create with Sphinx search
-      # @items = Item.search(
-      #   :with_all => {
-      #     :tag_ids => @item.tags.collect(&:id),
-      #     :title => @item.title
-      #   }
       @items = Item.except(@item).where('title LIKE ? ', "%#{@item.title}%")
       @items = @items.tagged_with(@item.tag_list,:any => true).page params[:page]
     end
   end
 
   def index
-    @items = Item.state_is("published").page params[:page]
+    @items = Item.published.order("created_at DESC").page params[:page]
   end
 
   def new
@@ -84,6 +78,12 @@ class ItemsController < InheritedResources::Base
     end
 
     redirect_to(items_account_path(:notice => notice))
+  end
+
+  def search
+    params[:current_user_id] = current_user.id
+    @items = Item.search(params)
+    @render_items = params[:filter_type]
   end
 
   protected

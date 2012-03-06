@@ -19,6 +19,7 @@ Orthodontic::Application.routes.draw do
     post "follow"
     delete "unfollow"
     delete "delete"
+    get "search", :on => :collection
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
@@ -27,6 +28,7 @@ Orthodontic::Application.routes.draw do
     post "send_message"
     post "send_message_to_followers"
     delete "unfollow"
+    get "search", :on => :collection
   end
 
   resources :pay_accounts, :only => [:create, :update]

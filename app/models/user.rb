@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
@@ -11,9 +14,8 @@ class User < ActiveRecord::Base
                   :full_name, :profession_and_degree, :role, :avatar, :specialization,
                   :birthday, :following_me, :following_published, :added_as_author,
                   :following_item,  :commented_item, :recommended_comment,
-                  :following_bought_item, :item_changes, :educations, 
+                  :following_bought_item, :item_changes, :educations,
                   :educations_attributes, :admin
-
 
   acts_as_followable
   acts_as_follower
@@ -73,18 +75,29 @@ class User < ActiveRecord::Base
 
   scope :role_is, lambda {|role| where(:role => role)}
 
-  define_index do
-    indexes full_name, :sortable => true
-    indexes specialization, :sortable => true
-    has created_at, updated_at
-    set_property :enable_star => true
-    set_property :min_infix_len => 1
-  end
-
   def self.collaborators user
     find_by_sql "SELECT C.* FROM users as C
       JOIN contributions as B ON (C.id = B.contributor_id AND C.id <> #{user.id})
       JOIN contributions as A ON (B.item_id = A.item_id)
       WHERE A.contributor_id = #{user.id} GROUP BY B.contributor_id"
   end
+
+  def self.paginate(options = {})
+    page(options[:page]).per(options[:per_page])
+  end
+
+  # SEARCH
+
+  def self.search(params)
+    per_page = params[:per_page]? params[:per_page] : 3
+    tire.search(page: params[:page], per_page: per_page, load: true) do
+      query do
+        boolean do
+          must { string "*"+params[:q]+"*", default_operator: "AND" }
+          # must { term :user_id, params[:current_user_id] } if params[:current_user_id].present?
+        end
+      end
+    end
+  end
+
 end

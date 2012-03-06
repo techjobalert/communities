@@ -152,4 +152,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def search
+    _users = User.search(params)
+    ids = case params[:filter_type]
+    when "following"
+      current_user.following_by_type('User').map{|x| x.id}
+    when "published_together"
+      User.collaborators(current_user).map{|f| f.id}
+    when "followers"
+      current_user.followers.select { |f| f.role == 'doctor'}.map{|f| f.id}
+    when "patients"
+      current_user.followers.map {|f| f.id if f.role=="patient"}
+    end
+    @users = _users.select {|u| u.id.in? ids }
+  end
+
 end
