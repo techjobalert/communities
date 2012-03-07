@@ -2,7 +2,7 @@
   = link_to '', root_path, :class => 'logo'
   .search
     = form_for "", :url => search_items_path, :remote => true, :method => :get do |f|
-      = f.text_field SearchParams.query_param, :placeholder => 'Search for presentations, articles & movies', :class => 'text-input', :id => "main-search"
+      = f.text_field "q", :value => params[:q], :placeholder => 'Search for presentations, articles & movies', :class => 'text-input', :id => "main-search"
       = f.hidden_field "filter_type", :value => "basic"
       = f.submit 'Search', :class => 'dark-button'
   - if can? :create, Item
