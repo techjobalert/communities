@@ -1,0 +1,19 @@
+%h2= "Dear, #{@to_user.full_name}!"
+
+- unless @message_text.blank?
+  %p
+    Publishing of your
+    %i= "\"#{@item_title}\""
+    has been denied.
+  %p
+    %strong Deny reason:
+    %br
+    = raw(@message_text)
+- else
+  %p
+    Your
+    %i= "\"#{@item_title}\""
+    has been published"
+
+%p
+  %i Email created and sended #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}

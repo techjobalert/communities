@@ -37,7 +37,7 @@ Orthodontic::Application.routes.draw do
   get     'moderator'                      => 'moderator#items'
   get     'moderator/items/:id'            => 'moderator#item_show',        :as => :moderator_item
   get     'moderator/items/:id/confirm'    => 'moderator#item_publish',     :as => :confirm_moderator_item
-  get     'moderator/items/:id/deny'       => 'moderator#item_deny',        :as => :deny_moderator_item
+  post    'moderator/items/:id/deny'       => 'moderator#item_deny',        :as => :deny_moderator_item
   get     'moderator/comments'             => 'moderator#comments',         :as => :moderator_comments
   get     'moderator/comments/:id/confirm' => 'moderator#comment_publish',  :as => :confirm_moderator_comment
   get     'moderator/comments/:id/deny'    => 'moderator#comment_deny',     :as => :deny_moderator_comment

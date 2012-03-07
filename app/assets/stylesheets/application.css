@@ -6,12 +6,10 @@
  *= require normalize
  *= require main
  *= require pages
- *= require file
- *= require home
  *= require items
  *= require jquery-ui
  *= require users
- 
+
  *= require jquery.fileupload-ui
  *= require video-js
  *= require webrecorder

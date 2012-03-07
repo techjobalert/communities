@@ -12,21 +12,38 @@ class ModeratorController < ApplicationController
   def item_show
   end
 
-  def item_publish    
-    if @item.publish
-      notice = {:type => 'notice', :message => "Item is confirmed"}
+  def item_publish
+    options = params[:message] = {:receiver_id => @item.user_id, :title => @item.title}
+
+    @message = Message.new(options, params)
+
+    if @message.save and @item.publish
+      notice = {:type => 'notice',
+        :message => "Item is confirmed. Message was successfully sended."}
+      Resque.enqueue(SendModerationMessage, @message.id)
     else
-      notice = {:type => 'error', :message => "Some error."}
+      notice = {:type => 'error',:message => "Error. Message not created."}
     end
 
     redirect_to(moderator_path(:notice => notice))
   end
 
   def item_deny
-    if @item.deny
-      notice = {:type => 'notice', :message => "Item is denied"}
+
+    options = params[:message].merge!({:receiver_id => @item.user_id, :title => @item.title})
+
+    @message = Message.new(options, params)
+
+    if params[:message].blank? || params[:message][:body].blank?
+      notice = {:type => 'error', :message => "Message text can't be blank."}
     else
-      notice = {:type => 'error', :message => "Some error."}
+      if @message.save and @item.deny
+        notice = {:type => 'notice',
+          :message => "Item is denied. Message was successfully sended."}
+        Resque.enqueue(SendModerationMessage, @message.id)
+      else
+        notice = {:type => 'error',:message => "Error. Message not created."}
+      end
     end
 
     redirect_to(moderator_path(:notice => notice))
@@ -37,7 +54,7 @@ class ModeratorController < ApplicationController
     @notice = params[:notice]
   end
 
-  def comment_publish    
+  def comment_publish
     if @comment.publish
       notice = {:type => 'notice', :message => "Comment is confirmed"}
     else

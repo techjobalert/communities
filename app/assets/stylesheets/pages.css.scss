@@ -1079,7 +1079,7 @@
   .b-admin-content-tools {
     padding: 20px;
     
-    a {
+    a, input[type="submit"] {
       display: inline-block;
       font-size: 18px;
       padding: 4px 0;
