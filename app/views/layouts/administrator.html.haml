@@ -5,6 +5,7 @@
     = stylesheet_link_tag "application", :debug => Rails.env.development?
     = javascript_include_tag "application", :debug => Rails.env.development?
     = csrf_meta_tags
+    %meta{"http-equiv" => "X-UA-Compatible", "content" => "IE=9"}
   %body
     = render :partial => "layouts/ie_fix", :inline => true
 
