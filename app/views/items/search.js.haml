@@ -6,6 +6,7 @@
   - @tmp_folder ||= @render_items == "basic" ? "items" : "account"
 
   -if @filter_location == "main"
+    - @render_items = nil
     $(".main-content .navigation a").removeClass("selected");
     $(".tab-home").addClass("selected");
 
