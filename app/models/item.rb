@@ -84,6 +84,8 @@ class Item < ActiveRecord::Base
     indexes :user_name
     indexes :title
     indexes :description,   analyzer: 'snowball'
+    indexes :tags
+    indexes :tag_list
     indexes :created_at,    type: 'date'
     indexes :views_count,   type: 'integer'
     indexes :created_at,    :type => 'date', :include_in_all => false
@@ -91,11 +93,14 @@ class Item < ActiveRecord::Base
 
   # self.include_root_in_json = false (necessary before Rails 3.1)
   def to_indexed_json
-    to_json(methods: [:user_name])
+    to_json(methods: [:user_name, :tags])
   end
 
   def user_name
-    user.full_name
+    user.full_name if user
+  end
+  def tags
+    tag_list
   end
 
   def self.parse_params(params)
