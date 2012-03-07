@@ -96,7 +96,7 @@ $ ->
   msearch = $("#main-search")
   if msearch.length
     msearch.autocomplete(
-      source: "/search/qsearch-item"
+      source: "/items/qsearch"
       minLength: 3
       width: 100
       select: (event, ui) ->

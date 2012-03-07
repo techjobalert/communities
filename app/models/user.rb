@@ -89,8 +89,9 @@ class User < ActiveRecord::Base
   # SEARCH
 
   def self.search(params)
+    params[:load] ||= true
     per_page = params[:per_page]? params[:per_page] : 3
-    tire.search(page: params[:page], per_page: per_page, load: true) do
+    tire.search(page: params[:page], per_page: per_page, load: params[:load]) do
       query do
         boolean do
           must { string "*"+params[:q]+"*", default_operator: "AND" }
