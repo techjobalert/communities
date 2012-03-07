@@ -9,7 +9,7 @@
     $(".main-content .navigation a").removeClass("selected");
     $(".tab-home").addClass("selected");
 
-  $("#ajax-main-container .list-content").html('#{escape_javascript(render :partial => "#{@tmp_folder}/#{@render_items}_list", :locals => {:items => @items} )}');
+  def_selector.html('#{escape_javascript(render :partial => "#{@tmp_folder}/#{@render_items}_list", :locals => {:items => @items} )}');
 -else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
   $(".main-content .navigation a").removeClass("selected");
