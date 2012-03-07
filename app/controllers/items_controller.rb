@@ -30,7 +30,7 @@ class ItemsController < InheritedResources::Base
   def update
     @item.moderate
     if @item.update_attributes params[:item]
-      @notice = {:type => "notice", :message => "successfull"}
+      @notice = {:type => "notice", :message => "Item is updated"}
     else
       @notice = {:type => "error", :message => "error"}
     end
@@ -41,7 +41,7 @@ class ItemsController < InheritedResources::Base
   def create
     params[:item]['user_id'] = current_user.id
     @item = Item.new(params[:item])
-    @notice = @item.save ? {:type => 'notice', :message => "successfully"}
+    @notice = @item.save ? {:type => 'notice', :message => "Item is created"}
       : {:type => 'error', :message => "Some error."}
   end
 
@@ -72,7 +72,7 @@ class ItemsController < InheritedResources::Base
 
   def destroy
     if  @item.archive
-      notice = {:type => 'notice', :message => "successfully"}
+      notice = {:type => 'notice', :message => "Item is deleted"}
     else
       notice = {:type => 'error', :message => "Some error."}
     end

@@ -6,33 +6,55 @@ class ModeratorController < ApplicationController
 
   def items
     @items = Item.state_is("moderated").page(params[:page]).per(3)
+    @notice = params[:notice]
   end
 
   def item_show
   end
 
-  def item_publish
-    @item.publish
-    redirect_to moderator_path
+  def item_publish    
+    if @item.publish
+      notice = {:type => 'notice', :message => "Item is confirmed"}
+    else
+      notice = {:type => 'error', :message => "Some error."}
+    end
+
+    redirect_to(moderator_path(:notice => notice))
   end
 
   def item_deny
-    @item.deny
-    redirect_to moderator_path
+    if @item.deny
+      notice = {:type => 'notice', :message => "Item is denied"}
+    else
+      notice = {:type => 'error', :message => "Some error."}
+    end
+
+    redirect_to(moderator_path(:notice => notice))
   end
 
   def comments
     @comments = Comment.state_is("moderated").page(params[:page]).per(20)
+    @notice = params[:notice]
   end
 
-  def comment_publish
-    @comment.publish
-    redirect_to moderator_comments_path
+  def comment_publish    
+    if @comment.publish
+      notice = {:type => 'notice', :message => "Comment is confirmed"}
+    else
+      notice = {:type => 'error', :message => "Some error."}
+    end
+
+    redirect_to(moderator_comments_path(:notice => notice))
   end
 
   def comment_deny
-    @comment.destroy
-    redirect_to moderator_comments_path
+    if @comment.destroy
+      notice = {:type => 'notice', :message => "Comment is denied"}
+    else
+      notice = {:type => 'error', :message => "Some error."}
+    end
+
+    redirect_to(moderator_comments_path(:notice => notice))
   end
 
   protected
