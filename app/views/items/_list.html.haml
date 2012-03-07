@@ -32,16 +32,3 @@
 
     .list-content
       = render :partial => "items/basic_list", :locals => {:items => items}
-
-// :javascript
-
-//   $("#qsearch").autocomplete({
-//     source: "/search/qsearch-item",
-//     minLength: 3,
-//     width: 100,
-//     select: function(event, ui) {
-//       return window.location.assign(ui.item.url);
-//     }
-//     }).data("autocomplete")._renderItem = function(ul, item) {
-//       return $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo(ul);
-//     };

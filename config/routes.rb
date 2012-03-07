@@ -20,6 +20,7 @@ Orthodontic::Application.routes.draw do
     delete "unfollow"
     delete "delete"
     get "search", :on => :collection
+    get "qsearch", :on => :collection
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do

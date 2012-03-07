@@ -110,8 +110,9 @@ class Item < ActiveRecord::Base
   end
   def self.search(params)
     options = parse_params(params)
+    params[:load] ||= false
     per_page = params[:per_page]? params[:per_page] : 3
-    tire.search(page: params[:page], per_page: per_page) do
+    tire.search(page: params[:page], per_page: per_page, load: params[:load]) do
       query do
         boolean do
           must { string "*"+params[:q]+"*", default_operator: "AND" } if params[:q].present?
@@ -126,6 +127,7 @@ class Item < ActiveRecord::Base
         end
       end
       sort { by :views_count, options[:views] }
+      sort { by :created_at, "desc" }
 
       # facet "authors" do
       #   terms :author_id

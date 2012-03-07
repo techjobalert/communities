@@ -1,5 +1,5 @@
 class ItemsController < InheritedResources::Base
-  before_filter :authenticate_user!, :except => [:show, :index, :search]
+  before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch]
   before_filter :get_item, :except => [:index, :new, :create]
   load_and_authorize_resource
 
@@ -84,6 +84,19 @@ class ItemsController < InheritedResources::Base
     params[:current_user_id] = current_user.id
     @items = Item.search(params)
     @render_items = params[:filter_type]
+  end
+
+  def qsearch
+    params[:load] = true
+    @search_results = Item.search(params)
+    @search_results.map! do |item|
+      {
+        :title => item.title.truncate(40, :separator => ' '),
+        :content => item.description.truncate(50, :separator => ' '),
+        :url => polymorphic_path(item)
+      }
+    end
+    render :json => @search_results
   end
 
   protected
