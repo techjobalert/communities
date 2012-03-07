@@ -16,63 +16,62 @@
         = render :partial => "layouts/header_auth", :inline => true
     .clear
     .section.center
-      - if current_user.present?
-        .section.center
-          .wrapper
-            .main-content
-              .user-info
-                = image_tag current_user.avatar_url(:thumb_70), :alt => "#{current_user.full_name}", :id => "popup-user-#{current_user.id}", :class => "popup-user-info my-thumb_70"
-                %span.title= current_user.full_name
-              .light-button.sale
-                Our Ordothontics Sale
-                %span
-              .clear
-              .navigation
-                %ul
-                  %li
-                    = link_to root_path, :remote => :true, :class => "tab-home #{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
-                      HOME
-                      %span bla bla bla
+      - if current_user.present?        
+        .wrapper
+          .main-content
+            .user-info
+              = image_tag current_user.avatar_url(:thumb_70), :alt => "#{current_user.full_name}", :id => "popup-user-#{current_user.id}", :class => "popup-user-info my-thumb_70"
+              %span.title= current_user.full_name
+            .light-button.sale
+              Our Ordothontics Sale
+              %span
+            .clear
+            .navigation
+              %ul
+                %li
+                  = link_to root_path, :remote => :true, :class => "tab-home #{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
+                    HOME
+                    %span bla bla bla
 
-                  %li
-                    = link_to '#', :class => "tab-item #{ 'selected' if params[:controller] == 'items' }", :onClick => "return false;" do
-                      ITEM
-                      %span bla bla bla
+                %li
+                  = link_to '#', :class => "tab-item #{ 'selected' if params[:controller] == 'items' }", :onClick => "return false;" do
+                    ITEM
+                    %span bla bla bla
 
-                  %li
-                    = link_to edit_user_path(current_user), :remote => :true, :class => "tab-settings #{'selected' if params[:controller] == 'users' && params[:action] == 'edit'  }" do
-                      SETTINGS
-                      %span bla bla bla
+                %li
+                  = link_to edit_user_path(current_user), :remote => :true, :class => "tab-settings #{'selected' if params[:controller] == 'users' && params[:action] == 'edit'  }" do
+                    SETTINGS
+                    %span bla bla bla
 
-                  %li
-                    = link_to items_account_path(), :remote => :true, :class => "tab-account #{'selected' if params[:controller] == 'account'}" do
-                      ACCOUNT
-                      %span bla bla bla
-                  %li
-                    = link_to user_path(current_user, :type => "public"), :remote => :true, :class => "tab-public #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show' && params[:type] != 'profile'  }" do
-                      PUBLIC
-                      %span bla bla bla
-                  %li
-                    = link_to users_path, :remote => :true, :class => "tab-collegues large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'index'}" do
-                      COLLEGUES
-                      %span bla bla bla
-                  %li
-                    = link_to user_path(current_user), :remote => :true, :class => "tab-profile large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show' && params[:type] == 'profile'  }" do
-                      YOUR PROFILE
-                      %span bla bla bla
+                %li
+                  = link_to items_account_path(), :remote => :true, :class => "tab-account #{'selected' if params[:controller] == 'account'}" do
+                    ACCOUNT
+                    %span bla bla bla
+                %li
+                  = link_to user_path(current_user, :type => "public"), :remote => :true, :class => "tab-public #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show' && params[:type] != 'profile'  }" do
+                    PUBLIC
+                    %span bla bla bla
+                %li
+                  = link_to users_path, :remote => :true, :class => "tab-collegues large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'index'}" do
+                    COLLEGUES
+                    %span bla bla bla
+                %li
+                  = link_to user_path(current_user), :remote => :true, :class => "tab-profile large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show' && params[:type] == 'profile'  }" do
+                    YOUR PROFILE
+                    %span bla bla bla
 
-              .panel#ajax-main-container
-                = yield
+            .panel#ajax-main-container
+              = yield
 
-            .l-settings-navigation
-              - if params[:controller] == 'users' && params[:action] == 'edit'
-                .b-settings-nav
-                  = link_to '#', :class => 'b-settings-nav-bio selected' do
-                    Medical
-                    %span Your medical information
-                  = link_to '#', :class => 'b-settings-nav-notification' do
-                    Notification
-                    %span Email preferences...
+          .l-settings-navigation
+            - if params[:controller] == 'users' && params[:action] == 'edit'
+              .b-settings-nav
+                = link_to '#', :class => 'b-settings-nav-bio selected' do
+                  Medical
+                  %span Your medical information
+                = link_to '#', :class => 'b-settings-nav-notification' do
+                  Notification
+                  %span Email preferences...
 
       - else
         %h1
