@@ -88,8 +88,8 @@ class ItemsController < InheritedResources::Base
 
   def qsearch
     params[:load], params[:q] = true, params[:term]
-    @search_results = Item.search(params)
-    @search_results.map! do |item|
+    results = Item.search(params)
+    @search_results = results.map! do |item|
       {
         :title => item.title.truncate(40, :separator => ' '),
         :content => item.description.truncate(50, :separator => ' '),
