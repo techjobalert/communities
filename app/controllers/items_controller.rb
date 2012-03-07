@@ -87,7 +87,7 @@ class ItemsController < InheritedResources::Base
   end
 
   def qsearch
-    params[:load] = true
+    params[:load], params[:q] = true, params[:term]
     @search_results = Item.search(params)
     @search_results.map! do |item|
       {
