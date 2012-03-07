@@ -82,8 +82,8 @@ class ItemsController < InheritedResources::Base
 
   def search
     params[:current_user_id] = current_user.id
+    @render_items, @filter_location = params[:filter_type], params[:filter_location]
     @items = Item.search(params)
-    @render_items = params[:filter_type]
   end
 
   def qsearch
