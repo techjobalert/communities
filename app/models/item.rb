@@ -76,7 +76,33 @@ class Item < ActiveRecord::Base
   def self.paginate(options = {})
     page(options[:page]).per(options[:per_page])
   end
+
   # SEARCH
+  mapping do
+    indexes :id,            :index    => :not_analyzed
+    indexes :user_id, type: 'integer'
+    indexes :user_name
+    indexes :title
+    indexes :description,   analyzer: 'snowball'
+    indexes :tags
+    indexes :tag_list
+    indexes :created_at,    type: 'date'
+    indexes :views_count,   type: 'integer'
+    indexes :created_at,    :type => 'date', :include_in_all => false
+  end
+
+  # self.include_root_in_json = false (necessary before Rails 3.1)
+  def to_indexed_json
+    to_json(methods: [:user_name, :tags])
+  end
+
+  def user_name
+    user.full_name if user
+  end
+  def tags
+    tag_list
+  end
+
   def self.parse_params(params)
     options = {}
     if params[:date] and not params[:date].include?("Any")
