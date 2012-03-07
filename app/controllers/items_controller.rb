@@ -82,14 +82,14 @@ class ItemsController < InheritedResources::Base
 
   def search
     params[:current_user_id] = current_user.id
+    @render_items, @filter_location = params[:filter_type], params[:filter_location]
     @items = Item.search(params)
-    @render_items = params[:filter_type]
   end
 
   def qsearch
-    params[:load] = true
-    @search_results = Item.search(params)
-    @search_results.map! do |item|
+    params[:load], params[:q] = true, params[:term]
+    results = Item.search(params)
+    @search_results = results.map do |item|
       {
         :title => item.title.truncate(40, :separator => ' '),
         :content => item.description.truncate(50, :separator => ' '),

@@ -1,6 +1,16 @@
 -if @render_items
+  var def_selector = $("#ajax-main-container .list-content")
+
+  !def_selector.length ? def_selector = $("#ajax-main-container") : def_selector
+
   - @tmp_folder ||= @render_items == "basic" ? "items" : "account"
-  $("#ajax-main-container .list-content").html('#{escape_javascript(render :partial => "#{@tmp_folder}/#{@render_items}_list", :locals => {:items => @items} )}');
+  - @render_items = @render_items+"_list"
+  -if @filter_location == "main"
+    - @render_items = "list"
+    $(".main-content .navigation a").removeClass("selected");
+    $(".tab-home").addClass("selected");
+
+  def_selector.html('#{escape_javascript(render :partial => "#{@tmp_folder}/#{@render_items}", :locals => {:items => @items} )}');
 -else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
   $(".main-content .navigation a").removeClass("selected");
