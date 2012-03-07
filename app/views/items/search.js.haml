@@ -6,4 +6,8 @@
   $(".main-content .navigation a").removeClass("selected");
   $(".tab-home").addClass("selected");
 
+-if @filter_location == "main"
+  $(".main-content .navigation a").removeClass("selected");
+  $(".tab-home").addClass("selected");
+
 if (jQuery.placeholder) jQuery.placeholder.shim();
