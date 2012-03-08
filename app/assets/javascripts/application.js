@@ -29,6 +29,7 @@
 //  Misc*
 //= require jquery.html5-placeholder-shim
 //= require imperavi-rails/imperavi
+//= require pjax
 //
 //  History.js
 // require history.js

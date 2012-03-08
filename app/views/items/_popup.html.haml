@@ -28,7 +28,7 @@
       %b.title Keywords
       %br
       - item.tags.each do |tag|
-        = tag.name
+        = tag.is_a?(String) ? tag : tag.name
         |
 
 .tools

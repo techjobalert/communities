@@ -10,8 +10,7 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
-      @items = Item.except(@item).where('title LIKE ? ', "%#{@item.title}%")
-      @items = @items.tagged_with(@item.tag_list,:any => true).page params[:page]
+      @items = Item.search(:q => @item.title, :tags => @item.tag_list)
     end
   end
 
@@ -81,13 +80,13 @@ class ItemsController < InheritedResources::Base
   end
 
   def search
-    params[:current_user_id] = current_user.id
     @render_items, @filter_location = params[:filter_type], params[:filter_location]
+    params[:current_user_id] = current_user.id if @render_items == "account"
     @items = Item.search(params)
   end
 
   def qsearch
-    params[:load], params[:q] = true, params[:term]
+    params[:load], params[:q], params[:per_page] = true, params[:term], 5
     results = Item.search(params)
     @search_results = results.map do |item|
       {

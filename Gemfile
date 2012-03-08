@@ -96,6 +96,5 @@ gem 'formtastic'
 # gem 'has_scope'
 # https://github.com/pluginaweek/state_machine
 gem 'state_machine'
-# https://github.com/karmi/tire
-gem 'tire'
-
+# https://github.com/rails/pjax_rails
+gem 'pjax_rails'

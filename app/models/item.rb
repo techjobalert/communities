@@ -73,22 +73,15 @@ class Item < ActiveRecord::Base
     self.contributors << user
   end
 
-  def self.paginate(options = {})
-    page(options[:page]).per(options[:per_page])
+  def self.paginate(options = {:per_page=>3})
+     page(options[:page]).per(options[:per_page])
   end
 
   # SEARCH
   mapping do
-    indexes :id,            :index    => :not_analyzed
-    indexes :user_id, type: 'integer'
     indexes :user_name
-    indexes :title
-    indexes :description,   analyzer: 'snowball'
     indexes :tags
     indexes :tag_list
-    indexes :created_at,    type: 'date'
-    indexes :views_count,   type: 'integer'
-    indexes :created_at,    :type => 'date', :include_in_all => false
   end
 
   # self.include_root_in_json = false (necessary before Rails 3.1)
@@ -137,8 +130,7 @@ class Item < ActiveRecord::Base
   def self.search(params)
     options = parse_params(params)
     params[:load] ||= false
-    per_page = params[:per_page]? params[:per_page] : 3
-    tire.search(page: params[:page], per_page: per_page, load: params[:load]) do
+    tire.search(:page => (params[:page]||1), :per_page=> (params[:per_page] || 3), load: params[:load]) do
       query do
         boolean do
           must { string "*"+params[:q]+"*", default_operator: "AND" } if params[:q].present?
@@ -149,11 +141,12 @@ class Item < ActiveRecord::Base
             must { term :price, 0 }
           end
           must { range :created_at, from: options[:date] ,to: Time.now}
-          must { term :user_id, params[:current_user_id] } if params[:current_user_id].present?
+          must { term  :user_id, params[:current_user_id] } if params[:current_user_id].present?
+          must { terms :tags, params[:tags]} if params[:tags].present?
         end
       end
       sort { by :views_count, options[:views] }
-      sort { by :created_at, "desc" }
+      # sort { by :created_at, "desc" }
 
       # facet "authors" do
       #   terms :author_id
