@@ -10,12 +10,14 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
-      @items = Item.search(:q => @item.title, :tags => @item.tag_list)
+      @items = Item.search(:q => @item.title, :without_ids => [*@item.id], :with => {:tag_ids => @item.tag_ids}, :page => params[:page], :per_page => 3)
+      # @items = _items.select {|i| i.id != @item.id}
+      p @items
     end
   end
 
   def index
-    @items = Item.state_is("published").order("created_at DESC").page params[:page]
+    @items = Item.state_is("published").order("created_at DESC").page(params[:page])
   end
 
   def new

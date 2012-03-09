@@ -16,8 +16,8 @@ class SearchParams
     options = {:star => true}
     options.merge!(get_sort_options)
     options.merge!(get_paging_options)
+    options.merge!({:classes => [*@gparams[:classes]]})
     if Item.in? [*@gparams[:classes]]
-      options.merge!({:classes => [*@gparams[:classes]]})
       options.merge!(get_item_options(@gparams) )
     end
     ThinkingSphinx.search @query, options

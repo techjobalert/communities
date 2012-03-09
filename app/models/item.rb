@@ -10,7 +10,7 @@ class Item < ActiveRecord::Base
 	acts_as_taggable
   acts_as_followable
 
-  acts_as_taggable_on :keywords
+  paginates_per 3
 
   # Scopes
 
@@ -67,8 +67,6 @@ class Item < ActiveRecord::Base
     end
   end
 
-  paginates_per 3
-
   def add_to_contributors
     self.contributors << user
   end
@@ -79,8 +77,9 @@ class Item < ActiveRecord::Base
     indexes user.full_name,  :as => :author, :facet => true, :sortable => true
     has user_id, created_at, views_count
     has price, :type => :integer
+    has taggings.tag_id, :as => :tag_ids
+    # has "CRC32(tags.name)", :as => :tags, :type => integer
     where "state = 'published'"
-    # where sanitize_sql(["state", "published"])
     set_property :enable_star => true
     set_property :min_infix_len => 1
   end
