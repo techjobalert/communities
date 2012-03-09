@@ -1,8 +1,8 @@
 - if items.present?
   - items.each do |item|
-    .item
+    = link_to item_path(item), :remote => true, :class => "item" do
       .media= image_tag '/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
-      .text= item.description.truncate(200, :separator => " ").capitalize!
+      .text= item.description.truncate(200, :separator => " ")
   .clear
   = paginate items, :remote => true
 

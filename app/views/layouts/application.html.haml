@@ -98,10 +98,4 @@
         $(function(){hideNotice();});
 
     - if user_signed_in?
-      .b-popup-user-info.popup-container{:class => "popup-user-#{current_user.id}"}
-        = render :partial => 'users/popup', :locals => {:user => current_user}
-
-    .hidden.tmp
-      .popup-container
-        .spinner
-        .corner
+      = render :partial => 'users/popup', :locals => {:user => current_user}

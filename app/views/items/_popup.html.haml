@@ -1,54 +1,55 @@
-.container
-  %h3= item.title.capitalize!
+.b-popup-item-info.popup-container{:class => "popup-item-#{item.id}"}
+  .container
+    %h3= item.title
 
-  %p
-    %span.date
-      %b Date
-      = item.created_at.strftime("%d/%m/%y")
-      %b Reads:
-      = item.views_count
-  %p
-    %b.title Summery
-    %br
-    = item.description.truncate(250, :separator => ' ').capitalize!
-
-  .authors
-    - if item.contributors.present?
-      %b.title Authors
-      %ul
-        - item.contributors.each do |contributor|
-          %li
-            = link_to user_path(contributor), :remote => true, :class => "popup-cleaner" do
-              = image_tag contributor.avatar_url(:thumb_45), :width => '45', :height => '45'
-              %br
-              = text_with_br contributor.full_name
-
-  - if item.tags.present?
     %p
-      %b.title Keywords
+      %span.date
+        %b Date
+        = item.created_at.strftime("%d/%m/%y")
+        %b Reads:
+        = item.views_count
+    %p
+      %b.title Summery
       %br
-      - item.tags.each do |tag|
-        = tag.is_a?(String) ? tag : tag.name
-        |
+      = item.description.truncate(250, :separator => ' ')
 
-.tools
-  - if current_user and current_user.following?(item)
-    = link_to item_unfollow_path(item), :remote => true, :method => :delete, :class => "light-button follow-item follow-item-#{item.id} no-history" do
-      Unfollow Item
-      %span
-  - else
-    = link_to item_follow_path(item), :remote => true, :method => :post, :class => "light-button follow-item follow-item-#{item.id} no-history" do
-      Follow Item
-      %span
+    .authors
+      - if item.contributors.present?
+        %b.title Authors
+        %ul
+          - item.contributors.each do |contributor|
+            %li
+              = link_to user_path(contributor), :remote => true, :class => "popup-cleaner" do
+                = image_tag contributor.avatar_url(:thumb_45), :width => '45', :height => '45'
+                %br
+                = text_with_br contributor.full_name
 
-  = link_to item_path(item), :remote => true, :class => 'light-button go-to-article' do
-    Go to Article
-    %span
-  = link_to '#', :class => 'light-button make-pdf' do
-    Make PDF
-    %span
-  %br
-  = link_to '#', :class => 'light-button sell' do
-    %b Sell
-    this item
-.corner
+    - if item.tags.present?
+      %p
+        %b.title Keywords
+        %br
+        - item.tags.each do |tag|
+          = tag.name
+          |
+
+  .tools
+    - if current_user and current_user.following?(item)
+      = link_to item_unfollow_path(item), :remote => true, :method => :delete, :class => "light-button follow-item follow-item-#{item.id} no-history" do
+        Unfollow Item
+        %span
+    - else
+      = link_to item_follow_path(item), :remote => true, :method => :post, :class => "light-button follow-item follow-item-#{item.id} no-history" do
+        Follow Item
+        %span
+
+    = link_to item_path(item), :remote => true, :class => 'light-button go-to-article' do
+      Go to Article
+      %span
+    = link_to '#', :class => 'light-button make-pdf' do
+      Make PDF
+      %span
+    %br
+    = link_to '#', :class => 'light-button sell' do
+      %b Sell
+      this item
+  .corner

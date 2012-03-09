@@ -21,6 +21,7 @@ Orthodontic::Application.routes.draw do
     delete "delete"
     get "search", :on => :collection
     get "qsearch", :on => :collection
+    get "tags", :on => :collection
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
@@ -34,13 +35,13 @@ Orthodontic::Application.routes.draw do
 
   resources :pay_accounts, :only => [:create, :update]
 
-  get     'moderator'                      => 'moderator#items'
-  get     'moderator/items/:id'            => 'moderator#item_show',        :as => :moderator_item
-  get     'moderator/items/:id/confirm'    => 'moderator#item_publish',     :as => :confirm_moderator_item
-  post    'moderator/items/:id/deny'       => 'moderator#item_deny',        :as => :deny_moderator_item
-  get     'moderator/comments'             => 'moderator#comments',         :as => :moderator_comments
-  get     'moderator/comments/:id/confirm' => 'moderator#comment_publish',  :as => :confirm_moderator_comment
-  get     'moderator/comments/:id/deny'    => 'moderator#comment_deny',     :as => :deny_moderator_comment
+  get   'moderator'                      => 'moderator#items'
+  get   'moderator/items/:id'            => 'moderator#item_show',        :as => :moderator_item
+  get   'moderator/items/:id/confirm'    => 'moderator#item_publish',     :as => :confirm_moderator_item
+  post  'moderator/items/:id/deny'       => 'moderator#item_deny',        :as => :deny_moderator_item
+  get   'moderator/comments'             => 'moderator#comments',         :as => :moderator_comments
+  get   'moderator/comments/:id/confirm' => 'moderator#comment_publish',  :as => :confirm_moderator_comment
+  get   'moderator/comments/:id/deny'    => 'moderator#comment_deny',     :as => :deny_moderator_comment
 
   # Account
   match 'account/items'           => 'account#items',           :via => :get, :as => :items_account

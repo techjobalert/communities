@@ -419,11 +419,15 @@
     padding: 20px 20px 0;
 
     h1 {
-      font-weight: normal;
+      float: left;
       font-size: 26px;
-      line-height: 50px;
-      margin: 0px;
+      font-weight: normal;
+      line-height: 32px;
+      margin: 10px 0 14px;
+      overflow: hidden;
+      width: 90%;
     }
+
     .share {
       float: right;
       padding-top: 10px;
@@ -1076,6 +1080,14 @@
         margin: 7px 0px 7px 20px;
         width: 459px;
       }
+    }
+  }
+
+  .b-admin-content-keywords {
+    padding: 20px;
+
+    .keywords-textarea {
+      width: 600px;
     }
   }
 

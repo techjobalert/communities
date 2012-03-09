@@ -1,39 +1,40 @@
-.container
-  .user-info
-    = image_tag user.avatar_url(:thumb_70), :alt => "#{user.full_name}"
-    %span.title= user.full_name
-  - if user != current_user
-    .tools{:class => "tools-user-#{@user.id}"}
-      - if current_user.following?(user)
-        = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id} no-history" do
-          Unfolow
-          %span
-      - else
-        = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id} no-history" do
-          Folow
-          %span
-
-  .panel
-    - unless user.specialization.blank?
-      %p
-        %b Specialization:
-        = user.specialization
-
+.b-popup-user-info.popup-container{:class => "popup-user-#{user.id}"}
+  .container
+    .user-info
+      = image_tag user.avatar_url(:thumb_70), :alt => "#{user.full_name}"
+      %span.title= user.full_name
     - if user != current_user
+      .tools{:class => "tools-user-#{@user.id}"}
+        - if current_user.following?(user)
+          = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id} no-history" do
+            Unfolow
+            %span
+        - else
+          = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id} no-history" do
+            Folow
+            %span
+
+    .panel
+      - unless user.specialization.blank?
+        %p
+          %b Specialization:
+          = user.specialization
+
+      - if user != current_user
+        %p
+          %b Send a massege:
+          you can send a message directly to email about
+          profesional question
+
+        = render :partial => 'send_message', :locals => {:user => user}
+
+    .panel
       %p
-        %b Send a massege:
+        %b Publication:
         you can send a message directly to email about
+        profesional question you can send a message directly to email about
         profesional question
+    .clear
 
-      = render :partial => 'send_message', :locals => {:user => user}
-
-  .panel
-    %p
-      %b Publication:
-      you can send a message directly to email about
-      profesional question you can send a message directly to email about
-      profesional question
-  .clear
-
-%p.right= link_to 'Go to profile', user_path(user), :remote => :true, :class => 'light-button go-to-profile'
-.corner
+  %p.right= link_to 'Go to profile', user_path(user), :remote => :true, :class => 'light-button go-to-profile'
+  .corner
