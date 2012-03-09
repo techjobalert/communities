@@ -30,22 +30,12 @@ $ ->
   $(document).on
     mouseover: (e) ->
       timer_popup = window.setTimeout(->
-        showUserPopup e
+        getPopup e
       , 500)
     click: (e) ->
       clearTimeout(timer_popup)
-      showUserPopup e
-    , ".popup-user-info"
-
-  $(document).on
-    mouseover: (e) ->
-      timer_popup = window.setTimeout(->
-        showItemPopup e
-      , 500)
-    click: (e) ->
-      clearTimeout(timer_popup)
-      showItemPopup e
-    , ".popup-item-info"
+      getPopup e
+    , ".popup-item-info, .popup-user-info"
 
   $(document).on "mouseleave", ".popup-item-info, .popup-user-info", ->
     obj_id = $(this).attr "id"
