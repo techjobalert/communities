@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
@@ -82,27 +79,16 @@ class User < ActiveRecord::Base
       WHERE A.contributor_id = #{user.id} GROUP BY B.contributor_id"
   end
 
-  def self.paginate(options = {})
-    page(options[:page]).per(options[:per_page])
-  end
-
-  # SEARCH
-
-  def self.search(params)
-    params[:load] ||= true
-    per_page = params[:per_page]? params[:per_page] : 3
-    tire.search(page: params[:page], per_page: per_page, load: params[:load]) do
-      query do
-        boolean do
-          must { string "*"+params[:q]+"*", default_operator: "AND" }
-          # must { term :user_id, params[:current_user_id] } if params[:current_user_id].present?
-        end
-      end
-    end
-  end
-
   def role?(name)
     role == name
+  end
+
+  define_index do
+    indexes full_name, :sortable => true
+    indexes specialization, :sortable => true
+    has created_at, updated_at
+    set_property :enable_star => true
+    set_property :min_infix_len => 1
   end
 
 end

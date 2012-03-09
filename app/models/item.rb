@@ -1,8 +1,6 @@
 class Item < ActiveRecord::Base
   #include PubUnpub
   include SettingsHelper
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
 
   attr_accessible :title, :description, :tag_list, :paid, :user, :user_id,
     :views_count, :amount, :price, :state
@@ -11,6 +9,8 @@ class Item < ActiveRecord::Base
   acts_as_commentable
 	acts_as_taggable
   acts_as_followable
+
+  acts_as_taggable_on :keywords
 
   # Scopes
 
@@ -73,86 +73,16 @@ class Item < ActiveRecord::Base
     self.contributors << user
   end
 
-  def self.paginate(options = {:per_page=>3})
-     page(options[:page]).per(options[:per_page])
-  end
-
-  # SEARCH
-  mapping do
-    indexes :user_name
-    indexes :tags
-    indexes :tag_list
-  end
-
-  # self.include_root_in_json = false (necessary before Rails 3.1)
-  def to_indexed_json
-    to_json(methods: [:user_name, :tags])
-  end
-
-  def user_name
-    user.full_name if user
-  end
-  def tags
-    tag_list
-  end
-
-  def self.parse_params(params)
-    options = {}
-    if params[:date] and not params[:date].include?("Any")
-      options[:date] = case params[:date]
-      when "Today"
-        Date.today.to_time
-      when "1 Week"
-        (Time.now.weeks_ago 1)
-      when "1 Month"
-        (Time.now.months_ago 1)
-      when "1 Year"
-        (Time.now.years_ago 1)
-      else
-        Time.zone.now
-      end
-      p options[:date]
-    end
-
-    if params[:views] and not params[:views].include?("Any")
-      options[:views] = case params[:views]
-      when "More Viewed"
-        "desc"
-      when "Less Viewed"
-        "asc"
-      end
-    end
-
-    # if params[:price] and not params[:price].include?("Free/Paid")
-    #   value != "basic" ? scope.where(:user_id => controller.current_user.id) : scope
-    options
-  end
-  def self.search(params)
-    options = parse_params(params)
-    params[:load] ||= false
-    tire.search(:page => (params[:page]||1), :per_page=> (params[:per_page] || 3), load: params[:load]) do
-      query do
-        boolean do
-          must { string "*"+params[:q]+"*", default_operator: "AND" } if params[:q].present?
-          must { term  :state, "published"}
-          if  params[:price] == "Paid"
-            must_not { term :price, 0 }
-          elsif params[:price] == "Free"
-            must { term :price, 0 }
-          end
-          must { range :created_at, from: options[:date] ,to: Time.now}
-          must { term  :user_id, params[:current_user_id] } if params[:current_user_id].present?
-          must { terms :tags, params[:tags]} if params[:tags].present?
-        end
-      end
-      sort { by :views_count, options[:views] }
-      # sort { by :created_at, "desc" }
-
-      # facet "authors" do
-      #   terms :author_id
-      # end
-      # raise to_curl
-    end
+  define_index do
+    indexes title,           :sortable => true
+    indexes description,     :sortable => true
+    indexes user.full_name,  :as => :author, :facet => true, :sortable => true
+    has user_id, created_at, views_count
+    has price, :type => :integer
+    where "state = 'published'"
+    # where sanitize_sql(["state", "published"])
+    set_property :enable_star => true
+    set_property :min_infix_len => 1
   end
 
 end

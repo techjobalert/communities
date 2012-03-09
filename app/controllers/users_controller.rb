@@ -153,7 +153,8 @@ class UsersController < ApplicationController
   end
 
   def search
-    _users = User.search(params)
+    _users = User.search(params[:q])
+    p _users
     ids = case params[:filter_type]
     when "following"
       current_user.following_by_type('User').map{|x| x.id}

@@ -82,12 +82,21 @@ class ItemsController < InheritedResources::Base
   def search
     @render_items, @filter_location = params[:filter_type], params[:filter_location]
     params[:current_user_id] = current_user.id if @render_items == "account"
-    @items = Item.search(params)
+    params.merge!({SearchParams.per_page_param => 3}) if @filter_location != "main"
+    params.merge!({:classes => [Item]})
+    p params
+    @items = SearchParams.new(params).get_search_results
   end
 
   def qsearch
-    params[:load], params[:q], params[:per_page] = true, params[:term], 5
-    results = Item.search(params)
+    _params = {
+      SearchParams.query_param => params[:term],
+      SearchParams.page_param => 1,
+      SearchParams.per_page_param => 5,
+      :classes => [Item]
+    }
+    search_params = SearchParams.new(_params)
+    results = search_params.get_search_results || []
     @search_results = results.map do |item|
       {
         :title => item.title.truncate(40, :separator => ' '),
