@@ -2,6 +2,8 @@
   - price = @item.price > 0 ? "#{@item.price}$" : 'free'
   $("#item-#{@item.id}").attr("class","item #{@item.state}").find(".price>span").html("#{price}");
   $("#item-#{@item.id}").find(".change").remove();
+- if @type == "change_keywords"
+
 - else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:item => @item})}");
 

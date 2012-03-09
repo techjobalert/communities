@@ -1,6 +1,6 @@
 class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch]
-  before_filter :get_item, :except => [:index, :new, :create]
+  before_filter :get_item, :except => [:index, :new, :create, :tags]
   load_and_authorize_resource
 
 
@@ -29,6 +29,12 @@ class ItemsController < InheritedResources::Base
 
   def update
     @item.moderate
+
+    if params[:tag_list].present?
+      tag_list = JSON::parse(params[:tag_list])
+      @item.tag_list = tag_list
+    end
+
     if @item.update_attributes params[:item]
       @notice = {:type => "notice", :message => "Item is updated"}
     else
@@ -99,6 +105,14 @@ class ItemsController < InheritedResources::Base
     render :json => @search_results
   end
 
+  def tags
+    tags = Item.tag_counts
+
+    respond_to do |format|
+      format.json { render :json => get_tag_names(tags).to_json }
+    end
+  end
+
   protected
 
   def get_item
@@ -107,5 +121,15 @@ class ItemsController < InheritedResources::Base
     elsif params[:item_id].present?
       @following_item = Item.find(params[:item_id])
     end
+  end
+
+  def get_tag_names(tags)
+    data = []
+
+    tags.each do |tag|
+      data << tag.name
+    end
+
+    data
   end
 end

@@ -45,12 +45,22 @@
         .item.abstract
           = f.label :description, "Abstract"
           = f.text_area :description
-      .block
         .item.keywords
           = label :tag_list, "Keywords"
-          = f.text_area :tag_list
+          .textarea
+            = text_area_tag :tag_list, "", :rows => 2
       .clear
       = f.submit 'Save', :class => 'light-button green'
+      :javascript
+        $('#tag_list').textext({
+          plugins : 'autocomplete tags ajax',
+          tagsItems: #{@item.tag_list.to_json},
+          ajax : {
+              url : '#{tags_items_path}',
+              dataType : 'json',
+              cacheResults : true
+          }
+        });
     .clear
   .hr
 

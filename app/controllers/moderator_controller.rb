@@ -29,7 +29,6 @@ class ModeratorController < ApplicationController
   end
 
   def item_deny
-
     options = params[:message].merge!({:receiver_id => @item.user_id, :title => @item.title})
 
     @message = Message.new(options, params)
@@ -87,4 +86,5 @@ class ModeratorController < ApplicationController
   def is_admin
     redirect_to root_path unless current_user.admin?
   end
+
 end

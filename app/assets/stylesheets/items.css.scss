@@ -1,9 +1,9 @@
 .b-items {
   margin: 30px;
 
-  h1 {   
+  h1 {
     font-size: 26px;
-    line-height: 30px; 
+    line-height: 30px;
     font-weight: normal;
     margin: 15px 0 20px; }
 
@@ -41,8 +41,8 @@
         margin-top: 8px; }
 
       &[type="submit"]{
-        padding: 5px 15px;        
-        font-size: 16px;}} 
+        padding: 5px 15px;
+        font-size: 16px;}}
 
     textarea {
       width: 550px;
@@ -54,20 +54,20 @@
       border: 1px solid #F1EFD1;
       -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
       -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
-      box-shadow: 0 2px 2px #D8DCC1 inset; } 
+      box-shadow: 0 2px 2px #D8DCC1 inset; }
   }
 }
 
 .b-upload {
   padding: 1px 20px 20px;
-  
+
   .hr {
     border-top: 1px solid #d9d7b8;
-    float: left; 
+    float: left;
     margin: 20px 0px;
     width: 100%;
   }
-  
+
   input[type="text"], input[type="email"], input[type="password"], textarea {
     width: 200px;
     padding: 5px 6px;
@@ -77,27 +77,27 @@
     -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
     box-shadow: 0 2px 2px #D8DCC1 inset;
   }
-  
+
   textarea {
     max-width: 200px;
-    min-width: 200px;    
+    min-width: 200px;
   }
-  
+
   .steps {
     padding: 0px 20px;
-  }  
-  
+  }
+
   .b-uplod-step-regular {
-    float: left; 
+    float: left;
     width: 400px;
     border-right: 1px solid #d9d7b8;
   }
-  
+
   .b-uplod-step-make-conference {
-    float: right; 
+    float: right;
     width: 400px;
   }
-  
+
   .b-upload-title {
     font-size: 18px;
     margin: 10px 0 10px;
@@ -106,7 +106,7 @@
       color: #8d8e92;
     }
   }
-  
+
   .select-file {
     font-size: 18px;
     color: #1b1e26;
@@ -115,7 +115,7 @@
     width: 100%;
     margin: 15px 0 10px;
   }
-  
+
   .light-button.upload {
     color: #F2EFBD;
     display: block;
@@ -123,13 +123,13 @@
     font-size: 16px;
     font-weight: bold;
     line-height: 32px;
-    padding: 3px 6px 3px 10px;    
+    padding: 3px 6px 3px 10px;
     width: 92px;
     -webkit-text-shadow: none;
     -moz-text-shadow: none;
     text-shadow: none;
-    
-    
+
+
     span {
       background: url("/assets/search-engine-set.png") no-repeat scroll 0 -33px transparent;
       display: block;
@@ -138,43 +138,65 @@
       width: 30px;
     }
   }
-  
+
   .btn-hint {
     float: left;
     font-size: 14px;
     margin-left: 20px;
   }
-  
+
   .b-uplod-step-describe-movie {
     .preview {
       float: left;
       border: 3px solid #ddd;
     }
-    
+
     .block {
       float: left;
-      width: 300px;
+      width: 600px;
       margin: 0px 20px;
       font-size: 14px;
-      
+
       label {
-        width: 70px;
+        width: 100px;
         float: left;
         margin-right: 10px;
         text-align: right;
         line-height: 30px;
       }
-      
-      .item {
-        padding-bottom: 5px;        
+
+      input[type=text], textarea {
+        width: 400px;
+        max-width: 400px;
+        min-width: 400px;
       }
-      
+
+      .item {
+        padding-bottom: 5px;
+      }
+
       .abstract textarea {
         height: 70px;
       }
-      
-      .keywords textarea {
-        height: 105px;
+
+      .keywords .textarea {
+        float: left;
+        position: relative;
+        textarea {
+          width: 415px;
+          max-width: 415px;
+          min-width: 415px;
+          border: 1px solid #F1EFD1;
+          background: none repeat scroll 0 0 #F1EFD1;
+
+        }
+
+        .text-tags {
+          border: 1px solid #F1EFD1;
+          -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+          -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+          box-shadow: 0 2px 2px #D8DCC1 inset;
+        }
       }
 
       .checkbox {
@@ -238,17 +260,17 @@
 
   .b-uplod-step-sell-movie {
     width: 100%;
-    
+
     .block {
       width: 440px;
       float: left;
     }
-    
+
     ul {
       margin: 0;
       padding: 0;
     }
-    
+
     li {
       list-style: none;
       font-size: 12px;
@@ -256,14 +278,14 @@
       height: 32px;
       display: block;
     }
-    
+
     .pay-pal-form label {
       width: 110px;
     }
 
     .pay-pal-auth-form {
       label {
-        font-size: 12px; 
+        font-size: 12px;
         display: block;
         width: 60px;
         float: left;
@@ -271,20 +293,20 @@
         text-align: right;
         line-height: 30px;
       }
-      
+
       input{
         &[type="text"], &[type="password"], &[type="email"] {
           width: 140px;
         }
       }
     }
-    
+
     .set-price{
       text-align: center;
     }
-    
+
     .field {
-      width: 260px;      
+      width: 260px;
       border: 1px solid #b8b479;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
@@ -298,17 +320,17 @@
         -moz-border-radius: 10px 10px 0 0;
         border-radius: 10px 10px 0 0;
         font-size: 18px;
-        position: relative;        
+        position: relative;
       }
-      
+
       .body {
         padding: 17px;
         font-size: 14px;
-        
+
         textarea {
           height: 55px;
           padding: 6px;
-          width: 350px;  
+          width: 350px;
           max-width: 350px;
           min-width: 350px;
           background: none repeat scroll 0 0 #F1EFD1;
@@ -317,12 +339,12 @@
           -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
           box-shadow: 0 2px 2px #D8DCC1 inset;
         }
-        
+
         .right {
           text-align: right;
           padding: 10px 0px 0;
         }
-        
+
         .log-in {
           color: #fff;
           -webkit-text-shadow: none;
@@ -337,38 +359,38 @@
           border-radius: 7px;
         }
       }
-      
+
       .hint {
         font-size: 12px;
-        color: #8d8e92; 
+        color: #8d8e92;
         text-align: center;
         padding: 10px 0 0;
       }
     }
   }
-  
+
   .b-uplod-step-set-preview {
     ul {
       margin: 0px;
       padding: 0;
       list-style: none;
     }
-    
+
     li {
       padding: 2px 0;
       font-size: 12px;
     }
-    
+
     input[type="text"] {
       margin-left: 5px;
       width: 72px;
     }
-    
+
     input[type=radio]{
       position: absolute;
       left: -99999px;
     }
-    
+
     label {
       cursor: pointer;
       font-size: 12px;
@@ -379,19 +401,19 @@
         background-position: 0px 2px;
       }
     }
-    
+
     p {
       font-size: 12px;
       padding: 0px 7px;
     }
   }
-  
+
   .b-uplod-step-copyright {
     input[type="checkbox"]{
       float: left;
       margin: 2px 5px;
     }
-    
+
     label {
       display: block;
       margin-left: 28px;
@@ -399,7 +421,7 @@
       width: 500px;
     }
   }
-  
+
   .tools {
     height: 100px;
     text-align: center;
@@ -414,7 +436,7 @@
       text-shadow: 0 -1px 0 #29383b;
       font-size: 20px;
     }
-  }  
+  }
 }
 
 .pay-pal-form, .form {
@@ -435,7 +457,7 @@
   p {
     margin: 5px 0;
   }
-  
+
   .exp {
     .d, .m {width: 16px;}
     .css {width: 22px;}
@@ -448,13 +470,13 @@
       margin-left: 10px;
     }
   }
-  
+
   .zip input {
     width: 73px;
   }
-  
+
   label {
-    font-size: 12px; 
+    font-size: 12px;
     display: block;
     width: 150px;
     float: left;
@@ -462,7 +484,7 @@
     text-align: right;
     line-height: 30px;
   }
-  
+
   .pay-pal {
     border: medium none;
     -webkit-border-radius: 7px;
