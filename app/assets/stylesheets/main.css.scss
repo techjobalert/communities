@@ -411,7 +411,6 @@ h3 {
       color: #1b1e26;
       width: 280px;
       float: left;
-      cursor: pointer;
       margin: 0px 20px 30px 19px;
 
       &.moderated {
@@ -467,6 +466,7 @@ h3 {
         text-align: center;
         padding: 7px;
         display: block;
+        cursor: pointer;
         text-decoration: none;}
 
       .info {
@@ -679,6 +679,7 @@ h3 {
     font-size: 16px;
     margin: 10px 20px;
     font-weight: bold;
+    overflow: hidden;
   }
 }
 

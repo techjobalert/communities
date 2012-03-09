@@ -1,6 +1,6 @@
 .b-popup-item-info.popup-container{:class => "popup-item-#{item.id}"}
   .container
-    %h3= item.title.capitalize!
+    %h3= item.title
 
     %p
       %span.date
@@ -11,7 +11,7 @@
     %p
       %b.title Summery
       %br
-      = item.description.truncate(250, :separator => ' ').capitalize!
+      = item.description.truncate(250, :separator => ' ')
 
     .authors
       - if item.contributors.present?

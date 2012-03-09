@@ -19,7 +19,7 @@ class ModeratorController < ApplicationController
 
     if @message.save and @item.publish
       notice = {:type => 'notice',
-        :message => "Item is confirmed. Message was successfully sended."}
+        :message => "Item is published. Message was successfully sended."}
       Resque.enqueue(SendModerationMessage, @message.id)
     else
       notice = {:type => 'error',:message => "Error. Message not created."}
@@ -55,7 +55,7 @@ class ModeratorController < ApplicationController
 
   def comment_publish
     if @comment.publish
-      notice = {:type => 'notice', :message => "Comment is confirmed"}
+      notice = {:type => 'notice', :message => "Comment is published"}
     else
       notice = {:type => 'error', :message => "Some error."}
     end

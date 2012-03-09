@@ -34,7 +34,7 @@ $ ->
       , 500)
     click: (e) ->
       clearTimeout(timer_popup)
-      getPopup e
+      $(".popup-container").css("display","none")
     , ".popup-item-info, .popup-user-info"
 
   $(document).on "mouseleave", ".popup-item-info, .popup-user-info", ->

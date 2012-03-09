@@ -36,7 +36,8 @@ class ItemsController < InheritedResources::Base
     end
 
     if @item.update_attributes params[:item]
-      @notice = {:type => "notice", :message => "Item is updated"}
+      @notice = {:type => "notice",
+        :message => "Item is updated. Item will be published after premoderation"}
     else
       @notice = {:type => "error", :message => "error"}
     end
@@ -47,8 +48,12 @@ class ItemsController < InheritedResources::Base
   def create
     params[:item]['user_id'] = current_user.id
     @item = Item.new(params[:item])
-    @notice = @item.save ? {:type => 'notice', :message => "Item is created"}
-      : {:type => 'error', :message => "Some error."}
+    if @item.save
+      @notice = {:type => 'notice',
+        :message => "Item is created. Item will be published after premoderation"}
+    else
+      @notice = {:type => 'error', :message => "Some error."}
+    end
   end
 
   def follow

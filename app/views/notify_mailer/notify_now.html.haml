@@ -24,7 +24,7 @@
 - if @notify.subject_type == "Comment"
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
-    = "#{@notify.event_type.split("_").first}d comment "
+    = "#{@notify.event_type.split("_").first} comment "
     = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
 %br
 = "Email created #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}"
