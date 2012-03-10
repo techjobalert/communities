@@ -97,4 +97,4 @@ gem 'formtastic'
 # https://github.com/pluginaweek/state_machine
 gem 'state_machine'
 # https://github.com/rails/pjax_rails
-gem 'pjax_rails'
+gem 'rack-pjax'

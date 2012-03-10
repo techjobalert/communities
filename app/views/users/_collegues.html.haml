@@ -1,53 +1,55 @@
-%h3
-  Your Colleagues
+.b-colleagues
+  %h3
+    Your Colleagues
   - if current_user.role? "doctor"
     .light-button.send-message.green#send-message-dialog
       %b Send
       your followers a message
+  .clear
 
-.b-colleagues.list
-  .list-header
-    .nav.account
-      = link_to users_path(:tab => "followers"), :remote => true, :class => "followers #{ 'selected' if @tab == 'followers'}" do
-        %span
-        Followers
-      = link_to users_path(:tab => "published_together"), :remote => true, :class => "published-together #{ 'selected' if @tab == 'published_together'}" do
-        %span
-        Published
-        %br
-        together
-      = link_to users_path(:tab => "following"), :remote => true, :class => "following #{ 'selected' if @tab == 'following'}" do
-        %span
-        Following
-      = link_to users_path(:tab => "patients"), :remote => true, :class => "patients #{ 'selected' if @tab == 'patients'}" do
-        %span
-        Patients
-    .filter.account
-      .field
-        = form_for "", :url => search_users_path, :remote => true, :method => :get do |f|
-          .tags
-            .label Filter by
-            -if @tab != 'patients'
-              = f.select "", ['Degree','Degree']
-              = f.select "", ['Location','Location']
-              = f.select "", ['Specialization','Specialization']
-              = f.select "", ['Num’ of publishing','Num’ of publishing']
-            - elsif @tab == 'patients'
-              = f.select "", ['Location','Location']
+  .list
+    .list-header
+      .nav.account
+        = link_to users_path(:tab => "followers"), :class => "pjax followers #{ 'selected' if @tab == 'followers'}" do
+          %span
+          Followers
+        = link_to users_path(:tab => "published_together"), :class => "pjax published-together #{ 'selected' if @tab == 'published_together'}" do
+          %span
+          Published
+          %br
+          together
+        = link_to users_path(:tab => "following"), :class => "pjax following #{ 'selected' if @tab == 'following'}" do
+          %span
+          Following
+        = link_to users_path(:tab => "patients"), :class => "pjax patients #{ 'selected' if @tab == 'patients'}" do
+          %span
+          Patients
+      .filter.account
+        .field
+          = form_for "", :url => search_users_path, :remote => true, :method => :get do |f|
+            .tags
+              .label Filter by
+              -if @tab != 'patients'
+                = f.select "", ['Degree','Degree']
+                = f.select "", ['Location','Location']
+                = f.select "", ['Specialization','Specialization']
+                = f.select "", ['Num’ of publishing','Num’ of publishing']
+              - elsif @tab == 'patients'
+                = f.select "", ['Location','Location']
 
+              .clear
+            .search
+              = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
+              = f.hidden_field "filter_type" , :value => "#{@tab}"
+              = f.submit 'Go', :class => 'dark-button'
             .clear
-          .search
-            = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
-            = f.hidden_field "filter_type" , :value => "#{@tab}"
-            = f.submit 'Go', :class => 'dark-button'
-          .clear
-    .clear
-    .list-content
-      = render :partial => "collegues_list", :locals => {:users => @users}
+      .clear
+      .list-content
+        = render :partial => "collegues_list", :locals => {:users => @users}
 
-%div{ :id => "send-message", :title=>"Send message to your followers", :style=>"display:none;" }
-  %p
-    %textarea
+  %div{ :id => "send-message", :title=>"Send message to your followers", :style=>"display:none;" }
+    %p
+      %textarea
 
 - if current_user.role? "doctor"
   :javascript
@@ -77,3 +79,7 @@
       $( "#send-message" ).dialog( "open" );
       return false;
     });
+
+
+:javascript
+  changeNavigationTab(".tab-collegues");

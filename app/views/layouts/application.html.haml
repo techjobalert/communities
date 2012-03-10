@@ -30,7 +30,7 @@
             .navigation
               %ul
                 %li
-                  = link_to root_path, :remote => :true, :class => "tab-home #{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
+                  = link_to root_path, :class => "pjax tab-home #{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
                     HOME
                     %span bla bla bla
 
@@ -40,39 +40,37 @@
                     %span bla bla bla
 
                 %li
-                  = link_to edit_user_path(current_user), :remote => :true, :class => "tab-settings #{'selected' if params[:controller] == 'users' && params[:action] == 'edit'  }" do
+                  = link_to edit_user_path(current_user), :class => "pjax tab-settings #{'selected' if params[:controller] == 'users' && params[:action] == 'edit'  }" do
                     SETTINGS
                     %span bla bla bla
 
                 %li
-                  = link_to items_account_path(), :remote => :true, :class => "tab-account #{'selected' if params[:controller] == 'account'}" do
+                  = link_to items_account_path(), :class => "pjax tab-account #{'selected' if params[:controller] == 'account'}" do
                     ACCOUNT
                     %span bla bla bla
                 %li
-                  = link_to user_path(current_user, :type => "public"), :remote => :true, :class => "tab-public #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show' && params[:type] != 'profile'  }" do
+                  = link_to user_path(current_user, :type => "public"), :class => "pjax tab-public" do
                     PUBLIC
                     %span bla bla bla
                 %li
-                  = link_to users_path, :remote => :true, :class => "tab-collegues large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'index'}" do
+                  = link_to users_path, :class => "pjax tab-collegues large" do
                     COLLEGUES
                     %span bla bla bla
                 %li
-                  = link_to user_path(current_user), :remote => :true, :class => "tab-profile large #{ 'selected' if params[:controller] == 'users' && params[:action] == 'show' && params[:type] == 'profile'  }" do
+                  = link_to user_path(current_user), :class => "pjax tab-profile large" do
                     YOUR PROFILE
                     %span bla bla bla
 
-            .panel#ajax-main-container
-              = yield
+            .panel#ajax-main-container{"data-pjax-container" => ""}= yield
 
-          .l-settings-navigation
-            - if params[:controller] == 'users' && params[:action] == 'edit'
-              .b-settings-nav
-                = link_to '#', :class => 'b-settings-nav-bio selected' do
-                  Medical
-                  %span Your medical information
-                = link_to '#', :class => 'b-settings-nav-notification' do
-                  Notification
-                  %span Email preferences...
+          .l-settings-navigation{:class => "#{'hidden' unless params[:controller] == 'users' && params[:action] == 'edit'}"}
+            .b-settings-nav
+              = link_to '#', :class => 'b-settings-nav-bio selected' do
+                Medical
+                %span Your medical information
+              = link_to '#', :class => 'b-settings-nav-notification' do
+                Notification
+                %span Email preferences...
 
       - else
         %h1

@@ -26,7 +26,7 @@
           = form_for(Message.new, :url => deny_moderator_item_path(@item), :remote => :true) do |f|
             %p= f.text_area :body, :placeholder => 'Deny reasons'
 
-            = link_to 'Confirm', confirm_moderator_item_path(@item), :class => 'light-button confirm no-history', :remote => true
+            = link_to 'Confirm', confirm_moderator_item_path(@item), :remote => true, :class => 'light-button confirm no-history'
             = f.submit 'Deny', :class => 'light-button deny'
         = imperavi :message_body, {:lang => 'en', :toolbar => 'mini'}
 

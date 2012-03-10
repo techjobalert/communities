@@ -1,1 +1,53 @@
-= render :partial => 'edit'
+%div{"data-pjax-container" => ""}
+  .b-settings
+    %h1 Customize your settings
+    .b-notification.b-settings-tab{:class => "#{'hidden' if current_user.role? "doctor"}"}
+      .b-settings-title Email me whenever:
+      = form_for(current_user, :remote => true) do |f|
+        %ul
+          %li.odd
+            = f.check_box :following_me
+            = label "_radio", "following_me", "Someone following me"
+          %li
+            = f.check_box :following_published
+            = label "_radio", "following_published", "Someone of my following has published something"
+          %li.odd
+            = f.check_box :added_as_author
+            = label "_radio", "added_as_author", "Someone added you as a author of an item"
+          %li
+            = f.check_box :following_item
+            = label "_radio", "following_item", "Someone started following your item"
+          %li.odd
+            = f.check_box :commented_item
+            = label "_radio", "commented_item", "Someone commented on your item"
+          %li
+            = f.check_box :recommended_comment
+            = label "_radio", "recommended_comment", "Someone recommended your comment"
+          %li.odd
+            = f.check_box :following_bought_item
+            = label "_radio", "following_bought_item", "Someone you are following bought an item"
+          %li
+            = f.check_box :item_changes
+            = label "_radio", "item_changes", "Item you following as changed or updated (price, title, summary goes from paid to free and etc)"
+
+          %li.submit= f.submit 'Save changes', :class => 'light-button green'
+
+    - if current_user.role? "doctor"
+      .b-info.b-settings-tab
+        = form_for(current_user, :remote => true, :validate => true) do |f|
+          .bio
+            .title
+              Biography
+              %span Tell us more about yourself
+            .body
+              = f.text_area :bio
+          .education
+            = f.fields_for :educations do |edu_form|
+              = render "education_fields", :f => edu_form
+            %p.right= link_to_add_fields "Add Education", f, :educations
+
+            .right= f.submit 'OK', :class => 'light-button green'
+
+  :javascript
+    $(".l-settings-navigation").removeClass('hidden');
+    changeNavigationTab(".tab-settings");

@@ -1,6 +1,14 @@
 timer_popup = undefined
 redactor = undefined
+
+@changeNavigationTab = (tab) ->
+  $(".main-content .navigation a").removeClass("selected");
+  $(tab).addClass("selected");
+
 $ ->
+  $('a.pjax, .pagination a').pjax("[data-pjax-container]")
+
+
   $("#sign-up .toggler label").on "click", ->
     $("#sign-up .toggler label").hasClass ""
     elem = $(this)
@@ -60,11 +68,6 @@ $ ->
       $(".b-settings-tab").toggleClass "hidden"
     false
 
-  $(document).on "click", ".main-content .navigation a:not(.tab-item)", ->
-    $(".main-content .navigation a").removeClass "selected"
-    $(this).addClass "selected"
-    false
-
   $(document).on "click", ".list-header .nav a", ->
     unless $(this).hasClass("selected")
       $(".list-header .nav a").removeClass "selected"
@@ -75,7 +78,7 @@ $ ->
 
   $(document).on "click", ".popup-cleaner, .go-to-profile, .go-to-article, .main-content .navigation a:not(.tab-item)", ->
     $(".popup-container").css("display","none");
-    $(".l-settings-navigation").html("") if !$(this).hasClass "tab-settings"
+    $(".l-settings-navigation").addClass('hidden') unless $(this).hasClass "tab-settings"
 
   $("form[data-validate=true][data-remote=true]").live "change", ->
     $(this).validate()

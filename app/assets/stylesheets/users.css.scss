@@ -5,23 +5,23 @@
     padding: 0px 20px 20px 30px;
     float: left;
   }
-  
+
   p {
     margin: 12px 0;
     font-size: 12px;
   }
-  
+
   strong {
     color: #2f6d7a;
     display: block;
     font-size: 14px;
   }
-  
+
   .b-user-info {
     width: 570px;
     border-bottom: 1px solid #d4d2af;
   }
-  
+
   .b-user-preview {
     float: left;
     margin-bottom: 10px;
@@ -49,16 +49,16 @@
       }
     }
   }
-  
+
   .b-user-info-body {
     margin-left: 170px;
     font-size: 12px;
     line-height: 16px;
-    
+
     textarea {
       height: 150px;
       padding: 6px 0;
-      width: 398px; 
+      width: 398px;
       max-width: 398px;
       min-width: 398px;
       background: none repeat scroll 0 0 #F1EFD1;
@@ -71,7 +71,7 @@
     input {
       &[type=text] {
         padding: 6px;
-        width: 386px; 
+        width: 386px;
         max-width: 386px;
         min-width: 386px;
         background: none repeat scroll 0 0 #F1EFD1;
@@ -81,32 +81,32 @@
         box-shadow: 0 2px 2px #D8DCC1 inset;
       }
     }
-    
+
     .right {
       text-align: right;
     }
-    
+
     .send {
       font-size: 14px;
       font-weight: bold;
       line-height: 1;
-      padding: 7px 12px;      
+      padding: 7px 12px;
     }
-    
-  }  
-  
+
+  }
+
   h2 {
     font-size: 26px;
-    line-height: 30px; 
+    line-height: 30px;
     font-weight: normal;
     margin: 15px 0;
   }
-  
+
   .b-user-title {
-    margin: 0;    
+    margin: 0;
   }
-  
-  
+
+
   .b-user-list {
     .item {
       width: 142px;
@@ -127,39 +127,39 @@
       border: 3px solid #ddd;
     }
   }
-  
+
   .b-user-sidebar {
     width: 250px;
     float: left;
     padding-left: 20px;
     border-left: 1px solid #d9d7b8;
-    
+
     ul {
       margin: 25px 0 200px;
       padding: 0px;
     }
-    
+
     li {
       list-style: none;
       display: block;
       padding: 0px 0 15px;
-      
+
     }
-    
+
     img {
       float: left;
       border: 2px solid #ededed;
     }
-    
+
     .text {
       font-size: 12px;
       line-height: 14px;
       margin-left: 75px;
       color: #6e6e6e;
     }
-    
+
     b {
-      font-size: 14px;          
+      font-size: 14px;
       display: block;
       padding-bottom: 5px;
     }
@@ -170,45 +170,45 @@
   margin: 30px;
   h1 {
     font-size: 26px;
-    line-height: 30px; 
+    line-height: 30px;
     font-weight: normal;
     margin: 15px 0 20px;
   }
-  
+
   .b-notification {
     margin-left: 230px;
     ul {
       margin: 0;
       padding: 0;
     }
-    
+
     li {
       list-style: none;
       padding: 7px 8px;
       font-size: 12px;
       width: 360px;
     }
-    
+
     .odd {
       background: #dfeeea;
     }
-    
+
     .submit {
       padding: 15px 0px;
       text-align: right;
       width: 376px;
     }
-    
+
     input[type="checkbox"] {
       vertical-align: text-bottom;
       margin-right: 10px;
     }
-    
+
     .b-settings-title {
       font-size: 18px;
       margin: 25px 0 10px;
     }
-    
+
     .light-button.green {
       padding: 5px 15px;
       font-size: 14px;
@@ -218,16 +218,16 @@
       line-height: 1;
     }
   }
-  
+
   .b-info {
     margin-left: 210px;
     .education {
-      width: 400px;      
+      width: 400px;
       margin: 0 0 20px;
       position: relative;
     }
     .bio {
-      width: 400px;      
+      width: 400px;
       border: 1px solid #b8b479;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
@@ -253,15 +253,15 @@
           text-shadow: 1px 1px 0 #fff;
         }
       }
-      
+
       .body {
         padding: 17px;
         font-size: 14px;
-        
+
         textarea {
           height: 55px;
           padding: 6px;
-          width: 350px;  
+          width: 350px;
           max-width: 350px;
           min-width: 350px;
           background: none repeat scroll 0 0 #F1EFD1;
@@ -270,12 +270,12 @@
           -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
           box-shadow: 0 2px 2px #D8DCC1 inset;
         }
-        
+
         .right {
           text-align: right;
           padding: 10px 0px 0;
         }
-      }   
+      }
     }
     .edu-fields{
       border-radius: 10px;
@@ -288,14 +288,14 @@
         margin: 0;
         padding: 0;
       }
-      
+
       img {
         margin: 5px 0 5px 0px;
       }
 
       #upcontainer {
         margin-left: 171px;}
-      
+
       li {
         list-style: none;
         padding: 5px 0;
@@ -304,7 +304,7 @@
           padding-right: 15px;
         }
       }
-      
+
       label {
         display: block;
         float: left;
@@ -314,7 +314,7 @@
         text-align: right;
         margin-right: 10px;
       }
-      
+
       input[type="text"] {
         width: 160px;
         padding: 5px 6px;
@@ -324,20 +324,20 @@
         -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
         box-shadow: 0 2px 2px #D8DCC1 inset;
       }
-      
+
       .right {
         text-align: right;
         padding: 10px 0px 0;
         width: 384px;
-      }      
+      }
     }
-    
+
     .right {
       text-align: right;
       padding: 10px 0px 0;
       width: 384px;
     }
-    
+
     .light-button.green {
       padding: 5px 15px;
       font-size: 14px;
@@ -345,15 +345,15 @@
       -moz-text-shadow: none;
       text-shadow: none;
       line-height: 1;
-    }    
-  }  
+    }
+  }
 }
 
 .b-settings-nav {
   position: absolute;
   top: 252px;
   left: -12px;
-  
+
   a {
     background: url("/assets/settings-set.png") no-repeat scroll 0 -127px transparent;
     color: #518c7d;
@@ -366,28 +366,33 @@
     width: 153px;
     -webkit-text-shadow: 1px 1px 0 #fff;
     -moz-text-shadow: 1px 1px 0 #fff;
-    text-shadow: 1px 1px 0 #fff;    
+    text-shadow: 1px 1px 0 #fff;
     margin-bottom: 8px;
-    
+
     span {
       font-weight: normal;
       font-size: 11px;
       display: block;
     }
-    
+
     &:hover {
       color: #1B1E26;
       background-position: 0 1px;
     }
-    
+
     &.selected {
       color: #1B1E26;
       background-position: 0 -60px;
     }
-  }  
+  }
 }
 
 .b-colleagues {
+  h3 {
+    width: 60%;
+    float: left;
+  }
+
   .b-colleagues-container{
     padding: 10px 20px 10px 30px;
     .b-colleagues-item {
@@ -397,12 +402,12 @@
       width: 140px;
       margin: 0 10px 25px 0;
       cursor: pointer;
-      
+
       img {
         border: 2px solid #ddd;
         float: left;
       }
-      
+
       .title {
         float: left;
         font-size: 14px;
@@ -410,7 +415,7 @@
         overflow: hidden;
         text-decoration: none;
         color: #1b1e26;
-        width: 68px;        
+        width: 68px;
       }
     }
   }

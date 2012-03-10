@@ -1,18 +1,18 @@
 .nav.account
-  = link_to items_account_path(), :remote => :true, :class => "items #{'selected' if params[:action] == 'items'}" do
+  = link_to items_account_path(), :class => "pjax items #{'selected' if params[:action] == 'items'}" do
     %span
     Your Items
-  = link_to purchase_account_path(), :remote => :true, :class => "your-purchase #{'selected' if params[:action] == 'purchase'}" do
+  = link_to purchase_account_path(), :class => "pjax your-purchase #{'selected' if params[:action] == 'purchase'}" do
     %span
     Your
     %br
     Purchase
-  = link_to purchased_items_account_path(), :remote => :true, :class => "purchased #{'selected' if params[:action] == 'purchased_items'}" do
+  = link_to purchased_items_account_path(), :class => "pjax purchased #{'selected' if params[:action] == 'purchased_items'}" do
     %span
     Purchased
     %br
     Item
-  = link_to payments_info_account_path(), :remote => :true, :class => "payments-info #{'selected' if params[:action] == 'payments_info'}" do
+  = link_to payments_info_account_path(), :class => "pjax payments-info #{'selected' if params[:action] == 'payments_info'}" do
     %span
     Payments
     %br

@@ -23,8 +23,7 @@
           %span.title= current_user.full_name
         .clear
         .panel.no-padding
-          #ajax-main-container
-            = yield
+          #ajax-main-container{"data-pjax-container" => ""}= yield
 
 
     .l-footer

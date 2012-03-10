@@ -1,10 +1,10 @@
 - if items.present?
   - items.each do |item|
-    = link_to item_path(item), :remote => true, :class => "item" do
-      .media= image_tag '/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
-      .text= item.description.truncate(200, :separator => " ")
+    .item
+      .media= link_to image_tag('/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"), item_path(item)
+      = link_to  item.description.truncate(200, :separator => " "), item_path(item), :class => "text"
   .clear
-  = paginate items, :remote => true
+  = paginate items
 
 - else
   .no-items No items

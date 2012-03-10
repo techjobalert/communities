@@ -10,7 +10,7 @@
               - @comments.each do |comment|
                 %li{:id => "comment-#{comment.id}"}
                   = image_tag comment.user.avatar_url(:thumb_60), :width => '60', :height => '60'
-                  
+
                   %b= "#{comment.user.full_name}:"
                   %br
                   %span= comment.body
@@ -18,9 +18,9 @@
                   .b-admin-content-tools
                     = link_to 'Confirm', confirm_moderator_comment_path(comment), :class => 'light-button confirm no-history', :remote => true
                     = link_to 'Deny', deny_moderator_comment_path(comment), :class => 'light-button deny no-history', :remote => true
-                  
+
             .clear
-            = paginate @comments, :remote => true
+            = paginate @comments
 
           - else
             .no-items No items

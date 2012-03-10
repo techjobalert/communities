@@ -68,3 +68,6 @@
 
   = render :partial => 'sidebar', :locals => {:collaborators => collaborators, :show_popup => !is_current_user}
 .clear
+
+:javascript
+  changeNavigationTab("#{is_current_user ? '.tab-public' : '.tab-collegues'}");

@@ -14,6 +14,7 @@
 //=	require jquery.iframe-transport
 //= require jquery.fileupload
 //= require jquery.textext.js
+//= require jquery.pjax
 //
 //= require video
 //= require main
@@ -50,23 +51,6 @@ function hideNotice(){
   }, 7000);
 }
 
-if (history && history.pushState) {
-  $(function() {
-    $(document).on ("click", "a[data-remote=true]:not(.no-history)", function(e) {
-      // fixing problem with double request
-      // $.getScript(this.href);
-      history.pushState(null, document.title, this.href);
-      $(".l-settings-navigation").html("");
-      $(".popup-container").css("display","none");
-    });
-    $(window).bind("popstate", function() {
-      $.getScript(location.href);
-      $(".l-settings-navigation").html("");
-      $(".popup-container").css("display","none");
-    });
-  });
-}
-
 // Helper methods for user -> settings -> educations
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");
@@ -78,17 +62,6 @@ function add_fields(link, association, content) {
   var regexp = new RegExp("new_" + association, "g")
   $(link).parent().before(content.replace(regexp, new_id));
 }
-
-// // Click to link, if click has form inside, validate it
-// $(function() {
-//   $("a[data-remote=true]").on("ajax:complete", function(e, xhr, status){
-//     if (xhr.responseText.indexOf("form") >= 0 && status == "success"){
-//       setTimeout(function(){
-//         $('form[data-validate]').validate();
-//       },1000)
-//     }
-//   })
-// })
 
 function getPopup(e){
   var obj = $(e.target),

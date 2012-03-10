@@ -19,7 +19,7 @@
         %ul
           - item.contributors.each do |contributor|
             %li
-              = link_to user_path(contributor), :remote => true, :class => "popup-cleaner" do
+              = link_to user_path(contributor), :class => "popup-cleaner pjax" do
                 = image_tag contributor.avatar_url(:thumb_45), :width => '45', :height => '45'
                 %br
                 = text_with_br contributor.full_name
@@ -42,14 +42,14 @@
         Follow Item
         %span
 
-    = link_to item_path(item), :remote => true, :class => 'light-button go-to-article' do
+    = link_to item_path(item), :class => 'pjax light-button go-to-article' do
       Go to Article
       %span
-    = link_to '#', :class => 'light-button make-pdf' do
+    = link_to '#', :class => 'pjax light-button make-pdf' do
       Make PDF
       %span
     %br
-    = link_to '#', :class => 'light-button sell' do
+    = link_to '#', :class => 'pjax light-button sell' do
       %b Sell
       this item
   .corner
