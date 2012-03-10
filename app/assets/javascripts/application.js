@@ -22,6 +22,7 @@
 //  Client Side Validations*
 //= require rails.validations.js
 //
+//= require browserplus-min
 //= require plupload/plupload.full
 //= require plupload/plupload.flash
 //= require plupload/plupload.html4

@@ -36,6 +36,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
+      Rails.logger.info "---------_#{format.inspect}"
       if not params[:user][:birthday].nil?
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end
@@ -68,22 +69,22 @@ class UsersController < ApplicationController
 
   def upload_avatar
     current_user.avatar = params[:file]
-    respond_to do |format|
-      if current_user.save
-        @data = {
-          :thumb_45  => current_user.avatar_url(:thumb_45),
-          :thumb_60  => current_user.avatar_url(:thumb_60),
-          :thumb_70  => current_user.avatar_url(:thumb_70),
-          :thumb_143 => current_user.avatar_url(:thumb_143),
-        }
-        format.json { render :json => @data.to_json }
-      else
-        @notice = {:type => 'error', :message =>
-          "#{t current_user.errors.keys.first} #{current_user.errors.values.first.first.to_s}"
-        }
-        format.js { render :partial => "layouts/notice", :locals => {:notice => @notice} }
-      end
+
+    if current_user.save
+      @data = {
+        :thumb_45  => current_user.avatar_url(:thumb_45),
+        :thumb_60  => current_user.avatar_url(:thumb_60),
+        :thumb_70  => current_user.avatar_url(:thumb_70),
+        :thumb_143 => current_user.avatar_url(:thumb_143),
+      }
+      render :json => @data.to_json, content_type => "application/json"
+    else
+      @notice = {:type => 'error', :message =>
+        "#{t current_user.errors.keys.first} #{current_user.errors.values.first.first.to_s}"
+      }
+      render :partial => "layouts/notice", :locals => {:notice => @notice}
     end
+
   end
 
   def follow
