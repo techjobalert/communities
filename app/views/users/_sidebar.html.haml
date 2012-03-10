@@ -4,7 +4,10 @@
     %ul
       - collaborators.each do |collaborator|
         %li
-          = image_tag collaborator.avatar_url(:thumb_60), :class => "#{'popup-user-info' if show_popup}", :id => "popup-user-#{collaborator.id}"
+          - if show_popup
+            = link_to image_tag(collaborator.avatar_url(:thumb_60), :class => "popup-user-info", :id => "popup-user-#{collaborator.id}"), user_path(collaborator), :remote => true
+          - else
+            = image_tag collaborator.avatar_url(:thumb_60)
           .text
             %b= collaborator.full_name
             = collaborator.specialization

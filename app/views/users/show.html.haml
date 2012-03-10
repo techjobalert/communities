@@ -1,8 +1,6 @@
-- case @type
-  - when "public"
-    = render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators}
-    = imperavi :message_body, {:lang => 'en', :toolbar => 'mini'}
+- if @type == "public" || @user != current_user
+  = render :partial => 'show', :locals => {:user => @user, :collaborators => @collaborators}
+  = imperavi "message_body_#{@user.id}", {:lang => 'en', :toolbar => 'mini'}
+- else
+  = render :partial => 'profile', :locals => {:user => @user, :collaborators => @collaborators}
 
-  - else
-    = render :partial => 'profile', :locals => {:user => @user, :collaborators => @collaborators}
-    

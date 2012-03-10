@@ -4,16 +4,21 @@
     .b-user-info
       .b-user-preview#upcontainer
         = image_tag user.avatar_url(:thumb_143)
-        - unless is_current_user
+        - if user.role? "doctor"
           .tools
-            - if current_user.following?(user)
-              = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id} no-history" do
-                Unfolow
-                %span
-            - else
-              = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id} no-history" do
+            - if is_current_user
+              .light-button.follow.unfollow
                 Folow
                 %span
+            - else
+              - if current_user.following?(user)
+                = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id} no-history" do
+                  Unfolow
+                  %span
+              - else
+                = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id} no-history" do
+                  Folow
+                  %span
 
       .b-user-info-body
         %h2.b-user-title= user.full_name
@@ -31,11 +36,15 @@
           %p
             %strong Specialization:
             = user.specialization
-        - unless is_current_user
+
           %p
             %strong Send a massege:
             you can send a message directly to email about profesional question
-          = render :partial => 'send_message', :locals => {:user => user}
+          - if is_current_user
+            %p= text_area_tag "body", "", :placeholder => 'New message'
+            %p.right= submit_tag "Send", :class => 'light-button send green'
+          - else
+            = render :partial => 'send_message', :locals => {:user => user}
 
       .clear
 

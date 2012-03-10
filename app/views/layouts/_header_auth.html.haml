@@ -29,6 +29,7 @@
           %p= f.text_field :email, :placeholder => 'Email Address'
           %p= f.password_field :password, :placeholder => 'Password'
           %p= f.password_field :password_confirmation, :placeholder => 'Verify Password'
+          .hidden= f.submit ""
 
         = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit(); return false;" do
           SIGN UP
@@ -41,6 +42,7 @@
           - failure_counter = $redis.get(session[:session_id])
           - if failure_counter.to_i >= 3
             = show_simple_captcha(:label => '')
+          .hidden= f.submit ""
         = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit();" do
           SIGN IN
           %span to your account
