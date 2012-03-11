@@ -1,0 +1,7 @@
+- if @notice[:type] != "error"
+  item = $("#add-collegues-to-item #user-#{@user.id}")
+  item.children("a").text("added")
+  item.fadeOut("slow")
+
+  $("div.collegues").append("#{ escape_javascript( render :partial => 'items/item_collegue', :locals => {:user => @user}) }" )
+showHideNotice("#{@notice[:type]}", "#{@notice[:message]}")

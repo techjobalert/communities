@@ -35,6 +35,9 @@ class Ability
       owner?(obj)
     end
     can :all, :account
+    can [:add_to_contributors, :delete_from_contributors, :users_search], Item do |item|
+      owner?(item)
+    end
   end
 
   def moderator

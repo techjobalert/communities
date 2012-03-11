@@ -1,0 +1,7 @@
+.user{:id => "collegue-#{user.id}"}
+  = image_tag user.avatar_url(:thumb_60)
+  = text_with_br user.full_name
+  %br
+  = link_to "#", :class => "delete-btn" do
+    Delete
+    %span

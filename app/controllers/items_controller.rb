@@ -25,7 +25,7 @@ class ItemsController < InheritedResources::Base
   end
 
   def edit
-
+    # @doctors = User.where(:role => 'doctor').where('id not in (?)', @item.contributor_ids)
   end
 
   def update
@@ -94,7 +94,11 @@ class ItemsController < InheritedResources::Base
     p params
     @items = SearchParams.new(params).get_search_results
   end
-
+  def users_search
+    @item = Item.find(params[:item_id])
+    users = User.where(:role => 'doctor').where('id not in (?)', @item.contributor_ids)
+    @doctors = users.search(params[:q])
+  end
   def qsearch
     _params = {
       SearchParams.query_param => params[:term],
@@ -119,6 +123,38 @@ class ItemsController < InheritedResources::Base
 
     respond_to do |format|
       format.json { render :json => get_tag_names(tags).to_json }
+    end
+  end
+
+  def add_to_contributors
+    if params[:user_id]
+      @item = Item.find(params[:item_id])
+      @user = User.find(params[:user_id])
+      if @item.contributors.include? @user
+        @notice = {:type => "error",
+          :message => "User already in contributors"}
+      else
+        @item.contributors << @user
+        @item.save!
+        @notice = {:type => "notice",
+          :message => "User added to contributors"}
+      end
+    end
+  end
+
+  def delete_from_contributors
+    if params[:user_id]
+      @item = Item.find(params[:item_id])
+      @user = User.find(params[:user_id])
+      if not @item.contributors.include? @user
+        @notice = {:type => "error",
+          :message => "User is not in your contributors"}
+      else
+        @item.contributors.destroy(@user.id)
+        @item.save!
+        @notice = {:type => "notice",
+          :message => "User deleted from contributors"}
+      end
     end
   end
 
