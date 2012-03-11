@@ -77,7 +77,7 @@ class UsersController < ApplicationController
         :thumb_70  => current_user.avatar_url(:thumb_70),
         :thumb_143 => current_user.avatar_url(:thumb_143),
       }
-      render :json => @data.to_json, content_type => "application/json; charset=UTF-8"
+      render :json => @data.to_json, :content_type => "text/json; charset=utf-8"
     else
       @notice = {:type => 'error', :message =>
         "#{t current_user.errors.keys.first} #{current_user.errors.values.first.first.to_s}"
