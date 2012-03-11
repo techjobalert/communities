@@ -1,2 +1,12 @@
-%h1 Account#purchase
-%p Find me in app/views/account/purchase.html.haml
+%h3
+  Your Purchase
+.clear
+
+.list
+  .list-header
+    = render :partial => "navigation"
+    .list-content
+      =# render :partial => "account/account_list", :locals => {:items => items}
+
+:javascript
+  changeNavigationTab(".tab-account");

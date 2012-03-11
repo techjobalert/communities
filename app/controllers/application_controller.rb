@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     @notice = {:type => 'error', :message => exception.message}
     respond_to do |format|
-      format.html { redirect_to :back, :notice => exception.message }
+      format.html { redirect_to root_path, :notice => exception.message }
       format.js { render :partial => "layouts/access_denied", :locals => {:notice => @notice} }
     end
   end

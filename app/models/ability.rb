@@ -19,6 +19,7 @@ class Ability
     can :update, User, :id => @user.id
     can [:follow, :unfollow], [User, Item]
     can [:follow, :upload_avatar, :send_message], [User]
+    can [:purchase,:payments_info], :account
   end
 
   def doctor
@@ -33,6 +34,7 @@ class Ability
     can :manage, [Comment, Item] do |obj|
       owner?(obj)
     end
+    can :all, :account
     can [:add_to_contributors, :delete_from_contributors, :users_search], Item do |item|
       owner?(item)
     end
@@ -41,6 +43,7 @@ class Ability
   def moderator
     doctor
     can :update, [Item, Comment]
+    can :all, :moderators
   end
 
   def admin
