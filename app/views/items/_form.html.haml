@@ -64,34 +64,35 @@
     .clear
   .hr
 
-  .b-uplod-step-published-with.steps
-    .b-upload-title Published with
-    - collegues = @item.contributors
-    - if collegues.present?
-      .collegues
-        - collegues.each do |user|
-          .user{:id => "collegue-#{user.id}"}
-            = image_tag user.avatar_url(:thumb_60)
-            = text_with_br user.full_name
-            %br
-            = link_to item_delete_from_contributors_path(@item, :user_id => user.id), :class => "delete-btn", :remote => true, :method => :delete do
-              Delete
-              %span
+  -if @item.id
+    .b-uplod-step-published-with.steps
+      .b-upload-title Published with
+      - collegues = @item.contributors
+      - if collegues.present?
+        .collegues
+          - collegues.each do |user|
+            .user{:id => "collegue-#{user.id}"}
+              = image_tag user.avatar_url(:thumb_60)
+              = text_with_br user.full_name
+              %br
+              = link_to item_delete_from_contributors_path(@item, :user_id => user.id), :class => "delete-btn", :remote => true, :method => :delete do
+                Delete
+                %span
 
-    = link_to "Add persons", "", :class => 'light-button green', :confirm => 'Are you sure?', :id => "add-collegues-to-item-link"
-    .clear
+      = link_to "Add persons", "", :class => 'light-button green', :confirm => 'Are you sure?', :id => "add-collegues-to-item-link"
+      .clear
 
-    #add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
-      .form{:id => "collegues-add-form"}
-        = form_for "", :url => item_users_search_path(@item), :remote => true, :method => :get do |f|
-          %p
-            = text_field_tag "q", "",:placeholder => "Search persons", :style => "width:300px;"
-            = f.submit 'Search', :class => 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover'
+      #add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
+        .form{:id => "collegues-add-form"}
+          = form_for "", :url => item_users_search_path(@item), :remote => true, :method => :get do |f|
+            %p
+              = text_field_tag "q", "",:placeholder => "Search persons", :style => "width:300px;"
+              = f.submit 'Search', :class => 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover'
 
-        .users-wrapper
-          - if @doctors.present?
-            = render :partial => 'doctors_list', :locals => {:doctors => @doctors}
-  .hr
+          .users-wrapper
+            - if @doctors.present?
+              = render :partial => 'doctors_list', :locals => {:doctors => @doctors}
+    .hr
 
 
 
