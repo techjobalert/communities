@@ -165,7 +165,11 @@ class UsersController < ApplicationController
     when "patients"
       current_user.followers.map {|f| f.id if f.role=="patient"}
     end
-    @users = _users.select {|u| u.id.in? ids }
+    if ids
+      @users = _users.select {|u| u.id.in? ids }
+    else
+      @users = _users
+    end
   end
 
 end

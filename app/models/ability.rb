@@ -33,7 +33,7 @@ class Ability
     can :manage, [Comment, Item] do |obj|
       owner?(obj)
     end
-    can [:add_to_contributors, :delete_from_contributors], Item do |item|
+    can [:add_to_contributors, :delete_from_contributors, :users_search], Item do |item|
       owner?(item)
     end
   end

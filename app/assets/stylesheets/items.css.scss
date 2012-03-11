@@ -524,6 +524,7 @@
 }
 
 #add-collegues-to-item {
+  overflow: hidden;
   ul {
     padding: 0;
     margin: 0;}
@@ -552,6 +553,10 @@
       margin-top: 4px;
       width: 45px;
     }
+  }
+  .users-wrapper{
+    overflow-y: auto;
+    height: 278px;
   }
 
   img {

@@ -23,6 +23,7 @@ Orthodontic::Application.routes.draw do
     delete  "delete_from_contributors"
     get     "search",   :on => :collection
     get     "qsearch",  :on => :collection
+    get     "users_search"
     get     "tags",     :on => :collection
   end
 

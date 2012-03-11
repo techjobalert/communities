@@ -82,22 +82,15 @@
     .clear
 
     #add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
-      .form
-        %p= text_field_tag "search", "",:placeholder => "Search persons", :style => "width:370px;"
+      .form{:id => "collegues-add-form"}
+        = form_for "", :url => item_users_search_path(@item), :remote => true, :method => :get do |f|
+          %p
+            = text_field_tag "q", "",:placeholder => "Search persons", :style => "width:300px;"
+            = f.submit 'Search', :class => 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover'
 
-      - doctors = User.where(:role => 'doctor').where('id not in (?)', @item.contributor_ids)
-      - if doctors.present?
-        %div
-          %ul
-            - doctors.each do |user|
-              %li{:id => "user-#{user.id}"}
-                = image_tag user.avatar_url(:thumb_45)
-                = text_with_br user.full_name
-                %br
-                = link_to item_add_to_contributors_path(@item, :user_id => user.id), :class => "add-btn", :remote => true, :method => :post do
-                  + Add
-                  %span
-
+        .users-wrapper
+          - if @doctors.present?
+            = render :partial => 'doctors_list', :locals => {:doctors => @doctors}
   .hr
 
 
@@ -246,13 +239,14 @@
     height: 400,
     modal: true,
     buttons: {
-      "Save": function() {
-        $( this ).find('form').submit();
-      },
-      Cancel: function() {
+      // "Save": function() {
+      //   $( this ).find('form').submit();
+      // },
+      "Close": function() {
         $( this ).dialog( "close" );
       }
-    }
+    },
+    open: function(event, ui) { $("#collegues-add-form form").submit()}
   });
 
   $( "#add-collegues-to-item-link" ).click(function() {

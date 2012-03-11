@@ -1,4 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+@font-face {
+    font-family: 'WebSymbolsRegular';
+    src: url('/assets/websymbols-regular-webfont.eot');
+    src: url('/assets/websymbols-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/assets/websymbols-regular-webfont.woff') format('woff'),
+         url('/assets/websymbols-regular-webfont.ttf') format('truetype'),
+         url('/assets/websymbols-regular-webfont.svg#WebSymbolsRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body {
   font-family: "Droid Sans", Arial, sans-serif;
@@ -960,3 +970,6 @@ h3 {
       white-space: nowrap;
    }
  }
+.web-symbols{
+  font-family: 'WebSymbolsRegular';
+}

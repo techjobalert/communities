@@ -25,7 +25,7 @@ class ItemsController < InheritedResources::Base
   end
 
   def edit
-
+    # @doctors = User.where(:role => 'doctor').where('id not in (?)', @item.contributor_ids)
   end
 
   def update
@@ -100,7 +100,11 @@ class ItemsController < InheritedResources::Base
     p params
     @items = SearchParams.new(params).get_search_results
   end
-
+  def users_search
+    @item = Item.find(params[:item_id])
+    users = User.where(:role => 'doctor').where('id not in (?)', @item.contributor_ids)
+    @doctors = users.search(params[:q])
+  end
   def qsearch
     _params = {
       SearchParams.query_param => params[:term],
