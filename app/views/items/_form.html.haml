@@ -66,15 +66,15 @@
 
   .b-uplod-step-published-with.steps
     .b-upload-title Published with
-    - collegues = User.all
+    - collegues = @item.contributors
     - if collegues.present?
       .collegues
         - collegues.each do |user|
-          .user
+          .user{:id => "collegue-#{user.id}"}
             = image_tag user.avatar_url(:thumb_60)
             = text_with_br user.full_name
             %br
-            = link_to "#", :class => "delete-btn" do
+            = link_to item_delete_from_contributors_path(@item, :user_id => user.id), :class => "delete-btn", :remote => true, :method => :delete do
               Delete
               %span
 
@@ -83,15 +83,20 @@
 
     #add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
       .form
-        %p= text_field_tag "search", "",:placeholder => "Search persons"
+        %p= text_field_tag "search", "",:placeholder => "Search persons", :style => "width:370px;"
 
-      - collegues = User.all
-      - if collegues.present?
-        %ul
-          - collegues.each do |user|
-            %li
-              = image_tag user.avatar_url(:thumb_45)
-              = text_with_br user.full_name
+      - doctors = User.where(:role => 'doctor').where('id not in (?)', @item.contributor_ids)
+      - if doctors.present?
+        %div
+          %ul
+            - doctors.each do |user|
+              %li{:id => "user-#{user.id}"}
+                = image_tag user.avatar_url(:thumb_45)
+                = text_with_br user.full_name
+                %br
+                = link_to item_add_to_contributors_path(@item, :user_id => user.id), :class => "add-btn", :remote => true, :method => :post do
+                  + Add
+                  %span
 
   .hr
 

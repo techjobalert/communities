@@ -188,14 +188,34 @@
           min-width: 415px;
           border: 1px solid #F1EFD1;
           background: none repeat scroll 0 0 #F1EFD1;
-
         }
-
+        .text-wrap{
+          textarea{
+            font-size: 14px;
+            line-height: 33px;
+            height: 34px;
+          }
+        }
         .text-tags {
           border: 1px solid #F1EFD1;
           -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
           -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
           box-shadow: 0 2px 2px #D8DCC1 inset;
+
+          .text-tag{
+            height:100%;
+            .text-button{
+              height: 100%;
+              line-height: 25px;
+              .text-label{
+                font-size: 14px;
+              }
+              .text-remove{
+                top:8px;
+              }
+            }
+          }
+
         }
       }
 
@@ -240,6 +260,7 @@
           -moz-border-radius: 4px;
           border-radius: 4px;
           margin-top: 4px;
+          width: 45px;
 
           span {
             background: url("/assets/edit-icon-set.png") no-repeat scroll 0 3px transparent;
@@ -512,7 +533,26 @@
     overflow: hidden;
     padding: 5px 0;
     font-size: 14px;
-    list-style: none;}
+    list-style: none;
+    float: left;
+    width: 175px;
+    .add-btn{
+      color: #424242;
+      display: block;
+      font-size: 10px;
+      line-height: 15px;
+      text-decoration: none;
+      border: 1px solid #eee;
+      float: left;
+      padding: 0 5px;
+      background: #f0f0f0;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      margin-top: 4px;
+      width: 45px;
+    }
+  }
 
   img {
     float: left;

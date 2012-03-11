@@ -14,23 +14,25 @@ Orthodontic::Application.routes.draw do
 
   resources :items do
     resources :comments do
-      get "vote_up"
+      get   "vote_up"
     end
-    post "follow"
-    delete "unfollow"
-    delete "delete"
-    get "search", :on => :collection
-    get "qsearch", :on => :collection
-    get "tags", :on => :collection
+    post    "follow"
+    delete  "unfollow"
+    delete  "delete"
+    post    "add_to_contributors"
+    delete  "delete_from_contributors"
+    get     "search",   :on => :collection
+    get     "qsearch",  :on => :collection
+    get     "tags",     :on => :collection
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
-    post "upload_avatar"
-    post "follow"
-    post "send_message"
-    post "send_message_to_followers"
-    delete "unfollow"
-    get "search", :on => :collection
+    post    "upload_avatar"
+    post    "follow"
+    post    "send_message"
+    post    "send_message_to_followers"
+    delete  "unfollow"
+    get     "search", :on => :collection
   end
 
   resources :pay_accounts, :only => [:create, :update]

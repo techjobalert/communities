@@ -128,6 +128,38 @@ class ItemsController < InheritedResources::Base
     end
   end
 
+  def add_to_contributors
+    if params[:user_id]
+      @item = Item.find(params[:item_id])
+      @user = User.find(params[:user_id])
+      if @item.contributors.include? @user
+        @notice = {:type => "error",
+          :message => "User already in contributors"}
+      else
+        @item.contributors << @user
+        @item.save!
+        @notice = {:type => "notice",
+          :message => "User added to contributors"}
+      end
+    end
+  end
+
+  def delete_from_contributors
+    if params[:user_id]
+      @item = Item.find(params[:item_id])
+      @user = User.find(params[:user_id])
+      if not @item.contributors.include? @user
+        @notice = {:type => "error",
+          :message => "User is not in your contributors"}
+      else
+        @item.contributors.destroy(@user.id)
+        @item.save!
+        @notice = {:type => "notice",
+          :message => "User deleted from contributors"}
+      end
+    end
+  end
+
   protected
 
   def get_item
