@@ -189,33 +189,11 @@
           border: 1px solid #F1EFD1;
           background: none repeat scroll 0 0 #F1EFD1;
         }
-        .text-wrap{
-          textarea{
-            font-size: 14px;
-            line-height: 33px;
-            height: 34px;
-          }
-        }
         .text-tags {
           border: 1px solid #F1EFD1;
           -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
           -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
           box-shadow: 0 2px 2px #D8DCC1 inset;
-
-          .text-tag{
-            height:100%;
-            .text-button{
-              height: 100%;
-              line-height: 25px;
-              .text-label{
-                font-size: 14px;
-              }
-              .text-remove{
-                top:8px;
-              }
-            }
-          }
-
         }
       }
 
