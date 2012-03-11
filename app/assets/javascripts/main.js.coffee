@@ -4,10 +4,10 @@ redactor = undefined
 @changeNavigationTab = (tab) ->
   $(".main-content .navigation a").removeClass("selected");
   $(tab).addClass("selected");
+  $(".l-settings-navigation").addClass('hidden') if tab != ".tab-settings"
 
 $ ->
-  $('a.pjax, .pagination a').pjax("[data-pjax-container]")
-
+  $('a.pjax, .pagination a').pjax("[data-pjax-container]") if $("[data-pjax-container]").length
 
   $("#sign-up .toggler label").on "click", ->
     $("#sign-up .toggler label").hasClass ""
