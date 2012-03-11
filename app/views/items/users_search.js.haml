@@ -1,0 +1,4 @@
+- if @doctors
+  $("#add-collegues-to-item .users-wrapper").html("#{ escape_javascript( render :partial => 'items/doctors_list', :locals => {:doctors => @doctors}) }" )
+- else
+  $("#add-collegues-to-item .users-wrapper").html("")

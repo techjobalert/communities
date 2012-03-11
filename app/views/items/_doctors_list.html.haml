@@ -1,0 +1,10 @@
+%ul
+  - doctors.each do |u|
+    -if u
+      %li{:id => "user-#{u.id}"}
+        = image_tag u.avatar_url(:thumb_45)
+        = text_with_br u.full_name
+        %br
+        = link_to item_add_to_contributors_path(@item, :user_id => u.id), :class => "add-btn", :remote => true, :method => :post do
+          + Add
+          %span
