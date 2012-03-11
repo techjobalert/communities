@@ -1,6 +1,7 @@
 class ModeratorController < ApplicationController
+  authorize_resource :class => false
   layout "administrator"
-  before_filter :is_admin
+  # before_filter :is_admin
   before_filter :get_item, :only => [:item_show, :item_publish, :item_deny]
   before_filter :get_comment, :only => [:comment_publish, :comment_deny]
 
@@ -83,8 +84,8 @@ class ModeratorController < ApplicationController
     @comment = Comment.find params[:id]
   end
 
-  def is_admin
-    redirect_to root_path unless current_user.admin?
-  end
+  # def is_admin
+  #  redirect_to root_path unless current_user.admin?
+  # end
 
 end

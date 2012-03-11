@@ -58,15 +58,11 @@ class ItemsController < InheritedResources::Base
   end
 
   def follow
-    @message = ""
     if @following_item and not current_user.items.include?(@following_item)
       current_user.follow(@following_item)
+      @notice = {:type => 'notice', :message => "success"}
     else
-      @message = "You cannot follow your item."
-    end
-
-    respond_to do |format|
-      format.js
+      @notice = {:type => 'error', :message => "You cannot follow your item."}
     end
   end
 
@@ -74,11 +70,9 @@ class ItemsController < InheritedResources::Base
     @message = ""
     if current_user.following?(@following_item) and @following_item
       current_user.stop_following(@following_item)
+      @notice = {:type => 'notice', :message => "success"}
     else
-      @message = "Some error."
-    end
-    respond_to do |format|
-      format.js
+      @notice = {:type => 'error', :message => "You cannot unfollow your item."}
     end
   end
 

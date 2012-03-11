@@ -4,7 +4,7 @@ $(function() {
     var settings;
 
     settings = {
-      runtimes: "html5,html4,flash",
+      runtimes: "flash,html5,html4",
       browse_button: "pickfiles",
       container: "upcontainer",
       max_file_size: "3mb",

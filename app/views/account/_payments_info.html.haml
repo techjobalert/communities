@@ -1,5 +1,5 @@
 %h3
-  Your Account
+  Payments Info
 
 .clear
 
@@ -45,14 +45,15 @@
             September 2011
             %span 30 USD
 
-      .item
-        .title Schedule
-        .summ 172 USD
-        = link_to '#', :class => 'light-button green upload' do
-          %span
-          Uplode more
-          %br
-          quality items
+      - if current_user.role? "doctor"
+        .item
+          .title Total
+          .summ 172 USD
+          = link_to new_item_path , :class => 'light-button green upload' do
+            %span
+            Uplode more
+            %br
+            quality items
 
 
 

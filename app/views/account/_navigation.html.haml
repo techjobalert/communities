@@ -1,17 +1,19 @@
 .nav.account
-  = link_to items_account_path(), :class => "pjax items #{'selected' if params[:action] == 'items'}" do
-    %span
-    Your Items
+  - if current_user.role? "doctor"
+    = link_to items_account_path(), :class => "pjax items #{'selected' if params[:action] == 'items'}" do
+      %span
+      Your Items
   = link_to purchase_account_path(), :class => "pjax your-purchase #{'selected' if params[:action] == 'purchase'}" do
     %span
     Your
     %br
     Purchase
-  = link_to purchased_items_account_path(), :class => "pjax purchased #{'selected' if params[:action] == 'purchased_items'}" do
-    %span
-    Purchased
-    %br
-    Item
+  - if current_user.role? "doctor"
+    = link_to purchased_items_account_path(), :class => "pjax purchased #{'selected' if params[:action] == 'purchased_items'}" do
+      %span
+      Purchased
+      %br
+      Item
   = link_to payments_info_account_path(), :class => "pjax payments-info #{'selected' if params[:action] == 'payments_info'}" do
     %span
     Payments

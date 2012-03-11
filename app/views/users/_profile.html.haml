@@ -8,7 +8,7 @@
         .spinner.hidden
         :javascript
           $(function(){
-            var uploaderProfile = $.initPlupload({url: "#{user_upload_avatar_path(user)}.json"});
+            var uploaderProfile = $.initPlupload({url: "#{user_upload_avatar_path(user)}"});
             })
 
       .b-user-info-body
@@ -20,12 +20,13 @@
             %p
               %strong Birthday:
               = f.text_field :birthday, :value => date_format(current_user.birthday), :id => 'datepicker'
-            %p
-              %strong Profession and degree
-              = f.text_field :profession_and_degree
-            %p
-              %strong Specialization:
-              = f.text_area :specialization
+            - if current_user.role? "doctor"
+              %p
+                %strong Profession and degree
+                = f.text_field :profession_and_degree
+              %p
+                %strong Specialization:
+                = f.text_area :specialization
             %p.right= f.submit 'Save', :class => 'light-button green'
 
       .clear
@@ -53,4 +54,4 @@
 
 :javascript
   changeNavigationTab(".tab-profile");
-
+  $("#datepicker").datepicker({changeMonth: true,changeYear: true,yearRange: "-99:+0",maxDate: 0});

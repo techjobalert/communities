@@ -45,7 +45,7 @@
                     %span bla bla bla
 
                 %li
-                  = link_to items_account_path(), :class => "pjax tab-account #{'selected' if params[:controller] == 'account'}" do
+                  = link_to "#{current_user.role?("doctor") ? items_account_path(current_user) : purchase_account_path}", :class => "pjax tab-account #{'selected' if params[:controller] == 'account'}" do
                     ACCOUNT
                     %span bla bla bla
                 %li
@@ -81,13 +81,7 @@
             in order to view content
 
         = render :partial => 'layouts/relevant_items', :inline => true
-
-
-    - if user_signed_in?
-      = link_to 'Logout', destroy_user_session_path, :method => 'DELETE'
-
     .l-footer
-
 
     - if flash.present?
       - flash.each do |key, value|
