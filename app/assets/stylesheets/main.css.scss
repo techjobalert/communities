@@ -761,7 +761,8 @@ h3 {
       li {
         padding-right: 15px;
         list-style: none;
-        display: inline-block;
+        display: block;
+        float: left;
       }
 
       a {

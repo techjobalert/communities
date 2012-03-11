@@ -36,7 +36,6 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      Rails.logger.info "---------_#{format.inspect}"
       if not params[:user][:birthday].nil?
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end

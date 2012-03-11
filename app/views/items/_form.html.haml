@@ -86,7 +86,7 @@
         .form{:id => "collegues-add-form"}
           = form_for "", :url => item_users_search_path(@item), :remote => true, :method => :get do |f|
             %p
-              = text_field_tag "q", "",:placeholder => "Search persons", :style => "width:300px;"
+              = text_field_tag "q", "",:placeholder => "Search persons"
               = f.submit 'Search', :class => 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover'
 
           .users-wrapper

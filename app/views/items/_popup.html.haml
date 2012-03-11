@@ -17,7 +17,7 @@
       - if item.contributors.present?
         %b.title Authors
         %ul
-          - item.contributors.each do |contributor|
+          - item.contributors.limit(5).each do |contributor|
             %li
               = link_to user_path(contributor), :class => "popup-cleaner pjax" do
                 = image_tag contributor.avatar_url(:thumb_45), :width => '45', :height => '45'
