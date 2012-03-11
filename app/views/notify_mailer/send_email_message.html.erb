@@ -1,7 +1,7 @@
 <h2>Dear, <%= @to_user.full_name %>! </h2>
 Direct message from <%= link_to @from_user.full_name, user_url(@from_user)%>
 <p>
-	<%= raw(@message_text) %>
+	<%= simple_format @message_text %>
 </p>
 
 Email created and sended <%= DateTime.now.strftime("%d %B %Y %H:%M:%S") %>
