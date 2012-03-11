@@ -45,7 +45,7 @@
                     %span bla bla bla
 
                 %li
-                  = link_to "#{current_user.role?("doctor") ? items_account_path(current_user) : purchase_account_path}", :class => "pjax tab-account #{'selected' if params[:controller] == 'account'}" do
+                  = link_to "#{current_user.role?("doctor") ? items_account_path : purchase_account_path}", :class => "pjax tab-account #{'selected' if params[:controller] == 'account'}" do
                     ACCOUNT
                     %span bla bla bla
                 %li
