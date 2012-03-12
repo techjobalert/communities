@@ -17,6 +17,7 @@ class ModeratorController < ApplicationController
     options = params[:message] = {:receiver_id => @item.user_id, :title => @item.title}
 
     @message = Message.new(options, params)
+    @item.moderated_at = DateTime.now
 
     if @message.save and @item.publish
       notice = {:type => 'notice',
@@ -33,6 +34,7 @@ class ModeratorController < ApplicationController
     options = params[:message].merge!({:receiver_id => @item.user_id, :title => @item.title})
 
     @message = Message.new(options, params)
+    @item.moderated_at = DateTime.now
 
     if params[:message].blank? || params[:message][:body].blank?
       notice = {:type => 'error', :message => "Message text can't be blank."}
