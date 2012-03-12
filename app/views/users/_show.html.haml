@@ -41,8 +41,8 @@
           %strong Send a massege:
           you can send a message directly to email about profesional question
         - if is_current_user
-          %p= text_area_tag "body", "", :placeholder => 'New message'
-          %p.right= submit_tag "Send", :class => 'light-button send green'
+          %p= image_tag "send-message-public.png"
+          %p.right= submit_tag "Send", :class => 'light-button send green public'
         - else
           = render :partial => 'send_message', :locals => {:user => user}
 

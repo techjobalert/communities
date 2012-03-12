@@ -48,6 +48,10 @@
         width: 80px;
       }
     }
+
+    div.light-button.follow.unfollow {
+      cursor: default;
+    }
   }
 
   .b-user-info-body {
@@ -91,6 +95,8 @@
       font-weight: bold;
       line-height: 1;
       padding: 7px 12px;
+      &.public {
+        cursor: default; }
     }
 
   }
