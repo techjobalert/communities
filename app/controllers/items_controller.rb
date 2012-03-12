@@ -34,8 +34,11 @@ class ItemsController < InheritedResources::Base
     end
 
     if @item.update_attributes params[:item]
-      @notice = {:type => "notice",
-        :message => "Item is updated. Item will be published after premoderation"}
+      if !params[:type].present? || params[:type] != "change_keywords"
+        @notice[:message] = "Item is updated. Item will be published after premoderation"
+      else
+        @notice = {:type => "notice", :message => "Item is updated."}
+      end
     else
       @notice = {:type => "error", :message => "error"}
     end

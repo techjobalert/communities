@@ -64,7 +64,7 @@
 
     - if user.following_by_type("Item").present?
       %h2 Approvals
-      = render :partial => 'list_of_items', :locals => {:items => user.following_by_type("Item"), :show_popup => !is_current_user}
+      = render :partial => 'list_of_items', :locals => {:items => user.approvals, :show_popup => !is_current_user}
 
   = render :partial => 'sidebar', :locals => {:collaborators => collaborators, :show_popup => !is_current_user}
 .clear
