@@ -509,12 +509,13 @@
 
   li {
     display: block;
+    float: left;
+    font-size: 14px;
+    height: 70px;
+    list-style: none outside none;
     overflow: hidden;
     padding: 5px 0;
-    font-size: 14px;
-    list-style: none;
-    float: left;
-    width: 175px;
+    width: 185px;
     .add-btn{
       color: #424242;
       display: block;
@@ -531,6 +532,14 @@
       margin-top: 4px;
       width: 45px;
     }
+  }
+
+  form {
+    margin: 10px 0 20px;
+  }
+
+  input[type="text"]{
+    width: 290px;
   }
   .users-wrapper{
     overflow-y: auto;
