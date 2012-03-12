@@ -48,7 +48,9 @@
         .item.keywords
           = label :tag_list, "Keywords"
           .textarea
-            = text_area_tag :tag_list, "", :rows => 2
+            = text_area_tag :tag_list, "", :rows => 1
+          .clear
+          .text-hint Enter keyword and click "Enter" keyboard button
       .clear
       = f.submit 'Save', :class => 'light-button green'
       :javascript
@@ -61,6 +63,7 @@
               cacheResults : true
           }
         });
+
     .clear
   .hr
 

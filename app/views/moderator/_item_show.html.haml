@@ -18,7 +18,7 @@
 
           = form_for @item, :remote => :true do |f|
             = hidden_field_tag "type", "change_keywords"
-            = text_area_tag :tag_list, "", :rows => 3, :class => "keywords-textarea"
+            = text_area_tag :tag_list, "", :rows => 1, :class => "keywords-textarea"
             %p= f.submit "Update keywords", :class => "light-button green"
 
         .b-admin-content-tools

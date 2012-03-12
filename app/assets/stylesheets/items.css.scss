@@ -179,21 +179,43 @@
         height: 70px;
       }
 
-      .keywords .textarea {
-        float: left;
-        position: relative;
-        textarea {
-          width: 415px;
-          max-width: 415px;
-          min-width: 415px;
-          border: 1px solid #F1EFD1;
-          background: none repeat scroll 0 0 #F1EFD1;
+      .keywords {
+        .textarea {
+          float: left;
+          position: relative;
+          textarea {
+            width: 415px;
+            max-width: 415px;
+            min-width: 415px;
+            background: transparent;
+            border: 1px solid #F1EFD1;
+            line-height: 20px;
+          }
+
+          .text-wrap {
+            border: 1px solid #F1EFD1;
+            -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+            -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+            box-shadow: 0 2px 2px #D8DCC1 inset;
+            background: #F1EFD1;
+          }
         }
-        .text-tags {
-          border: 1px solid #F1EFD1;
-          -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
-          -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
-          box-shadow: 0 2px 2px #D8DCC1 inset;
+        .text-hint {
+          margin: 3px 0 3px 110px;
+          font-size: 11px;
+          color: #555555;
+        }
+
+        .text-core .text-wrap .text-tags .text-tag .text-button {
+          height: 25px;
+          font-size: 13px;
+          padding: 0 20px 0 7px;
+          line-height: 20px;
+          color: #444;
+        }
+
+        .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove {
+          top: 6px;
         }
       }
 
