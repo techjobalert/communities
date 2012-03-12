@@ -49,6 +49,12 @@ class ItemsController < InheritedResources::Base
   def create
     params[:item]['user_id'] = current_user.id
     @item = Item.new(params[:item])
+
+    if params[:tag_list].present?
+      tag_list = JSON::parse(params[:tag_list])
+      @item.tag_list = tag_list
+    end
+
     if @item.save
       @notice = {:type => 'notice',
         :message => "Item is created. Item will be published after premoderation"}
