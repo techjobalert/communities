@@ -694,11 +694,27 @@ h3 {
   }
 }
 
-.b-popup-user-info .container {
+.b-popup-user-info {
+  .container {
   margin-bottom: 18px;
-  padding-bottom: 5px;
-}
+  padding-bottom: 5px; }
 
+  ul {
+    padding: 0 0 0 15px;
+    margin: 0px 0 0 0;
+  }
+
+  .publication-item {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .publication-container {
+    margin-top: -7px;
+    height: 60px;
+    overflow: auto;
+  }
+}
 
 .b-popup-set-preview {
   ul {
