@@ -3,44 +3,48 @@ class NotifyNow
 
   def self.perform(event_id)
   	event = TimelineEvent.find(event_id)
-  	followers, owner = [], nil
+  	receivers = []
+    subjects_list = %w(Comment Follow Item Contribution)
 
   	if event.subject_type == "Comment"
   		commentable = event.subject.commentable
       if commentable.is_a? Item
         if commentable.user.commented_item == "1" or commentable.user.recommended_comment == "1"
-          owner = commentable.user
+          receivers << commentable.user
         end
       end
-  	elsif event.subject_type == "Follow"
+    end
+  	if event.subject_type == "Follow"
       followable = event.subject.followable
       if followable.is_a? User and followable.following_me == "1"
-        owner = followable
+        receivers << followable
       elsif followable.is_a? Item and followable.user.following_item == "1"
-        owner = followable.user
+        receivers << followable.user
       end
-    elsif event.subject_type == "Item"
+    end
+    if event.subject_type == "Item"
       item = event.subject
       if item.state == "published"
-        followers << event.subject.followers
-        followers << event.subject.user.followers
+        receivers << event.subject.followers.select{|f| f.following_published == "1"}
+        receivers << event.subject.user.followers.select{|f| f.following_published == "1"}
       end
-  	else
+    end
+    if event.subject_type == "Contribution"
+      if event.actor.added_as_author == "1"
+        receivers << event.actor
+      end
+    end
+  	if not event.subject_type.in? subjects_list
   		if defined? event.subject.followers
-        followers << event.subject.followers
+        receivers << event.subject.followers
       else
         p event
       end
   	end
 
-    if owner
-      # If we have owner, we just notify only owner
-      NotifyMailer.notify_now(event, owner).deliver
-    end
-		if followers
-      # Else notify all followers
-      followers.flatten.each do |follower|
-        NotifyMailer.notify_now(event, follower).deliver
+		if receivers
+      receivers.flatten.each do |receiver|
+        NotifyMailer.notify_now(event, receiver).deliver
       end
     end
   end
