@@ -13,7 +13,10 @@
 - if @notify.subject_type == "Item"
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
-    = "#{@notify.event_type.split("_").first} item"
+    -if @notify.subject.state == "published" and (@notify.subject.moderated_at..Time.now+120).cover?(Time.now)
+      created new item
+    -else
+      = "#{@notify.event_type.split("_").first} item"
     = link_to @notify.subject.title, item_url(@notify.subject)
 
 - if @notify.subject_type == "User"

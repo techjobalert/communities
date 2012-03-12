@@ -5,24 +5,25 @@
       .b-settings-title Email me whenever:
       = form_for(current_user, :remote => true) do |f|
         %ul
-          %li.odd
-            = f.check_box :following_me
-            = label "_radio", "following_me", "Someone following me"
+          - if current_user.role?("doctor")
+            %li.odd
+              = f.check_box :following_me
+              = label "_radio", "following_me", "Someone following me"
+            %li
+              = f.check_box :added_as_author
+              = label "_radio", "added_as_author", "Someone added you as a author of an item"
+            %li.odd
+              = f.check_box :following_item
+              = label "_radio", "following_item", "Someone started following your item"
+            %li
+              = f.check_box :commented_item
+              = label "_radio", "commented_item", "Someone commented on your item"
+            %li.odd
+              = f.check_box :recommended_comment
+              = label "_radio", "recommended_comment", "Someone recommended your comment"
           %li
             = f.check_box :following_published
             = label "_radio", "following_published", "Someone of my following has published something"
-          %li.odd
-            = f.check_box :added_as_author
-            = label "_radio", "added_as_author", "Someone added you as a author of an item"
-          %li
-            = f.check_box :following_item
-            = label "_radio", "following_item", "Someone started following your item"
-          %li.odd
-            = f.check_box :commented_item
-            = label "_radio", "commented_item", "Someone commented on your item"
-          %li
-            = f.check_box :recommended_comment
-            = label "_radio", "recommended_comment", "Someone recommended your comment"
           %li.odd
             = f.check_box :following_bought_item
             = label "_radio", "following_bought_item", "Someone you are following bought an item"
