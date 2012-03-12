@@ -11,8 +11,6 @@ class ItemsController < InheritedResources::Base
       @popup = false
       @item.increment!(:views_count)
       @items = Item.search(:q => @item.title, :without_ids => [*@item.id], :with => {:tag_ids => @item.tag_ids}, :page => params[:page], :per_page => 3)
-      # @items = _items.select {|i| i.id != @item.id}
-      p @items
     end
   end
 
@@ -25,7 +23,6 @@ class ItemsController < InheritedResources::Base
   end
 
   def edit
-    # @doctors = User.where(:role => 'doctor').where('id not in (?)', @item.contributor_ids)
   end
 
   def update
@@ -97,7 +94,6 @@ class ItemsController < InheritedResources::Base
     params[:current_user_id] = current_user.id if @render_items == "account"
     params.merge!({SearchParams.per_page_param => 3}) if @filter_location != "main"
     params.merge!({:classes => [Item]})
-    p params
     @items = SearchParams.new(params).get_search_results
   end
   def users_search

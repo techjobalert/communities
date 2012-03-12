@@ -13,7 +13,7 @@
 - if @notify.subject_type == "Item"
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
-    -if @notify.subject.state == "published" and (@notify.subject.moderated_at..Time.now+120).cover?(Time.now)
+    -if @notify.subject.state == "published" and (@notify.subject.moderated_at..@notify.subject.moderated_at+60).cover?(Time.now.utc)
       created new item
     -else
       = "#{@notify.event_type.split("_").first} item"
@@ -29,5 +29,12 @@
     = link_to @notify.actor.full_name, user_url(@notify.actor)
     = "#{@notify.event_type.split("_").first} comment "
     = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
+
+- if @notify.subject_type == "Contribution"
+  %h3
+    = link_to @notify.secondary_subject.user.full_name, user_url(@notify.secondary_subject.user)
+    - action = @notify.event_type.split("_").first
+    = "#{action} you #{action == "added" ? 'to' : 'from' } the authors"
+    = link_to @notify.secondary_subject.title, item_url(@notify.secondary_subject)
 %br
 = "Email created #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}"
