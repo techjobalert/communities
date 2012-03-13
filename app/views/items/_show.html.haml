@@ -97,7 +97,7 @@
 #comments.b-comments
   %h3 Comments
   .b-comments-panel
-    - if current_user.present?
+    - if user_signed_in?
       = link_to '#', :class => 'light-button new-comment slide-to' do
         Make a comment
         %br
