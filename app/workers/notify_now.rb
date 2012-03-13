@@ -43,7 +43,7 @@ class NotifyNow
   	end
 
 		if receivers
-      receivers.flatten.each do |receiver|
+      receivers.flatten.uniq.each do |receiver|
         NotifyMailer.notify_now(event, receiver).deliver
       end
     end

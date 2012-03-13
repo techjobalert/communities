@@ -10,7 +10,7 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
-      @items = Item.search(:q => @item.title, :without_ids => [*@item.id], :with => {:tag_ids => @item.tag_ids}, :page => params[:page], :per_page => 3)
+      @items = Item.search(:q => @item.title, :without_ids => [*@item.id], :with_all => {:tag_ids => @item.tag_ids}, :page => params[:page], :per_page => 3, :star => true)
     end
   end
 

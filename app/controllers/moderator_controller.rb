@@ -6,7 +6,7 @@ class ModeratorController < ApplicationController
   before_filter :get_comment, :only => [:comment_publish, :comment_deny]
 
   def items
-    @items = Item.state_is("moderated").page(params[:page]).per(3)
+    @items = Item.state_is("moderated").order("created_at desc").page(params[:page]).per(3)
     @notice = params[:notice]
   end
 
@@ -32,7 +32,13 @@ class ModeratorController < ApplicationController
   end
 
   def item_deny
-    options = params[:message].merge!({:receiver_id => @item.user_id, :title => @item.title})
+    options = params[:message].merge!(
+      {
+        :user_id => current_user.id,
+        :receiver_id => @item.user_id,
+        :title => @item.title
+      }
+    )
 
     @message = Message.new(options, params)
     @item.moderated_at = Time.now
