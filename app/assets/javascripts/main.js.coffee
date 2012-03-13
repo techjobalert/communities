@@ -35,6 +35,9 @@ $ ->
   $(".b-search-engine .btn.explore").live "click", ->
     $(".b-explore-popup").toggleClass "hidden"
 
+  $(document).on "click", ".notice", ->
+    $(this).remove()
+
   $(document).on
     mouseover: (e) ->
       timer_popup = window.setTimeout(->
