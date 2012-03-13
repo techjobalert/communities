@@ -181,7 +181,7 @@
     margin: 15px 0 20px;
   }
 
-  .b-notification {
+  .b-notification, .b-privacy {
     margin-left: 230px;
     ul {
       margin: 0;
@@ -193,21 +193,30 @@
       padding: 7px 8px;
       font-size: 12px;
       width: 360px;
-    }
+      overflow: hidden;
 
-    .odd {
-      background: #dfeeea;
+      &:nth-child(2n-1){
+        background: #dfeeea;
+      }
+
+      label {
+        margin-left: 35px;
+        display: block;
+        line-height: 1.5;
+      }
     }
 
     .submit {
       padding: 15px 0px;
       text-align: right;
       width: 376px;
+      background: #fff !important;
     }
 
     input[type="checkbox"] {
       vertical-align: text-bottom;
-      margin-right: 10px;
+      float: left;
+      margin-top: 3px;
     }
 
     .b-settings-title {

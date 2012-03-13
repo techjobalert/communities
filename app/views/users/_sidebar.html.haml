@@ -10,4 +10,4 @@
             = image_tag collaborator.avatar_url(:thumb_60)
           .text
             %b= collaborator.full_name
-            = collaborator.specialization
+            = collaborator.specialization.truncate(100, :separator => " ") if collaborator.specialization.present?

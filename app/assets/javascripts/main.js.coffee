@@ -64,9 +64,16 @@ $ ->
 
   $(".b-settings-nav a").live "click", ->
     unless $(this).hasClass("selected")
-      $(".b-settings-nav a").toggleClass "selected"
-      $(".b-settings-tab").toggleClass "hidden"
+      $(".b-settings-nav a").removeClass "selected"
+      $(this).addClass "selected"
+      id = $(this).attr "id"
+      $(".b-settings-tab").addClass "hidden"
+      $("." + id).removeClass("hidden")
     false
+    # unless $(this).hasClass("selected")
+    #   $(".b-settings-nav a").toggleClass "selected"
+    #   $(".b-settings-tab").toggleClass "hidden"
+    # false
 
   $(document).on "click", ".list-header .nav a", ->
     unless $(this).hasClass("selected")

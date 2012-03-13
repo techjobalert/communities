@@ -9,10 +9,13 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :bio,
                   :full_name, :profession_and_degree, :role, :avatar, :specialization,
-                  :birthday, :following_me, :following_published, :added_as_author,
-                  :following_item,  :commented_item, :recommended_comment,
-                  :following_bought_item, :item_changes, :educations,
-                  :educations_attributes, :admin
+                  :birthday, :educations, :educations_attributes, :admin,
+
+                  # Settings
+                  :following_me, :following_published, :added_as_author,
+                  :following_item, :commented_item, :recommended_comment,
+                  :following_bought_item, :item_changes, :show_bio,
+                  :show_birthday, :show_educations
 
   acts_as_followable
   acts_as_follower
@@ -44,7 +47,11 @@ class User < ActiveRecord::Base
         :commented_item,        #Someone commented on your item
         :recommended_comment,   #Someone recommended your comment
         :following_bought_item, #Someone you are following bought an item
-        :item_changes           #Item you following as changed or updated (price, title, summary goes from paid to free and etc)
+        :item_changes,          #Item you following as changed or updated (price, title, summary goes from paid to free and etc)
+        # Privacy settings ------------
+        :show_bio,
+        :show_educations,
+        :show_birthday
   ]
 
   validates :full_name, :length => { :minimum => 3, :maximum => 40 },

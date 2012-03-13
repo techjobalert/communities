@@ -12,22 +12,21 @@
             })
 
       .b-user-info-body
-        .form
-          = form_for(current_user, :remote => true, :validate => true) do |f|
-            = hidden_field_tag "type", "profile"
-            %h2.b-user-title= f.text_field :full_name
+        = form_for(current_user, :remote => true, :validate => true) do |f|
+          = hidden_field_tag "type", "profile"
+          %h2.b-user-title= f.text_field :full_name
 
+          %p
+            %strong Birthday:
+            = f.text_field :birthday, :value => date_format(current_user.birthday), :id => 'datepicker'
+          - if current_user.role? "doctor"
             %p
-              %strong Birthday:
-              = f.text_field :birthday, :value => date_format(current_user.birthday), :id => 'datepicker'
-            - if current_user.role? "doctor"
-              %p
-                %strong Profession and degree
-                = f.text_field :profession_and_degree
-              %p
-                %strong Specialization:
-                = f.text_area :specialization
-            %p.right= f.submit 'Save', :class => 'light-button green'
+              %strong Profession and degree
+              = f.text_field :profession_and_degree
+            %p
+              %strong Specialization:
+              = f.text_area :specialization
+          %p.right= f.submit 'Save', :class => 'light-button green'
 
       .clear
 

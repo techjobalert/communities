@@ -97,13 +97,14 @@
 #comments.b-comments
   %h3 Comments
   .b-comments-panel
-    = link_to '#', :class => 'light-button new-comment slide-to' do
-      Make a comment
-      %br
-      on this Item
-      %span
-    .b-comments-form#comment-form
-      = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
+    - if user_signed_in?
+      = link_to '#', :class => 'light-button new-comment slide-to' do
+        Make a comment
+        %br
+        on this Item
+        %span
+      .b-comments-form#comment-form
+        = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
     %ul
       - if @item.comment_threads.present?
         - @item.comment_threads.each do |comment|
