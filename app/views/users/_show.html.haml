@@ -22,7 +22,7 @@
 
       .b-user-info-body
         %h2.b-user-title= user.full_name
-        - unless user.birthday.blank?
+        - if user.show_birthday == "1" and user.birthday.present?
           %p
             %strong Birthday:
             = user.birthday
@@ -48,7 +48,7 @@
 
       .clear
 
-    - unless user.bio.blank?
+    - if user.show_bio == "1" and  user.bio.present?
       %h2 Medical Profile
 
       %p

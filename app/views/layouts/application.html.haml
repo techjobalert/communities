@@ -66,12 +66,15 @@
           .l-settings-navigation{:class => "#{'hidden' unless params[:controller] == 'users' && params[:action] == 'edit'}"}
             .b-settings-nav
               - if current_user.role? "doctor"
-                = link_to '#', :class => 'b-settings-nav-bio selected' do
+                = link_to '#', :id => "b-info",:class => 'b-settings-nav-bio selected' do
                   Medical
                   %span Your medical information
-              = link_to '#', :class => "b-settings-nav-notification #{'selected' unless current_user.role?('doctor')}"  do
+              = link_to '#', :id => "b-notification",:class => "b-settings-nav-notification #{'selected' unless current_user.role?('doctor')}"  do
                 Notification
                 %span Email preferences...
+              = link_to '#', :id => "b-privacy", :class => "b-settings-nav-privacy"  do
+                Privacy
+                %span Privacy settings
 
       - else
         %h1

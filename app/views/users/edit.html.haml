@@ -6,25 +6,25 @@
       = form_for(current_user, :remote => true) do |f|
         %ul
           - if current_user.role?("doctor")
-            %li.odd
+            %li
               = f.check_box :following_me
               = label "_radio", "following_me", "Someone following me"
             %li
               = f.check_box :added_as_author
               = label "_radio", "added_as_author", "Someone added you as a author of an item"
-            %li.odd
+            %li
               = f.check_box :following_item
               = label "_radio", "following_item", "Someone started following your item"
             %li
               = f.check_box :commented_item
               = label "_radio", "commented_item", "Someone commented on your item"
-            %li.odd
+            %li
               = f.check_box :recommended_comment
               = label "_radio", "recommended_comment", "Someone recommended your comment"
           %li
             = f.check_box :following_published
             = label "_radio", "following_published", "Someone of my following has published something"
-          %li.odd
+          %li
             = f.check_box :following_bought_item
             = label "_radio", "following_bought_item", "Someone you are following bought an item"
           %li
@@ -49,6 +49,23 @@
 
             .right= f.submit 'OK', :class => 'light-button green'
 
+    .b-privacy.b-settings-tab.hidden
+      .b-settings-title Select settings to show in your profile:
+      = form_for(current_user, :remote => true) do |f|
+        %ul
+          %li
+            = f.check_box :show_bio
+            = label "_radio", "show_bio", "biography"
+          %li
+            = f.check_box :show_educations
+            = label "_radio", "show_educations", "educations"
+          %li
+            = f.check_box :show_birthday
+            = label "_radio", "show_birthday", "birthday"
+
+          %li.submit= f.submit 'Save changes', :class => 'light-button green'
+
   :javascript
     $(".l-settings-navigation").removeClass('hidden');
+    $(".b-settings-nav-bio").click();
     changeNavigationTab(".tab-settings");
