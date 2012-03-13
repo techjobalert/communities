@@ -44,9 +44,9 @@
       = render :partial => 'list_of_items', :locals => {:items => user.items, :show_popup => true}
       %br
 
-    - if user.following_by_type("Item").present?
+    - if user.approvals.state_is("published").present?
       %h2 Approvals
-      = render :partial => 'list_of_items', :locals => {:items => user.following_by_type("Item"), :show_popup => true}
+      = render :partial => 'list_of_items', :locals => {:items => user.approvals.state_is("published"), :show_popup => true}
 
   = render :partial => 'sidebar', :locals => {:collaborators => collaborators, :show_popup => true}
 .clear

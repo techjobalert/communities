@@ -62,10 +62,6 @@
       = render :partial => 'list_of_items', :locals => {:items => user.items.state_is("published"), :show_popup => !is_current_user}
       %br
 
-    - if user.following_by_type("Item").present?
-      %h2 Approvals
-      = render :partial => 'list_of_items', :locals => {:items => user.approvals, :show_popup => !is_current_user}
-
   - if current_user.role? "doctor"
     = render :partial => 'sidebar', :locals => {:collaborators => collaborators, :show_popup => !is_current_user}
 .clear
