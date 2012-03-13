@@ -45,4 +45,13 @@ Orthodontic::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   config.assets.logger = false
+
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+      :login => "seller_1331629978_biz_api1.gmail.com",
+      :password => "1331630016",
+      :signature => "AiJocdCuNhfsSCN.ydAjLcLVvGg3AD4-s0rUuvJMzMrgKhazOBRa4V6I"
+    )
+  end
 end
