@@ -28,12 +28,14 @@
 
         = render :partial => 'send_message', :locals => {:user => user}
 
-    .panel
-      %p
-        %b Publication:
-        you can send a message directly to email about
-        profesional question you can send a message directly to email about
-        profesional question
+    - if user.items.state_is("published").present?
+      .panel
+        %p
+          %b Publications:
+        .publication-container
+          %ul
+            - user.items.state_is("published").each do |item|
+              %li= link_to item.title.truncate(65, :separator => " "), item_path(item), :class => "publication-item"
     .clear
 
   %p.right= link_to 'Go to profile', user_path(user), :class => 'pjax light-button go-to-profile'

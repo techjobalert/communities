@@ -18,6 +18,7 @@ class ModeratorController < ApplicationController
 
     @message = Message.new(options, params)
     @item.moderated_at = Time.now
+    @item.approved_by = current_user
 
     if @message.save and @item.publish
       notice = {:type => 'notice',

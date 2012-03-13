@@ -34,8 +34,11 @@ class ItemsController < InheritedResources::Base
     end
 
     if @item.update_attributes params[:item]
-      @notice = {:type => "notice",
-        :message => "Item is updated. Item will be published after premoderation"}
+      if !params[:type].present? || params[:type] != "change_keywords"
+        @notice[:message] = "Item is updated. Item will be published after premoderation"
+      else
+        @notice = {:type => "notice", :message => "Item is updated."}
+      end
     else
       @notice = {:type => "error", :message => "error"}
     end
@@ -96,11 +99,13 @@ class ItemsController < InheritedResources::Base
     params.merge!({:classes => [Item]})
     @items = SearchParams.new(params).get_search_results
   end
+
   def users_search
     @item = Item.find(params[:item_id])
     users = User.where(:role => 'doctor').where('id not in (?)', @item.contributor_ids)
     @doctors = users.search(params[:q])
   end
+
   def qsearch
     _params = {
       SearchParams.query_param => params[:term],

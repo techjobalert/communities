@@ -27,7 +27,7 @@ class Item < ActiveRecord::Base
   before_create  :add_to_contributors
 
   belongs_to  :user, :counter_cache => true, class_name: :User, inverse_of: :items
-  # belongs_to  :creator, class_name: :User, inverse_of: :items
+  belongs_to  :approved_by, class_name: :User, :foreign_key => "approved_by"
 
   has_many    :comments, :dependent => :destroy
   has_many    :contributions

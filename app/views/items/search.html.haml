@@ -1,0 +1,7 @@
+- path = (@render_items == 'account') ? 'account/items' : 'items/list'
+- @locals = {:items => @items, :search => true}
+- if @filter_location == 'main'
+  - path = 'items/list'
+  - @locals.merge!({:main_search => true})
+
+= render :partial => path, :locals => @locals

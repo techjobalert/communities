@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
 
   has_many :contributions, foreign_key: :contributor_id
   has_many :items, through: :contributions
+  has_many :approvals, class_name: :Item, :foreign_key => "approved_by"
   has_many :pay_accounts, :dependent => :destroy
   has_many :educations, :dependent => :destroy
 

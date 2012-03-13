@@ -1071,8 +1071,39 @@
   .b-admin-content-keywords {
     padding: 20px;
 
-    .keywords-textarea {
+    textarea {
       width: 600px;
+      max-width: 600px;
+      min-width: 600px;
+      background: transparent;
+      border: 1px solid #F1EFD1;
+      line-height: 22px !important;
+    }
+
+    .text-wrap {
+      border: 1px solid #F1EFD1;
+      -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+      -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+      box-shadow: 0 2px 2px #D8DCC1 inset;
+      background: #F1EFD1;
+    }
+
+    .text-hint {
+      margin: 3px 0 3px 110px;
+      font-size: 11px;
+      color: #555555;
+    }
+
+    .text-core .text-wrap .text-tags .text-tag .text-button {
+      height: 25px;
+      font-size: 13px;
+      padding: 0 20px 0 7px;
+      line-height: 20px;
+      color: #444;
+    }
+
+    .text-core .text-wrap .text-tags .text-tag .text-button a.text-remove {
+      top: 6px;
     }
   }
 
