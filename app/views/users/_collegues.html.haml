@@ -77,6 +77,8 @@
 
     $( "#send-message-dialog" ).click(function() {
       $( "#send-message" ).dialog( "open" );
+      if (!$("#send-message .imp_redactor_box").length)
+        getRedactor("#send-message textarea");
       return false;
     });
 

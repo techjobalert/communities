@@ -111,3 +111,7 @@ function showPopup(popup, obj){
   $(".popup-container").css("display","none");
   popup.css(popup_offset).fadeIn("fast");
 }
+
+function getRedactor(selector){
+  redactor = $(selector).redactor({"paths":{"stylesheets":["/assets/imperavi-rails/imperavi/wym.css"],"toolbar":"/imperavi/toolbar/mini.js","language":"/imperavi/language/en.js","typograf":"/imperavi/typograf","dialogs":{"file":"/imperavi/file","fileEdit":"/imperavi/file_edit","image":"/imperavi/image","imageEdit":"/imperavi/image_edit","link":"/imperavi/link","table":"/imperavi/table","video":"/imperavi/video"},"images":{"upload":"","download":"","list":""},"files":{"upload":"","download":"","remove":""}},"lang":"en","toolbar":"mini"});
+}

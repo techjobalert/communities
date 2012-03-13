@@ -49,21 +49,21 @@
 
             .right= f.submit 'OK', :class => 'light-button green'
 
-    .b-privacy.b-settings-tab.hidden
-      .b-settings-title Select settings to show in your profile:
-      = form_for(current_user, :remote => true) do |f|
-        %ul
-          %li
-            = f.check_box :show_bio
-            = label "_radio", "show_bio", "biography"
-          %li
-            = f.check_box :show_educations
-            = label "_radio", "show_educations", "educations"
-          %li
-            = f.check_box :show_birthday
-            = label "_radio", "show_birthday", "birthday"
+      .b-privacy.b-settings-tab.hidden
+        .b-settings-title Select settings to show in your profile:
+        = form_for(current_user, :remote => true) do |f|
+          %ul
+            %li
+              = f.check_box :show_bio
+              = label "_radio", "show_bio", "biography"
+            %li
+              = f.check_box :show_educations
+              = label "_radio", "show_educations", "educations"
+            %li
+              = f.check_box :show_birthday
+              = label "_radio", "show_birthday", "birthday"
 
-          %li.submit= f.submit 'Save changes', :class => 'light-button green'
+            %li.submit= f.submit 'Save changes', :class => 'light-button green'
 
   :javascript
     $(".l-settings-navigation").removeClass('hidden');
