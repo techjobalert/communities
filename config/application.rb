@@ -46,7 +46,7 @@ module Orthodontic
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :card_number, :card_verification]
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -55,5 +55,6 @@ module Orthodontic
     config.assets.version = '1.0'
 
     config.middleware.use Rack::Pjax
+    config.gem "activemerchant", :lib => "active_merchant", :version => "1.4.1"
   end
 end

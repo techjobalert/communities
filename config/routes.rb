@@ -12,6 +12,8 @@ Orthodontic::Application.routes.draw do
     match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
   end
 
+  resources :orders, :only => :new
+
   resources :items do
     resources :comments do
       get   "vote_up"
