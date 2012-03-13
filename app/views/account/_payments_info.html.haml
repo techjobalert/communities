@@ -63,6 +63,9 @@
   .pay-pal-form
     = form_for (current_user.pay_accounts.present? ? current_user.pay_accounts.first : PayAccount.new()), :remote => true do |f|
       %p
+        = f.label :country
+        = f.select :country, ['Russia','England']
+      %p
         = f.label :first_name
         = f.text_field :first_name
       %p
@@ -71,17 +74,45 @@
       %p
         = f.label :number, "Credit card number"
         = f.text_field :number
-      %p
-        = f.label :payment_type, "Payment type"
-        = f.text_field :payment_type
+      .type
+        = f.label :payment_type
+        .type-container#payment-type-toogler
+          = f.radio_button :payment_type, "visa"
+          = f.label :payment_type_visa, " ", :class => 'lb visa'
+          = f.radio_button :payment_type, "master_card"
+          = f.label :payment_type_master_card, ' ', :class => 'lb mc'
+          = f.radio_button :payment_type, "aaaa"
+          = f.label :payment_type_aaaa, ' ', :class => 'lb dc'
+          = f.radio_button :payment_type, "bbbb"
+          = f.label :payment_type_bbbb, ' ', :class => 'lb ae'
       %p.exp
-        = label :month, "Expiration date"
+        = f.label :month, "Expiration date"
         = f.text_field :month, :class => 'd'
         = f.text_field :year, :class => 'm'
         %span cvs
         = f.text_field :verification_value, :class => 'css'
         = link_to 'Whats this?'
-
+      %p
+        = f.label :address1, "Billing address 1"
+        = f.text_field :address1
+      %p
+        = f.label :address2, "Billing address 2"
+        = f.text_field :address2
+      %p
+        = f.label :state
+        = f.select :state, ['Russia','England']
+      %p
+        = f.label :city
+        = f.text_field :city
+      %p.zip
+        = f.label :zipcode, "Zip code"
+        = f.text_field :zipcode
+      %p
+        = f.label :phone, "Home Tel"
+        = f.text_field :phone
+      %p
+        = f.label :email, "Email"
+        = f.text_field :email
 
 :javascript
   $( "#account-form:ui-dialog" ).dialog( "destroy" );

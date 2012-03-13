@@ -87,6 +87,11 @@ $ ->
     $(".popup-container").css("display","none");
     $(".l-settings-navigation").addClass('hidden') unless $(this).hasClass "tab-settings"
 
+  $(document).on "click", "#payment-type-toogler .lb", ->
+    $("#payment-type-toogler .lb").removeClass "selected"
+    $(this).addClass "selected"
+
+
   $("form[data-validate=true][data-remote=true]").live "change", ->
     $(this).validate()
 
