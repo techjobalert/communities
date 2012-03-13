@@ -38,18 +38,18 @@ class ModeratorController < ApplicationController
     @item.moderated_at = Time.now
 
     if params[:message].blank? || params[:message][:body].blank?
-      notice = {:type => 'error', :message => "Message text can't be blank."}
+      @notice = {:type => 'error', :message => "Deny reason text can't be blank."}
     else
       if @message.save and @item.deny
-        notice = {:type => 'notice',
+        @notice = {:type => 'notice',
           :message => "Item is denied. Message was successfully sended."}
         Resque.enqueue(SendModerationMessage, @message.id)
       else
-        notice = {:type => 'error',:message => "Error. Message not created."}
+        @notice = {:type => 'error',:message => "Error. Message not created."}
       end
-    end
 
-    redirect_to(moderator_path(:notice => notice))
+      redirect_to(moderator_path(:notice => @notice))
+    end
   end
 
   def comments

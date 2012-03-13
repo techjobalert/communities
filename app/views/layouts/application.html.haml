@@ -81,7 +81,7 @@
             %b= link_to 'Sign up', "#{root_path}#sign-up"
             in order to view content
 
-        = render :partial => 'layouts/relevant_items', :inline => true
+        #ajax-main-container{"data-pjax-container" => ""}= render :partial => 'layouts/relevant_items', :inline => true
     .l-footer
 
     - if flash.present?
