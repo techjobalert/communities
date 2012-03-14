@@ -102,7 +102,8 @@ class ItemsController < InheritedResources::Base
 
   def users_search
     @item = Item.find(params[:item_id])
-    @doctors = User.search(params[:q], :without_ids => [*@item.contributor_ids], :with => {:role => "doctor"} )
+    @doctors = User.where("id not in (?) and full_name LIKE '%#{params[:q]}%' and role = ?", @item.contributor_ids, "doctor")
+    # @doctors = User.search(params[:q], :without_ids => @item.contributor_ids, :with => {:role => "doctor"} )
   end
 
   def qsearch
