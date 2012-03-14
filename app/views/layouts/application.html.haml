@@ -1,7 +1,8 @@
 !!!
 %html
   %head
-    %title Orthodontics360
+    %title= content_for?(:title) ? content_for(:title) : "Orthodontics"
+
     = stylesheet_link_tag "application", :debug => Rails.env.development?
     = javascript_include_tag "application", :debug => Rails.env.development?
     = csrf_meta_tags
