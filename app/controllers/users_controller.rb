@@ -170,4 +170,8 @@ class UsersController < ApplicationController
     end
   end
 
+  def validate_card
+
+  end
+
 end

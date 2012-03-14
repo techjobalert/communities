@@ -15,4 +15,8 @@ class AccountController < ApplicationController
   def payments_info
   end
 
+  def check_card
+
+  end
+
 end
