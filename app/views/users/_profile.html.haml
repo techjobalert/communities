@@ -39,9 +39,9 @@
 
       %br
 
-    - if user.items.present?
+    - if user.items.state_is("published").present?
       %h2 Publications
-      = render :partial => 'list_of_items', :locals => {:items => user.items, :show_popup => true}
+      = render :partial => 'list_of_items', :locals => {:items => user.items.state_is("published"), :show_popup => true}
       %br
 
     - if user.approvals.state_is("published").present?

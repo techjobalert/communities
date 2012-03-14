@@ -328,10 +328,11 @@
   .light-button.send-message {
     float: right;
     margin: 0px 10px 0 0;
-    padding: 6px 5px 6px 15px;
-    width: 230px;
+    padding: 6px 5px 6px 5px;
+    width: 250px;
     line-height: 22px;
     font-size: 16px;
+    text-align: center;
   }
 
   .navigation {

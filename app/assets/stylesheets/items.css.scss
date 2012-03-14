@@ -506,6 +506,50 @@
     line-height: 30px;
   }
 
+  .type {
+
+    .type-container {
+      width: 216px;
+      overflow: hidden;
+      float: left;
+    }
+
+    input[type="radio"]{
+      left: -9999px;
+      position: absolute;
+    }
+
+    label.lb {
+      background: url("/assets/pay-pal-icons.png") no-repeat scroll 0 0 transparent;
+      display: block;
+      float: left;
+      height: 30px;
+      line-height: 8;
+      margin: 0;
+      width: 48px;
+      overflow: hidden;
+      margin: 3px 5px 3px 0;
+      opacity: 0.7;
+      cursor: pointer;
+
+      &.visa {
+        background-position: -1px 0px; }
+
+      &.mc {
+        background-position: -54px 0px; }
+
+      &.dc {
+        background-position: -107px 0px; }
+
+      &.ae {
+        background-position: -161px 0px; }
+
+      &.selected {
+        opacity: 1;
+      }
+    }
+  }
+
   .pay-pal {
     border: medium none;
     -webkit-border-radius: 7px;

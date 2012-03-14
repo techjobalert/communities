@@ -72,9 +72,10 @@
               = link_to '#', :id => "b-notification",:class => "b-settings-nav-notification #{'selected' unless current_user.role?('doctor')}"  do
                 Notification
                 %span Email preferences...
-              = link_to '#', :id => "b-privacy", :class => "b-settings-nav-privacy"  do
-                Privacy
-                %span Privacy settings
+              - if current_user.role? "doctor"
+                = link_to '#', :id => "b-privacy", :class => "b-settings-nav-privacy"  do
+                  Privacy
+                  %span Privacy settings
 
       - else
         %h1

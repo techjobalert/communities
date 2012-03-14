@@ -35,6 +35,9 @@ $ ->
   $(".b-search-engine .btn.explore").live "click", ->
     $(".b-explore-popup").toggleClass "hidden"
 
+  $(document).on "click", ".notice", ->
+    $(this).remove()
+
   $(document).on
     mouseover: (e) ->
       timer_popup = window.setTimeout(->
@@ -86,6 +89,11 @@ $ ->
   $(document).on "click", ".popup-cleaner, .go-to-profile, .go-to-article, .main-content .navigation a:not(.tab-item)", ->
     $(".popup-container").css("display","none");
     $(".l-settings-navigation").addClass('hidden') unless $(this).hasClass "tab-settings"
+
+  $(document).on "click", "#payment-type-toogler .lb", ->
+    $("#payment-type-toogler .lb").removeClass "selected"
+    $(this).addClass "selected"
+
 
   $("form[data-validate=true][data-remote=true]").live "change", ->
     $(this).validate()
