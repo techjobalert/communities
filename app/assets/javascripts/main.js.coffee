@@ -9,52 +9,85 @@ redactor = undefined
 $ ->
   $('a.pjax, .pagination a').pjax("[data-pjax-container]") if $("[data-pjax-container]").length
 
-  $("#sign-up .toggler label").on "click", ->
-    $("#sign-up .toggler label").hasClass ""
-    elem = $(this)
-    $("#user_profession_and_degree").attr("data-validate", elem.hasClass "doctor" ? true : false)
-    unless elem.hasClass("checked")
-      $(".toggler label").toggleClass "checked"
-      $(".doctor-only").toggleClass "hidden"
-    $.placeholder.shim() if $.placeholder
-
-  $(".b-auth .buttons a").on "click", ->
-    elem = $(this)
-    unless elem.hasClass("selected")
-      $(".b-auth .buttons a").toggleClass "selected"
-      $(".sign-tab").toggleClass "hidden"
-      $.placeholder.shim() if $.placeholder
-    false
-
   $("a.sign-in").click()  if window.location.hash.indexOf("#sign-in") >= 0
 
-  $(".b-popup-set-preview label").live "click", ->
-    $(".b-popup-set-preview label").removeClass "checked"
-    $(this).addClass "checked"
+  $(document)
+    .on "click", "#sign-up .toggler label", ->
+      $("#sign-up .toggler label").hasClass ""
+      elem = $(this)
+      $("#user_profession_and_degree").attr("data-validate", elem.hasClass "doctor" ? true : false)
+      unless elem.hasClass("checked")
+        $(".toggler label").toggleClass "checked"
+        $(".doctor-only").toggleClass "hidden"
+      $.placeholder.shim() if $.placeholder
 
-  $(".b-search-engine .btn.explore").live "click", ->
-    $(".b-explore-popup").toggleClass "hidden"
+    .on "click", ".b-auth .buttons a", ->
+      elem = $(this)
+      unless elem.hasClass("selected")
+        $(".b-auth .buttons a").toggleClass "selected"
+        $(".sign-tab").toggleClass "hidden"
+        $.placeholder.shim() if $.placeholder
+      false
 
-  $(document).on "click", ".notice", ->
-    $(this).remove()
+    .on "click", ".b-popup-set-preview label", ->
+      $(".b-popup-set-preview label").removeClass "checked"
+      $(this).addClass "checked"
 
-  $(document).on
-    mouseover: (e) ->
-      timer_popup = window.setTimeout(->
-        getPopup e
-      , 500)
-    click: (e) ->
-      clearTimeout(timer_popup)
-      $(".popup-container").css("display","none")
-    , ".popup-item-info, .popup-user-info"
+    .on "click", ".b-search-engine .btn.explore", ->
+      $(".b-explore-popup").toggleClass "hidden"
 
-  $(document).on "mouseleave", ".popup-item-info, .popup-user-info", ->
-    obj_id = $(this).attr "id"
-    unless $("." + obj_id + ":visible").length
-      clearTimeout(timer_popup)
+    .on "click", ".notice", ->
+      $(this).remove()
 
-  $(document).on "mouseleave", ".popup-container", ->
-    $(this).css("display","none")
+    .on "keypress", ".sign-tab form", (e) ->
+      code = e.keyCode
+      $(this).submit() if code == 13
+
+    .on
+      mouseover: (e) ->
+        timer_popup = window.setTimeout(->
+          getPopup e
+        , 500)
+      click: (e) ->
+        clearTimeout(timer_popup)
+        $(".popup-container").css("display","none")
+      , ".popup-item-info, .popup-user-info"
+
+    .on "mouseleave", ".popup-item-info, .popup-user-info", ->
+      obj_id = $(this).attr "id"
+      unless $("." + obj_id + ":visible").length
+        clearTimeout(timer_popup)
+
+    .on "mouseleave", ".popup-container", ->
+      $(this).css("display","none")
+
+    .on "click", ".b-settings-nav a", ->
+      unless $(this).hasClass("selected")
+        $(".b-settings-nav a").removeClass "selected"
+        $(this).addClass "selected"
+        id = $(this).attr "id"
+        $(".b-settings-tab").addClass "hidden"
+        $("." + id).removeClass("hidden")
+      false
+
+    .on "click", ".list-header .nav a", ->
+      unless $(this).hasClass("selected")
+        $(".list-header .nav a").removeClass "selected"
+        $(this).addClass("selected")
+
+    .on "click", ".refresh-captcha", ->
+      $(".simple_captcha").html('<div class="loading">Loading...</div>');
+
+    .on "click", ".popup-cleaner, .go-to-profile, .go-to-article, .main-content .navigation a:not(.tab-item)", ->
+      $(".popup-container").css("display","none");
+      $(".l-settings-navigation").addClass('hidden') unless $(this).hasClass "tab-settings"
+
+    .on "click", "#payment-type-toogler .lb", ->
+      $("#payment-type-toogler .lb").removeClass "selected"
+      $(this).addClass "selected"
+
+    .on "change", "form[data-validate=true][data-remote=true]", ->
+      $(this).validate()
 
   $(".light-button.set-preview").toggle (->
     obj_offset = $(this).offset()
@@ -64,42 +97,6 @@ $ ->
     ).fadeIn "fast"
   ), ->
     $(".b-popup-set-preview").fadeOut "fast"
-
-  $(".b-settings-nav a").live "click", ->
-    unless $(this).hasClass("selected")
-      $(".b-settings-nav a").removeClass "selected"
-      $(this).addClass "selected"
-      id = $(this).attr "id"
-      $(".b-settings-tab").addClass "hidden"
-      $("." + id).removeClass("hidden")
-    false
-    # unless $(this).hasClass("selected")
-    #   $(".b-settings-nav a").toggleClass "selected"
-    #   $(".b-settings-tab").toggleClass "hidden"
-    # false
-
-  $(document).on "click", ".list-header .nav a", ->
-    unless $(this).hasClass("selected")
-      $(".list-header .nav a").removeClass "selected"
-      $(this).addClass("selected")
-
-  $(document).on "click", ".refresh-captcha", ->
-    $(".simple_captcha").html('<div class="loading">Loading...</div>');
-
-  $(document).on "click", ".popup-cleaner, .go-to-profile, .go-to-article, .main-content .navigation a:not(.tab-item)", ->
-    $(".popup-container").css("display","none");
-    $(".l-settings-navigation").addClass('hidden') unless $(this).hasClass "tab-settings"
-
-  $(document).on "click", "#payment-type-toogler .lb", ->
-    $("#payment-type-toogler .lb").removeClass "selected"
-    $(this).addClass "selected"
-
-
-  $("form[data-validate=true][data-remote=true]").live "change", ->
-    $(this).validate()
-
-  # $("div.filter-form form select").live "change", ->
-  #   $(this).parent('form').submit()
 
   msearch = $("#main-search")
   if msearch.length

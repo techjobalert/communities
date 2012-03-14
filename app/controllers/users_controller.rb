@@ -92,7 +92,7 @@ class UsersController < ApplicationController
       @following_user = User.find(following_user_id)
       current_user.follow(@following_user)
     else
-      @message = "You cannot follow your self."
+      @message = "You can't follow your self."
     end
   end
 
