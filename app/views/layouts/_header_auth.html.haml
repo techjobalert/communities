@@ -42,7 +42,7 @@
           - failure_counter = $redis.get(session[:session_id])
           - if failure_counter.to_i >= 3
             = show_simple_captcha(:label => '')
-          .hidden= f.submit ""
+          %p.hidden= f.submit "Submit"
         = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit();" do
           SIGN IN
           %span to your account

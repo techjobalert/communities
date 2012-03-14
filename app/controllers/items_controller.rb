@@ -68,7 +68,7 @@ class ItemsController < InheritedResources::Base
       current_user.follow(@following_item)
       @notice = {:type => 'notice', :message => "success"}
     else
-      @notice = {:type => 'error', :message => "You cannot follow your item."}
+      @notice = {:type => 'error', :message => "You can't follow your item."}
     end
   end
 
@@ -78,7 +78,7 @@ class ItemsController < InheritedResources::Base
       current_user.stop_following(@following_item)
       @notice = {:type => 'notice', :message => "success"}
     else
-      @notice = {:type => 'error', :message => "You cannot unfollow your item."}
+      @notice = {:type => 'error', :message => "You can't unfollow your item."}
     end
   end
 
