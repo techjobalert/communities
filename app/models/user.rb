@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
   define_index do
     indexes full_name, :sortable => true
     indexes specialization, :sortable => true
-    indexes role
+    indexes role, :type => "string"
     has created_at, updated_at, role
     set_property :enable_star => true
     set_property :min_infix_len => 1
