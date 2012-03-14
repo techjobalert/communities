@@ -25,7 +25,7 @@ class Comment < ActiveRecord::Base
   # Handlers
   # before_create  :default_values
 
-  state_machine :state, :initial => :moderated do    
+  state_machine :state, :initial => :moderated do
     event :publish do
       transition :moderated => :published
     end
