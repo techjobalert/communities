@@ -47,25 +47,33 @@
           Unfollow Item
           %span
 
-    / кнопка в трех вариантах
-    / 1. Вариант
-    .light-button.sell
-      %b Sell
-      item
-      = text_field 'search', 'form'
-      %span
+    - if item.user == current_user
+      = link_to edit_item_path(item), :method => :post, :remote => true, :class => "light-button edit-item pjax" do
+        Edit Item
 
-    / 2. Вариант
-    .light-button.buy.green.hidden
-      %b Buy
-      item
-      %span
+      .light-button.set-preview.green
+        %b Set
+        preview
+        %span
 
-    / 3. Вариант
-    .light-button.set-preview.green.hidden
-      %b Set
-      preview
-      %span
+    - else
+      / 1. Вариант
+      .light-button.sell.hidden
+        %b Sell
+        item
+        = text_field 'search', 'form'
+        %span
+
+      / 2. Вариант
+      .light-button.buy.green
+        %b Buy
+        item
+        %span
+
+
+
+
+
 
   / есть два варианта
   / 1 Вариант

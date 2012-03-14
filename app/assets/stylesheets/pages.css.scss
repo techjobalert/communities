@@ -555,6 +555,15 @@
         }
       }
 
+      .light-button.edit-item {
+        float: right;
+        padding: 10px;
+        margin: 13px 10px 0 0px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+      }
+
       &.detail {
         .items {
           width: 790px;
