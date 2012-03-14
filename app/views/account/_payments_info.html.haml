@@ -61,10 +61,10 @@
 
 %div{ :id => "account-form", :title=>"Account Info" }
   .pay-pal-form
-    = form_for (current_user.pay_accounts.present? ? current_user.pay_accounts.first : PayAccount.new()), :remote => true do |f|
+    = form_for (current_user.pay_accounts.present? ? current_user.pay_accounts.first : PayAccount.new()), :remote => true, :validate => true do |f|
       %p
         = f.label :country
-        = f.select :country, ['Russia','England']
+        = f.collection_select :country, Country.order(:name), :iso, :name, include_blank: true
       %p
         = f.label :first_name
         = f.text_field :first_name
@@ -100,7 +100,7 @@
         = f.text_field :address2
       %p
         = f.label :state
-        = f.select :state, ['Russia','England']
+        = f.grouped_collection_select :state, Country.order(:name), :states, :name, :iso, :name
       %p
         = f.label :city
         = f.text_field :city
@@ -135,5 +135,21 @@
       $( "#account-form" ).dialog( "open" );
       return false;
     });
-
   changeNavigationTab(".tab-account");
+
+  var states;
+  $('#pay_account_state').parent().hide();
+  states = $('#pay_account_state').html();
+  $('#pay_account_country').change(function() {
+    var country, escaped_country, options;
+    country = $('#pay_account_country :selected').text();
+    escaped_country = country.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1');
+    options = $(states).filter("optgroup[label='" + escaped_country + "']").html();
+    if (options) {
+      $('#pay_account_state').html(options);
+      return $('#pay_account_state').parent().show();
+    } else {
+      $('#pay_account_state').empty();
+      return $('#pay_account_state').parent().hide();
+    }
+  });
