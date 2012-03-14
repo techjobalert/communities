@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
         :recommended_comment,   #Someone recommended your comment
         :following_bought_item, #Someone you are following bought an item
         :item_changes,          #Item you following as changed or updated (price, title, summary goes from paid to free and etc)
-        # Privacy settings ------------
+        # Privacy settings
         :show_bio,
         :show_educations,
         :show_birthday

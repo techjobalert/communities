@@ -23,7 +23,7 @@ end
     val = get_stored_value(s.value)
     if val == value[0] and s.description == value[1]
       puts "[exist] #{def_text}"
-    else 
+    else
       s.update_attributes!(attributes)
       puts "[CHANGED] #{def_text}"
     end
@@ -32,5 +32,4 @@ end
     puts "[NEW] #{def_text}"
   end
 end
-
 puts "[FINISH] DATABASE-SEED"
