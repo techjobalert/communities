@@ -4,9 +4,11 @@ namespace :db do
 
     p "deleting Countries..."
     Country.delete_all
+    ActiveRecord::Base.connection.execute("ALTER TABLE countries AUTO_INCREMENT = 1")
 
     p "deleting States..."
     State.delete_all
+    ActiveRecord::Base.connection.execute("ALTER TABLE states AUTO_INCREMENT=1")
 
     countries = [
       {:id=>1,:iso=>"AD",:name=>"Andorra"},
