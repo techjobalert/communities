@@ -62,8 +62,7 @@ class User < ActiveRecord::Base
 
   validates :password, :confirmation => true,
             :unless => Proc.new { |a| a.password.blank? }
-  validates :email, :uniqueness => true, :presence => true,
-            :allow_blank => false
+  validates :email, :presence => true, :allow_blank => false #,:uniqueness => true
   validates :profession_and_degree, :length => { :minimum => 2, :maximum => 40 },
             :allow_blank => false, :unless => Proc.new { |a| a.role == "patient" }
   validates :role, :inclusion => %w(doctor patient moderator)
