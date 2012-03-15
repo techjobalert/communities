@@ -9,7 +9,7 @@ class NotifyNow
   	if event.subject_type == "Comment"
   		commentable = event.subject.commentable
       if commentable.is_a? Item
-        if commentable.user.commented_item == "1"
+        if event.event_type != "liked_comment" and commentable.user.commented_item == "1"
           receivers << commentable.user
         end
         if event.event_type == "liked_comment" and commentable.user.recommended_comment == "1"
