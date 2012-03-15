@@ -9,7 +9,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //
-//  Fileupload*
+//  Jquery*
 //= require jquery.ui.widget
 //=	require jquery.iframe-transport
 //= require jquery.fileupload
@@ -32,10 +32,6 @@
 //  Misc*
 //= require jquery.html5-placeholder-shim
 //= require imperavi-rails/imperavi
-//
-//  History.js
-// require history.js
-//= require jquery.history.js
 
 function showHideNotice(type,message){
   $(".notice").remove();

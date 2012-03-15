@@ -4,22 +4,23 @@ class SearchParams
 
   def initialize(_params)
     @gparams = _params
-    p = {self.class.per_page_param => 12}
+    p = { self.class.per_page_param => 12, self.class.page_param => _params[:page] }
     p.merge!(_params)
     @query, @sort, @page, @per_page = p[self.class.query_param], p[self.class.sort_param], p[self.class.page_param], p[self.class.per_page_param]
-    @sort = nil unless @sort == 'newest' || @sort == 'oldest'
+    # @sort = nil unless @sort == 'newest' || @sort == 'oldest'
   end
 
   def get_search_results
     return nil unless @query
-
+    p "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     options = {:star => true}
-    options.merge!(get_sort_options)
+    # options.merge!(get_sort_options)
     options.merge!(get_paging_options)
     options.merge!({:classes => [*@gparams[:classes]]})
     if Item.in? [*@gparams[:classes]]
       options.merge!(get_item_options(@gparams) )
     end
+    p "-"*80
     ThinkingSphinx.search @query, options
   end
 
