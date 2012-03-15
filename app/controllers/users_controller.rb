@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      unless params[:user][:birthday]
+      if params[:user][:birthday]
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end
 
