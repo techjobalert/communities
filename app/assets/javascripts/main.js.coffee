@@ -8,10 +8,18 @@ redactor = undefined
 
 $ ->
   $('a.pjax, .pagination a').pjax("[data-pjax-container]") if $("[data-pjax-container]").length
-
   $("a.sign-in").click()  if window.location.hash.indexOf("#sign-in") >= 0
 
+  $(".filter-form select").chosen()
+
   $(document)
+    .on "pjax:start", ->
+      clearTimeout(timer_popup)
+      $(".popup-container").css("display","none")
+    .on "pjax:end", ->
+      clearTimeout(timer_popup)
+      $(".popup-container").css("display","none")
+
     .on "click", "#sign-up .toggler label", ->
       $("#sign-up .toggler label").hasClass ""
       elem = $(this)

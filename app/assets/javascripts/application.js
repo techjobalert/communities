@@ -13,14 +13,16 @@
 //= require jquery.ui.widget
 //=	require jquery.iframe-transport
 //= require jquery.fileupload
-//= require jquery.textext.js
+//= require jquery.textext
 //= require jquery.pjax
 //
 //= require video
-//= require main
+//
+// Chosen (selectbox plugin)*
+//= require chosen.jquery.min
 //
 //  Client Side Validations*
-//= require rails.validations.js
+//= require rails.validations
 //
 //= require browserplus-min
 //= require plupload/plupload.full
@@ -32,6 +34,8 @@
 //  Misc*
 //= require jquery.html5-placeholder-shim
 //= require imperavi-rails/imperavi
+//
+//= require main
 
 function showHideNotice(type,message){
 

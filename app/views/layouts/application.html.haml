@@ -26,9 +26,7 @@
             .user-info
               = image_tag current_user.avatar_url(:thumb_70), :alt => "#{current_user.full_name}", :id => "popup-user-#{current_user.id}", :class => "popup-user-info my-thumb_70"
               %span.title= current_user.full_name
-            .light-button.sale
-              Our Ordothontics Sale
-              %span
+            = link_to "","#", :class => "btn-our-sales"
             .clear
             .navigation
               %ul

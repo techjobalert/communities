@@ -440,9 +440,10 @@
   overflow: initial;
   p{
     textarea {
-      width: 100%;
-      max-width: 100%;
-      min-width: 100%;
+      width: 365px;
+      max-width: 365px;
+      min-width: 365px;
+      padding: 5px;
       background: none repeat scroll 0 0 #F1EFD1;
       border: 1px solid #F1EFD1;
       -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
