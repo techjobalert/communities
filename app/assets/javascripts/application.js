@@ -34,6 +34,8 @@
 //= require imperavi-rails/imperavi
 
 function showHideNotice(type,message){
+
+  if (type.length == 0) return false;
   $(".notice").remove();
   $('body').append('<div class="flash_' + type + ' notice">' + message + '</div>');
   setTimeout(function(){

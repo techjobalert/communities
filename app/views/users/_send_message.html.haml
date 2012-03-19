@@ -1,6 +1,3 @@
 = form_for(Message.new, :url => user_send_message_url(user), :remote => :true) do |f|
   %p= f.text_area :body, :placeholder => 'New message', :id => "message_body_#{user.id}"
   %p.right= f.submit "Send", :class => 'light-button send green'
-
-:javascript
-  getRedactor("#message_body_#{user.id}");

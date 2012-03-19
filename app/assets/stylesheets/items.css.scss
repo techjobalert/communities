@@ -463,6 +463,7 @@
 .pay-pal-form, .form {
   select {
     margin-top: 2px;
+    width: 214px;
   }
 
   input[type="text"], input[type="email"], input[type="password"], textarea {
@@ -480,6 +481,9 @@
   }
 
   .exp {
+    .field_with_errors {
+      display: inline-block;
+    }
     .d, .m {width: 16px;}
     .css {width: 22px;}
     span {
@@ -499,7 +503,7 @@
   label {
     font-size: 12px;
     display: block;
-    width: 150px;
+    width: 140px;
     float: left;
     margin-right: 10px;
     text-align: right;

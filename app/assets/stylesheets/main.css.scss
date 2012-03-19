@@ -48,7 +48,7 @@ h3 {
 
 .logo {
   width: 281px;
-  height: 74px;
+  height: 88px;
   background: url("/assets/logo.png") no-repeat center transparent;
   display: block;
 }
@@ -655,9 +655,10 @@ h3 {
 
   textarea {
     height: 100px;
-    width: 402px;
-    max-width: 402px;
-    min-width: 402px;
+    width: 392px;
+    max-width: 392px;
+    min-width: 392px;
+    padding: 5px;
   }
 
   .light-button {

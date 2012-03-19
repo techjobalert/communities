@@ -7,11 +7,11 @@
       .tools{:class => "tools-user-#{@user.id}"}
         - if current_user.following?(user)
           = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id} no-history" do
-            Unfolow
+            Unfollow
             %span
         - else
           = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id} no-history" do
-            Folow
+            Follow
             %span
 
     .panel

@@ -4,7 +4,7 @@ class Ability
 
   def initialize(user)
     @user = user || User.new
-    send( ('admin' if @user.admin?) || @user.role || 'guest')
+    send( ('moderator' if @user.admin?) || @user.role || 'guest')
   end
 
   def guest
@@ -26,7 +26,7 @@ class Ability
 
   def doctor
     patient
-    # Item
+
     can :create, Item
     can :create, Comment
     can [:send_message_to_followers], [User]
@@ -44,8 +44,7 @@ class Ability
 
   def moderator
     doctor
-    can :update, [Item, Comment]
-    can :all, :moderators
+    can [:items, :item_show, :item_publish, :item_deny, :comments, :comment_publish, :comment_deny], :moderator
   end
 
   def admin

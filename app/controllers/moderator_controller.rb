@@ -1,7 +1,7 @@
 class ModeratorController < ApplicationController
   authorize_resource :class => false
+
   layout "administrator"
-  # before_filter :is_admin
   before_filter :get_item, :only => [:item_show, :item_publish, :item_deny]
   before_filter :get_comment, :only => [:comment_publish, :comment_deny]
 
@@ -87,12 +87,21 @@ class ModeratorController < ApplicationController
 
   def get_item
     @item = Item.find params[:id]
+    unless moderated?(@item)
+      redirect_to moderator_path
+    end
   end
 
   def get_comment
     @comment = Comment.find params[:id]
+    unless moderated?(@comment)
+      redirect_to moderator_comments_path
+    end
   end
 
+  def moderated?(obj)
+    obj.try(:state) == "moderated"
+  end
   # def is_admin
   #  redirect_to root_path unless current_user.admin?
   # end

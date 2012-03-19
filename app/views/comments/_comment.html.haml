@@ -2,11 +2,11 @@
   %li{:id => "comment-#{comment.id}"}
     = image_tag comment.user.avatar_url(:thumb_60), :width => '60', :height => '60'
     .body
-      %b= "#{comment.user.full_name}:"
+      %b= "#{comment.user.full_name}, #{comment.user.profession_and_degree}:"
       %span= comment.body
     .clear
 
     .like-container
-      - if user_signed_in? and !current_user.voted_for?(comment)
+      - if user_signed_in? and current_user.role?("doctor") and !current_user.voted_for?(comment)
         = link_to '+', item_comment_vote_up_path(comment.commentable_id, comment),:remote => true ,:class => 'dark-button no-history'
       .votes= comment.votes.size
