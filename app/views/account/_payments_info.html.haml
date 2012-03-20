@@ -61,10 +61,10 @@
 
 %div{ :id => "account-form", :title=>"Account Info" }
   .pay-pal-form
-    = form_for (current_user.pay_accounts.present? ? current_user.pay_accounts.first : PayAccount.new()), :remote => true, :validate => true do |f|
+    = form_for (current_user.pay_accounts.present? ? current_user.pay_accounts.first : PayAccount.new), :validate => false, :remote => true do |f|
       %p
         = f.label :country
-        = f.collection_select :country, Country.order(:name), :iso, :name, include_blank: true
+        = f.collection_select :country, Country.order(:name), :iso, :name, include_blank: false
       %p
         = f.label :first_name
         = f.text_field :first_name
@@ -77,8 +77,8 @@
       .type
         = f.label :payment_type
         .type-container#payment-type-toogler
-          = f.radio_button :payment_type, "visa"
-          = f.label :payment_type_visa, " ", :class => 'lb visa'
+          = f.radio_button :payment_type, "visa", :checked => true
+          = f.label :payment_type_visa, " ", :class => 'lb visa selected'
           = f.radio_button :payment_type, "master_card"
           = f.label :payment_type_master_card, ' ', :class => 'lb mc'
           = f.radio_button :payment_type, "aaaa"

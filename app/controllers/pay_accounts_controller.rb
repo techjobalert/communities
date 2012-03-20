@@ -7,7 +7,8 @@ class PayAccountsController < ApplicationController
     if @pay_account.save
       @notice = {:type => "notice", :message => "successfull"}
     else
-      @notice = {:type => "error", :message => "error"}
+      @notice = {:type => "error", :message => @pay_account.errors.full_messages.first
+      }
     end
   end
 

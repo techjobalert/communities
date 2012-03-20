@@ -2,5 +2,6 @@ $("#ajax-main-container").html("#{escape_javascript(render :partial => 'account/
 - if @notice.present?
   showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
 
-$("#account-form").dialog( "close" );
+-unless @notice.present?
+  $("#account-form").dialog( "close" );
 $(".payments-info").addClass("selected");

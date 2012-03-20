@@ -11,6 +11,7 @@ class PayAccount < ActiveRecord::Base
 
   validates_presence_of     :verification_value, :country, :address1, :city, :state
   validates_numericality_of :number, :year, :month, :zipcode
+  validates_length_of       :zipcode, :is => 8
   validates_length_of       :number, :is => 16, :message => "Wrong format."
   validates_format_of       :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :allow_blank => true
   validates_format_of       :phone, :message => "Must be a valid telephone number.", :with => /^[\(\)0-9\- \+\.]{10,20}$/, :allow_blank => true
@@ -35,11 +36,11 @@ class PayAccount < ActiveRecord::Base
   def credit_card
     ActiveMerchant::Billing::CreditCard.new(
       :type       => 'visa',
-      :number     => '4222222222222',
+      :number     => '4024007148673576',
       :month      => '10',
       :year       => '2013',
       :first_name => 'Bob',
       :last_name  => 'Smith',
-      :verification_value  => '111' )
+      :verification_value  => '123' )
   end
 end
