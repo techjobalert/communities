@@ -4,7 +4,7 @@ class PayAccount < ActiveRecord::Base
   has_many   :orders
 
   attr_accessible :first_name, :last_name, :verification_value, :year, :month,
-    :number, :payment_type, :user_id, :active
+                  :number, :payment_type, :user_id, :active
 
   validates_format_of :first_name, :last_name, :with=> /\A[а-яА-Яa-zA-Z0-9_\.\-\s]+\Z/u,
                       :message => "Wrong name format"
