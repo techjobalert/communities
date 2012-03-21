@@ -31,6 +31,7 @@ Orthodontic::Application.configure do
   # config.force_ssl = true
   # config.middleware.insert_before ActionDispatch::Static, Rack::SSL, :exclude => proc { |env| env['HTTPS'] != 'on' }
   config.middleware.use Rack::SslEnforcer,
+    :https_port => 55443,
     :redirect_to => 'https://89.209.76.243:55443',     # For when behind a proxy, like nginx
     :only => [/^\/moderator\//, /^\/account\//],      # Force SSL on everything behind /moderator, ...
     :strict => true                                   # Force no-SSL for everything else
