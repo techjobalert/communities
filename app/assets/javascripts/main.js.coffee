@@ -6,11 +6,11 @@ redactor = undefined
   $(tab).addClass("selected");
   $(".l-settings-navigation").addClass('hidden') if tab != ".tab-settings"
 
+  $(".filter-form select").chosen() if $(".filter-form select").length
+
 $ ->
   $('a.pjax, .pagination a').pjax("[data-pjax-container]") if $("[data-pjax-container]").length
   $("a.sign-in").click()  if window.location.hash.indexOf("#sign-in") >= 0
-
-  $(".filter-form select").chosen()
 
   $(document)
     .on "pjax:start", ->
