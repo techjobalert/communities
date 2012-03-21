@@ -98,3 +98,4 @@ gem 'formtastic'
 gem 'state_machine'
 # https://github.com/rails/pjax_rails
 gem 'rack-pjax'
+gem 'rack-ssl-enforcer'

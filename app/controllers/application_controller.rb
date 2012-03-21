@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  force_ssl
 
   rescue_from CanCan::AccessDenied do |exception|
     @notice = {:type => 'error', :message => exception.message}

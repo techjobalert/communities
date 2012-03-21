@@ -29,6 +29,11 @@ Orthodontic::Application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
+  # config.middleware.insert_before ActionDispatch::Static, Rack::SSL, :exclude => proc { |env| env['HTTPS'] != 'on' }
+  config.middleware.use Rack::SslEnforcer,
+    :redirect_to => 'https://89.209.76.243:55443',     # For when behind a proxy, like nginx
+    :only => [/^\/moderator\//, /^\/account\//],      # Force SSL on everything behind /admin and /authors
+    :strict => true                                   # Force no-SSL for everything else
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
