@@ -22,13 +22,13 @@
 .filter.account
   .field
     = form_for "", :url => search_items_path, :remote => true, :method => :get do |f|
-      .tags
+      .tags.auction-filter-form
         .label Filter by
         .filter-form
-          = f.select "views", options_for_select(['More Viewed', 'Less Viewed']), :prompt => 'Viewd', :include_blank => true
-          = f.select "length", options_for_select(['Length']), :prompt => 'Length', :include_blank => true
-          = f.select "date", options_for_select(['Today', '1 Week', '1 Month', '1 Year']), :prompt => 'Date', :include_blank => true
-          = f.select "price", options_for_select(['Free', 'Paid']), :prompt => 'Free/Paid', :include_blank => true
+          %span.viewed= f.select "views", options_for_select(['More Viewed', 'Less Viewed']), :prompt => 'Viewd', :include_blank => true
+          %span.identical= f.select "date", options_for_select(['Today', '1 Week', '1 Month', '1 Year']), :prompt => 'Date', :include_blank => true
+          %span.identical= f.select "price", options_for_select(['Free', 'Paid']), :prompt => 'Free/Paid', :include_blank => true
+          %span.identical= f.select "length", options_for_select(['Length']), :prompt => 'Length', :include_blank => true
         .clear
       .search
         = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"

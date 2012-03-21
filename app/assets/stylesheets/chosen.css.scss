@@ -1,5 +1,5 @@
 .chzn-container {
-  font-size: 13px;
+  font-size: 12px;
   position: relative;
   display: inline-block;
   zoom: 1;
@@ -19,10 +19,10 @@
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
-    -webkit-box-shadow: 0 0 3px #aaa inset;
-    -moz-box-shadow: 0 0 3px #aaa inset;
-    -o-box-shadow: 0 0 3px #aaa inset;
-    box-shadow: 0 0 3px #aaa inset;
+    -webkit-box-shadow: 0 2px 2px #dad8bf inset;
+    -moz-box-shadow: 0 2px 2px #dad8bf inset;
+    -o-box-shadow: 0 2px 2px #dad8bf inset;
+    box-shadow: 0 2px 2px #dad8bf inset;
 
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
@@ -34,14 +34,14 @@
     position: relative;
     height: 23px;
     line-height: 24px;
-    padding: 0 0 0 8px;
+    padding: 0 0 0 6px;
     color: #444444;
     text-decoration: none; }
   .chzn-default {
     color: #999; }
   .chzn-single {
     span {
-      margin-right: 26px;
+      margin-right: 19px;
       display: block;
       overflow: hidden;
       white-space: nowrap;
@@ -342,3 +342,24 @@
     background: url('chosen-sprite.png') no-repeat -38px -22px, linear-gradient(top, #eeeeee 1%, white 15%);
     padding: 4px 5px 4px 20px;
     direction: rtl; } }
+
+.filter-form {
+  select {display: none;}
+  &.auction-filter-form{
+    .viewed .chzn-container { width: 67px !important; }
+
+    .identical {
+      .chzn-container { width: 86px !important; }
+      .chzn-drop { min-width: 84px !important; }
+    }
+  }
+
+  &.home-filter-form {
+    .viewed .chzn-container { width: 69px !important; }
+
+    .identical {
+      .chzn-container { width: 88px !important; }
+      .chzn-drop { min-width: 86px !important; }
+    }
+  }
+}

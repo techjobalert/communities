@@ -66,7 +66,7 @@ h3 {
   -webkit-text-shadow: 1px 1px 0 #000;
   -moz-text-shadow: 1px 1px 0 #000;
   text-shadow: 1px 1px 0 #000;
-  padding: 6px;
+  padding: 6px 9px;
   background: #505a75; /* Old browsers */
   /* IE9 SVG, needs conditional override of 'filter' to 'none' */
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzUwNWE3NSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxZjIyMmIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -151,9 +151,9 @@ h3 {
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
-  -webkit-box-shadow: 0 2px 2px #dad8bf inset;
-  -moz-box-shadow: 0 2px 2px #dad8bf inset;
-  box-shadow: 0 2px 2px #dad8bf inset;
+  -webkit-box-shadow: 0 3px 2px #dad8bf inset;
+  -moz-box-shadow: 0 3px 2px #dad8bf inset;
+  box-shadow: 0 3px 2px #dad8bf inset;
   background-color: #fff;
 }
 
@@ -309,14 +309,14 @@ h3 {
 
     &.account {
       padding-left: 7px;
-      width: 346px;
+      width: 338px;
       a {
-        width: 86px;
+        width: 83px;
         line-height: 1;
       }
 
       .selected {
-        background-position: -7px 0;
+        background-position: -10px 0;
       }
     }
   }
@@ -330,7 +330,7 @@ h3 {
   .filter {
     height: 58px;
     background: #f2efbd;
-    padding: 5px 8px;
+    padding: 7px 8px 3px;
     width: 605px;
     float: right;
     -webkit-border-radius: 0 7px 0 0;
@@ -346,6 +346,7 @@ h3 {
       -moz-border-radius: 5px;
       border-radius: 5px;
       padding: 4px 12px;
+      box-shadow: 0 -1px 0px #f0eed8, 0 -2px 0px #e0ddb1;
     }
 
     .tags {
@@ -355,14 +356,20 @@ h3 {
     }
 
     &.account {
-      width: 590px;
+      width: 599px;
     }
 
     .search {
       float: right;
       .text-input {
         width: 158px;
-        margin-top: 9px;
+        margin-top: 6px;
+      }
+    }
+
+    &.collegues {
+      .text-input {
+        width: 148px;
       }
     }
   }
@@ -956,4 +963,69 @@ h3 {
  }
 .web-symbols{
   font-family: 'WebSymbolsRegular';
+}
+
+.tags {
+  .filter-form {
+    select {display: none; } }
+
+  &.auction-filter-form {
+    width: 343px !important;
+    .viewed .chzn-container { width: 69px !important; }
+
+    .identical {
+      .chzn-container { width: 88px !important; }
+      .chzn-drop { min-width: 86px !important; }
+    }
+  }
+
+  &.home-filter-form {
+    width: 352px !important;
+    .viewed .chzn-container { width: 70px !important; }
+
+    .identical {
+      .chzn-container { width: 90px !important; }
+      .chzn-drop { min-width: 88px !important; }
+    }
+  }
+
+  &.collegues-filter-form {
+    width: 355px !important;
+    .degree {
+      .chzn-container { width: 68px !important; }
+      .chzn-drop { min-width: 66px !important; }
+    }
+    .location .chzn-container { width: 73px !important; }
+    .specialization .chzn-container { width: 99px !important; }
+    .num_pub {
+      float: right;
+
+      input {
+        background-color: #ffffff;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        border-radius: 7px;
+        -webkit-box-shadow: 0 2px 2px #dad8bf inset;
+        -moz-box-shadow: 0 2px 2px #dad8bf inset;
+        -o-box-shadow: 0 2px 2px #dad8bf inset;
+        box-shadow: 0 2px 2px #dad8bf inset;
+
+        -moz-background-clip: padding;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #c9c693;
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        height: 23px;
+        line-height: 24px;
+        padding: 0 0 0 6px;
+        color: #444444;
+        text-decoration: none;
+        width: 98px;
+      }
+    }
+  }
+
 }

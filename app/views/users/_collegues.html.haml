@@ -24,18 +24,19 @@
         = link_to users_path(:tab => "patients"), :class => "pjax patients #{ 'selected' if @tab == 'patients'}" do
           %span
           Patients
-      .filter.account
+      .filter.account.collegues
         .field
           = form_for "", :url => search_users_path, :remote => true, :method => :get do |f|
-            .tags
+            .tags.collegues-filter-form
               .label Filter by
-              -if @tab != 'patients'
-                = f.select "", ['Degree','Degree']
-                = f.select "", ['Location','Location']
-                = f.select "", ['Specialization','Specialization']
-                = f.select "", ['Num’ of publishing','Num’ of publishing']
-              - elsif @tab == 'patients'
-                = f.select "", ['Location','Location']
+              .filter-form
+                - if @tab != 'patients'
+                  %span.degree= f.select "degree", options_for_select(['Degree', 'Degree']), :prompt => 'Degree', :include_blank => true
+                  %span.location= f.select "location", options_for_select(['Location', 'Location']), :prompt => 'Location', :include_blank => true
+                  %span.specialization= f.select "specialization", options_for_select(['Specialization', 'Specialization']), :prompt => 'Specialization', :include_blank => true
+                  %span.num_pub= f.text_field "num_pub", :placeholder => 'Num’ of publishing'
+                - elsif @tab == 'patients'
+                  %span.location= f.select "location", options_for_select(['Location', 'Location']), :prompt => 'Location', :include_blank => true
 
               .clear
             .search
