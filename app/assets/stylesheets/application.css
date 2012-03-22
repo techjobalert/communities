@@ -15,4 +15,6 @@
  *= require webrecorder
  *= require imperavi-rails/imperavi/redactor
  *= require chosen
+ *= require jquery.Jcrop
+ *= require colorbox
 */

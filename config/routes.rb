@@ -31,6 +31,7 @@ Orthodontic::Application.routes.draw do
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
     post    "upload_avatar"
+    post    "upload_avatar/crop" => 'users#crop_avatar'
     post    "follow"
     post    "send_message"
     post    "send_message_to_followers"

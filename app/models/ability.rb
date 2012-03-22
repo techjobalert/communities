@@ -20,7 +20,7 @@ class Ability
     can [:search, :qsearch], [User, Item]
     can :update, User, :id => @user.id
     can [:follow, :unfollow], [User, Item]
-    can [:follow, :upload_avatar, :send_message], [User]
+    can [:follow, :upload_avatar, :crop_avatar, :send_message], [User]
     can [:purchase,:payments_info], :account
   end
 

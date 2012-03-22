@@ -66,15 +66,14 @@ class UsersController < ApplicationController
   end
 
   def upload_avatar
+    current_user.crop_x = nil
+    current_user.crop_y = nil
+    current_user.crop_w = nil
+    current_user.crop_h = nil
     current_user.avatar = params[:file]
 
     if current_user.save
-      @data = {
-        :thumb_45  => current_user.avatar_url(:thumb_45),
-        :thumb_60  => current_user.avatar_url(:thumb_60),
-        :thumb_70  => current_user.avatar_url(:thumb_70),
-        :thumb_143 => current_user.avatar_url(:thumb_143),
-      }
+      @data = {:url  => current_user.avatar_url()}
       render :json => @data.to_json, :content_type => "text/json; charset=utf-8"
     else
       @notice = {:type => 'error', :message =>
@@ -82,6 +81,25 @@ class UsersController < ApplicationController
       }
       render :partial => "layouts/notice", :locals => {:notice => @notice}
     end
+
+  end
+
+  def crop_avatar
+
+    current_user.crop_x = params[:coords]["x"]
+    current_user.crop_y = params[:coords]["y"]
+    current_user.crop_h = params[:coords]["h"]
+    current_user.crop_w = params[:coords]["w"]
+    current_user.save!
+
+    @data = {
+        :thumb_45  => current_user.avatar_url(:thumb_45),
+        :thumb_60  => current_user.avatar_url(:thumb_60),
+        :thumb_70  => current_user.avatar_url(:thumb_70),
+        :thumb_143 => current_user.avatar_url(:thumb_143),
+      }
+
+    render :json => @data.to_json, :content_type => "text/json; charset=utf-8"
 
   end
 

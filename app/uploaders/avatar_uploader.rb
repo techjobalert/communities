@@ -14,16 +14,8 @@ class AvatarUploader < CarrierWave::Uploader::Base
     "/assets/default/user_" + [version_name, "default.png"].compact.join('_')
   end
 
-  #  def default_url
-  #    "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  #  end
-
-  # Process files as they are uploaded:
-  # process :scale => [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
+  process :manualcrop, :if => :cropping?
+  process :resize_to_fit => [800, 600], :if => :not_cropping?
 
   # Create different versions of your uploaded files:
   version :thumb_143 do
@@ -44,6 +36,23 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   def extension_white_list
      %w(jpg jpeg png JPG JPEG PNG)
+  end
+
+  def manualcrop
+    return unless model.cropping?
+    manipulate! do |img|
+      img.crop("#{model.crop_w}x#{model.crop_h}+#{model.crop_x}+#{model.crop_y}")
+      img = yield(img) if block_given?
+      img
+    end
+  end
+
+  def cropping? picture
+    model.cropping?
+  end
+
+  def not_cropping? picture
+    not model.cropping?
   end
 
 end

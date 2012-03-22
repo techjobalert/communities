@@ -15,7 +15,10 @@ class User < ActiveRecord::Base
                   :following_me, :following_published, :added_as_author,
                   :following_item, :commented_item, :recommended_comment,
                   :following_bought_item, :item_changes, :show_bio,
-                  :show_birthday, :show_educations
+                  :show_birthday, :show_educations,
+
+                  # Avatar Settings
+                  :crop_x, :crop_y, :crop_h, :crop_w
 
   acts_as_followable
   acts_as_follower
@@ -54,6 +57,13 @@ class User < ActiveRecord::Base
         :show_birthday
   ]
 
+  store :avatar_settings, accessors: [
+        :crop_x,
+        :crop_y,
+        :crop_h,
+        :crop_w
+  ]
+
   validates :full_name, :length => { :minimum => 3, :maximum => 40 },
             :allow_blank => false
   validates_format_of :full_name, :with=> /\A[а-яА-Яa-zA-Z0-9_\.\-\s]+\Z/u,
@@ -80,6 +90,8 @@ class User < ActiveRecord::Base
 
   scope :role_is, lambda {|role| where(:role => role)}
 
+  after_save :reprocess_avatar, :if => :cropping?
+
   def self.collaborators user
     find_by_sql "SELECT C.* FROM users as C
       JOIN contributions as B ON (C.id = B.contributor_id AND C.id <> #{user.id})
@@ -99,5 +111,14 @@ class User < ActiveRecord::Base
     set_property :enable_star => true
     set_property :min_infix_len => 1
   end
+
+  def cropping?
+    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+  end
+
+  private
+    def reprocess_avatar
+      self.avatar.recreate_versions!
+    end
 
 end
