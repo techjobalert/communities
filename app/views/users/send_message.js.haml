@@ -1,4 +1,4 @@
 - if @notice[:type] != "error"
-  redactor.setHtml('<p>&nbsp;</p>');
+  $("#new_message>p>textarea")[0].value = "";
 
 showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
