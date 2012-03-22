@@ -1,4 +1,4 @@
 - if @notice[:type] != "error"
-  $("#new_message>p>textarea")[0].value = "";
+  $("#new_message textarea").val("");
 
 showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
