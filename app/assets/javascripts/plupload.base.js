@@ -38,10 +38,12 @@ $(function() {
     });
 
     uploader.bind('FileUploaded', function(up, file, response) {
-      var obj = jQuery.parseJSON(response.response);
-      $.map(obj, function(value, key){
-        $('.my-'+key).attr('src',value);
-      });
+      if (response.response === Object){
+        var obj = jQuery.parseJSON(response.response);
+        $.map(obj, function(value, key){
+          $('.my-'+key).attr('src',value);
+        });
+      }
     });
 
     uploader.bind("BeforeUpload", function(up, file, info) {

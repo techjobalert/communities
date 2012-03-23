@@ -165,6 +165,17 @@ class ItemsController < InheritedResources::Base
     end
   end
 
+  def upload_attachment
+    begin
+      @attach = Attachment.create!(:user => current_user, :file => params[:file])
+      @notice = { :type => "notice",
+                  :message => "Attachment saved"}
+    rescue ActiveRecord::RecordInvalid => invalid
+      @notice = { :type => "error",
+                  :message => invalid.record.errors.messages[:file].first}
+    end
+  end
+
   protected
 
   def get_item

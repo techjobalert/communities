@@ -23,10 +23,11 @@ Orthodontic::Application.routes.draw do
     delete  "delete"
     post    "add_to_contributors"
     delete  "delete_from_contributors"
-    get     "search",   :on => :collection
-    get     "qsearch",  :on => :collection
+    get     "search",             :on => :collection
+    get     "qsearch",            :on => :collection
     get     "users_search"
-    get     "tags",     :on => :collection
+    get     "tags",               :on => :collection
+    post    "upload_attachment",  :on => :collection
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
@@ -64,11 +65,11 @@ Orthodontic::Application.routes.draw do
 
   resources :file, :only => [:index] do
     collection do
-      post "upload",          :action => 'upload_psource'
-      get "converted_pvideo", :action => 'converted_pvideo'
-      get "webrecorder",      :action => 'webrecorder'
-      post "convert/:name",   :action => 'convert', :constraints => {:name => /.*/ }
-      post "merge",           :action => 'merge'
+      post "upload",            :action => 'upload_psource'
+      get  "converted_pvideo",  :action => 'converted_pvideo'
+      get  "webrecorder",       :action => 'webrecorder'
+      post "convert/:name",     :action => 'convert', :constraints => {:name => /.*/ }
+      post "merge",             :action => 'merge'
     end
   end
 

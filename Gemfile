@@ -64,6 +64,9 @@ gem 'carrierwave'
 gem 'carrierwave_backgrounder'
 # image processing
 gem 'mini_magick'
+gem 'rmagick'
+# https://github.com/streamio/streamio-ffmpeg
+gem 'streamio-ffmpeg'
 
 # full text search, Sphinx support
 gem 'thinking-sphinx', '2.0.10'

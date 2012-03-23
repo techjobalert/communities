@@ -7,9 +7,17 @@
 
     = link_to 'Select File', '#', :class => 'select-file'
 
-    = link_to '#', :class => 'light-button green upload' do
+    #upcontainer
+    = link_to '#', :id => 'pickfiles', :class => 'light-button green upload' do
       Upload
       %span
+      :javascript
+        $(function(){
+          var uploaderProfile = $.initPlupload({
+              url: "#{upload_attachment_items_path}",
+              filters: []
+          });
+        })
     .btn-hint
       It can be presentations,
       %br

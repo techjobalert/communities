@@ -32,6 +32,7 @@ class Item < ActiveRecord::Base
   has_many    :comments, :dependent => :destroy
   has_many    :contributions
   has_many    :contributors, through: :contributions
+  has_many    :attachments
 
   fires :created_item,    :on     => :create,
                           :actor  => :user

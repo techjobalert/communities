@@ -1,9 +1,15 @@
+require 'mini_magick'
+
 class DocumentToPdf
   @queue = :document_to_prf
 
-  def self.perform(document_path, save_to)
-  	document_path = '../../document'
-  	pdf_save_to ||= document_path+'/pdf'
-  	command = %x[libreoffice --headless -convert-to pdf #{document_path} -outdir #{pdf_save_to}]
+  def self.perform(obj)
+    file_name = File.basename()
+    File.dirname()
+  	command = %x[libreoffice --headless -convert-to pdf #{path} -outdir #{path}]
+
+    pdf = MiniMagick::ImageList.new("doc.pdf")
+    thumb = pdf.scale(300, 300)
+    thumb.write "thumb.png"
   end
 end

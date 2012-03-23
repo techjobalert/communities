@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   has_many :pay_accounts, :dependent => :destroy
   has_many :educations, :dependent => :destroy
   has_many :orders
+  has_many :attachments
 
   accepts_nested_attributes_for :educations, :allow_destroy => true
 

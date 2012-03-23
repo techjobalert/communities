@@ -8,8 +8,10 @@
         .spinner.hidden
         :javascript
           $(function(){
-            var uploaderProfile = $.initPlupload({url: "#{user_upload_avatar_path(user)}"});
-            })
+            var uploaderProfile = $.initPlupload({
+              url: "#{user_upload_avatar_path(user)}"
+            });
+          })
 
       .b-user-info-body
         = form_for(current_user, :remote => true, :validate => true) do |f|
