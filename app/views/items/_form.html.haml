@@ -60,6 +60,9 @@
           .clear
           .text-hint Press "Enter" keyboard key to submit new or use existing keyword
       .clear
+      / = f.fields_for :attachments do |ff|
+      /   = ff.hidden_field "filter_type", :value => "basic"
+
       = f.submit 'Save', :class => 'light-button green'
       :javascript
         $('#tag_list').textext({

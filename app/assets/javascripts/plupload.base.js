@@ -50,16 +50,22 @@ $(function() {
     });
 
     uploader.bind("FileUploaded", function(up, file, info) {
-      var response = $.parseJSON(info.response),
-        coords,
-        cropArea = false;
 
-      if (response.url){
-        $('.b-user-colorbox').colorbox();
-        $.colorbox({href: response.url, close: "Закрыть", onComplete: function(){
-          $(".cboxPhoto").Jcrop({minSize:[143,143], aspectRatio: 1, onSelect: Coords, onChange: Coords});
-          $('<div id="crop-save">Save</div>').appendTo('#cboxContent');
-        }});
+      if (info.response !== Object){
+        eval(info.response)
+      }
+      else{
+        var response = $.parseJSON(info.response),
+            coords,
+            cropArea = false;
+
+        if (response.url){
+          $('.b-user-colorbox').colorbox();
+          $.colorbox({href: response.url, close: "Закрыть", onComplete: function(){
+            $(".cboxPhoto").Jcrop({minSize:[143,143], aspectRatio: 1, onSelect: Coords, onChange: Coords});
+            $('<div id="crop-save">Save</div>').appendTo('#cboxContent');
+          }});
+        }
       }
 
       function Coords(c){
