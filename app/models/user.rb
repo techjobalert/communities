@@ -36,7 +36,6 @@ class User < ActiveRecord::Base
   has_many :contributions, foreign_key: :contributor_id
   has_many :items, through: :contributions
   has_many :approvals, class_name: :Item, :foreign_key => "approved_by"
-  has_many :pay_accounts, :dependent => :destroy
   has_many :educations, :dependent => :destroy
   has_many :orders
 
@@ -90,7 +89,7 @@ class User < ActiveRecord::Base
 
   scope :role_is, lambda {|role| where(:role => role)}
 
-  after_save :reprocess_avatar, :if => :cropping?
+  # after_save :reprocess_avatar, :if => :cropping?
 
   def self.collaborators user
     find_by_sql "SELECT C.* FROM users as C
@@ -116,9 +115,9 @@ class User < ActiveRecord::Base
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
 
-  private
-    def reprocess_avatar
-      self.avatar.recreate_versions!
-    end
+  # private
+  #   def reprocess_avatar
+  #     self.avatar.recreate_versions!
+  #   end
 
 end

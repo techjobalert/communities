@@ -10,18 +10,7 @@
       .item
         .title Account Info
         .body
-          - if current_user.pay_accounts.present?
-            - pay_account = current_user.pay_accounts.first
-            Number:
-            %br
-            = pay_account.number
-            %br
-            = "Date: #{pay_account.month}.#{pay_account.year}"
-            %br
-            = "#{pay_account.first_name} #{pay_account.last_name}"
-            %br
-
-        = link_to "#{current_user.pay_accounts.present? ? 'Edit' : 'Create'}", '#', :class => 'light-button green edit', :id => "account-form-dialog"
+        = link_to "Edit", '#', :class => 'light-button green edit', :id => "account-form-dialog"
 
       .item
         .title Schedule
@@ -61,7 +50,7 @@
 
 %div{ :id => "account-form", :title=>"Account Info" }
   .pay-pal-form
-    = form_for (current_user.pay_accounts.present? ? current_user.pay_accounts.first : PayAccount.new), :validate => false, :remote => true do |f|
+    = form_for "/", :validate => false, :remote => true do |f|
       %p
         = f.label :country
         = f.collection_select :country, Country.order(:name), :iso, :name, include_blank: false

@@ -91,6 +91,7 @@ class UsersController < ApplicationController
     current_user.crop_h = params[:coords]["h"]
     current_user.crop_w = params[:coords]["w"]
     current_user.save!
+    current_user.avatar.recreate_versions!
 
     @data = {
         :thumb_45  => current_user.avatar_url(:thumb_45),

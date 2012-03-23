@@ -30,8 +30,11 @@ class Item < ActiveRecord::Base
   belongs_to  :approved_by, class_name: :User, :foreign_key => "approved_by"
 
   has_many    :comments, :dependent => :destroy
+  has_many    :orders
   has_many    :contributions
   has_many    :contributors, through: :contributions
+
+
 
   fires :created_item,    :on     => :create,
                           :actor  => :user
