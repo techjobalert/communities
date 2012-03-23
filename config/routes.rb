@@ -12,7 +12,9 @@ Orthodontic::Application.routes.draw do
     match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
   end
 
-  resources :orders, :only => :new
+  resources :orders, :only => :create do
+    post "verification" => "orders#card_verification", :as => :card_verification, :on => :collection
+  end
 
   resources :items do
     resources :comments do
@@ -32,14 +34,13 @@ Orthodontic::Application.routes.draw do
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
     post    "upload_avatar"
+    post    "upload_avatar/crop" => 'users#crop_avatar'
     post    "follow"
     post    "send_message"
     post    "send_message_to_followers"
     delete  "unfollow"
     get     "search", :on => :collection
   end
-
-  resources :pay_accounts, :only => [:create, :update]
 
   get   'moderator'                      => 'moderator#items'
   get   'moderator/items/:id'            => 'moderator#item_show',        :as => :moderator_item

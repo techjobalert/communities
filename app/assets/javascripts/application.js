@@ -15,7 +15,8 @@
 //= require jquery.fileupload
 //= require jquery.textext
 //= require jquery.pjax
-//
+//= require jquery.Jcrop.min
+//= require jquery.colorbox-min
 //= require video
 //
 // Chosen (selectbox plugin)*
