@@ -622,3 +622,19 @@
     margin-right: 10px;
   }
 }
+
+.b-buy-item-window {
+  overflow: hidden;
+
+  .left-side {
+    float: left;
+    width: 380px;
+    border-right: 1px solid #ddd;
+  }
+
+  .right-side {
+    float: right;
+    padding: 10px 20px;
+    width: 250px
+  }
+}

@@ -89,4 +89,8 @@ class Item < ActiveRecord::Base
     set_property :min_infix_len => 1
   end
 
+  def paid?
+    price > 0
+  end
+
 end

@@ -4,17 +4,19 @@ class OrdersController < ApplicationController
 
   def create
     params[:order][:user_id] = current_user.id
+
     @order = current_user.orders.build(params[:order])
     @order.ip_address = request.remote_ip
+
+    item = Item.find(params[:order][:item_id])
+
     if @order.save
-      if purchase(@order, params[:pay_account])
-        render :action => "success"
-      else
-        render :action => "failure"
-      end
+      @notice = purchase(@order, item, params[:pay_account])
     else
-      render :action => 'new'
+      @notice = {:type => "error", :message => "error"}
     end
+
+    render :action => "response"
   end
 
   def card_verification
@@ -30,25 +32,29 @@ class OrdersController < ApplicationController
 
   private
 
-    def purchase(order, account)
+    def purchase(order, item, account)
       if account
-        response = GATEWAY.purchase(price_in_cents, credit_card(account), purchase_options(account))
-        order.transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
+        response = GATEWAY.purchase(price_in_cents(item), credit_card(account), purchase_options(account))
+        order.transactions.create!(:action => "purchase", :amount => price_in_cents(item), :response => response)
+
         if response.success?
           order.user.update_attribute(:purchased_at, Time.now)
+          item.amount += item.price
+          item.save!
+          type = "notice"
         end
-        response.success?
+
+        notice = {:type => (type ||= "error"), :message => response.message}
       else
-        false
+        notice = {:type => "error", :message => "error"}
       end
     end
 
-    def price_in_cents
-      100
+    def price_in_cents(item)
+      (item.price * 100).round
     end
 
-    def purchase_options(account)
-      {
+    def purchase_options(account) {
         :ip => request.remote_ip,
         :billing_address => {
           :name => [account[:first_name], account[:last_name]].join(" "),
