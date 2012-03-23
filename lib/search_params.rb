@@ -7,7 +7,7 @@ class SearchParams
     p = { self.class.per_page_param => 12, self.class.page_param => _params[:page] }
     p.merge!(_params)
     @query, @sort, @page, @per_page = p[self.class.query_param], p[self.class.sort_param], p[self.class.page_param], p[self.class.per_page_param]
-    # @sort = nil unless @sort == 'newest' || @sort == 'oldest'
+    @sort = nil unless @sort == 'newest' || @sort == 'oldest'
   end
 
   def get_search_results
@@ -91,7 +91,7 @@ class SearchParams
   end
 
   def item_date_interval(params)
-    if params[:date] and not params[:date].include?("Any")
+    if params[:date] and not params[:date].blank?
       date = case params[:date]
       when "Today"
         Date.today.to_time..Time.now
@@ -108,7 +108,7 @@ class SearchParams
     end
   end
   def item_views_filter(params)
-    if params[:views] and not params[:views].include?("Any")
+    if params[:views] and not params[:views].blank?
       sort_options = {}
       sort_options[:order] = "views_count"
       sort_options[:sort_mode] = case params[:views]
@@ -121,7 +121,7 @@ class SearchParams
     end
   end
   def item_price_filter(params)
-    if params[:price] and not params[:price].include?("Free/Paid")
+    if params[:price] and not params[:price].blank?
       case params[:price]
       when "Free"
         { :with => {:price => 0 } }
