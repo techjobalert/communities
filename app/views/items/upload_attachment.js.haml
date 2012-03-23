@@ -1,4 +1,4 @@
 - if @notice
   - if @notice[:type] != "error"
-    $("form#new_item").append('<input name="attachment_id" type="hidden" value="#{@attach.id}">');
+    $("form#new_item").append('<input type="hidden" name="item[attachment_id]" value="#{@attach.id}">');
   showHideNotice("#{@notice[:type]}", "#{@notice[:message]}")
