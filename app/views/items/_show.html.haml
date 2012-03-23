@@ -41,10 +41,11 @@
         = text_field 'search', 'form'
         %span
 
-      #account-form-dialog.light-button.buy.green
-        %b Buy
-        item
-        %span
+      - if item.paid?
+        #account-form-dialog.light-button.buy.green
+          %b Buy
+          item
+          %span
 
   / есть два варианта
   / 1 Вариант
@@ -104,61 +105,72 @@
   changeNavigationTab(".tab-item");
 
 
-%div{ :id => "account-form", :title=>"Account Info" }
-  .pay-pal-form
-    = form_tag orders_path, :validate => false, :remote => true do
-      = hidden_field_tag "order[item_id]", @item.id
+%div{ :id => "account-form", :title=>"Buy item" }
+  .b-buy-item-window
+    .left-side
+      .pay-pal-form
+        = form_tag orders_path, :validate => false, :remote => true do
+          = hidden_field_tag "order[item_id]", @item.id
+          %p
+            = label :pay_account, :country
+            = collection_select :pay_account, :country, Country.order(:name), :iso, :name, include_blank: false
+          %p
+            = label :pay_account, :first_name
+            = text_field :pay_account, :first_name
+          %p
+            = label :pay_account, :last_name
+            = text_field :pay_account, :last_name
+          %p
+            = label :pay_account, :number, "Credit card number"
+            = text_field :pay_account, :number
+          .type
+            = label :pay_account, :payment_type
+            .type-container#payment-type-toogler
+              = radio_button :pay_account, :payment_type, "visa", :checked => true
+              = label :pay_account, :payment_type_visa, " ", :class => 'lb visa selected'
+              = radio_button :pay_account, :payment_type, "master_card"
+              = label :pay_account, :payment_type_master_card, ' ', :class => 'lb mc'
+              = radio_button :pay_account, :payment_type, "aaaa"
+              = label :pay_account, :payment_type_aaaa, ' ', :class => 'lb dc'
+              = radio_button :pay_account, :payment_type, "bbbb"
+              = label :pay_account, :payment_type_bbbb, ' ', :class => 'lb ae'
+          %p.exp
+            = label :pay_account, :month, "Expiration date"
+            = text_field :pay_account, :month, :class => 'd'
+            = text_field :pay_account, :year, :class => 'm'
+            %span cvs
+            = text_field :pay_account, :verification_value, :class => 'css'
+            = link_to 'Whats this?'
+          %p
+            = label :pay_account, :address1, "Billing address 1"
+            = text_field :pay_account, :address1
+          %p
+            = label :pay_account, :address2, "Billing address 2"
+            = text_field :pay_account, :address2
+          %p
+            = label :pay_account, :state
+            = grouped_collection_select :pay_account, :state, Country.order(:name), :states, :name, :iso, :name
+          %p
+            = label :pay_account, :city
+            = text_field :pay_account, :city
+          %p.zip
+            = label :pay_account, :zipcode, "Zip code"
+            = text_field :pay_account, :zipcode
+          %p
+            = label :pay_account, :phone, "Home Tel"
+            = text_field :pay_account, :phone
+          %p
+            = label :pay_account, :email, "Email"
+            = text_field :pay_account, :email
+
+    .right-side
       %p
-        = label :pay_account, :country
-        = collection_select :pay_account, :country, Country.order(:name), :iso, :name, include_blank: false
+        %b Item:
+        = "\"#{item.title}\""
       %p
-        = label :pay_account, :first_name
-        = text_field :pay_account, :first_name
-      %p
-        = label :pay_account, :last_name
-        = text_field :pay_account, :last_name
-      %p
-        = label :pay_account, :number, "Credit card number"
-        = text_field :pay_account, :number
-      .type
-        = label :pay_account, :payment_type
-        .type-container#payment-type-toogler
-          = radio_button :pay_account, :payment_type, "visa", :checked => true
-          = label :pay_account, :payment_type_visa, " ", :class => 'lb visa selected'
-          = radio_button :pay_account, :payment_type, "master_card"
-          = label :pay_account, :payment_type_master_card, ' ', :class => 'lb mc'
-          = radio_button :pay_account, :payment_type, "aaaa"
-          = label :pay_account, :payment_type_aaaa, ' ', :class => 'lb dc'
-          = radio_button :pay_account, :payment_type, "bbbb"
-          = label :pay_account, :payment_type_bbbb, ' ', :class => 'lb ae'
-      %p.exp
-        = label :pay_account, :month, "Expiration date"
-        = text_field :pay_account, :month, :class => 'd'
-        = text_field :pay_account, :year, :class => 'm'
-        %span cvs
-        = text_field :pay_account, :verification_value, :class => 'css'
-        = link_to 'Whats this?'
-      %p
-        = label :pay_account, :address1, "Billing address 1"
-        = text_field :pay_account, :address1
-      %p
-        = label :pay_account, :address2, "Billing address 2"
-        = text_field :pay_account, :address2
-      %p
-        = label :pay_account, :state
-        = grouped_collection_select :pay_account, :state, Country.order(:name), :states, :name, :iso, :name
-      %p
-        = label :pay_account, :city
-        = text_field :pay_account, :city
-      %p.zip
-        = label :pay_account, :zipcode, "Zip code"
-        = text_field :pay_account, :zipcode
-      %p
-        = label :pay_account, :phone, "Home Tel"
-        = text_field :pay_account, :phone
-      %p
-        = label :pay_account, :email, "Email"
-        = text_field :pay_account, :email
+        %b Price:
+        = "#{item.price}$"
+
 
 :javascript
   $( "#account-form:ui-dialog" ).dialog( "destroy" );
@@ -166,7 +178,7 @@
   $( "#account-form" ).dialog({
     resizable: false,
     autoOpen: false,
-    width: 410,
+    width: 700,
     modal: true,
     buttons: {
       "Validate card": function() {
