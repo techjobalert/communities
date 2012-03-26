@@ -7,7 +7,7 @@
 #
 # set :output, "/path/to/my/cron_log.log"
 #
-every 1.day, :at => '12:30 am' do 
+every 1.day, :at => '12:30 am' do
   rake "rake ts:rebuild"
 end
 every 2.hours do

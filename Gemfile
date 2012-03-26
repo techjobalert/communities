@@ -102,3 +102,5 @@ gem 'state_machine'
 # https://github.com/rails/pjax_rails
 gem 'rack-pjax'
 gem 'rack-ssl-enforcer'
+# https://github.com/yob/pdf-reader
+gem 'pdf-reader'
