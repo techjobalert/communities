@@ -34,7 +34,7 @@ Orthodontic::Application.configure do
     :https_port => 55443,
     :http_port => 5580,
     # :redirect_to => 'https://89.209.76.243:55443',     # For when behind a proxy, like nginx
-    :only => [/^\/moderator/, /^\/account/],      # Force SSL on everything behind /moderator, ...
+    #:only => [/^\/moderator/, /^\/account/],      # Force SSL on everything behind /moderator, ...
     :strict => true                                   # Force no-SSL for everything else
 
   # See everything in the log (default is :info)
