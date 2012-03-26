@@ -1,1 +1,6 @@
-showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
+- if @notice.present?
+  showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
+
+  - if @notice[:type] != "error"
+    $("#account-form:ui-dialog").dialog("destroy");
+    $("#account-form-dialog").remove();

@@ -8,6 +8,7 @@ class Ability
   end
 
   def guest
+    can :payment_notifications, Order
     can :read, [ Item, Comment ] do |obj|
       published?(obj)
     end

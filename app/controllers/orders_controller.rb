@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :payment_notifications
   load_and_authorize_resource
 
   def create
@@ -30,17 +30,20 @@ class OrdersController < ApplicationController
     render :json => notice
   end
 
+  def payment_notifications
+    PaymentNotification.create!(:params => params, :order_id => params[:invoice], :status => params[:payment_status], :transaction_id => params[:txn_id] )
+    render :nothing => true
+  end
+
   private
 
     def purchase(order, item, account)
       if account
-        response = GATEWAY.purchase(price_in_cents(item), credit_card(account), purchase_options(account))
+        response = GATEWAY.purchase(price_in_cents(item), credit_card(account), purchase_options(account, order))
         order.transactions.create!(:action => "purchase", :amount => price_in_cents(item), :response => response)
 
         if response.success?
-          order.user.update_attribute(:purchased_at, Time.now)
-          item.amount += item.price
-          item.save!
+          order.pending
           type = "notice"
         end
 
@@ -54,7 +57,7 @@ class OrdersController < ApplicationController
       (item.price * 100).round
     end
 
-    def purchase_options(account) {
+    def purchase_options(account, order) {
         :ip => request.remote_ip,
         :billing_address => {
           :name => [account[:first_name], account[:last_name]].join(" "),
@@ -65,7 +68,9 @@ class OrdersController < ApplicationController
           :country => account[:country],
           :zip => account[:zipcode],
           :phone => account[:phone]
-        }
+        },
+        :notify_url => payment_notifications_orders_url,
+        :order_id => order.id
       }
     end
 

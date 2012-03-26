@@ -48,12 +48,6 @@ class Item < ActiveRecord::Base
                           :actor  => :user
 
   state_machine :state, :initial => :moderated do
-    # after_transition :on => :publish do |item|
-    #   if self.user.has_attribute?(_get_counter_name)
-    #     self.user[_get_counter_name] +=1
-    #     self.user.save!
-    #   end
-    # end
 
     event :moderate do
       transition [:denied, :published] => :moderated
@@ -91,6 +85,11 @@ class Item < ActiveRecord::Base
 
   def paid?
     price > 0
+  end
+
+  def purchased?(user)
+    order = self.orders.where("user_id = ? AND ( state = ? OR ( state = ? AND purchased_at > ?) )", user.id, "paid", "panding", Time.zone.now - 1.day )
+    order.present?
   end
 
 end

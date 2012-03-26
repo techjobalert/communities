@@ -13,7 +13,8 @@ Orthodontic::Application.routes.draw do
   end
 
   resources :orders, :only => :create do
-    post "verification" => "orders#card_verification", :as => :card_verification, :on => :collection
+    post  "verification"          => "orders#card_verification",      :as => :card_verification,      :on => :collection
+    match "payment_notifications" => "orders#payment_notifications",  :as => :payment_notifications,  :on => :collection
   end
 
   resources :items do
