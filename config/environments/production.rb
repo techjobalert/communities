@@ -55,6 +55,7 @@ Orthodontic::Application.configure do
       video-js.js video-js.css
       jquery-ui.css jquery-ui.js
       imperavi-rails/imperavi/redactor.css imperavi-rails/imperavi.js
+      pdf.js
     )
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = false
