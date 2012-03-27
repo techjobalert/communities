@@ -104,3 +104,4 @@ gem 'rack-pjax'
 gem 'rack-ssl-enforcer'
 # https://github.com/yob/pdf-reader
 gem 'pdf-reader'
+gem 'russian'
