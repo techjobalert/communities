@@ -5,24 +5,16 @@ class Order < ActiveRecord::Base
   belongs_to :item
 
   state_machine :state, :initial => :not_paid do
-    after_transition :on => :pending do |order|
+    after_transition :on => :pay do |order|
       order.update_attributes({:purchased_at => Time.now})
     end
 
-    event :not_paid do
-      transition :pending => :not_paid
-    end
-
-    event :pending do
-      transition :not_paid => :pending
-    end
-
     event :pay do
-      transition :pending => :paid
+      transition :not_paid => :paid
     end
 
     event :cancel do
-      transition [:pending, :not_paid] => :canceled
+      transition :not_paid => :canceled
     end
 
   end

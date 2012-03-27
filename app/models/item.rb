@@ -88,7 +88,7 @@ class Item < ActiveRecord::Base
   end
 
   def purchased?(user)
-    order = self.orders.where("user_id = ? AND ( state = ? OR ( state = ? AND purchased_at > ?) )", user.id, "paid", "panding", Time.zone.now - 1.day )
+    order = self.orders.where("user_id = ? AND state = ?", user.id, "paid")
     order.present?
   end
 

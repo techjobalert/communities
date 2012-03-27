@@ -30,24 +30,22 @@ class OrdersController < ApplicationController
     render :json => notice
   end
 
-  def payment_notifications
-    PaymentNotification.create!(:params => params, :order_id => params[:invoice], :status => params[:payment_status], :transaction_id => params[:txn_id] )
-    render :nothing => true
-  end
-
   private
 
     def purchase(order, item, account)
       if account
         response = GATEWAY.purchase(price_in_cents(item), credit_card(account), purchase_options(account, order))
-        order.transactions.create!(:action => "purchase", :amount => price_in_cents(item), :response => response)
+        transaction = order.transactions.create!(:action => "purchase", :amount => price_in_cents(item), :response => response)
 
         if response.success?
-          order.pending
+          transaction.pay
           type = "notice"
+        else
+          transaction.cancel
+          type = "error"
         end
 
-        notice = {:type => (type ||= "error"), :message => response.message}
+        notice = {:type => type, :message => response.message}
       else
         notice = {:type => "error", :message => "error"}
       end
@@ -69,7 +67,6 @@ class OrdersController < ApplicationController
           :zip => account[:zipcode],
           :phone => account[:phone]
         },
-        :notify_url => payment_notifications_orders_url,
         :order_id => order.id
       }
     end
