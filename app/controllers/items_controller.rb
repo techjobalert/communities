@@ -171,6 +171,7 @@ class ItemsController < InheritedResources::Base
 
   def upload_attachment
     begin
+      params[:file].original_filename = Russian.translit(params[:name])
       @attach = Attachment.create!(:user => current_user, :file => params[:file])
       @notice = { :type => "notice",
                   :message => "Attachment saved"}
