@@ -51,10 +51,9 @@ $(function() {
 
     uploader.bind("FileUploaded", function(up, file, info) {
 
-      if (info.response !== Object){
-        eval(info.response)
-      }
-      else{
+
+
+      try {
         var response = $.parseJSON(info.response),
             coords,
             cropArea = false;
@@ -66,7 +65,9 @@ $(function() {
             $('<div id="crop-save">Save</div>').appendTo('#cboxContent');
           }});
         }
-      }
+      } catch (e) {eval(info.response);}
+
+
 
       function Coords(c){
         coords = c;

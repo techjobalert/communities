@@ -93,11 +93,13 @@ class UsersController < ApplicationController
     current_user.save!
     current_user.avatar.recreate_versions!
 
+    rand = Time.now.to_i
+
     @data = {
-        :thumb_45  => current_user.avatar_url(:thumb_45),
-        :thumb_60  => current_user.avatar_url(:thumb_60),
-        :thumb_70  => current_user.avatar_url(:thumb_70),
-        :thumb_143 => current_user.avatar_url(:thumb_143),
+        :thumb_45  => "#{current_user.avatar_url(:thumb_45)}?#{rand}",
+        :thumb_60  => "#{current_user.avatar_url(:thumb_60)}?#{rand}",
+        :thumb_70  => "#{current_user.avatar_url(:thumb_70)}?#{rand}",
+        :thumb_143 => "#{current_user.avatar_url(:thumb_143)}?#{rand}"
       }
 
     render :json => @data.to_json, :content_type => "text/json; charset=utf-8"
