@@ -63,6 +63,10 @@
     = image_tag '/assets/tmp/p4.png', :class => 'preview'
     .clear
 
+    .attachment
+      -if @attachment
+        = render :partial => "layouts/attachment_viewer", :locals => {:attachment => @attachment}
+
   / 2 Вариант
   .text.video.hidden
     .preview

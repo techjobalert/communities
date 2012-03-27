@@ -1,0 +1,42 @@
+%script{:src => "/assets/pdf.js", :type => "text/javascript"}
+
+%div{:style=>"border: 1px solid beige"}
+  %canvas#pdf-viewer{:style=>"width:100%"}
+= link_to 'next', "", :class => 'pdf-next-page', :onclick=>"nextPage();return false"
+= link_to 'prev', "", :class => 'pdf-prev-page', :onclick=>"prevPage();return false"
+:javascript
+  'use strict';
+  PDFJS.workerSrc = "../assets/pdf.js";
+  var bc8192db7apdf, currentPage=1, _prevPage=1;
+
+  var nextPage = function(){_prevPage = currentPage++;renderPage(currentPage);}
+  var prevPage = function(){_prevPage = currentPage--;renderPage(currentPage);}
+  var renderPdf = function(data){
+    bc8192db7apdf = new PDFJS.PDFDoc(data);
+    renderPage(1);
+  };
+  var renderPage = function(pageNumber){
+    if (bc8192db7apdf.catalog.pageCache && (pageNumber > bc8192db7apdf.catalog.pageCache.length || pageNumber < 1) ){
+      showHideNotice("error", "pageNumber not valid");
+      currentPage = _prevPage;
+      return false;
+    }
+    var page = bc8192db7apdf.getPage(pageNumber);
+    var scale = 1;
+
+    //
+    // Prepare canvas using PDF page dimensions
+    //
+    var canvas = document.getElementById('pdf-viewer');
+    var context = canvas.getContext('2d');
+    canvas.height = page.height * scale;
+    canvas.width = page.width * scale;
+
+    //
+    // Render PDF page into canvas context
+    //
+    page.startRendering(context);
+  };
+  PDFJS.getPdf("#{attachment.document}", function getPdfData(data) {
+    renderPdf(data);
+  });

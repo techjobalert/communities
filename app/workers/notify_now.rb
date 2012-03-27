@@ -33,7 +33,7 @@ class NotifyNow
       end
     end
     if event.subject_type == "Contribution"
-      if event.actor.added_as_author == "1"
+      if event.actor.added_as_author == "1" and event.secondary_subject.user != event.actor
         receivers << event.actor
       end
     end
