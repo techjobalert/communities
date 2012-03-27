@@ -24,11 +24,12 @@ Orthodontic::Application.routes.draw do
     post    "follow"
     delete  "unfollow"
     delete  "delete"
-    post    "add_to_contributors"
     delete  "delete_from_contributors"
+    post    "add_to_contributors"
+    get     "users_search"
+    get     "pdf_page"
     get     "search",             :on => :collection
     get     "qsearch",            :on => :collection
-    get     "users_search"
     get     "tags",               :on => :collection
     post    "upload_attachment",  :on => :collection
   end

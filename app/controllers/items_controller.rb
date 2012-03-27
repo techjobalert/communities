@@ -10,6 +10,9 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
+      if not @item.attachments.empty? and not @item.attachments.first.file.document.nil?
+        @attachment = @item.attachments.first.file
+      end
       @items = Item.search(:q => @item.title, :without_ids => [*@item.id], :with_all => {:tag_ids => @item.tag_ids}, :page => params[:page], :per_page => 3, :star => true)
     end
   end
@@ -175,6 +178,14 @@ class ItemsController < InheritedResources::Base
       @notice = { :type => "error",
                   :message => invalid.record.errors.messages[:file].first}
     end
+  end
+
+  def pdf_page
+    file, page = params[:file], params[:page].to_i if params[:page].present?
+    file = Item.find(params[:item_id]).attachments.first.file.document
+    reader = PDF::Reader.new("public/"+file.to_s)
+    page     = reader.page(page)
+    @content  = page.raw_content
   end
 
   protected
