@@ -35,7 +35,7 @@
 //  Misc*
 //= require jquery.html5-placeholder-shim
 //= require imperavi-rails/imperavi
-//
+//= require jquery.validate
 //= require main
 
 function showHideNotice(type,message){

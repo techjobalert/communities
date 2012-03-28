@@ -10,11 +10,11 @@ class Order < ActiveRecord::Base
     end
 
     event :pay do
-      transition :not_paid => :paid
+      transition all => :paid
     end
 
     event :cancel do
-      transition :not_paid => :canceled
+      transition all => :canceled
     end
 
   end

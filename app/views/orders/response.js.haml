@@ -4,3 +4,7 @@
   - if @notice[:type] != "error"
     $("#account-form:ui-dialog").dialog("destroy");
     $("#account-form-dialog").remove();
+
+  - else
+    $(".ui-dialog-buttonset button").removeAttr("disabled").removeClass("ui-state-disabled");
+    $("#account-form.ui-dialog-content .b-buy-item-window-spinner").fadeOut();
