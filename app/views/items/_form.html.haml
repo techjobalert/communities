@@ -45,9 +45,9 @@
             %li= msg
 
     = image_tag '/assets/tmp/p2.png', :width => '135', :height => '100', :class => 'preview'
-    %div.fl-l#filelist
 
     = form_for @item, :validate => true, :remote => true do |f|
+      %div.fl-l#filelist
       .block
         .item
           = f.label :title
