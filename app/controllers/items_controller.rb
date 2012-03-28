@@ -173,11 +173,13 @@ class ItemsController < InheritedResources::Base
     begin
       params[:file].original_filename = Russian.translit(params[:name])
       @attach = Attachment.create!(:user => current_user, :file => params[:file])
-      @notice = { :type => "notice",
-                  :message => "Attachment saved"}
+      render :json => {:id => @attach.id}, :content_type => "text/json; charset=utf-8"
     rescue ActiveRecord::RecordInvalid => invalid
-      @notice = { :type => "error",
-                  :message => invalid.record.errors.messages[:file].first}
+      Rails.logger.error invalid.inspect
+      @notice = {:type => 'error', :message =>
+        "#{t current_user.errors.keys.first} #{current_user.errors.values.first.first.to_s}"
+      }
+      render :partial => "layouts/notice", :locals => {:notice => @notice}
     end
   end
 
