@@ -27,7 +27,13 @@ $(function() {
       uploader.start();
       up.refresh();
     });
-
+    $("#filelist").delegate("i.remove", "click", function() {
+      if (confirm('Are you sure to remove this file?')) {
+        $(this).parent("div").fadeOut("slow", function(){
+          $(this).remove();
+        });
+      }
+    });
     // uploader.bind('FileUploaded', function(up, file, response) {
     //   if (response.response === Object){
     //     var obj = jQuery.parseJSON(response.response);
@@ -45,18 +51,44 @@ $(function() {
       $('.spinner').addClass('hidden');
     });
 
-    uploader.bind("Error", function(up, error) {
-      alert(error.message);
+    uploader.bind('UploadProgress', function(up, file) {
+      var f = $('#' + file.id + " b");
+      if (f.length) f.html(file.percent + "%");
+    });
+
+    uploader.bind('FilesAdded', function(up, files) {
+      $.each(files, function(i, file) {
+        if ($('#filelist').length) $('#filelist').append(
+          '<div id="' + file.id + '" class="filename">' +
+          file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>'+
+          '<i class="remove web-symbols">×</i></div>');
+      });
+
+      up.refresh(); // Reposition Flash/Silverlight
+    });
+
+    uploader.bind('Error', function(up, err) {
+      if ($('#filelist').length) $('#filelist').append("<div>Error: " + err.code +
+        ", Message: " + err.message +
+        (err.file ? ", File: " + err.file.name : "") +
+        "</div>"
+      );
+      alert(err.message);
+      up.refresh(); // Reposition Flash/Silverlight
     });
 
     uploader.bind("FileUploaded", function(up, file, info) {
-
-
 
       try {
         var response = $.parseJSON(info.response),
             coords,
             cropArea = false;
+
+        var f = $('#' + file.id);
+        if (f.length){
+          f.children("b").html("100%");
+          f.append('<input type="hidden" name="item[attachment_id]" value="'+response.id+'">');
+        }
 
         if (response.url){
           $('.b-user-colorbox').colorbox();
