@@ -172,8 +172,8 @@ class ItemsController < InheritedResources::Base
   def upload_attachment
     begin
       params[:file].original_filename = Russian.translit(params[:name])
-      @attach = Attachment.create!(:user => current_user, :file => params[:file])
-      render :json => {:id => @attach.id}, :content_type => "text/json; charset=utf-8"
+      @attachment = Attachment.create!(:user => current_user, :file => params[:file])
+      render :json => {:id => @attachment.id}, :content_type => "text/json; charset=utf-8"
     rescue ActiveRecord::RecordInvalid => invalid
       Rails.logger.error invalid.inspect
       @notice = {:type => 'error', :message =>
