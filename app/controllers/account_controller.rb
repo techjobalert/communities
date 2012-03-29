@@ -7,16 +7,23 @@ class AccountController < ApplicationController
   end
 
   def purchase
+    @items = current_user.items.published.paid.page(params[:page]).per(3)
   end
 
   def purchased_items
+    @items = current_user.orders
+      .joins(:item)
+      .select("items.*")
+      .where("(orders.state = ? OR orders.state = ?) AND items.state = ?",
+        "paid", "closed", "published")
+      .page(params[:page]).per(3)
+
   end
 
   def payments_info
     @transactions = OrderTransaction.by_user current_user
     if current_user.role? "doctor"
-      icoming_sum = OrderTransaction.select("SUM(paid_to_seller) as paid_to_seller")
-        .where("state = ? AND seller_id = ?", "closed", current_user.id)
+      icoming_sum = OrderTransaction.incoming current_user
 
       @icoming_sum = icoming_sum.first.paid_to_seller.to_f / 100
     end

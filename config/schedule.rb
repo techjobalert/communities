@@ -10,6 +10,9 @@
 every 1.day, :at => '12:30 am' do
   rake "rake ts:rebuild"
 end
+every 1.hours do
+  rake "paypal:transfer"
+end
 every 2.hours do
   # command "/usr/bin/some_great_command"
   # runner "MyModel.some_method"

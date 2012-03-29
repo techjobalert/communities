@@ -48,4 +48,8 @@ class OrderTransaction < ActiveRecord::Base
         OR ( seller_id = #{user.id} AND state = 'closed' )
       ORDER BY updated_at DESC"
   end
+
+  def self.incoming user
+    self.select("SUM(paid_to_seller) as paid_to_seller").where("state = ? AND seller_id = ?", "closed", user.id)
+  end
 end
