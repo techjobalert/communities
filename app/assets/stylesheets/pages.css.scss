@@ -585,6 +585,8 @@
           font-size: 12px;
           vertical-align: middle;
           padding: 0 20px 0 10px;
+          text-decoration: none;
+          color: #1B1E26;
         }
       }
     }
@@ -700,11 +702,12 @@
       word-wrap: break-word;
     }
 
-    b, span  {
+    b, span, b a  {
       display: block;
       font-size: 16px;
       padding: 2px 0 8px;
       color: #777;
+      text-decoration: none;
     }
   }
 

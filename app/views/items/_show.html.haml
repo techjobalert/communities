@@ -12,8 +12,8 @@
         - item.contributors.each do |contributor|
           %li
             .item
-              = image_tag contributor.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{contributor.id}"
-              .title= text_with_br contributor.full_name
+              = link_to image_tag(contributor.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{contributor.id}"), users_path(contributor)
+              = link_to text_with_br(contributor.full_name), users_path(contributor), :class => "title"
 
     - if current_user and item.user.id != current_user.id
       - if not current_user.following?(item)

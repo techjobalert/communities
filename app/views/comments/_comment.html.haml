@@ -2,7 +2,7 @@
   %li{:id => "comment-#{comment.id}"}
     = image_tag comment.user.avatar_url(:thumb_60), :width => '60', :height => '60'
     .body
-      %b= "#{comment.user.full_name}, #{comment.user.profession_and_degree}:"
+      %b= link_to "#{comment.user.full_name}, #{comment.user.profession_and_degree}:", users_path(comment.user)
       %span= comment.body
     .clear
 
