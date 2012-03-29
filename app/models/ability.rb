@@ -16,7 +16,7 @@ class Ability
   def patient
     guest
     can [:read], User
-    can [:create, :card_verification], Order
+    can [:create, :create_transaction, :card_verification], Order
     can [:search, :qsearch], [User, Item]
     can :update, User, :id => @user.id
     can [:follow, :unfollow], [User, Item]

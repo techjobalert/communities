@@ -1,0 +1,48 @@
+= hidden_field_tag "order[id]", order.id
+%p.full-width
+  = label :pay_account, :country
+  = collection_select :pay_account, :country, Country.order(:name), :iso, :name, include_blank: false
+%p
+  = label :pay_account, :first_name
+  = text_field :pay_account, :first_name, :class => "required"
+  %span.error_container
+%p
+  = label :pay_account, :last_name
+  = text_field :pay_account, :last_name, :class => "required"
+  %span.error_container
+%p
+  = label :pay_account, :number, "Credit card number"
+  = text_field :pay_account, :number, :class => "required number"
+  %span.error_container
+.type
+  = label :pay_account, :payment_type, "Credit card type"
+  .type-container#payment-type-toogler
+    = radio_button :pay_account, :payment_type, "visa", :checked => true
+    = label :pay_account, :payment_type_visa, " ", :class => 'lb visa selected'
+    = radio_button :pay_account, :payment_type, "master"
+    = label :pay_account, :payment_type_master, ' ', :class => 'lb mc'
+    = radio_button :pay_account, :payment_type, "discover"
+    = label :pay_account, :payment_type_discover, ' ', :class => 'lb dc'
+    = radio_button :pay_account, :payment_type, "american_express"
+    = label :pay_account, :payment_type_american_express, ' ', :class => 'lb ae'
+%p
+  = label :pay_account, :month, "Expiration date"
+  = select_month Date.today, :field_name => "month", :prefix => 'pay_account', :use_month_numbers => true
+  \/
+  = select_year(Date.today, :start_year => Time.now.year, :end_year => Time.now.year + 10, :field_name => "year", :prefix => 'pay_account')
+%p.csv
+  = label :pay_account, :verification_value, "CVV"
+  = text_field :pay_account, :verification_value, :maxlength => 3
+  %span.error_container
+  = link_to 'Whats this?'
+%p.full-width
+  = label :pay_account, :state
+  = grouped_collection_select :pay_account, :state, Country.order(:name), :states, :name, :iso, :name, :class => "state"
+%p
+  = label :pay_account, :phone, "Home Tel"
+  = text_field :pay_account, :phone, :class => "number"
+  %span.error_container
+%p
+  = label :pay_account, :email, "Email"
+  = text_field :pay_account, :email, :class => "email"
+  %span.error_container

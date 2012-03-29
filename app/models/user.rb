@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :bio,
                   :full_name, :profession_and_degree, :role, :avatar, :specialization,
-                  :birthday, :educations, :educations_attributes, :admin,
+                  :birthday, :educations, :educations_attributes, :admin, :paypal_account,
 
                   # Settings
                   :following_me, :following_published, :added_as_author,

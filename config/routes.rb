@@ -14,6 +14,7 @@ Orthodontic::Application.routes.draw do
 
   resources :orders, :only => :create do
     post  "verification"          => "orders#card_verification",      :as => :card_verification,      :on => :collection
+    post  "create_transaction"    => "orders#create_transaction",     :as => :create_transaction,     :on => :collection
   end
 
   resources :items do

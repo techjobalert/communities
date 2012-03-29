@@ -461,9 +461,13 @@
 }
 
 .pay-pal-form, .form {
+  .full-width select {
+    width: 214px;
+  }
+
   select {
     margin-top: 2px;
-    width: 214px;
+    margin-bottom: 5px;
   }
 
   input[type="text"], input[type="email"], input[type="password"], textarea {
@@ -480,20 +484,28 @@
     margin: 5px 0;
   }
 
-  .exp {
-    .field_with_errors {
-      display: inline-block;
-    }
-    .d, .m {width: 16px;}
-    .css {width: 22px;}
-    span {
-      margin: 0 5px 0 10px;
+  .csv {
+    input {
+      width: 35px;
+      text-align: center;
     }
     a {
       font-size: 11px;
       color: #76787d;
       margin-left: 10px;
     }
+  }
+
+  .exp {
+    .field_with_errors {
+      display: inline-block;
+    }
+    .d, .m {width: 16px;}
+
+    span {
+      margin: 0 5px 0 10px;
+    }
+
   }
 
   .zip input {
@@ -511,7 +523,7 @@
   }
 
   .type {
-
+    overflow: hidden;
     .type-container {
       width: 216px;
       overflow: hidden;
@@ -533,7 +545,7 @@
       width: 48px;
       overflow: hidden;
       margin: 3px 5px 3px 0;
-      opacity: 0.7;
+      opacity: 0.5;
       cursor: pointer;
 
       &.visa {
@@ -569,6 +581,30 @@
     width: 205px;
     padding: 8px 12px;
   }
+
+  .error_container {
+    position: absolute;
+    width: 1px;
+  }
+  input.error{
+   border: 1px solid red !important;
+  }
+
+  em.error{
+    position: absolute;
+    font-size: 11px;
+    text-align: center;
+    line-height: 28px;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    border-radius: 5px;
+    margin-left: 3px;
+    padding: 0 10px;
+    white-space: nowrap;
+    display: inline;
+    font-style: normal;
+ }
+
 }
 
 #add-collegues-to-item {
@@ -630,6 +666,8 @@
     float: left;
     width: 380px;
     border-right: 1px solid #ddd;
+    height: 350px;
+    position: relative;
   }
 
   .right-side {
@@ -637,4 +675,16 @@
     padding: 10px 20px;
     width: 250px
   }
+
+  .b-buy-item-window-spinner {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 350px;
+    width: 380px;
+    background: url(/assets/ajax-loader.gif) center center no-repeat rgba(255,255,255,0.7)
+  }
 }
+
+

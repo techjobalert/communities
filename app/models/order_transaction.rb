@@ -23,6 +23,10 @@ class OrderTransaction < ActiveRecord::Base
       transition :pending => :canceled
     end
 
+    event :close do
+      transition :paid => :closed
+    end
+
   end
 
   def response=(response)

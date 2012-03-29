@@ -3,19 +3,25 @@ class OrdersController < ApplicationController
   load_and_authorize_resource
 
   def create
-    params[:order][:user_id] = current_user.id
+    @order = current_user.orders.build()
+    @order.save
+  end
 
-    @order = current_user.orders.build(params[:order])
-    @order.ip_address = request.remote_ip
+  def create_transaction
 
-    item = Item.find(params[:order][:item_id])
-
-    if @order.save
-      @notice = purchase(@order, item, params[:pay_account])
+    @order = current_user.orders.find_by_id(params[:order][:id])
+    if @order.present?
+      @order.ip_address = request.remote_ip
+      item = Item.find(params[:order][:item_id])
+      @order.item_id = item.id
+      if @order.save
+        @notice = purchase(@order, item, params[:pay_account])
+      else
+        @notice = {:type => "error", :message => "error"}
+      end
     else
       @notice = {:type => "error", :message => "error"}
     end
-
     render :action => "response"
   end
 

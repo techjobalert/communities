@@ -91,8 +91,12 @@ $ ->
       $(".l-settings-navigation").addClass('hidden') unless $(this).hasClass "tab-settings"
 
     .on "click", "#payment-type-toogler .lb", ->
-      $("#payment-type-toogler .lb").removeClass "selected"
-      $(this).addClass "selected"
+      unless $(this).hasClass("selected")
+        $("#payment-type-toogler .lb").removeClass "selected"
+        $(this).addClass "selected"
+        cvv_input = $("input#pay_account_verification_value")
+        cvv_input.val("")
+        if $(this).hasClass("ae") then cvv_input.attr("maxlength","4") else cvv_input.attr("maxlength","3")
 
     .on "change", "form[data-validate=true][data-remote=true]", ->
       $(this).validate()
