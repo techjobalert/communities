@@ -78,7 +78,7 @@ class Item < ActiveRecord::Base
     has price, :type => :integer
     has taggings.tag_id, :as => :tag_ids
     # has "CRC32(tags.name)", :as => :tags, :type => integer
-    where "state = 'published'"
+    # where "state = 'published'"
     set_property :enable_star => true
     set_property :min_infix_len => 1
   end
