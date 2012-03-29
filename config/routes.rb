@@ -66,6 +66,9 @@ Orthodontic::Application.routes.draw do
   # Captcha refresh
   match '/captcha_refresh' => "home#new_captcha"
 
+  # Static pages
+  match '/orthodontic_sale' => "home#orthodontic_sale"
+
   resources :file, :only => [:index] do
     collection do
       post "upload",            :action => 'upload_psource'

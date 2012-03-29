@@ -965,12 +965,16 @@ h3 {
   font-family: 'WebSymbolsRegular';
 }
 
+.account-search-field {
+  width: 245px !important;
+}
+
 .tags {
   .filter-form {
     select {display: none; } }
 
   &.auction-filter-form {
-    width: 343px !important;
+    width: 260px !important;
     .viewed .chzn-container { width: 69px !important; }
 
     .identical {

@@ -6,4 +6,8 @@ class HomeController < ApplicationController
   def new_captcha
   end
 
+  def orthodontic_sale
+
+  end
+
 end
