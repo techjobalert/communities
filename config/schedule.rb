@@ -10,7 +10,7 @@
 every 1.day, :at => '12:30 am' do
   rake "rake ts:rebuild"
 end
-every 1.hours do
+every 10.minutes do
   rake "paypal:transfer"
 end
 every 2.hours do
