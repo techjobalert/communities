@@ -802,15 +802,22 @@
   padding: 50px 20px 15px;
 
   .item {
-    width: 230px;
-    height: 230px;
     border: 1px solid #b8b479;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    margin-right: 20px;
+    margin-bottom: 20px;
     position: relative;
-    float: left;
+
+    &.half {
+      width: 447px;
+      float: left;
+      height: 183px;
+    }
+
+    &.first {
+      margin-right: 20px;
+    }
   }
 
   .title {
@@ -836,23 +843,27 @@
     box-shadow: none;
   }
 
+  p.right {
+    text-align: right;
+  }
+
   .edit, .upload {
-    position: absolute;
-    bottom: 10px;
     padding: 5px 15px;
     line-height: 1;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
+    margin: 0 10px
   }
 
   .edit {
-    right: 10px;
+    bottom: 10px;
+    position: absolute;
+    right: 2px;
   }
 
   .upload {
     display: block;
-    float: left;
     left: 10px;
     width: 152px;
     padding-left: 5px;
@@ -868,19 +879,47 @@
     }
   }
 
-  ul {
-    padding: 0px;
+  table {
     margin: 10px 0;
+    width: 100%;}
+  tr {
+    &.odd td {
+      background: #dfeeea;
+    }
+
+    td {
+      padding: 5px;
+
+      &.label {
+        font-size: 11px;
+        width: 80px;
+        text-align: center;
+        color: #777;
+
+        span {
+          display: block;
+          padding: 2px 3px;
+          width: 70px;
+          background: #fefefe;
+          -webkit-border-radius: 3px;
+          -moz-border-radius: 3px;
+          border-radius: 3px;
+          box-shadow: 0px 0px 1px #ddd inset;
+          }
+        }
+
+      &.date {
+        width: 100px;
+        white-space: nowrap;}
+
+      &.amount {color: #2f6d7a;}
+    }
   }
 
-  li {
-    list-style: none;
-    padding: 5px 10px 4px;
-    span {color: #2f6d7a;}
-  }
-
-  .odd {
-    background: #dfeeea;
+  #month_pagination {
+    position: absolute;
+    right: 8px;
+    top: 7px;
   }
 
   .summ {

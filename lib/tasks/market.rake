@@ -12,14 +12,14 @@ namespace :paypal do
     transactions.each do |t|
       seller = t.order.user.paypal_account
       if seller.present?
-        amount = (t.amount - t.amount * 0.039 - 30) - t.amount * 0.03
+        amount = ((t.amount - t.amount * 0.039 - 30) - t.amount * 0.03).to_i
 
         p g = GATEWAY.transfer(amount, seller, :subject => "Money from Orthodontics360", :note => "Here is the money owed to you.")
         if g.params["Ack"] == 'Success'
-          if t.close
-            Rails.logger.info "---- Status ok."
+          if t.update_attributes(:state => 'closed', :paid_to_seller => amount)
+            p "---- Status ok."
           else
-            Rails.logger.info "---- !!! Money sended, but transaction not closed!"
+            p "---- !!! Money sended, but transaction not closed!"
           end
         else
           raise 'Transfer. Error. Not Success'

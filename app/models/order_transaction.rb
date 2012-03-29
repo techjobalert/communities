@@ -35,9 +35,17 @@ class OrderTransaction < ActiveRecord::Base
     self.message       = response.message
     self.params        = response.params
     rescue ActiveMerchant::ActiveMerchantError => e
-      self.success       = false
-      self.authorization = nil
-      self.message       = e.message
-      self.params        = {}
-    end
+    self.success       = false
+    self.authorization = nil
+    self.message       = e.message
+    self.params        = {}
+  end
+
+  def self.by_user user
+    find_by_sql "SELECT * FROM order_transactions
+      WHERE
+        ( buyer_id = #{user.id} AND ( state = 'paid' OR state = 'closed' ) )
+        OR ( seller_id = #{user.id} AND state = 'closed' )
+      ORDER BY updated_at DESC"
+  end
 end

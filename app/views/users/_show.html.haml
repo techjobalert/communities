@@ -22,6 +22,7 @@
 
       .b-user-info-body
         %h2.b-user-title= user.full_name
+
         - if user.show_birthday == "1" and user.birthday.present?
           %p
             %strong Birthday:

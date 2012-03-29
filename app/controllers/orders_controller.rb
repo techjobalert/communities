@@ -41,7 +41,12 @@ class OrdersController < ApplicationController
     def purchase(order, item, account)
       if account
         response = GATEWAY.purchase(price_in_cents(item), credit_card(account), purchase_options(account, order))
-        transaction = order.transactions.create!(:action => "purchase", :amount => price_in_cents(item), :response => response)
+        transaction = order.transactions.create!(
+          :action => "purchase",
+          :amount => price_in_cents(item),
+          :response => response,
+          :seller_id => item.user_id,
+          :buyer_id => order.user_id)
 
         if response.success?
           transaction.pay
