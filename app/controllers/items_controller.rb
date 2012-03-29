@@ -103,8 +103,7 @@ class ItemsController < InheritedResources::Base
     @render_items, @filter_location = params[:filter_type], params[:filter_location]
     params[:current_user_id] = current_user.id if @render_items == "account"
     params.merge!({SearchParams.per_page_param => 3}) if @filter_location != "main"
-    klass = @render_items == "account" ? Item : Item.state_is("published")
-    params.merge!({:classes => [klass]})
+    params.merge!({:classes => [Item]})
     @items = SearchParams.new(params).get_search_results
   end
 

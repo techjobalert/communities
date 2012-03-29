@@ -87,6 +87,8 @@ class SearchParams
     options.merge!(item_views_filter(params)||{})
     options.merge!(item_price_filter(params)||{})
     options.merge!(items_by_owner(params)||{}) if params[:current_user_id]
+    options.merge!(items_only_published(params)||{}) unless params[:current_user_id]
+
     options
   end
 
@@ -132,5 +134,8 @@ class SearchParams
   end
   def items_by_owner(params)
     { :with => {:user_id => params[:current_user_id] } }
+  end
+  def items_only_published
+    {:with => {:state => "published".to_crc32}
   end
 end

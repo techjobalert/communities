@@ -75,6 +75,7 @@ class Item < ActiveRecord::Base
     indexes description,     :sortable => true
     indexes user.full_name,  :as => :author, :facet => true, :sortable => true
     has user_id, created_at, views_count
+    has "CRC32(state)", :as => :state, :type => :integer
     has price, :type => :integer
     has taggings.tag_id, :as => :tag_ids
     # has "CRC32(tags.name)", :as => :tags, :type => integer
