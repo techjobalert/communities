@@ -7,12 +7,12 @@ class FileUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::DelayStorage
   process :set_content_type
 
-  version :document,            :if => :is_document?
+  version :pdf,                 :if => :is_document?
   # version :document_thumbnail,  :if => :is_document?
   version :presentation,        :if => :is_presentation?
-  version :video,               :if => :is_video?
+  version :mp4,                 :if => :is_video?
 
-  version :document do
+  version :pdf do
     process :convert_to_pdf
     def full_filename(for_file)
       "document_#{File.basename(for_file, File.extname(for_file))}.pdf"
@@ -29,7 +29,8 @@ class FileUploader < CarrierWave::Uploader::Base
   version :presentation do
   end
 
-  version :video do
+  version :mp4 do
+
   end
 
   protected
@@ -43,6 +44,8 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def is_video? f
+    exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi)
+    exts.include? File.extname(f.file)
   end
 
   storage :file
@@ -54,7 +57,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    %w(pdf doc docx key avi mp4 mpeg4 wmv)
+    %w(pdf doc docx key 3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi)
   end
 
   def convert_to_pdf

@@ -10,8 +10,11 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
-      if not @item.attachments.empty? and not @item.attachments.first.file.document.nil?
-        @attachment = @item.attachments.first.file
+      if @item.attachments.length
+        a_pdf = @item.attachments.select{|a| a.is_pdf? or a.is_processed_to_pdf? }.last
+        @attachment_pdf = a_pdf.is_processed_to_pdf? ? a_pdf.file.pdf : a_pdf.file
+        a_video = @item.attachments.select{|a| a.is_video? }.last
+        @attachment_video = a_video.file if a_video
       end
       @items = Item.search(:q => @item.title, :without_ids => [*@item.id], :with_all => {:tag_ids => @item.tag_ids}, :page => params[:page], :per_page => 3, :star => true)
     end
@@ -119,7 +122,7 @@ class ItemsController < InheritedResources::Base
     }
     search_params = SearchParams.new(_params)
     results = search_params.get_search_results || []
-    @search_results = results.map do |item|
+    @search_results = results.select{|r| r.state == "published"}.map do |item|
       {
         :title => item.title.truncate(40, :separator => ' '),
         :content => item.description.truncate(50, :separator => ' '),

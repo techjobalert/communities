@@ -47,7 +47,7 @@
           item
           %span
 
-  / есть два варианта
+  / есть два варианта, теперь 3
   / 1 Вариант
 
   .text.pic
@@ -63,14 +63,17 @@
     = image_tag '/assets/tmp/p4.png', :class => 'preview'
     .clear
 
-    .attachment
-      -if @attachment
-        = render :partial => "layouts/attachment_viewer", :locals => {:attachment => @attachment}
+    -if @attachment_pdf
+      .attachment-pdf
+        = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
   / 2 Вариант
   .text.video.hidden
     .preview
-      = image_tag '/assets/tmp/p5.png'
+      / = image_tag '/assets/tmp/p5.png'
+      -if @attachment_video
+        .attachment-video
+          = render :partial => "layouts/video_viewer", :locals => {:attachment => @attachment_video}
     .body
       = image_tag('/assets/logo.png', :width => '200')
       %h2= @item.title
