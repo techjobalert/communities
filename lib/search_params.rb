@@ -82,17 +82,35 @@ class SearchParams
   end
 
   def get_item_options(params)
+    opt = []
+    opt.push(items_order(params))
+    if params[:current_user_id]
+      opt.push(items_by_owner(params))
+    else
+      opt.push(items_only_published(params))
+    end
+    opt.push(items_date_interval(params))
+    opt.push(items_views_filter(params))
+    opt.push(items_price_filter(params))
     options = {}
-    options.merge!(item_date_interval(params)||{})
-    options.merge!(item_views_filter(params)||{})
-    options.merge!(item_price_filter(params)||{})
-    options.merge!(items_by_owner(params)||{}) if params[:current_user_id]
-    options.merge!(items_only_published(params)||{}) unless params[:current_user_id]
-
+    opt.each do |o|
+      next if o.nil?
+      o.each do |k,v|
+        if options.include? k
+          options[k].merge!(v) if v.is_a? Hash
+          options[k] = v if v.is_a? String
+        else
+          options.merge!({k => v})
+        end
+      end
+    end
     options
   end
 
-  def item_date_interval(params)
+  def items_order(params)
+    {:order => "created_at", :sort_mode =>:desc }
+  end
+  def items_date_interval(params)
     if params[:date] and not params[:date].blank?
       date = case params[:date]
       when "Today"
@@ -109,7 +127,7 @@ class SearchParams
       { :with => {:created_at => date} }
     end
   end
-  def item_views_filter(params)
+  def items_views_filter(params)
     if params[:views] and not params[:views].blank?
       sort_options = {}
       sort_options[:order] = "views_count"
@@ -122,7 +140,7 @@ class SearchParams
       sort_options
     end
   end
-  def item_price_filter(params)
+  def items_price_filter(params)
     if params[:price] and not params[:price].blank?
       case params[:price]
       when "Free"
@@ -135,7 +153,7 @@ class SearchParams
   def items_by_owner(params)
     { :with => {:user_id => params[:current_user_id] } }
   end
-  def items_only_published
-    {:with => {:state => "published".to_crc32}
+  def items_only_published(params)
+    {:with => {:state => "published".to_crc32}}
   end
 end
