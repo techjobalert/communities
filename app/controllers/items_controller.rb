@@ -12,7 +12,9 @@ class ItemsController < InheritedResources::Base
       @item.increment!(:views_count)
       if @item.attachments.length
         a_pdf = @item.attachments.select{|a| a.is_pdf? or a.is_processed_to_pdf? }.last
-        @attachment_pdf = a_pdf.is_processed_to_pdf? ? a_pdf.file.pdf : a_pdf.file
+        unless a_pdf.nil?
+          @attachment_pdf = a_pdf.is_processed_to_pdf? ? a_pdf.file.pdf : a_pdf.file
+        end
         a_video = @item.attachments.select{|a| a.is_video? }.last
         @attachment_video = a_video.file if a_video
       end
