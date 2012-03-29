@@ -14,7 +14,7 @@ class ItemsController < InheritedResources::Base
         a_pdf = @item.attachments.select{|a| a.is_pdf? or a.is_processed_to_pdf? }.last
         @attachment_pdf = a_pdf.is_processed_to_pdf? ? a_pdf.file.pdf : a_pdf.file
         a_video = @item.attachments.select{|a| a.is_video? }.last
-        @attachment_video = a_video.file
+        @attachment_video = a_video.file if a_video
       end
       @items = Item.search(:q => @item.title, :without_ids => [*@item.id], :with_all => {:tag_ids => @item.tag_ids}, :page => params[:page], :per_page => 3, :star => true)
     end
@@ -103,7 +103,8 @@ class ItemsController < InheritedResources::Base
     @render_items, @filter_location = params[:filter_type], params[:filter_location]
     params[:current_user_id] = current_user.id if @render_items == "account"
     params.merge!({SearchParams.per_page_param => 3}) if @filter_location != "main"
-    params.merge!({:classes => [Item]})
+    klass = @render_items == "account" ? Item : Item.state_is("published")
+    params.merge!({:classes => [klass]})
     @items = SearchParams.new(params).get_search_results
   end
 
@@ -122,7 +123,7 @@ class ItemsController < InheritedResources::Base
     }
     search_params = SearchParams.new(_params)
     results = search_params.get_search_results || []
-    @search_results = results.map do |item|
+    @search_results = results.select{|r| r.state == "published"}.map do |item|
       {
         :title => item.title.truncate(40, :separator => ' '),
         :content => item.description.truncate(50, :separator => ' '),

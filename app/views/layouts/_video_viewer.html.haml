@@ -1,0 +1,5 @@
+:javascript
+  _V_.options.flash.swf = "/assets/video-js.swf";
+
+%video#attachment_video.video-js.vjs-default-skin{:controls => "", "data-setup" => "{}", :height => "264", :poster => "http://video-js.zencoder.com/oceans-clip.png", :preload => "true", :width => "640"}
+  %source{:src => "#{attachment.url}", :type => "video/mp4"}

@@ -74,12 +74,11 @@ class Item < ActiveRecord::Base
     indexes title,           :sortable => true
     indexes description,     :sortable => true
     indexes user.full_name,  :as => :author, :facet => true, :sortable => true
-    indexes state,           :sortable => true
     has user_id, created_at, views_count
     has price, :type => :integer
     has taggings.tag_id, :as => :tag_ids
     # has "CRC32(tags.name)", :as => :tags, :type => integer
-    # where "state = 'published'"
+    where "state = 'published'"
     set_property :enable_star => true
     set_property :min_infix_len => 1
   end

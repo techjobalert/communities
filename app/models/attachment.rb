@@ -17,11 +17,11 @@ class Attachment < ActiveRecord::Base
   end
 
   def is_pdf?
-    extension_is("pdf")
+    extension_is?("pdf")
   end
 
   def is_video?
-    extension_is("mp4")
+    extension_is?("mp4")
   end
 
   def is_processed_to_pdf?
