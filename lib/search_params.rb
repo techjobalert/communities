@@ -87,6 +87,7 @@ class SearchParams
     options.merge!(item_views_filter(params)||{})
     options.merge!(item_price_filter(params)||{})
     options.merge!(items_by_owner(params)||{}) if params[:current_user_id]
+    options.merge!(items_by_state(params)||{}) if not params[:current_user_id]
     options
   end
 
@@ -131,6 +132,9 @@ class SearchParams
     end
   end
   def items_by_owner(params)
-    { :with => {:user_id => params[:current_user_id] } }
+    { :with => {:user_id => params[:current_user_id], :state => "" } }
+  end
+  def items_by_state(params)
+    {: with => {:state => "published"}}
   end
 end
