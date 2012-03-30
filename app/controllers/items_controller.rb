@@ -16,8 +16,6 @@ class ItemsController < InheritedResources::Base
           @attachment_pdf = a_pdf.is_processed_to_pdf? ? a_pdf.file.pdf : a_pdf.file
         end
         a_video = @item.attachments.select{|a| a.is_video? or a.is_processed_to_mp4?}.last
-        p "============"
-        p a_video
         unless a_video.nil?
           @attachment_video = a_video.is_processed_to_mp4? ? a_video.file.mp4 : a_video.file
         end
