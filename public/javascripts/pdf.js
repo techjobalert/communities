@@ -28729,10 +28729,10 @@ function MessageHandler(name, comObj) {
   var ah = this.actionHandler = {};
 
   ah['console_log'] = [function ahConsoleLog(data) {
-      console.log.apply(console, data);
+      // console.log.apply(console, data);
   }];
   ah['console_error'] = [function ahConsoleError(data) {
-      console.error.apply(console, data);
+      // console.error.apply(console, data);
   }];
 
   comObj.onmessage = function messageHandlerComObjOnMessage(event) {
@@ -28855,7 +28855,7 @@ var WorkerMessageHandler = {
         return;
       }
 
-      console.log('page=%d - getOperatorList: time=%dms, len=%d', pageNum,
+      // console.log('page=%d - getOperatorList: time=%dms, len=%d', pageNum,
                               Date.now() - start, operatorList.fnArray.length);
 
       // Filter the dependecies for fonts.
@@ -29603,7 +29603,7 @@ var JpegImage = (function jpegImage() {
                 huffmanValues[j] = data[offset];
               i += 17 + codeLengthSum;
 
-              ((huffmanTableSpec >> 4) === 0 ? 
+              ((huffmanTableSpec >> 4) === 0 ?
                 huffmanTablesDC : huffmanTablesAC)[huffmanTableSpec & 15] =
                 buildHuffmanTable(codeLengths, huffmanValues);
             }

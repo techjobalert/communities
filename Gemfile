@@ -105,3 +105,8 @@ gem 'rack-ssl-enforcer'
 # https://github.com/yob/pdf-reader
 gem 'pdf-reader'
 gem 'russian'
+# https://github.com/streamio/streamio-ffmpeg
+gem 'streamio-ffmpeg'
+# https://github.com/janfri/mini_exiftool
+# ! sudo apt-get install libimage-exiftool-perl
+gem 'mini_exiftool'

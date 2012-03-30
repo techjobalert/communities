@@ -1,14 +1,15 @@
 # encoding: utf-8
+require File.join(Rails.root, "lib", "ffmpeg")
 
 class FileUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   include CarrierWave::RMagick
   include CarrierWave::MimeTypes
+  include CarrierWave::FFMPEG
   include ::CarrierWave::Backgrounder::DelayStorage
   process :set_content_type
 
   version :pdf,                 :if => :is_document?
-  # version :document_thumbnail,  :if => :is_document?
   version :presentation,        :if => :is_presentation?
   version :mp4,                 :if => :is_video?
 
@@ -25,12 +26,24 @@ class FileUploader < CarrierWave::Uploader::Base
   #   end
   # end
 
-
-  version :presentation do
+  version :mp4 do
+    process :convert_to_mp4 => {
+              :audio_codec => 'copy',
+              :video_codec => 'libx264'
+              # :video_bitrate => 500,
+              # :resolution => '640x640',
+              # :max_dimensions => true
+            }
+    def full_filename(for_file)
+      "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
+    end
   end
 
-  version :mp4 do
+  # version :thumbnail do
+    # process :create_thumbnail => {} if :is_video?
+  # end
 
+  version :presentation do
   end
 
   protected
@@ -44,7 +57,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def is_video? f
-    exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi)
+    exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi).map!{|e| "."+ e }
     exts.include? File.extname(f.file)
   end
 
@@ -72,8 +85,8 @@ class FileUploader < CarrierWave::Uploader::Base
 
     # encode
     command =%x[libreoffice --headless -convert-to pdf #{tmp_path} -outdir #{directory}]
-    fixed_name = File.basename(tmp_path, '.*') + "." + "pdf"
-    File.rename File.join( directory, fixed_name ), current_path
+    # fixed_name = File.basename(tmp_path, '.*') + "." + "pdf"
+    # File.rename File.join( directory, fixed_name ), current_path
 
     # delete tmp file
     File.delete tmp_path

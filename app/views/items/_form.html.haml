@@ -15,7 +15,8 @@
         $(function(){
           var uploaderProfile = $.initPlupload({
               url: "#{upload_attachment_items_path}",
-              filters: []
+              filters: [],
+              max_file_size: "1000mb"
           });
         })
     .btn-hint
