@@ -68,7 +68,7 @@
         = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
   / 2 Вариант
-  .text.video{:class => "#{'hidden' if @attachment_pdf.present?}"}
+  .text.video{:class => "#{'hidden' if not @attachment_video.present?}"}
     .preview
       / = image_tag '/assets/tmp/p5.png'
       -if @attachment_video
@@ -81,19 +81,9 @@
       = @item.description
     .clear
 
-  / 3 Вариант
-  .text.video{:class => "#{'hidden' if ((@attachment_pdf.present? and not @attachment_video.present?) or (@attachment_video.present? and not @attachment_pdf.present?))}"}
-    .preview
-      / = image_tag '/assets/tmp/p5.png'
-      -if @attachment_video
-        .attachment-video
-          = render :partial => "layouts/video_viewer", :locals => {:attachment => @attachment_video}
-    .body
-      = image_tag('/assets/logo.png', :width => '200')
-      %h2= @item.title
-
-      = @item.description
-    .clear
+    -if @attachment_pdf.present?
+      .attachment-pdf
+        = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
 #comments.b-comments
   %h3 Comments
