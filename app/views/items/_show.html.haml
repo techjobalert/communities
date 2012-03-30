@@ -50,7 +50,7 @@
   / есть два варианта, теперь 3(+1 комбинированный)
   / 1 Вариант
 
-  .text.pic{:class => "#{'hidden' if @attachment_pdf.present? and not @attachment_video.present? }"}
+  .text.pic{:class => "#{'hidden' if @attachment_video.present? }"}
     = image_tag('/assets/logo.png', :width => '200')
     - if @item.published?
       %h2= @item.title
@@ -68,7 +68,7 @@
         = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
   / 2 Вариант
-  .text.video{:class => "#{'hidden' if @attachment_pdf.present? and not @attachment_pdf.present?}"}
+  .text.video{:class => "#{'hidden' if @attachment_pdf.present?}"}
     .preview
       / = image_tag '/assets/tmp/p5.png'
       -if @attachment_video
@@ -82,7 +82,7 @@
     .clear
 
   / 3 Вариант
-  .text.video{:class => "#{'hidden' if @attachment_pdf.present? and @attachment_video.present?}"}
+  .text.video{:class => "#{'hidden' if ((@attachment_pdf.present? and not @attachment_video.present?) or (@attachment_video.present? and not @attachment_pdf.present?))}"}
     .preview
       / = image_tag '/assets/tmp/p5.png'
       -if @attachment_video
