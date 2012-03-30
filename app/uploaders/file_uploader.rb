@@ -31,7 +31,7 @@ class FileUploader < CarrierWave::Uploader::Base
               :audio_codec => 'libfaac',
               :video_codec => 'libx264',
               # :video_preset => 'medium',
-              :custom => "-preset normal"
+              :custom => "-preset medium"
               # :threads => 4
             }
     def full_filename(for_file)

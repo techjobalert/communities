@@ -68,7 +68,7 @@
         = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
   / 2 Вариант
-  .text.video{:class => "#{'hidden' if not @attachment_video.present?}"}
+  .text.video{:class => "#{'hidden' unless @attachment_video.present?}"}
     .preview
       / = image_tag '/assets/tmp/p5.png'
       -if @attachment_video
