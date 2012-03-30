@@ -10,7 +10,7 @@ namespace :paypal do
     end
 
     transactions.each do |t|
-      p seller = t.order.user.paypal_account
+      seller = t.order.user.paypal_account
       if seller.present?
         amount = ((t.amount - t.amount * 0.039 - 30) - t.amount * 0.03).to_i
 
