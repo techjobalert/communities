@@ -18,10 +18,11 @@ module CarrierWave
       File.rename current_path, tmp_path
 
       file = ::FFMPEG::Movie.new(tmp_path)
-      file.transcode( current_path, options)
-
+      tmp_mp4 = tmp_path+".mp4"
+      file.transcode(tmp_mp4 , options)
+      File.rename tmp_mp4, current_path
       File.delete( tmp_path )
-    end
 
+    end
   end
 end

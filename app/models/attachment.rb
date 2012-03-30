@@ -13,7 +13,7 @@ class Attachment < ActiveRecord::Base
 
   def extension_is?(ext)
     dot_ext = [".", ext].join()
-    File.extname(file.path) == dot_ext
+    File.extname(file.path) == dot_ext if file.path
   end
 
   def is_pdf?
@@ -22,6 +22,10 @@ class Attachment < ActiveRecord::Base
 
   def is_video?
     extension_is?("mp4")
+  end
+
+  def is_processed_to_mp4?
+    not file.mp4.nil?
   end
 
   def is_processed_to_pdf?

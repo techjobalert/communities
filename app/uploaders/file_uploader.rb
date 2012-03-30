@@ -28,11 +28,11 @@ class FileUploader < CarrierWave::Uploader::Base
 
   version :mp4 do
     process :convert_to_mp4 => {
-              :audio_codec => 'copy',
-              :video_codec => 'libx264'
-              # :video_bitrate => 500,
-              # :resolution => '640x640',
-              # :max_dimensions => true
+              :audio_codec => 'libfaac',
+              :video_codec => 'libx264',
+              # :video_preset => 'medium',
+              # :custom => "-preset medium"
+              :threads => 4
             }
     def full_filename(for_file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
@@ -85,8 +85,8 @@ class FileUploader < CarrierWave::Uploader::Base
 
     # encode
     command =%x[libreoffice --headless -convert-to pdf #{tmp_path} -outdir #{directory}]
-    # fixed_name = File.basename(tmp_path, '.*') + "." + "pdf"
-    # File.rename File.join( directory, fixed_name ), current_path
+    fixed_name = File.basename(tmp_path, '.*') + "." + "pdf"
+    File.rename File.join( directory, fixed_name ), current_path
 
     # delete tmp file
     File.delete tmp_path
