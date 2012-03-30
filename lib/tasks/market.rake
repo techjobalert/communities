@@ -10,7 +10,7 @@ namespace :paypal do
     end
 
     transactions.each do |t|
-      seller = t.order.user.paypal_account
+      p seller = t.order.user.paypal_account
       if seller.present?
         amount = ((t.amount - t.amount * 0.039 - 30) - t.amount * 0.03).to_i
 
@@ -24,6 +24,8 @@ namespace :paypal do
         else
           raise 'Transfer. Error. Not Success'
         end
+      else
+        p "---- Seller does't have a PayPal account"
       end
     end
   end
