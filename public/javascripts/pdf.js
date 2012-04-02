@@ -28855,8 +28855,7 @@ var WorkerMessageHandler = {
         return;
       }
 
-      // console.log('page=%d - getOperatorList: time=%dms, len=%d', pageNum,
-                              Date.now() - start, operatorList.fnArray.length);
+      // console.log('page=%d - getOperatorList: time=%dms, len=%d', pageNum, Date.now() - start, operatorList.fnArray.length);
 
       // Filter the dependecies for fonts.
       var fonts = {};
