@@ -49,7 +49,7 @@ class FileUploader < CarrierWave::Uploader::Base
   protected
 
   def is_document? f
-    [".doc", ".docx"].include? File.extname(f.file)
+    [".doc", ".docx"].member? File.extname(f.file)
   end
 
   def is_presentation? f
@@ -58,7 +58,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def is_video? f
     exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi).map!{|e| "."+ e }
-    exts.include? File.extname(f.file)
+    exts.member? File.extname(f.file)
   end
 
   storage :file
