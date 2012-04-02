@@ -87,7 +87,7 @@ $(function() {
         var f = $('#' + file.id);
         if (f.length){
           f.children("b").html("100%");
-          f.append('<input type="hidden" name="item[attachment_id]" value="'+response.id+'">');
+          f.append('<input type="hidden" name="item[attachment_ids][]" value="'+response.id+'">');
         }
 
         if (response.url){

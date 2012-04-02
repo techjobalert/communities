@@ -64,8 +64,10 @@ class ItemsController < InheritedResources::Base
       tag_list = JSON::parse(params[:tag_list])
       @item.tag_list = tag_list
     end
-    attachment_id = params[:item][:attachment_id]
-    @item.attachments << Attachment.find(attachment_id) if attachment_id
+    if attachment_ids = params[:item][:attachment_ids]
+      attachments=Attachment.find(attachment_ids).each{ |a| @item.attachments << a }
+    end
+
     if @item.save
       @notice = {:type => 'notice',
         :message => "Item is created. Item will be published after premoderation"}

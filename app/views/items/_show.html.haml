@@ -47,43 +47,43 @@
           item
           %span
 
-  / есть два варианта, теперь 3(+1 комбинированный)
+  / есть два варианта
   / 1 Вариант
+  -unless @attachment_video
+    .text.pic
+      = image_tag('/assets/logo.png', :width => '200')
+      - if @item.published?
+        %h2= @item.title
+      - else
+        %h2= @item.title + ' (unpublished)'
 
-  .text.pic{:class => "#{'hidden' if @attachment_video.present? }"}
-    = image_tag('/assets/logo.png', :width => '200')
-    - if @item.published?
-      %h2= @item.title
-    - else
-      %h2= @item.title + ' (unpublished)'
+      .body
+        = simple_format @item.description
 
-    .body
-      = simple_format @item.description
+      = image_tag '/assets/tmp/p4.png', :class => 'preview'
+      .clear
 
-    = image_tag '/assets/tmp/p4.png', :class => 'preview'
-    .clear
-
-    -if @attachment_pdf.present?
-      .attachment-pdf
-        = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
+      -if @attachment_pdf.present?
+        .attachment-pdf
+          = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
   / 2 Вариант
-  .text.video{:class => "#{'hidden' unless @attachment_video.present?}"}
-    .preview
-      / = image_tag '/assets/tmp/p5.png'
-      -if @attachment_video
+  -if @attachment_video
+    .text.video
+      .preview
+        / = image_tag '/assets/tmp/p5.png'
         .attachment-video
           = render :partial => "layouts/video_viewer", :locals => {:attachment => @attachment_video}
-    .body
-      = image_tag('/assets/logo.png', :width => '200')
-      %h2= @item.title
+      .body
+        = image_tag('/assets/logo.png', :width => '200')
+        %h2= @item.title + ' (unpublished)'
 
-      = @item.description
-    .clear
+        = @item.description
+      .clear
 
-    -if @attachment_pdf.present?
-      .attachment-pdf
-        = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
+      -if @attachment_pdf.present?
+        .attachment-pdf
+          = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
 #comments.b-comments
   %h3 Comments
