@@ -34,7 +34,7 @@ class Item < ActiveRecord::Base
   has_many    :orders
   has_many    :contributions
   has_many    :contributors, through: :contributions
-  has_many    :attachments
+  has_many    :attachments, :dependent => :destroy
 
   accepts_nested_attributes_for :attachments
 

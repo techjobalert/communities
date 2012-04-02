@@ -63,7 +63,7 @@
       = image_tag '/assets/tmp/p4.png', :class => 'preview'
       .clear
 
-      -if @attachment_pdf.present?
+      -unless @attachment_pdf.blank?
         .attachment-pdf
           = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
@@ -72,8 +72,9 @@
     .text.video
       .preview
         / = image_tag '/assets/tmp/p5.png'
-        .attachment-video
-          = render :partial => "layouts/video_viewer", :locals => {:attachment => @attachment_video}
+        -unless @attachment_video.nil?
+          .attachment-video
+            = render :partial => "layouts/video_viewer", :locals => {:attachment => @attachment_video}
       .body
         = image_tag('/assets/logo.png', :width => '200')
         %h2= @item.title + ' (unpublished)'
@@ -81,7 +82,7 @@
         = @item.description
       .clear
 
-      -if @attachment_pdf
+      -unless @attachment_pdf.nil?
         .attachment-pdf
           = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
