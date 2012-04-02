@@ -6,7 +6,7 @@
 = link_to 'prev', "", :class => 'pdf-prev-page', :onclick=>"prevPage();return false"
 :javascript
   'use strict';
-  PDFJS.workerSrc = "../assets/pdf.js";
+  PDFJS.workerSrc = "/javascripts/pdf.js";
   var bc8192db7apdf, currentPage=1, _prevPage=1;
 
   var nextPage = function(){_prevPage = currentPage++;renderPage(currentPage);}
