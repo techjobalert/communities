@@ -81,7 +81,7 @@
         = @item.description
       .clear
 
-      -if @attachment_pdf.present?
+      -if @attachment_pdf
         .attachment-pdf
           = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
