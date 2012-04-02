@@ -15,7 +15,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   version :pdf do
     process :convert_to_pdf
-    def full_filename(for_file)
+    def full_filename(for_file = model.file)
       "document_#{File.basename(for_file, File.extname(for_file))}.pdf"
     end
   end
@@ -34,7 +34,7 @@ class FileUploader < CarrierWave::Uploader::Base
               :custom => "-preset medium"
               # :threads => 4
             }
-    def full_filename(for_file)
+    def full_filename(for_file = model.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
     end
   end
