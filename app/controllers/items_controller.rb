@@ -176,17 +176,21 @@ class ItemsController < InheritedResources::Base
   end
 
   def upload_attachment
-    begin
-      params[:file].original_filename = Russian.translit(params[:name])
-      @attachment = Attachment.create!(:user => current_user, :file => params[:file])
-      render :json => {:id => @attachment.id}, :content_type => "text/json; charset=utf-8"
-    rescue ActiveRecord::RecordInvalid => invalid
-      Rails.logger.error invalid.inspect
-      @notice = {:type => 'error', :message =>
-        "#{t current_user.errors.keys.first} #{current_user.errors.values.first.first.to_s}"
-      }
-      render :partial => "layouts/notice", :locals => {:notice => @notice}
-    end
+    klass = Attachment
+    options = {:user => current_user, :file => params[:file]}
+    base_upload(klass, params, options)
+  end
+
+  def upload_precenter_video
+
+    klass = PresenterVideo
+    options = {
+      :user  => current_user,
+      :file  => params[:file],
+      :type  => "source_video",
+      :state => "transcoding"
+    }
+    base_upload(klass, params, options)
   end
 
   def pdf_page
@@ -215,5 +219,26 @@ class ItemsController < InheritedResources::Base
     end
 
     data
+  end
+
+  private
+
+  def base_upload(klass, params, options)
+    begin
+      russian_translit!(params)
+      obj = klass.create!(options)
+      render :json => {:id => obj.id, :objClass => obj.class.name.underscore}, :content_type => "text/json; charset=utf-8"
+    rescue ActiveRecord::RecordInvalid => invalid
+      Rails.logger.error invalid.inspect
+      @notice = {:type => 'error', :message =>
+        "#{t current_user.errors.keys.first} #{current_user.errors.values.first.first.to_s}"
+      }
+      render :partial => "layouts/notice", :locals => {:notice => @notice}
+    end
+  end
+
+  def russian_translit!(params)
+    params[:file].original_filename = Russian.translit(params[:name])
+    params
   end
 end

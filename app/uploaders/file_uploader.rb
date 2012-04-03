@@ -4,10 +4,10 @@ require File.join(Rails.root, "lib", "ffmpeg")
 class FileUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   include CarrierWave::RMagick
-  include CarrierWave::MimeTypes
+  # include CarrierWave::MimeTypes
   include CarrierWave::FFMPEG
   include ::CarrierWave::Backgrounder::DelayStorage
-  process :set_content_type
+  # process :set_content_type
 
   version :pdf,                 :if => :is_document?
   # version :presentation,        :if => :is_presentation?
@@ -29,9 +29,9 @@ class FileUploader < CarrierWave::Uploader::Base
   version :mp4 do
     process :convert_to_mp4 => {
               :audio_codec => 'libfaac',
-              :video_codec => 'libx264',
+              :video_codec => 'libx264'
               # :video_preset => 'medium',
-              :custom => "-preset medium"
+              # :custom => "-preset medium"
               # :threads => 4
             }
     def full_filename (for_file = model.file.file)
@@ -70,7 +70,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    %w(pdf doc docx key 3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi)
+    %w(pdf doc docx key 3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4)
   end
 
   def convert_to_pdf

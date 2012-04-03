@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
   has_many :approvals, class_name: :Item, :foreign_key => "approved_by"
   has_many :educations, :dependent => :destroy
   has_many :orders
-  has_many :attachments
+  has_many :attachments, :dependent => :destroy
+  has_many :presenter_videos, :dependent => :destroy
 
   accepts_nested_attributes_for :educations, :allow_destroy => true
 

@@ -35,6 +35,7 @@ class Item < ActiveRecord::Base
   has_many    :contributions
   has_many    :contributors, through: :contributions
   has_many    :attachments, :dependent => :destroy
+  has_many    :presenter_videos, :dependent => :destroy
 
   accepts_nested_attributes_for :attachments
 

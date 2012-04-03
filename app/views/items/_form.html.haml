@@ -13,11 +13,18 @@
       %span
       :javascript
         $(function(){
-          var uploaderProfile = $.initPlupload({
+          var uploaderAttachment = $.initPlupload({
               url: "#{upload_attachment_items_path}",
               filters: [],
               max_file_size: "1000mb"
           });
+          var uploaderPrecenterVideo = $.initPlupload({
+            url: "#{upload_attachment_items_path}",
+            browse_button: "pv-pickfiles",
+            container: "pv-upcontainer",
+            max_file_size: "1000mb",
+            filters: []
+          })
         })
     .btn-hint
       It can be presentations,
@@ -29,8 +36,8 @@
       %b Make your conference
 
     = link_to 'Select Movie File', '#', :class => 'select-file'
-
-    = link_to '#', :class => 'light-button green upload' do
+    #pv-upcontainer
+    = link_to '#', :id => 'pv-pickfiles', :class => 'light-button green upload' do
       Upload
       %span
 
