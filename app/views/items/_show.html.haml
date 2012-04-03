@@ -77,7 +77,10 @@
             = render :partial => "layouts/video_viewer", :locals => {:attachment => @attachment_video}
       .body
         = image_tag('/assets/logo.png', :width => '200')
-        %h2= @item.title + ' (unpublished)'
+        - if @item.published?
+          %h2= @item.title
+        - else
+          %h2= @item.title + ' (unpublished)'
 
         = @item.description
       .clear
