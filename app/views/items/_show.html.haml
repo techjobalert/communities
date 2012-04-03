@@ -85,9 +85,9 @@
         = @item.description
       .clear
 
-      -unless @attachment_pdf.nil?
-        .attachment-pdf
-          = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
+      / -unless @attachment_pdf.nil?
+      /   .attachment-pdf
+      /     = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
 
 #comments.b-comments
   %h3 Comments

@@ -33,7 +33,7 @@ class PresenterVideoUploader < CarrierWave::Uploader::Base
               :video_codec => 'libx264',
               # :video_preset => 'medium',
               # :custom => "-preset medium"
-              # :threads => 4
+              :threads => 1
             }
     def full_filename (for_file = model.file.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"

@@ -1,4 +1,4 @@
-- if items.present?
+- if items.present? and not items.blank?
   - items.each do |item|
     .item
       .media= link_to image_tag('/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"), item_path(item), :class => " pjax"

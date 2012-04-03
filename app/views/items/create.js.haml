@@ -2,6 +2,7 @@
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'form')}");
 - else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:item => @item})}");
+  history.pushState(null, "#{@item.title}", "#{item_path(@item)}");
 
 showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
 $(".main-content .navigation a").removeClass("selected");
