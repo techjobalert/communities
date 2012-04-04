@@ -16,7 +16,7 @@ class Attachment < ActiveRecord::Base
     dot_exts = []
     dot_exts << exts if exts.is_a? String
     dot_exts = exts.map!{ |e| "."+e } if exts.is_a? Array
-    dot_exts.member? File.extname(file.path) unless dot_exts.blank? and file.nil?
+    dot_exts.member? File.extname(file.path) if not dot_exts.blank? and file.nil?
   end
 
   def is_pdf?
