@@ -54,7 +54,7 @@
 
 #paypal-form{:title=>"Account Info" }
   .pay-pal-form
-    = form_for(current_user, :validate => true, :remote => true) do |f|
+    = form_for(current_user, :remote => true) do |f|
       %p
         = f.label :paypal_account, "PayPal account"
         = f.email_field :paypal_account
