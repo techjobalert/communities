@@ -94,4 +94,15 @@ class Item < ActiveRecord::Base
     order.present?
   end
 
+  def attachment_thumb
+
+    attachment = self.attachments.last
+
+    if attachment.present? and attachment.file.present?
+      attachment.get_thumbnail
+    else
+      "/assets/default/item_thumb_default.png"
+    end
+  end
+
 end

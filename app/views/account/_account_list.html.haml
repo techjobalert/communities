@@ -12,7 +12,7 @@
           Delete Item
           %span
       = link_to item_path(item), :class => "media" do
-        = image_tag '/assets/tmp/p2.png', :class => 'popup-item-info', :id => "popup-item-#{item.id}"
+        = image_tag item.attachment_thumb, :class => 'popup-item-info', :id => "popup-item-#{item.id}", :width => "265", :height => "200"
         .info
           .purchase
             %span
