@@ -85,7 +85,7 @@ $(function() {
             cropArea = false;
 
         var f = $('#' + file.id);
-        console.log(response)
+
         if (f.length){
           f.children("b").html("100%");
           f.append('<input type="hidden" name="item['+response.objClass+'_ids][]" value="'+response.id+'">');

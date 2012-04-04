@@ -17,7 +17,6 @@
 //= require jquery.pjax
 //= require jquery.Jcrop.min
 //= require jquery.colorbox-min
-//= require video
 //
 // Chosen (selectbox plugin)*
 //= require chosen.jquery.min
@@ -34,8 +33,8 @@
 //
 //  Misc*
 //= require jquery.html5-placeholder-shim
-//= require imperavi-rails/imperavi
 //= require jquery.validate
+//= require mediaelement_rails
 //= require main
 
 function showHideNotice(type,message){
