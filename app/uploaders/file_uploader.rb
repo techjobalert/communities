@@ -29,10 +29,9 @@ class FileUploader < CarrierWave::Uploader::Base
   version :mp4 do
     process :convert_to_mp4 => {
               :audio_codec => 'libfaac',
-              :video_codec => 'libx264'
-              # :video_preset => 'medium',
+              :video_codec => 'libx264',
               # :custom => "-preset medium"
-              # :threads => 4
+              :threads => 1
             }
     def full_filename (for_file = model.file.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"

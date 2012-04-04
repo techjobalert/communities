@@ -98,7 +98,7 @@ class SearchParams
       o.each do |k,v|
         if options.include? k
           options[k].merge!(v) if v.is_a? Hash
-          options[k] = v if v.is_a? String
+          options[k] = v if v.is_a? String or v.is_a? Symbol
         else
           options.merge!({k => v})
         end

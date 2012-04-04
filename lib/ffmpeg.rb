@@ -19,10 +19,13 @@ module CarrierWave
 
       file = ::FFMPEG::Movie.new(tmp_path)
       tmp_mp4 = tmp_path+".mp4"
+      tmp_st_mp4 = tmp_path+"st_.mp4"
       file.transcode(tmp_mp4 , options)
-      File.rename tmp_mp4, current_path
+      p "running qt-faststart"
+      command = %x[qt-faststart #{tmp_mp4} #{tmp_st_mp4}]
+      File.rename tmp_st_mp4, current_path
       File.delete( tmp_path )
-
+      File.delete( tmp_mp4 )
     end
   end
 end
