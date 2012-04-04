@@ -40,6 +40,10 @@ class ItemsController < InheritedResources::Base
       @item.tag_list = tag_list
     end
 
+    if attachment_ids = params[:item][:attachment_ids]
+      attachments=Attachment.find(attachment_ids).each{ |a| @item.attachments << a }
+    end
+
     if @item.update_attributes params[:item]
       if !params[:type].present? || params[:type] != "change_keywords"
         @notice = {:type => "notice", :message => "Item is updated. Item will be published after premoderation"}
@@ -61,6 +65,7 @@ class ItemsController < InheritedResources::Base
       tag_list = JSON::parse(params[:tag_list])
       @item.tag_list = tag_list
     end
+
     if attachment_ids = params[:item][:attachment_ids]
       attachments=Attachment.find(attachment_ids).each{ |a| @item.attachments << a }
     end
