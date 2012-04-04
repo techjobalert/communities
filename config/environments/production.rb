@@ -53,7 +53,6 @@ Orthodontic::Application.configure do
   config.assets.precompile += %w(
       active_admin.css active_admin.js
       jquery-ui.css jquery-ui.js
-      imperavi-rails/imperavi/redactor.css imperavi-rails/imperavi.js
     )
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = false
