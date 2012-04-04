@@ -100,3 +100,5 @@
 
     - if user_signed_in?
       = render :partial => 'users/popup', :locals => {:user => current_user}
+
+      = content_for(:popup_set_preview) if content_for?(:popup_set_preview)

@@ -34,6 +34,29 @@
         preview
         %span
 
+      - content_for :popup_set_preview do
+        .b-popup-set-preview.popup-container.top
+          .container
+            = form_for '/' do |f|
+              %ul
+                %li
+                  = f.radio_button "radio", "1"
+                  = label '_radio', '1', 'Show at most this number of pages', :class => 'checked'
+                  = f.text_field ''
+                %li
+                  = f.radio_button "radio", "2"
+                  = label '_radio', '2', 'Show at most this number of pages'
+                  = f.text_field ''
+                %li
+                  = f.radio_button "radio", "3"
+                  = label '_radio', '3', 'Show at most this number of pages'
+                  = f.text_field ''
+            %p
+              %strong Note:
+              Show at most this number of pages Show at most thiser of pages
+
+          .corner
+
     - else
       .light-button.sell.hidden
         %b Sell
@@ -109,7 +132,7 @@
   = render :partial => 'items/list', :locals => {:items => @items}
 
 - if item.paid? && !item.purchased?(current_user)
-  %div{ :id => "account-form", :title=>"Buy item" }
+  %div{ :id => "account-form", :title=>"Buy item", :style => "display: none" }
     .b-buy-item-window
       .left-side
         .pay-pal-form
