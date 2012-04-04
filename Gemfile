@@ -92,7 +92,7 @@ gem 'activemerchant', :require => 'active_merchant'
 # https://github.com/jamesgolick/timeline_fu
 gem 'timeline_fu', :git => 'git://github.com/jamesgolick/timeline_fu.git'
 # https://github.com/tanraya/imperavi-rails
-gem 'imperavi-rails'
+# gem 'imperavi-rails'
 # https://github.com/justinfrench/formtastic
 gem 'formtastic'
 # # https://github.com/plataformatec/has_scope'
