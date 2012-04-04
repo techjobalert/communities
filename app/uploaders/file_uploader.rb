@@ -26,7 +26,7 @@ class FileUploader < CarrierWave::Uploader::Base
     process :create_pdf_thumbnail
 
     def full_filename (for_file = model.file.file)
-      "thumb_#{File.basename(for_file, File.extname(for_file))}.png"
+      "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
     end
   end
 
@@ -56,6 +56,10 @@ class FileUploader < CarrierWave::Uploader::Base
     def full_filename (for_file = model.file.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
     end
+  end
+
+  def default_url
+    "/default/item_" + [version_name, "default.png"].compact.join('_')
   end
 
   protected
@@ -110,7 +114,7 @@ class FileUploader < CarrierWave::Uploader::Base
     cache_stored_file! if !cached?
 
     directory = File.dirname( current_path )
-    image_path = File.join( directory, "tmp.png")
+    image_path = File.join( directory, "tmp.jpeg")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
 
     pdf = Magick::ImageList.new(path)

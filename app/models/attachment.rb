@@ -20,11 +20,11 @@ class Attachment < ActiveRecord::Base
   end
 
   def is_pdf?
-    extension_is?("pdf")
+    file.present? and extension_is?("pdf")
   end
 
   def is_video?
-    extension_is?("mp4")
+    file.present? and extension_is?("mp4")
   end
 
   def is_processed_to_mp4?
@@ -33,6 +33,14 @@ class Attachment < ActiveRecord::Base
 
   def is_processed_to_pdf?
     not file.pdf.nil? and extension_is?(["doc","docx"])
+  end
+
+  def get_thumbnail
+    if self.is_pdf?
+      self.file.pdf_thumbnail.url
+    else
+      self.file.video_thumbnail.url
+    end
   end
 
 end

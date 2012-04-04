@@ -7,7 +7,7 @@
         - if @items.present?
           - @items.each do |item|
             .item
-              = link_to (image_tag '/assets/tmp/p2.png'), moderator_item_path(item), :class => "pjax media"
+              = link_to (image_tag item.attachment_thumb, :width => "265", :height => "200"), moderator_item_path(item), :class => "pjax media"
               = link_to item.description.truncate(120, :separator => " "), moderator_item_path(item), :class => "pjax text"
           .clear
           = paginate @items
