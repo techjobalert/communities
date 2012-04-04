@@ -31,8 +31,7 @@ class PresenterVideoUploader < CarrierWave::Uploader::Base
     process :convert_to_mp4 => {
               :audio_codec => 'libfaac',
               :video_codec => 'libx264',
-              # :video_preset => 'medium',
-              # :custom => "-preset medium"
+              # :custom => "-preset medium",
               :threads => 1
             }
     def full_filename (for_file = model.file.file)
