@@ -1182,8 +1182,14 @@
     }
 
     textarea {
-      width: 600px;
-      height: 200px;
+      width: 590px;
+      height: 150px;
+      background: none repeat scroll 0 0 #F1EFD1;
+      border: 1px solid #F1EFD1;
+      -webkit-box-shadow: 0 2px 2px #D8DCC1 inset;
+      -moz-box-shadow: 0 2px 2px #D8DCC1 inset;
+      box-shadow: 0 2px 2px #D8DCC1 inset;
+      padding: 5px;
     }
 
     .confirm {
