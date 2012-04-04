@@ -13,68 +13,10 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf_thumbnail,       :if => :is_pdf?
 
   version :mp4,                 :if => :is_video?
-  version :video_thumbnail,     :if => :is_video?
-
-  version :pdf do
-    process :convert_to_pdf
-    def full_filename (for_file = model.file.file)
-      "document_#{File.basename(for_file, File.extname(for_file))}.pdf"
-    end
-  end
-
-  version :pdf_thumbnail do
-    process :create_pdf_thumbnail
-
-    def full_filename (for_file = model.file.file)
-      "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
-    end
-  end
-
-  version :video_thumbnail do
-    process :create_video_thumbnail
-
-    def full_filename (for_file = model.file.file)
-      "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
-    end
-  end
-
-
-  # version :document_thumbnail do
-  #   process :pdf_thumbnail
-  #   def full_filename(for_file)
-  #     "document_#{File.basename(for_file, File.extname(for_file))}.png"
-  #   end
-  # end
-
-  version :mp4 do
-    process :convert_to_mp4 => {
-              :audio_codec => 'libfaac',
-              :video_codec => 'libx264',
-              # :custom => "-preset medium"
-              :threads => 1
-            }
-    def full_filename (for_file = model.file.file)
-      "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
-    end
-  end
+  version :video_thumbnail,     :if => :is_video_format?
 
   def default_url
     "/default/item_" + [version_name, "default.png"].compact.join('_')
-  end
-
-  protected
-
-  def is_document? f
-    [".doc", ".docx"].member? File.extname(f.file) or model.is_pdf?
-  end
-
-  def is_video? f
-    exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi).map!{|e| "."+ e }
-    exts.member? File.extname(f.file)
-  end
-
-  def is_pdf? f
-    [".pdf", ".doc", ".docx"].member? File.extname(f.file)
   end
 
   storage :file
@@ -89,8 +31,41 @@ class FileUploader < CarrierWave::Uploader::Base
     %w(pdf doc docx key 3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4)
   end
 
-  def convert_to_pdf
+  version :pdf do
+    process :convert_to_pdf
+    def full_filename (for_file = model.file.file)
+      "document_#{File.basename(for_file, File.extname(for_file))}.pdf"
+    end
+  end
 
+  version :pdf_thumbnail, :from_version => :pdf do
+    process :create_pdf_thumbnail
+    def full_filename (for_file = model.file.file)
+      "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
+    end
+  end
+
+  version :video_thumbnail, :from_version => :mp4 do
+    process :create_video_thumbnail
+    def full_filename (for_file = model.file.file)
+      "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
+    end
+  end
+
+  version :mp4 do
+    process :convert_to_mp4 => {
+              :audio_codec => 'libfaac',
+              :video_codec => 'libx264',
+              :threads => 1
+            }
+    def full_filename (for_file = model.file.file)
+      "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
+    end
+  end
+
+  protected
+
+  def convert_to_pdf
     # move upload to local cache
     cache_stored_file! if !cached?
 
@@ -123,6 +98,23 @@ class FileUploader < CarrierWave::Uploader::Base
 
     File.delete current_path
     File.rename image_path, current_path
+  end
+
+  def is_video? f
+    exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi).map!{|e| "."+ e }
+    exts.member? File.extname(f.file)
+  end
+
+  def is_video_format? f
+    is_video?(f) or File.extname(f.file) == ".mp4"
+  end
+
+  def is_pdf? f
+    [".pdf", ".doc", ".docx"].member? File.extname(f.file)
+  end
+
+  def is_document? f
+    [".doc", ".docx"].member? File.extname(f.file) or model.is_pdf?
   end
 
 end
