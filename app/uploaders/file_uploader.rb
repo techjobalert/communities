@@ -10,8 +10,10 @@ class FileUploader < CarrierWave::Uploader::Base
   # process :set_content_type
 
   version :pdf,                 :if => :is_document?
-  # version :presentation,        :if => :is_presentation?
+  version :pdf_thumbnail,       :if => :is_pdf?
+
   version :mp4,                 :if => :is_video?
+  version :video_thumbnail,     :if => :is_video?
 
   version :pdf do
     process :convert_to_pdf
@@ -19,6 +21,24 @@ class FileUploader < CarrierWave::Uploader::Base
       "document_#{File.basename(for_file, File.extname(for_file))}.pdf"
     end
   end
+
+  version :pdf_thumbnail do
+    process :create_pdf_thumbnail
+
+    def full_filename (for_file = model.file.file)
+      "thumb_#{File.basename(for_file, File.extname(for_file))}.png"
+    end
+  end
+
+  version :video_thumbnail do
+    process :create_video_thumbnail
+
+    def full_filename (for_file = model.file.file)
+      "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
+    end
+  end
+
+
   # version :document_thumbnail do
   #   process :pdf_thumbnail
   #   def full_filename(for_file)
@@ -38,26 +58,19 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
-  # version :thumbnail do
-    # process :create_thumbnail => {} if :is_video?
-  # end
-
-  version :presentation do
-  end
-
   protected
 
   def is_document? f
-    [".doc", ".docx"].member? File.extname(f.file)
-  end
-
-  def is_presentation? f
-
+    [".doc", ".docx"].member? File.extname(f.file) or model.is_pdf?
   end
 
   def is_video? f
     exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi).map!{|e| "."+ e }
     exts.member? File.extname(f.file)
+  end
+
+  def is_pdf? f
+    [".pdf", ".doc", ".docx"].member? File.extname(f.file)
   end
 
   storage :file
@@ -73,7 +86,8 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def convert_to_pdf
-   # move upload to local cache
+
+    # move upload to local cache
     cache_stored_file! if !cached?
 
     directory = File.dirname( current_path )
@@ -91,11 +105,20 @@ class FileUploader < CarrierWave::Uploader::Base
     File.delete tmp_path
   end
 
-  # def pdf_thumbnail
-  #   cache_stored_file! if !cached?
-  #   pdf = Magick::ImageList.new(current_path)
-  #   thumb = pdf.scale(265, 200)
-  #   thumb.write current_path
-  # end
+  def create_pdf_thumbnail
+    # move upload to local cache
+    cache_stored_file! if !cached?
+
+    directory = File.dirname( current_path )
+    image_path = File.join( directory, "tmp.png")
+    path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
+
+    pdf = Magick::ImageList.new(path)
+    thumb = pdf.scale(265, 200)
+    thumb.write image_path
+
+    File.delete current_path
+    File.rename image_path, current_path
+  end
 
 end
