@@ -13,7 +13,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf_thumbnail,       :if => :is_pdf?
 
   version :mp4,                 :if => :is_video?
-  version :video_thumbnail,     :if => :is_video_format?
+  version :video_thumbnail,     :if => :is_video?
 
   def default_url
     "/default/item_" + [version_name, "default.png"].compact.join('_')
@@ -38,7 +38,7 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
-  version :pdf_thumbnail, :from_version => :pdf do
+  version :pdf_thumbnail do
     process :create_pdf_thumbnail
     def full_filename (for_file = model.file.file)
       "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
@@ -101,12 +101,8 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def is_video? f
-    exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi).map!{|e| "."+ e }
+    exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4).map!{|e| "."+ e }
     exts.member? File.extname(f.file)
-  end
-
-  def is_video_format? f
-    is_video?(f) or File.extname(f.file) == ".mp4"
   end
 
   def is_pdf? f
