@@ -39,31 +39,26 @@ class ItemsController < InheritedResources::Base
   end
 
   def edit
+    @step = params[:step]
   end
 
   def update
-    @item.moderate
+    @step = params[:step]
+
+    if params[:paypal_account]
+      @item.user.update_attribute(:paypal_account, params[:paypal_account])
+    end
 
     if params[:tag_list].present?
       tag_list = JSON::parse(params[:tag_list])
       @item.tag_list = tag_list
     end
 
-    if attachment_ids = params[:item][:attachment_ids]
-      attachments=Attachment.find(attachment_ids).each{ |a| @item.attachments << a }
-    end
-
     if @item.update_attributes params[:item]
-      if !params[:type].present? || params[:type] != "change_keywords"
-        @notice = {:type => "notice", :message => "Item is updated. Item will be published after premoderation"}
-      else
-        @notice = {:type => "notice", :message => "Item is updated."}
-      end
+      @notice = {:type => "notice", :message => "Item is updated."}
     else
       @notice = {:type => "error", :message => "error"}
     end
-
-    @type = params[:type].present? ? params[:type] : false
   end
 
   def create
@@ -75,13 +70,8 @@ class ItemsController < InheritedResources::Base
       @item.tag_list = tag_list
     end
 
-    if attachment_ids = params[:item][:attachment_ids]
-      attachments=Attachment.find(attachment_ids).each{ |a| @item.attachments << a }
-    end
-
     if @item.save
-      @notice = {:type => 'notice',
-        :message => "Item is created. Item will be published after premoderation"}
+      @notice = {:type => 'notice', :message => "Item is created."}
     else
       @notice = {:type => 'error', :message => "Some error."}
     end
@@ -177,7 +167,10 @@ class ItemsController < InheritedResources::Base
     if params[:user_id]
       @item = Item.find(params[:item_id])
       @user = User.find(params[:user_id])
-      if not @item.contributors.include? @user
+      if @user == current_user
+        @notice = {:type => "error",
+          :message => "You can't remove yourself from contributors"}
+      elsif not @item.contributors.include? @user
         @notice = {:type => "error",
           :message => "User is not in your contributors"}
       else
@@ -190,19 +183,23 @@ class ItemsController < InheritedResources::Base
   end
 
   def upload_attachment
+    @item = Item.find(params[:item_id])
     klass = Attachment
-    options = {:user => current_user, :file => params[:file]}
+    options = {:user => current_user, :file => params[:file], :item_id => @item.id}
     base_upload(klass, params, options)
   end
 
   def upload_precenter_video
+
+    @item = Item.find(params[:item_id])
 
     klass = PresenterVideo
     options = {
       :user  => current_user,
       :file  => params[:file],
       :type  => "source_video",
-      :state => "transcoding"
+      :state => "transcoding",
+      :item_id => @item.id
     }
     base_upload(klass, params, options)
   end
@@ -213,6 +210,29 @@ class ItemsController < InheritedResources::Base
     reader = PDF::Reader.new("public/"+file.to_s)
     page     = reader.page(page)
     @content  = page.raw_content
+  end
+
+  def change_price
+    @item = Item.find(params[:item_id])
+
+    if price = params[:item][:price]
+      @item.moderate if @item.update_attribute(:price, price)
+    end
+  end
+
+  def change_keywords
+    @item = Item.find(params[:item_id])
+
+    if params[:tag_list].present?
+      tag_list = JSON::parse(params[:tag_list])
+      @item.tag_list = tag_list
+    end
+
+    if @item.save
+      @notice = {:type => "notice", :message => "Item is updated"}
+    else
+      @notice = {:type => "error", :message => "error"}
+    end
   end
 
   protected

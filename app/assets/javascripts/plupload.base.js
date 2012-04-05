@@ -60,8 +60,9 @@ $(function() {
       $.each(files, function(i, file) {
         if ($('#filelist').length) $('#filelist').append(
           '<div id="' + file.id + '" class="filename">' +
+          '<i class="remove web-symbols">×</i>' +
           file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>'+
-          '<i class="remove web-symbols">×</i></div>');
+          '</div>');
       });
 
       up.refresh(); // Reposition Flash/Silverlight

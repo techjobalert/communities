@@ -26,12 +26,14 @@ Orthodontic::Application.routes.draw do
     delete  "delete"
     delete  "delete_from_contributors"
     post    "add_to_contributors"
+    put     "change_price"
+    put     "change_keywords"
     get     "users_search"
     get     "pdf_page"
     get     "search",             :on => :collection
     get     "qsearch",            :on => :collection
     get     "tags",               :on => :collection
-    post    "upload_attachment",  :on => :collection
+    post    "upload_attachment"
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do

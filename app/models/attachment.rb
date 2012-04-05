@@ -3,7 +3,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :user #, :counter_cache => true
   has_many   :attachment_previews, :dependent => :destroy
 
-  attr_accessible :user, :file
+  attr_accessible :user, :file, :item_id
 
   # validates_presence_of :user
 
