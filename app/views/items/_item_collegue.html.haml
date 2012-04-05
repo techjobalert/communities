@@ -1,7 +1,5 @@
-.user{:id => "collegue-#{user.id}"}
+%li{:id => "collegue-#{user.id}"}
   = image_tag user.avatar_url(:thumb_60)
-  = text_with_br user.full_name
-  %br
-  = link_to item_delete_from_contributors_path(item, :user_id => user.id), :class => "delete-btn", :remote => true, :method => :delete do
-    Delete
-    %span
+  = user.full_name
+  - unless user == current_user
+    = link_to "Delete", item_delete_from_contributors_path(@item, :user_id => user.id), :class => "delete-btn", :remote => true, :method => :delete

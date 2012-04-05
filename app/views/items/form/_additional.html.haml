@@ -1,0 +1,53 @@
+.b-upload-item__title
+  %b Additional information
+
+- if @item.id
+  - collegues = @item.contributors
+  %p
+    .label Published with
+    .input
+      %ul.b-upload-item__collegues
+        - collegues.each do |user|
+          %li{:id => "collegue-#{user.id}"}
+            = image_tag user.avatar_url(:thumb_60)
+            = user.full_name
+            - unless user == current_user
+              = link_to "Delete", item_delete_from_contributors_path(@item, :user_id => user.id), :class => "delete-btn", :remote => true, :method => :delete
+  %p
+    .input= link_to "Add persons", "", :class => 'add-btn', :id => "add-collegues-to-item-link"
+  .clear
+
+  #add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
+    .form{:id => "collegues-add-form"}
+      = form_for "", :url => item_users_search_path(@item), :remote => true, :method => :get do |f|
+        = hidden_field_tag :item_id, @item.id
+        %p
+          = text_field_tag "q", "",:placeholder => "Search persons"
+          = f.submit 'Search', :class => 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover'
+
+    .users-wrapper
+      - if @doctors.present?
+        = render :partial => 'doctors_list', :locals => { :doctors => @doctors }
+
+= form_for @item, :validate => true, :remote => true do |f|
+  .b-upload-item__title.hr Сommercialization
+  = hidden_field_tag "step", "upload"
+  %p
+    = f.label :price, "Set price", :class => "label"
+    = f.text_field :price, :class => "price"
+  %p
+    = label :price, "PayPal account", :class => "label"
+    = text_field_tag "paypal_account", current_user.paypal_account
+
+  .b-upload-item__title.hr Copyright Verification
+  %p
+    .label= check_box "verification", "1"
+    = label '_radio', '1', :class => "input verify" do
+      Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry. Lorem Ipsum has been the industry's standard dummy text
+      ever since the 1500s, when an unknown printer took a galley of type
+      and scrambled it to make a type specimen book.
+
+
+  %p.tools
+    = f.submit raw('Next Step &raquo;'), :class => 'light-button green'

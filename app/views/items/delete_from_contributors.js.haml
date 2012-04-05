@@ -1,3 +1,3 @@
 - if @notice[:type] != "error"
-  $("div.collegues #collegue-#{@user.id}").fadeOut("slow")
+  $("li#collegue-#{@user.id}").fadeOut("slow", function(){$(this).remove();})
 showHideNotice("#{@notice[:type]}", "#{@notice[:message]}")

@@ -25,8 +25,7 @@
         = item.description.truncate(120, :separator => " ")
     %div{ :class => "change-price-form", :id => "form-change-price-#{item.id}", :title=>"Change price", :style => "display: none;" }
       .form
-        = form_for item, :remote => true, :method => :put do |f|
-          = hidden_field_tag "type" , "change_price"
+        = form_for item, :url => item_change_price_path(item), :remote => true do |f|
           %p
             = f.label :price
             = f.text_field :price

@@ -1,0 +1,53 @@
+.b-upload-item__title
+  %b Make your conference
+
+.b-upload-item__uload-regular
+  #regular-upcontainer
+    .select-file Select File
+    .row
+      = link_to '#', :id => 'regular-pickfiles', :class => 'light-button green upload' do
+        Upload
+        %span
+
+      .btn-hint
+        It can be presentations,
+        %br
+        movie and articles.
+    .row
+      .fl-l#filelist
+
+:javascript
+  $(function(){
+    var uploaderAttachment = $.initPlupload({
+        url: "#{item_upload_attachment_path(@item)}",
+        filters: [],
+        max_file_size: "1000mb",
+        browse_button: "regular-pickfiles",
+        container: "regular-upcontainer"
+    });
+  })
+
+.b-upload-title Set preview
+
+  .block
+    = form_for '/' do |f|
+      %ul
+        %li
+          = f.radio_button "radio", "1"
+          = label '_radio', '1', 'Show at most this number of pages', :class => 'checked'
+          = f.text_field ''
+        %li
+          = f.radio_button "radio", "2"
+          = label '_radio', '2', 'Show at most this number of pages'
+          = f.text_field ''
+        %li
+          = f.radio_button "radio", "3"
+          = label '_radio', '3', 'Show at most this number of pages'
+          = f.text_field ''
+    %p
+      %strong Note:
+      Show at most this number of pages Show at most thiser of pages
+
+.tools
+  = link_to '#', :class => 'light-button green publish' do
+    Publish

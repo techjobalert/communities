@@ -36,14 +36,16 @@ class Ability
     can :manage, [Comment, Item] do |obj|
       owner?(obj)
     end
+
     can [:items, :purchased_items], :account
-    can [:add_to_contributors, :delete_from_contributors, :users_search], Item do |item|
+    can [:add_to_contributors, :delete_from_contributors, :users_search, :change_price], Item do |item|
       owner?(item)
     end
   end
 
   def moderator
     doctor
+    can :change_keywords, Item
     can [:items, :item_show, :item_publish, :item_deny, :comments, :comment_publish, :comment_deny], :moderator
   end
 

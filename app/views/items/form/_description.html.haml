@@ -1,0 +1,31 @@
+.b-upload-item__title
+  %b Describe your movie
+
+= form_for @item, :validate => true, :remote => true do |f|
+  = hidden_field_tag "step", "additional"
+  .row
+    = f.label :title, :class => "label"
+    = f.text_field :title
+  .row
+    = f.label :description, "Abstract", :class => "label"
+    = f.text_area :description
+  .row
+    = label :tag_list, "Keywords", :class => "label"
+    .textarea
+      = text_area_tag :tag_list, "", :rows => 1
+    .clear
+    .text-hint Press "Enter" keyboard key to submit new or use existing keyword
+
+  .row.tools
+    = f.submit raw('Next Step &raquo;'), :class => 'light-button green'
+
+  :javascript
+    $('#tag_list').textext({
+      plugins : 'autocomplete tags ajax',
+      tagsItems: #{@item.tag_list.to_json},
+      ajax : {
+          url : '#{tags_items_path}',
+          dataType : 'json',
+          cacheResults : true
+      }
+    });
