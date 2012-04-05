@@ -32,7 +32,7 @@ class Attachment < ActiveRecord::Base
   # end
 
   def is_processed_to_mp4?
-    not file.mp4.nil? and extension_is?(%w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4))
+    not file.mp4.nil? and extension_is?(%w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v))
   end
 
   def is_processed_to_pdf?
