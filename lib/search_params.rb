@@ -154,6 +154,6 @@ class SearchParams
     { :with => {:user_id => params[:current_user_id] }, :without => {:state => "archived".to_crc32} }
   end
   def items_only_published(params)
-    {:with => {:state => "published".to_crc32}, :without => {:state => "archived".to_crc32}}
+    { :with => {:state => "published".to_crc32}, :without => {:state => "archived".to_crc32} }
   end
 end

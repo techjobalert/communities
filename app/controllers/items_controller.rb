@@ -18,7 +18,15 @@ class ItemsController < InheritedResources::Base
         @attachment_video = @a_video.is_processed_to_mp4? ? @a_video.file.mp4 : @a_video.file unless @a_video.nil?
 
       end
-      @items = Item.search(:q => @item.title, :without_ids => [*@item.id], :with_all => {:tag_ids => @item.tag_ids}, :page => params[:page], :per_page => 3, :star => true)
+      @items = Item.search(
+        :q => @item.title,
+        :without_ids => [*@item.id],
+        :with_all => {:tag_ids => @item.tag_ids},
+        :with => {:state => "published".to_crc32},
+        :without => {:state => "archived".to_crc32},
+        :page => params[:page],
+        :per_page => 3,
+        :star => true)
     end
   end
 
