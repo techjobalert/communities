@@ -3,7 +3,7 @@ Orthodontic::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  mount ImperaviRails::Engine => "/imperavi"
+  # mount ImperaviRails::Engine => "/imperavi"
 
   devise_for :users, :controllers => {
     :registrations => "registrations", :sessions => "sessions"}

@@ -7,6 +7,9 @@ module CarrierWave
       def convert_to_mp4 options
         process :convert_to_mp4 => options
       end
+      def create_video_thumbnail options
+        process :create_video_thumbnail => options
+      end
     end
 
     def convert_to_mp4 *args
@@ -28,23 +31,23 @@ module CarrierWave
       File.delete( tmp_mp4 )
     end
 
-    def create_video_thumbnail(h=0,m=0,s=1)
+    def create_video_thumbnail(h="00",m="00",s="03.0")
       cache_stored_file! if !cached?
 
-      args = [h,m,s]
-      args.each_with_index do |t, index|
-        if index != 0 and d = t.div(60)
-          t = t-d*60
-          args[index-1] = args[index-1]+d
-        end
-        t = "0"+t.to_s if t < 10
-      end
-
-      directory = File.dirname( current_path )
-      path = File.absolute_path(model.file.mp4.path)
+      # args = [h,m,s]
+      # args.each_with_index do |t, index|
+      #   if index != 0 and d = t.div(60)
+      #     t = t-d*60
+      #     args[index-1] = args[index-1]+d
+      #   end
+      #   t = "0"+t.to_s if t < 10
+      # end
+      tmp  = current_path+".jpeg"
+      path = File.absolute_path(current_path)
       file = ::FFMPEG::Movie.new(path)
-      file.transcode(current_path, :custom => "-ss 00:00:01 -vframes 1 -f image2 ")
-
+      t = Time.at(file.duration/2)
+      file.transcode(tmp, :custom => "-ss #{h}:#{m}:#{s} -s 435x264 -vframes 1 -f image2")
+      File.rename tmp, current_path
     end
 
   end

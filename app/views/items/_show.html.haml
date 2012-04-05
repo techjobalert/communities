@@ -86,14 +86,14 @@
 
       -unless @attachment_pdf.blank?
         .attachment-pdf
-          = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
+          = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @attachment_pdf, :thumb => @a_pdf.get_thumbnail}
 
   - if @attachment_video
     .text.video
       .preview
         - unless @attachment_video.nil?
           .attachment-video
-            = render :partial => "layouts/video_viewer", :locals => {:attachment => @attachment_video}
+            = render :partial => "layouts/video_viewer", :locals => {:attachment => @attachment_video, :thumb => @a_video.get_thumbnail}
       .body
         = image_tag('/assets/logo.png', :width => '200')
         - if @item.published?
