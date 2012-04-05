@@ -46,11 +46,4 @@ class Attachment < ActiveRecord::Base
       self.file.video_thumbnail.url
     end
   end
-
-  # def url_by_type
-  #   case File.extname(file.path)
-  #   when ".doc", ".docx"
-  #     file.pdf.url
-  #   end
-  # end
 end

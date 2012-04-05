@@ -92,7 +92,7 @@ class FileUploader < CarrierWave::Uploader::Base
     image_path = File.join( directory, "tmp.jpeg")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
 
-    pdf = Magick::ImageList.new(path)
+    pdf = Magick::ImageList.new(path).first
     thumb = pdf.scale(265, 200)
     thumb.write image_path
 
@@ -110,7 +110,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def is_document? f
-    [".doc", ".docx"].member? File.extname(f.file) or model.is_pdf?
+    [".doc", ".docx"].member? File.extname(f.file) #or model.is_pdf?
   end
 
 end
