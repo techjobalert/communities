@@ -31,7 +31,7 @@ module CarrierWave
       File.delete( tmp_mp4 )
     end
 
-    def create_video_thumbnail(h="00",m="00",s="03.0")
+    def create_video_thumbnail(h="00",m="00",s="02.0")
       cache_stored_file! if !cached?
 
       # args = [h,m,s]
