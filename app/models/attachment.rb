@@ -38,7 +38,6 @@ class Attachment < ActiveRecord::Base
 
   def is_processed_to_pdf?
     extension_is?(["doc","docx"])
-    # p extension_is?(["doc","docx"])
   end
 
   def get_thumbnail
