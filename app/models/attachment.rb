@@ -16,15 +16,16 @@ class Attachment < ActiveRecord::Base
     dot_exts = []
     dot_exts << "."+exts if exts.is_a? String
     dot_exts = exts.map!{ |e| "."+e } if exts.is_a? Array
-    if not dot_exts.blank? and file.present?
-      dot_exts.member? File.extname(file.path)
+    f = file_tmp.blank? ? file.path : file_tmp
+    if not dot_exts.blank? and f.present?
+      dot_exts.member? File.extname(f)
     else
       false
     end
   end
 
   def is_pdf?
-    file.present? and extension_is?("pdf")
+    extension_is?("pdf")
   end
 
   # def is_video?
@@ -32,11 +33,12 @@ class Attachment < ActiveRecord::Base
   # end
 
   def is_processed_to_mp4?
-    not file.mp4.nil? and extension_is?(%w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v))
+    extension_is?(%w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v))
   end
 
   def is_processed_to_pdf?
-    not file.pdf.nil? and extension_is?(["doc","docx"])
+    extension_is?(["doc","docx"])
+    # p extension_is?(["doc","docx"])
   end
 
   def get_thumbnail
@@ -46,4 +48,5 @@ class Attachment < ActiveRecord::Base
       self.file.video_thumbnail.url
     end
   end
+
 end

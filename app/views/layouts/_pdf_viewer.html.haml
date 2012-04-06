@@ -1,3 +1,4 @@
+- pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
 %script{:src => "/javascripts/pdf.js", :type => "text/javascript"}
 
 %div{:style=>"border: 1px solid beige"}
@@ -37,6 +38,6 @@
     //
     page.startRendering(context);
   };
-  PDFJS.getPdf("#{attachment}", function getPdfData(data) {
+  PDFJS.getPdf("#{pdf.url}", function getPdfData(data) {
     renderPdf(data);
   });

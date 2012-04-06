@@ -4,9 +4,9 @@ require File.join(Rails.root, "lib", "ffmpeg")
 class FileUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   include CarrierWave::RMagick
-  # include CarrierWave::MimeTypes
   include CarrierWave::FFMPEG
   include ::CarrierWave::Backgrounder::DelayStorage
+  # include CarrierWave::MimeTypes
   # process :set_content_type
 
   version :pdf,                 :if => :is_document?
@@ -100,6 +100,7 @@ class FileUploader < CarrierWave::Uploader::Base
     File.delete current_path
     File.rename image_path, current_path
     Resque.enqueue(SendProcessedMessage, model.id) if file
+    model.file_processing = nil
   end
 
   def is_video? f

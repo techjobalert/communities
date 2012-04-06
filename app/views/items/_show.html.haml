@@ -70,7 +70,7 @@
           item
           %span
 
-  - unless @attachment_video
+  - unless @a_video
     .text.pic
       = image_tag('/assets/logo.png', :width => '200')
       - if @item.published?
@@ -84,16 +84,26 @@
       = image_tag '/assets/tmp/p4.png', :class => 'preview'
       .clear
 
-      -unless @attachment_pdf.blank?
-        .attachment-pdf
-          = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @attachment_pdf, :thumb => @a_pdf.get_thumbnail}
+      -if @a_pdf
+        -if @a_pdf.file_processing == true
+          .attachment-pdf
+            %i
+              Your attached pdf will be placed here after processings
+        -elsif not @a_pdf.blank?
+          .attachment-pdf
+            = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
 
-  - if @attachment_video
+  - if @a_video
     .text.video
       .preview
-        - unless @attachment_video.nil?
+        -if @a_video.file_processing == true
+          .attachment-videoa
+            %i
+              Your attachment will be placed here after processings
+        - elsif not @a_video.nil?
           .attachment-video
-            = render :partial => "layouts/video_viewer", :locals => {:attachment => @attachment_video, :thumb => @a_video.get_thumbnail}
+            = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video}
+
       .body
         = image_tag('/assets/logo.png', :width => '200')
         - if @item.published?
@@ -104,9 +114,14 @@
         = @item.description
       .clear
 
-      - unless @attachment_pdf.nil?
-        .attachment-pdf
-          = render :partial => "layouts/pdf_viewer", :locals => {:attachment => @attachment_pdf}
+      -if @a_pdf
+        -if @a_pdf.file_processing == true
+          .attachment-pdf
+            %i
+              Your attached pdf will be placed here after processings
+        -elsif not @a_pdf.blank?
+          .attachment-pdf
+            = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
 
 #comments.b-comments
   %h3 Comments

@@ -1,6 +1,7 @@
-%video{:controls => "controls", :height => "264", :poster => "#{thumb}", :preload => "none", :width => "435"}
+- att = attachment.is_processed_to_mp4? ? attachment.file : attachment.file
+%video{:controls => "controls", :height => "264", :poster => "#{attachment.get_thumbnail}", :preload => "none", :width => "435"}
   / MP4 for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7
-  %source{:src => "#{attachment.url}", :type => "video/mp4"}/
+  %source{:src => "#{att.url}", :type => "video/mp4"}/
   / WebM/VP8 for Firefox4, Opera, and Chrome
   / %source{:src => "myvideo.webm", :type => "video/webm"}/
   / Ogg/Vorbis for older Firefox and Opera versions
@@ -11,7 +12,7 @@
   / Flash fallback for non-HTML5 browsers without JavaScript
   %object{:data => "/assets/flashmediaelement.swf", :height => "264", :type => "application/x-shockwave-flash", :width => "435"}
     %param{:name => "movie", :value => "/assets/flashmediaelement.swf"}/
-    %param{:name => "flashvars", :value => "controls=true&file=#{attachment.url}"}/
+    %param{:name => "flashvars", :value => "controls=true&file=#{att.url}"}/
     / Image as a last resort
     %img{:height => "264", :src => "myvideo.jpg", :title => "No video playback capabilities", :width => "435"}
 
