@@ -99,6 +99,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
     File.delete current_path
     File.rename image_path, current_path
+    Resque.enqueue(SendProcessedMessage, model.id) if file
   end
 
   def is_video? f

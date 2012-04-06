@@ -48,6 +48,7 @@ module CarrierWave
       t = Time.at(file.duration/2)
       file.transcode(tmp, :custom => "-ss #{h}:#{m}:#{s} -s 435x264 -vframes 1 -f image2")
       File.rename tmp, current_path
+      Resque.enqueue(SendProcessedMessage, model.id) if file
     end
 
   end

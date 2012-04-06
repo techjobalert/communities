@@ -1,0 +1,11 @@
+%h2= "Dear, #{@attachment.user.full_name}!"
+
+%p
+  Attachment file
+  %i= @file_name
+  for
+  %i= link_to @item.title, item_url(@item)
+  has been processed.
+
+%p
+  %i Email created and sended #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}

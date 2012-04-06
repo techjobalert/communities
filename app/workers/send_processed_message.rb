@@ -1,8 +1,8 @@
 class SendProcessedMessage
   @queue = :notifications_queue
 
-  def self.perform(message_id)
-    NotifyMailer.send_email_message(message_id).deliver
+  def self.perform(attachment_id)
+    NotifyMailer.send_processed_email_message(attachment_id).deliver
   end
 
 end

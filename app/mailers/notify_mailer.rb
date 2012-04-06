@@ -22,4 +22,14 @@ class NotifyMailer < ActionMailer::Base
     @message_text = @message.body
     mail(:to => @to_user.email, :subject => "[orthodontics360] Direct message from moderator")
   end
+
+  def send_processed_email_message(attachment_id)
+    @attachment = Attachment.find(attachment_id)
+    @item = @attachment.item
+    @file_name = File.basename(@attachment.file.path)
+    mail(
+      :to => @attachment.user.email,
+      :subject => "[orthodontics360] Your attachment file #{@file_name} processed"
+    )
+  end
 end
