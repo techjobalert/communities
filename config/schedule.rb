@@ -13,7 +13,7 @@ end
 every 10.minutes do
   rake "paypal:transfer"
 end
-every 2.hours do
+every 10.minutes do
   # command "/usr/bin/some_great_command"
   # runner "MyModel.some_method"
   rake "thinking_sphinx:index"

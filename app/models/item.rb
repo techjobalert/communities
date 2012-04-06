@@ -30,7 +30,7 @@ class Item < ActiveRecord::Base
   belongs_to  :user, :counter_cache => true, class_name: :User, inverse_of: :items
   belongs_to  :approved_by, class_name: :User, :foreign_key => "approved_by"
 
-  has_many    :comments, :dependent => :destroy
+  has_many    :comments, :dependent => :destroy, :as => :commentable
   has_many    :orders
   has_many    :contributions
   has_many    :contributors, through: :contributions
