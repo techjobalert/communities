@@ -110,6 +110,7 @@ class SearchParams
   def items_order(params)
     {:order => "created_at", :sort_mode =>:desc }
   end
+
   def items_date_interval(params)
     if params[:date] and not params[:date].blank?
       date = case params[:date]
@@ -127,6 +128,7 @@ class SearchParams
       { :with => {:created_at => date} }
     end
   end
+
   def items_views_filter(params)
     if params[:views] and not params[:views].blank?
       sort_options = {}
@@ -140,6 +142,7 @@ class SearchParams
       sort_options
     end
   end
+
   def items_price_filter(params)
     if params[:price] and not params[:price].blank?
       case params[:price]
@@ -150,10 +153,13 @@ class SearchParams
       end
     end
   end
+
   def items_by_owner(params)
     { :with => {:user_id => params[:current_user_id] }, :without => {:state => "archived".to_crc32} }
   end
+
   def items_only_published(params)
     { :with => {:state => "published".to_crc32}, :without => {:state => "archived".to_crc32} }
   end
+
 end

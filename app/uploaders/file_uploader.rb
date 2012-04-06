@@ -28,7 +28,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    %w(pdf doc docx key 3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4)
+    %w(pdf doc docx key 3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v)
   end
 
   version :pdf do
@@ -56,7 +56,8 @@ class FileUploader < CarrierWave::Uploader::Base
     process :convert_to_mp4 => {
               :audio_codec => 'libfaac',
               :video_codec => 'libx264',
-              :threads => 1
+              :threads => 1,
+              :custom => "-f mp4 -y -maxrate 1000 -mbd 2 -qmin 3 -qmax 5 -g 300 -strict experimental -bufsize 4096k -ar 22050"
             }
     def full_filename (for_file = model.file.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
