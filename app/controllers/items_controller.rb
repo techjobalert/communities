@@ -10,13 +10,12 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
-      if not @item.attachments.blank?
+      unless @item.attachments.blank?
         @a_pdf = @item.attachments.select{|a| a.is_pdf? or a.is_processed_to_pdf? }.last
         @attachment_pdf = @a_pdf.is_processed_to_pdf? ? @a_pdf.file.pdf : @a_pdf.file unless @a_pdf.nil?
 
         @a_video = @item.attachments.select{|a| a.is_processed_to_mp4?}.last
         @attachment_video = @a_video.is_processed_to_mp4? ? @a_video.file.mp4 : @a_video.file unless @a_video.nil?
-
       end
       @items = Item.search(
         :q => @item.title,
