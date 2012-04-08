@@ -13,6 +13,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf_thumbnail,       :if => :is_pdf?
 
   version :mp4,                 :if => :is_video?
+  version :mobile,              :if => :is_video?
   version :video_thumbnail,     :if => :is_video?
 
   def default_url
@@ -45,7 +46,7 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
-  version :video_thumbnail, :from_version => :mp4 do
+  version :video_thumbnail, :from_version => :mobile do
     process :create_video_thumbnail
     def full_filename (for_file = model.file.file)
       "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
@@ -53,14 +54,21 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   version :mp4 do
-    process :convert_to_mp4 => {
-              :audio_codec => 'libfaac',
-              :video_codec => 'libx264',
-              :threads => 1,
-              :custom => "-f mp4 -y -maxrate 1000 -mbd 2 -qmin 3 -qmax 5 -g 300 -strict experimental -bufsize 4096k -ar 22050"
-            }
+    # process :convert_to_mp4 => {
+    #           :audio_codec => 'libfaac',
+    #           :video_codec => 'libx264',
+    #           :threads => 1,
+    #           :custom => "-maxrate 1000 -ar 22050"
+    #         }
+    process :hb_convert_to_mp4
     def full_filename (for_file = model.file.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
+    end
+  end
+  version :mobile, :from_version => :mp4 do
+    process :hb_mobile_convert_to_mp4
+    def full_filename (for_file = model.file.file)
+      "mobile_#{File.basename(for_file, File.extname(for_file))}.mp4"
     end
   end
 
