@@ -215,7 +215,7 @@
         }
       });
 
-      $(".pay-pal-form form").validate({
+      $(".pay-pal-form form").jquery_validate({
         errorElement: "em",
         errorPlacement: function(error, element) {
             error.appendTo( element.closest("p").find(".error_container") );

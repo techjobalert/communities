@@ -15,7 +15,7 @@
 
 $.extend($.fn, {
 	// http://docs.jquery.com/Plugins/Validation/validate
-	validate: function( options ) {
+	jquery_validate: function( options ) {
 
 		// if nothing is selected, return nothing; can't chain anyway
 		if (!this.length) {
@@ -96,10 +96,10 @@ $.extend($.fn, {
 	// http://docs.jquery.com/Plugins/Validation/valid
 	valid: function() {
         if ( $(this[0]).is('form')) {
-            return this.validate().form();
+            return this.jquery_validate().form();
         } else {
             var valid = true;
-            var validator = $(this[0].form).validate();
+            var validator = $(this[0].form).jquery_validate();
             this.each(function() {
 				valid &= validator.element(this);
             });

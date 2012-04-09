@@ -33,7 +33,7 @@
 //
 //  Misc*
 //= require jquery.html5-placeholder-shim
-// require jquery.validate
+//= require jquery.validate
 //= require mediaelement_rails
 //= require main
 
