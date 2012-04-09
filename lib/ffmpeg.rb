@@ -59,10 +59,10 @@ module CarrierWave
       #   end
       #   t = "0"+t.to_s if t < 10
       # end
+      # t = Time.at(file.duration/2)
       tmp  = current_path+".jpeg"
       path = File.absolute_path(current_path)
       file = ::FFMPEG::Movie.new(path)
-      # t = Time.at(file.duration/2)
       file.transcode(tmp, :custom => "-ss #{h}:#{m}:#{s} -s 435x264 -vframes 1 -f image2")
       File.rename tmp, current_path
       Resque.enqueue(SendProcessedMessage, model.id) if file
