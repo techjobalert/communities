@@ -33,7 +33,7 @@ class Item < ActiveRecord::Base
   has_many    :comments, :dependent => :destroy, :as => :commentable
   has_many    :orders
   has_many    :contributions
-  has_many    :contributors, through: :contributions
+  has_many    :contributors, through: :contributions, :order => 'created_at ASC'
   has_many    :attachments, :dependent => :destroy
   has_many    :presenter_videos, :dependent => :destroy
 
