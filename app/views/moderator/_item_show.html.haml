@@ -6,7 +6,7 @@
       .list-content
         .b-admin-content-body.video
           .preview
-            -if @a_video.file_processing == true
+            -if @a_video and @a_video.file_processing == true
               .attachment-videoa
                 %i
                   Your attachment will be placed here after processings
@@ -20,7 +20,7 @@
             = @item.description
           .clear
           -if @a_pdf
-            -if @a_pdf.file_processing == true
+            -if  @a_pdf and @a_pdf.file_processing == true
               .attachment-pdf
                 %i
                   Your attached pdf will be placed here after processings
