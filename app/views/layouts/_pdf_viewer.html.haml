@@ -1,43 +1,73 @@
 - pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
 %script{:src => "/javascripts/pdf.js", :type => "text/javascript"}
+%div
+  %button{:id => "prev", :onclick => "goPrevious()"}
+    Previous
+  %button{:id => "next", :onclick=> "goNext()"}
+    Next
+  &nbsp; &nbsp;
+  %span
+    Page:
+    %span#page_num
+    \/
+    %span#page_count
 
 %div{:style=>"border: 1px solid beige"}
-  %canvas#pdf-viewer{:style=>"width:100%"}
-= link_to 'next', "", :class => 'pdf-next-page', :onclick=>"nextPage();return false"
-= link_to 'prev', "", :class => 'pdf-prev-page', :onclick=>"prevPage();return false"
+  %canvas#the-canvas{:style=>"width:100%"}
+
 :javascript
   'use strict';
   PDFJS.workerSrc = "/javascripts/pdf.js";
-  var bc8192db7apdf, currentPage=1, _prevPage=1;
+  //
+  // Disable workers to avoid yet another cross-origin issue (workers need the URL of
+  // the script to be loaded, and currently do not allow cross-origin scripts)
+  //
+  PDFJS.disableWorker = true;
 
-  var nextPage = function(){_prevPage = currentPage++;renderPage(currentPage);}
-  var prevPage = function(){_prevPage = currentPage--;renderPage(currentPage);}
-  var renderPdf = function(data){
-    bc8192db7apdf = new PDFJS.PDFDoc(data);
-    renderPage(1);
-  };
-  var renderPage = function(pageNumber){
-    if (bc8192db7apdf.catalog.pageCache && (pageNumber > bc8192db7apdf.catalog.pageCache.length || pageNumber < 1) ){
-      showHideNotice("error", "pageNumber not valid");
-      currentPage = _prevPage;
-      return false;
-    }
-    var page = bc8192db7apdf.getPage(pageNumber);
-    var scale = 1.5;
+  var pdfDoc = null,
+      pageNum = 1,
+      scale = 1.5,
+      canvas = document.getElementById('the-canvas'),
+      ctx = canvas.getContext('2d');
 
-    //
-    // Prepare canvas using PDF page dimensions
-    //
-    var canvas = document.getElementById('pdf-viewer');
-    var context = canvas.getContext('2d');
+  //
+  // Get page info from document, resize canvas accordingly, and render page
+  //
+  function renderPage(num) {
+    var page = pdfDoc.getPage(num);
     canvas.height = page.height * scale;
     canvas.width = page.width * scale;
+    page.startRendering(ctx);
 
-    //
-    // Render PDF page into canvas context
-    //
-    page.startRendering(context);
-  };
-  PDFJS.getPdf("#{pdf.url}", function getPdfData(data) {
-    renderPdf(data);
+    // Update page counters
+    document.getElementById('page_num').textContent = pageNum;
+    document.getElementById('page_count').textContent = pdfDoc.numPages;
+  }
+
+  //
+  // Go to previous page
+  //
+  function goPrevious() {
+    if (pageNum <= 1)
+      return;
+    pageNum--;
+    renderPage(pageNum);
+  }
+
+  //
+  // Go to next page
+  //
+  function goNext() {
+    if (pageNum >= pdfDoc.numPages)
+      return;
+    pageNum++;
+    renderPage(pageNum);
+  }
+
+  //
+  // Asynchronously download PDF as an ArrayBuffer
+  //
+  PDFJS.getPdf("#{pdf.url}", function getPdfHelloWorld(data) {
+    pdfDoc = new PDFJS.PDFDoc(data);
+    renderPage(pageNum);
   });
