@@ -31,4 +31,7 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def content_for_or_pjax(name, &block)
+    request.headers['X-PJAX'] ? capture(&block) : content_for(name, &block)
+  end
 end

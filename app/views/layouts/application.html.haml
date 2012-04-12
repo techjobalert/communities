@@ -64,6 +64,8 @@
 
             .panel#ajax-main-container{"data-pjax-container" => ""}= yield
 
+          = content_for_or_pjax(:relevant_items)
+
           .l-settings-navigation{:class => "#{'hidden' unless params[:controller] == 'users' && params[:action] == 'edit'}"}
             .b-settings-nav
               - if current_user.role? "doctor"
@@ -78,6 +80,9 @@
                   Privacy
                   %span Privacy settings
 
+
+
+
       - else
         %h1
           Featured on
@@ -89,6 +94,9 @@
           #ajax-main-container{"data-pjax-container" => ""}
             .wrapper
               .main-content= yield
+
+              = content_for(:relevant_items) if content_for?(:relevant_items)
+
     .l-footer
 
     - if flash.present?
@@ -101,3 +109,4 @@
       = render :partial => 'users/popup', :locals => {:user => current_user}
 
       = content_for(:popup_set_preview) if content_for?(:popup_set_preview)
+

@@ -1,4 +1,10 @@
 - content_for :title, item.title
+- if @items
+  - content_for :relevant_items do
+    %br
+    %h3 Relevant items:
+    = render :partial => 'items/list', :locals => {:items => @items}
+
 .content
   %h1
     = item.title
@@ -64,7 +70,7 @@
         = text_field 'search', 'form'
         %span
 
-      - if item.paid? && !item.purchased?(current_user)
+      - if user_signed_in? && item.paid? && !item.purchased?(current_user)
         = link_to orders_path, :remote => true, :id => "account-form-dialog", :class => "light-button buy green", :method => :post do
           %b Buy
           item
@@ -140,12 +146,7 @@
           = render :partial => "comments/comment", :locals => {:comment => comment}
       .clear
 
-- if @items
-  %br
-  %h3 Relevant items:
-  = render :partial => 'items/list', :locals => {:items => @items}
-
-- if item.paid? && !item.purchased?(current_user)
+- if user_signed_in? && item.paid? && !item.purchased?(current_user)
   %div{ :id => "account-form", :title=>"Buy item", :style => "display: none" }
     .b-buy-item-window
       .left-side

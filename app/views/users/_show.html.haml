@@ -1,10 +1,10 @@
-- is_current_user = (user == current_user)
+- is_current_user = (user_signed_in? && user == current_user)
 .b-user
   .b-user-content
     .b-user-info
       .b-user-preview#upcontainer
         = image_tag user.avatar_url(:thumb_143)
-        - if user.role? "doctor"
+        - if user_signed_in? && user.role?("doctor")
           .tools
             - if is_current_user
               .light-button.follow.unfollow
@@ -63,7 +63,7 @@
       = render :partial => 'list_of_items', :locals => {:items => user.items.state_is("published"), :show_popup => !is_current_user}
       %br
 
-  - if current_user.role? "doctor"
+  - if user_signed_in? && current_user.role?("doctor")
     = render :partial => 'sidebar', :locals => {:collaborators => collaborators, :show_popup => !is_current_user}
 .clear
 
