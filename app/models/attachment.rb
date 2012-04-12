@@ -18,7 +18,7 @@ class Attachment < ActiveRecord::Base
     dot_exts = exts.map!{ |e| "."+e } if exts.is_a? Array
     f = file_tmp.blank? ? file.path : file_tmp
     if not dot_exts.blank? and f.present?
-      dot_exts.member? File.extname(f)
+      dot_exts.member? File.extname(f).downcase
     else
       false
     end
