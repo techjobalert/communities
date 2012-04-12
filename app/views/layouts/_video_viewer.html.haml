@@ -1,4 +1,5 @@
-- att = attachment.is_processed_to_mp4? ? attachment.file : attachment.file
+-if attachment.is_processed_to_mp4?
+  -att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
 %video{:controls => "controls", :height => "264", :poster => "#{attachment.get_thumbnail}", :preload => "none", :width => "435"}
   / MP4 for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7
   %source{:src => "#{att.url}", :type => "video/mp4"}/
