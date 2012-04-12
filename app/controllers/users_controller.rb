@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = params[:id] == current_user.id ? current_user : User.find(params[:id])
+    @user = (user_signed_in? && params[:id] == current_user.id) ? current_user : User.find(params[:id])
     @collaborators = User.collaborators @user
     @type = params[:type].present? ? params[:type] : "profile"
   end
