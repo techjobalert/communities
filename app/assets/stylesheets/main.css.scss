@@ -1033,3 +1033,15 @@ h3 {
   }
 
 }
+
+.errors-container {
+  .error{
+  clear: both;
+  color: red;
+  display: block;
+  float: none;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: left;
+  width: auto; }
+}

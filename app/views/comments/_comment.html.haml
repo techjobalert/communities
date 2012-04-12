@@ -1,8 +1,8 @@
 - unless comment.id.blank?
   %li{:id => "comment-#{comment.id}"}
-    = image_tag comment.user.avatar_url(:thumb_60), :width => '60', :height => '60'
+    = link_to image_tag(comment.user.avatar_url(:thumb_60), :width => '60', :height => '60', :class => "popup-user-info", :id => "popup-user-#{comment.user.id}"), user_path(comment.user)
     .body
-      %b= link_to "#{comment.user.full_name}, #{comment.user.profession_and_degree}:", users_path(comment.user)
+      %b= link_to "#{comment.user.full_name}, #{comment.user.profession_and_degree}:", user_path(comment.user)
       %span= comment.body
     .clear
 
