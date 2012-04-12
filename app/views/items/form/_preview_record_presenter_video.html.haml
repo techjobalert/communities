@@ -21,7 +21,7 @@
       },
       endedCallback = function(){
         _stopPoints.push(videoPlayer.media.duration);
-        mergeFunc();
+        stopSync();
         console.log("video end");
       },
       prestartSync = function(){
