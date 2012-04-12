@@ -1,0 +1,88 @@
+.fl-l{:style => "width:960px"}
+  .fl-r
+    = render :partial => 'partials/webrecorder', :inline => true
+  .fl-l
+    = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video}, :inline => true
+  .clearfix
+    %ul.recorder-control.fl-l
+      %li#recorder-stop-start.button.c-white Start record
+      %li#sync-stop-start.button.c-white Start Sync
+      %li#merge-video.button.bg-green.c-white Merge video
+    %ul.recorder-control.fl-r
+      %li#recorder-status.recorder-icon
+      %li#recorder-time.recorder-icon
+.clearfix
+
+:javascript
+  var videoPlayer = MediaElement('videoPlayer'),
+      stopPoints = [0],
+      syncBool = false,
+      presync = false,
+      pauseCallback = function(){
+        var pos = videoPlayer.currentTime;
+        stopPoints.push(pos);
+        console.log("add new stop point "+pos);
+      },
+      endedCallback = function(){
+        stopPoints.push(videoPlayer.duration;
+        console.log("video end");
+      },
+      prestartSync = function(){
+        if (presync) return false;
+        presync = true;
+        var duration = 5,
+            intervalCount = 0,
+            el = document.getElementById("recorder-status"),
+            interval = setInterval( function(){
+              intervalCount++;
+              el.innerHTML = intervalCount;
+              if (intervalCount == duration){
+                clearInterval(interval);
+                setTimeout(function() { startSync(); }, 1000);
+              }
+            }
+            , 1000 );
+      },
+      startSync = function(){
+        videoPlayer.play();
+        startRecord();
+        document.getElementById("sync-stop-start").innerHTML = "Stop sync";
+        syncBool = true;
+        presync = false;
+      },
+      stopSync = function(){
+        videoPlayer.pause();
+        stopRecord();
+        document.getElementById("sync-stop-start").innerHTML = "Start sync";
+        syncBool = false;
+      },
+      mergeFunc = function(){
+        var data = {  stopPoints: stopPoints,
+                      recordingFileName: recordingFileName,
+                      presentationVideoFileName: ' @file_name '
+                    };
+        $.ajax({
+          url: "/file/merge",
+          type: "POST",
+          dataType: "json",
+          data: data,
+          success: function(data){
+            console.log(data);
+          }
+        });
+      };
+
+  document.getElementById("sync-stop-start").addEventListener('click', function(){
+    syncBool ? stopSync() : prestartSync();
+  }
+  ,false);
+
+  document.getElementById("merge-video").addEventListener('click', function(){
+    syncBool ? alert("Stop sync") : mergeFunc();
+  }
+  ,false);
+
+  MediaElement('videoPlayer', {success: function(me) {
+    me.addEventListener("pause", pauseCallback);
+    me.addEventListener("ended", endedCallback);
+  }});

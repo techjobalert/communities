@@ -9,14 +9,16 @@
 #
 every 1.day, :at => '12:30 am' do
   rake "rake ts:rebuild"
+  runner "CarrierWave.clean_cached_files!"
 end
 every 10.minutes do
   rake "paypal:transfer"
+  rake "thinking_sphinx:index"
 end
 every 10.minutes do
   # command "/usr/bin/some_great_command"
   # runner "MyModel.some_method"
-  rake "thinking_sphinx:index"
+  # rake "thinking_sphinx:index"
 end
 #
 # every 4.days do

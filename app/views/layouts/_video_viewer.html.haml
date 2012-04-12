@@ -1,6 +1,10 @@
+- w||= 435
+- h||= 264
+- preload||= "none"
+
 -if attachment.is_processed_to_mp4?
   -att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
-%video{:controls => "controls", :height => "264", :poster => "#{attachment.get_thumbnail}", :preload => "none", :width => "435"}
+%video{:controls => "controls", :height => "#{h}", :poster => "#{attachment.get_thumbnail}", :preload => "#{preload}", :width => "#{w}", :id => "videoPlayer"}
   / MP4 for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7
   %source{:src => "#{att.url}", :type => "video/mp4"}/
   / WebM/VP8 for Firefox4, Opera, and Chrome
@@ -11,11 +15,46 @@
   / Optional: Add chapters
   / %track{:kind => "chapters", :src => "chapters.srt", :srclang => "en"}/
   / Flash fallback for non-HTML5 browsers without JavaScript
-  %object{:data => "/assets/flashmediaelement.swf", :height => "264", :type => "application/x-shockwave-flash", :width => "435"}
+  %object{:data => "/assets/flashmediaelement.swf", :height => "#{h}", :type => "application/x-shockwave-flash", :width => "#{w}"}
     %param{:name => "movie", :value => "/assets/flashmediaelement.swf"}/
     %param{:name => "flashvars", :value => "controls=true&file=#{att.url}"}/
     / Image as a last resort
-    %img{:height => "264", :src => "myvideo.jpg", :title => "No video playback capabilities", :width => "435"}
+    %img{:height => "#{h}", :src => "myvideo.jpg", :title => "No video playback capabilities", :width => "#{w}"}
 
 :javascript
-  $('video,audio').mediaelementplayer(/* Options */);
+  var mediaElement = $('#videoPlayer').mediaelementplayer(
+    {
+    // shows debug errors on screen
+    enablePluginDebug: false,
+    // remove or reorder to change plugin priority
+    plugins: ['flash','silverlight'],
+    // specify to force MediaElement to use a particular video or audio type
+    type: '',
+    // path to Flash and Silverlight plugins
+    pluginPath: '/assets/',
+    // name of flash file
+    flashName: 'flashmediaelement.swf',
+    // name of silverlight file
+    silverlightName: 'silverlightmediaelement.xap',
+    // default if the <video width> is not specified
+    defaultVideoWidth: 435,
+    // default if the <video height> is not specified
+    defaultVideoHeight: 264,
+    // overrides <video width>
+    pluginWidth: -1,
+    // overrides <video height>
+    pluginHeight: -1,
+    // rate in milliseconds for Flash and Silverlight to fire the timeupdate event
+    // larger number is less accurate, but less strain on plugin->JavaScript bridge
+    timerRate: 250,
+    // method that fires when the Flash or Silverlight object is ready
+    success: function (mediaElement, domObject) {
+      // mediaElement.addEventListener("pause", pauseCallback);
+      // mediaElement.addEventListener("ended", endedCallback);
+    },
+    // fires when a problem is detected
+    error: function (err) {
+      console.log(err);
+      showHideNotice("error", "video playback error");
+    }
+  });

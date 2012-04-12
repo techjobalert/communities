@@ -46,13 +46,6 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
-  version :video_thumbnail, :from_version => :mobile do
-    process :create_video_thumbnail
-    def full_filename (for_file = model.file.file)
-      "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
-    end
-  end
-
   version :mp4 do
     # process :convert_to_mp4 => {
     #           :audio_codec => 'libfaac',
@@ -65,10 +58,19 @@ class FileUploader < CarrierWave::Uploader::Base
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
     end
   end
+
   version :mobile, :from_version => :mp4 do
     process :hb_mobile_convert_to_mp4
+
     def full_filename (for_file = model.file.file)
       "mobile_#{File.basename(for_file, File.extname(for_file))}.mp4"
+    end
+  end
+
+  version :video_thumbnail, :from_version => :mp4 do
+    process :create_video_thumbnail
+    def full_filename (for_file = model.file.file)
+      "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
     end
   end
 
@@ -107,6 +109,16 @@ class FileUploader < CarrierWave::Uploader::Base
 
     File.delete current_path
     File.rename image_path, current_path
+    Resque.enqueue(SendProcessedMessage, model.id) if file
+    model.file_processing = nil
+  end
+
+  def merge_presenter_video
+    tmp  = current_path+".jpeg"
+    path = File.absolute_path(current_path)
+    file = ::FFMPEG::Movie.new(path)
+    file.transcode(tmp, :custom => "-ss #{h}:#{m}:#{s} -s 435x264 -vframes 1 -f image2")
+    File.rename tmp, current_path
     Resque.enqueue(SendProcessedMessage, model.id) if file
     model.file_processing = nil
   end

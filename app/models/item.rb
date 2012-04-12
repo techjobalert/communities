@@ -94,6 +94,26 @@ class Item < ActiveRecord::Base
     order.present?
   end
 
+  def common_video
+    presenter_merged_video or regular_video
+  end
+
+  def presenter_merged_video
+    attachments.select{|a| a.is_processed_to_mp4? && a.attachment_type == "presenter_merged_video"}.last
+  end
+
+  def presenter_video
+    attachments.select{|a| a.is_processed_to_mp4? && a.attachment_type == "presenter_video"}.last
+  end
+
+  def regular_video
+    attachments.select{|a| a.is_processed_to_mp4? && a.attachment_type == "regular"}.last
+  end
+
+  def regular_pdf
+    attachments.select{|a| a.is_pdf? or a.is_processed_to_pdf? }.last
+  end
+
   def attachment_thumb
 
     attachment = self.attachments.last

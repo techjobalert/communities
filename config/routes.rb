@@ -34,6 +34,7 @@ Orthodontic::Application.routes.draw do
     get     "qsearch",            :on => :collection
     get     "tags",               :on => :collection
     post    "upload_attachment"
+    post    "merge_presenter_video"
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do

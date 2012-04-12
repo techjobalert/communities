@@ -1,0 +1,82 @@
+.fl-l{:style => "width:900px"}
+  = render :partial => 'partials/webrecorder', :inline => true
+  .fl-r
+    = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video, :w => 565,:h=>320, :preload => true}, :inline => true
+  .clearfix
+    %ul.recorder-control.fl-l
+      %li#recorder-stop-start.button.c-white 1.Start record
+    %ul.recorder-control.fl-r
+      %li#recorder-status.recorder-icon{:style => "padding-top: 5px;"}
+    .clearfix
+
+:javascript
+  var videoPlayer = new MediaElementPlayer('#videoPlayer'),
+      _stopPoints = [0],
+      syncBool = false,
+      presync = false,
+      pauseCallback = function(){
+        var pos = videoPlayer.media.currentTime;
+        _stopPoints.push(pos);
+        console.log("add new stop point "+pos);
+      },
+      endedCallback = function(){
+        _stopPoints.push(videoPlayer.media.duration);
+        mergeFunc();
+        console.log("video end");
+      },
+      prestartSync = function(){
+        if (presync) return false;
+        presync = true;
+        var duration = 5,
+            intervalCount = 0,
+            el = document.getElementById("recorder-status"),
+            interval = setInterval( function(){
+              intervalCount++;
+              el.innerHTML = intervalCount;
+              if (intervalCount == duration){
+                clearInterval(interval);
+                setTimeout(function() { startSync(); }, 1000);
+              }
+            }
+            , 1000 );
+      },
+      startSync = function(){
+        videoPlayer.play();
+        startRecord();
+        document.getElementById("recorder-stop-start").innerHTML = "Stop sync";
+        syncBool = true;
+        presync = false;
+      },
+      stopSync = function(){
+        videoPlayer.pause();
+        stopRecord();
+        document.getElementById("recorder-stop-start").innerHTML = "Start sync";
+        syncBool = false;
+        stopPoints = _stopPoints;
+        _stopPoints = [0];
+        videoPlayer.media.setCurrentTime(0);
+        mergeFunc();
+      },
+      mergeFunc = function(){
+        var data = {  video_id: "#{@a_video.id}",
+                      record_file_name: recordingFileName};
+        $.ajax({
+          url: "#{item_merge_presenter_video_url(@item)}",
+          type: "POST",
+          dataType: "json",
+          data: data,
+          success: function(data){
+            eval(data);
+          }
+        });
+      };
+
+  document.getElementById("recorder-stop-start").addEventListener('click', function(){
+      syncBool ? stopSync() : prestartSync();
+    }
+    ,false);
+
+  MediaElement('videoPlayer', {success: function(me) {
+    me.addEventListener("pause", pauseCallback);
+    me.addEventListener("ended", endedCallback);
+  }});

@@ -37,7 +37,9 @@
     var page = pdfDoc.getPage(num);
     canvas.height = page.height * scale;
     canvas.width = page.width * scale;
-    page.startRendering(ctx);
+    setTimeout(function(){
+      page.startRendering(ctx)
+    },1000);
 
     // Update page counters
     document.getElementById('page_num').textContent = pageNum;

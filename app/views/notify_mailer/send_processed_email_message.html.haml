@@ -4,7 +4,8 @@
   Attachment file
   %i= @file_name
   for
-  %i= link_to @item.title, item_url(@item)
+  %i
+    =link_to @item.title, edit_item_path(@item, :step=>"preview")
   has been processed.
 
 %p
