@@ -1,9 +1,4 @@
 - content_for :title, item.title
-- if @items
-  - content_for :relevant_items do
-    %br
-    %h3 Relevant items:
-    = render :partial => 'items/list', :locals => {:items => @items}
 
 .content
   %h1

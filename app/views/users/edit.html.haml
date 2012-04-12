@@ -42,12 +42,21 @@
               %span Tell us more about yourself
             .body
               = f.text_area :bio
-          .education
-            = f.fields_for :educations do |edu_form|
-              = render "education_fields", :f => edu_form
-            %p.right= link_to_add_fields "Add Education", f, :educations
 
-            .right= f.submit 'OK', :class => 'light-button green'
+              .right= f.submit 'OK', :class => 'light-button green'
+
+        = form_for(current_user, :validate => true) do |f|
+          .edu-container
+            .education
+              - removable = false
+              - current_user.educations.new() unless current_user.educations.any?
+
+              = f.fields_for :educations do |edu_form|
+                = render :partial => "education_fields", :locals => {:f => edu_form, :removable => removable}
+                - removable = true
+            .right
+              = link_to_add_fields "Add Education", f, :educations
+              = f.submit 'OK', :class => 'light-button green'
 
       .b-privacy.b-settings-tab.hidden
         .b-settings-title Select profile settings to show everyone:

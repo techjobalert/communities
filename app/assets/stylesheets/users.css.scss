@@ -237,10 +237,17 @@
   .b-info {
     margin-left: 210px;
     .education {
-      width: 400px;
       margin: 0 0 20px;
       position: relative;
     }
+
+    .right {
+      text-align: right;
+      padding: 10px 0px 0;
+
+    }
+
+
     .bio {
       width: 400px;
       border: 1px solid #b8b479;
@@ -274,7 +281,7 @@
         font-size: 14px;
 
         textarea {
-          height: 55px;
+          height: 100px;
           padding: 6px;
           width: 350px;
           max-width: 350px;
@@ -289,34 +296,21 @@
         .right {
           text-align: right;
           padding: 10px 0px 0;
+          width: auto;
         }
       }
     }
-    .edu-fields{
-      border-radius: 10px;
-      border: 1px solid #B8B479;
-      padding: 0 0 15px 0;
-      margin-bottom: 15px;
-    }
+
+
     .form {
-      ul {
-        margin: 0;
-        padding: 0;
-      }
-
-      img {
-        margin: 5px 0 5px 0px;
-      }
-
-      #upcontainer {
-        margin-left: 171px;}
+      margin: 0;
+      padding: 0;
 
       li {
         list-style: none;
         padding: 5px 0;
         &.remove{
-          float:right;
-          padding-right: 15px;
+          text-align: right;
         }
       }
 
@@ -325,7 +319,7 @@
         float: left;
         font-size: 14px;
         line-height: 30px;
-        width: 160px;
+        width: 60px;
         text-align: right;
         margin-right: 10px;
       }
@@ -343,15 +337,14 @@
       .right {
         text-align: right;
         padding: 10px 0px 0;
-        width: 384px;
       }
     }
 
-    .right {
-      text-align: right;
-      padding: 10px 0px 0;
-      width: 384px;
-    }
+    .edu-container {
+      width: 250px; }
+
+    .edu-fields {
+      margin-top: 20px; }
 
     .light-button.green {
       padding: 5px 15px;
@@ -379,16 +372,19 @@
     padding: 9px 0 7px 20px;
     text-decoration: none;
     width: 153px;
-    -webkit-text-shadow: 1px 1px 0 #fff;
-    -moz-text-shadow: 1px 1px 0 #fff;
-    text-shadow: 1px 1px 0 #fff;
     margin-bottom: 8px;
+    -webkit-text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
+    -moz-text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.7);
 
     span {
       font-weight: normal;
       font-size: 11px;
       display: block;
-    }
+
+      -webkit-text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
+    -moz-text-shadow: 1px 1px 0 rgba(255,255,255,0.4);
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.4) }
 
     &:hover {
       color: #1B1E26;
