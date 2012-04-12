@@ -11,8 +11,10 @@ $(function() {
       flash_swf_url: "assets/plupload/plupload.flash.swf",
       multipart: true,
       multipart_params: {
-        authenticity_token: $("meta[name=csrf-token]").attr("content")},
-      filters: [{ title: "Images", extensions: "jpg,jpeg,png,JPG,JPEG,PNG"}]
+        authenticity_token: $("meta[name=csrf-token]").attr("content")
+      },
+      filters: [{ title: "Images", extensions: "jpg,jpeg,png,JPG,JPEG,PNG"}],
+      post_data: {}
     };
 
     // Extend base settings by options
@@ -45,6 +47,8 @@ $(function() {
 
     uploader.bind("BeforeUpload", function(up, file, info) {
       $('.spinner').removeClass('hidden');
+      if (Object.keys(settings.post_data).length)
+        $.extend(up.settings.multipart_params, settings.post_data);
     });
 
     uploader.bind("UploadComplete", function(up, files) {

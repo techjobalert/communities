@@ -1,33 +1,7 @@
-.b-upload-item__title
-  %b Make your conference
+= render :partial =>  @a_video ?  "items/form/preview_record_presenter_video": "items/form/preview_video_upload"
 
-.b-upload-item__uload-regular
-  #regular-upcontainer
-    .select-file Select File
-    .row
-      = link_to '#', :id => 'regular-pickfiles', :class => 'light-button green upload' do
-        Upload
-        %span
-
-      .btn-hint
-        It can be presentations,
-        %br
-        movie and articles.
-    .row
-      .fl-l#filelist
-
-:javascript
-  $(function(){
-    var uploaderAttachment = $.initPlupload({
-        url: "#{item_upload_attachment_path(@item)}",
-        filters: [],
-        max_file_size: "1000mb",
-        browse_button: "regular-pickfiles",
-        container: "regular-upcontainer"
-    });
-  })
-
-.b-upload-title Set preview
+.b-upload-title
+  Set preview
 
   .block
     = form_for '/' do |f|

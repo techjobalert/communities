@@ -10,10 +10,7 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
-      unless @item.attachments.blank?
-        @a_pdf = @item.attachments.select{|a| a.is_pdf? or a.is_processed_to_pdf? }.last
-        @a_video = @item.attachments.select{|a| a.is_processed_to_mp4?}.last
-      end
+      @a_pdf, @a_video = @item.regular_pdf, @item.common_video unless @item.attachments.blank?
       @items = Item.search(
         :q => @item.title,
         :without_ids => [*@item.id],
@@ -36,6 +33,10 @@ class ItemsController < InheritedResources::Base
 
   def edit
     @step = params[:step]
+    if not @item.attachments.blank? and @step == "preview"
+      @a_pdf, @a_video = @item.regular_pdf, @item.common_video
+      @uuid = SecureRandom.uuid.split("-").join()
+    end
   end
 
   def update
@@ -74,8 +75,8 @@ class ItemsController < InheritedResources::Base
   end
 
   def follow
-    if @following_item and not current_user.items.include?(@following_item)
-      current_user.follow(@following_item)
+    if @item and not current_user.items.include?(@item)
+      current_user.follow(@item)
       @notice = {:type => 'notice', :message => "success"}
     else
       @notice = {:type => 'error', :message => "You can't follow your item."}
@@ -84,8 +85,8 @@ class ItemsController < InheritedResources::Base
 
   def unfollow
     @message = ""
-    if current_user.following?(@following_item) and @following_item
-      current_user.stop_following(@following_item)
+    if current_user.following?(@item) and @item
+      current_user.stop_following(@item)
       @notice = {:type => 'notice', :message => "success"}
     else
       @notice = {:type => 'error', :message => "You can't unfollow your item."}
@@ -145,7 +146,6 @@ class ItemsController < InheritedResources::Base
 
   def add_to_contributors
     if params[:user_id]
-      @item = Item.find(params[:item_id])
       @user = User.find(params[:user_id])
       if @item.contributors.include? @user
         @notice = {:type => "error",
@@ -161,7 +161,6 @@ class ItemsController < InheritedResources::Base
 
   def delete_from_contributors
     if params[:user_id]
-      @item = Item.find(params[:item_id])
       @user = User.find(params[:user_id])
       if @user == current_user
         @notice = {:type => "error",
@@ -179,25 +178,36 @@ class ItemsController < InheritedResources::Base
   end
 
   def upload_attachment
-    @item = Item.find(params[:item_id])
     klass = Attachment
-    options = {:user => current_user, :file => params[:file], :item_id => @item.id}
-    base_upload(klass, params, options)
-  end
-
-  def upload_precenter_video
-
-    @item = Item.find(params[:item_id])
-
-    klass = PresenterVideo
     options = {
-      :user  => current_user,
-      :file  => params[:file],
-      :type  => "source_video",
-      :state => "transcoding",
+      :user => current_user,
+      :file => params[:file],
+      :attachment_type  => params[:attachment_type] || "regular",
       :item_id => @item.id
     }
     base_upload(klass, params, options)
+  end
+
+  def merge_presenter_video
+    record_file = File.open(
+      File.expand_path(
+        File.join(Rails.root, "..","video","webcam_records","#{params[:record_file_name]}")
+      )
+    )
+    presenter_video = Attachment.create!({
+      :file => record_file,
+      :user => current_user,
+      :attachment_type => "presenter_video"})
+    @item.attachments << presenter_video
+    Resque.enqueue(
+      VideoMerge,
+      params[:video_id],
+      presenter_video.id, {} )
+
+    @notice = {:type => 'notice', :message =>
+        "your files added to Q for merging"
+      }
+    render :partial => "layouts/notice", :locals => {:notice => @notice}
   end
 
   def pdf_page
@@ -234,10 +244,10 @@ class ItemsController < InheritedResources::Base
   protected
 
   def get_item
-    if params[:id].present?
-      @item = Item.find(params[:id])
+    @item = if params[:id].present?
+      Item.find(params[:id])
     elsif params[:item_id].present?
-      @following_item = Item.find(params[:item_id])
+      Item.find(params[:item_id])
     end
   end
 

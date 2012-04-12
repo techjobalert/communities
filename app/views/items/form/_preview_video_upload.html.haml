@@ -1,5 +1,5 @@
 .b-upload-item__title
-  %b Regular (Moveis, Presentation, Documents)
+  %b Make your conference
 
 .b-upload-item__uload-regular
   #regular-upcontainer
@@ -16,9 +16,6 @@
     .row
       .fl-l#filelist
 
-  %p.tools
-    =link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"preview"), {:class => 'light-button green'}
-
 :javascript
   $(function(){
     var uploaderAttachment = $.initPlupload({
@@ -27,6 +24,8 @@
         max_file_size: "1000mb",
         browse_button: "regular-pickfiles",
         container: "regular-upcontainer",
-        post_data: {attachment_type: "regular"}
+        post_data: {
+          post_data: {attachment_type: "presenter_video"}
+        }
     });
   })

@@ -15,12 +15,12 @@ class Ability
 
   def patient
     guest
-    can [:read], User
+    can :read, User
     can [:create, :create_transaction, :card_verification], Order
     can [:search, :qsearch], [User, Item]
     can :update, User, :id => @user.id
     can [:follow, :unfollow], [User, Item]
-    can [:follow, :upload_avatar, :crop_avatar, :send_message], [User]
+    can [:follow, :upload_avatar, :crop_avatar, :send_message], User
     can [:purchase,:payments_info], :account
   end
 
@@ -29,8 +29,8 @@ class Ability
 
     can :create, Item
     can :create, Comment
-    can [:send_message_to_followers], [User]
-    can [:read], Item do |item|
+    can :send_message_to_followers, User
+    can :read, Item do |item|
       owner_or_published?(item)
     end
     can :manage, [Comment, Item] do |obj|
@@ -38,7 +38,10 @@ class Ability
     end
 
     can [:items, :purchased_items], :account
-    can [:add_to_contributors, :delete_from_contributors, :users_search, :change_price], Item do |item|
+    can [ :add_to_contributors,
+          :delete_from_contributors,
+          :users_search, :change_price,
+          :merge_presenter_video], Item do |item|
       owner?(item)
     end
   end
