@@ -5,7 +5,7 @@
   %i= @file_name
   for
   %i
-    =link_to @item.title, edit_item_path(@item, :step=>"preview")
+    =link_to @item.title, edit_item_url(@item, :step=>"preview")
   has been processed.
 
 %p
