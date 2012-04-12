@@ -55,7 +55,7 @@
                     %span bla bla bla
                 %li
                   = link_to users_path, :class => "pjax tab-collegues large" do
-                    COLLEGUES
+                    COLLEAGUES
                     %span bla bla bla
                 %li
                   = link_to user_path(current_user), :class => "pjax tab-profile large" do
@@ -86,7 +86,6 @@
             %b= link_to 'Sign up', "#{root_path}#sign-up"
             in order to view content
         .section.center
-          %h3 Relevant items:
           #ajax-main-container{"data-pjax-container" => ""}
             .wrapper
               .main-content= yield

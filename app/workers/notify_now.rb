@@ -37,6 +37,7 @@ class NotifyNow
         receivers << event.actor
       end
     end
+
   	if not event.subject_type.in? subjects_list
   		if defined? event.subject.followers
         receivers << event.subject.followers
