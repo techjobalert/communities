@@ -7,16 +7,17 @@ class AccountController < ApplicationController
   end
 
   def purchase
-    @items = current_user.items.published.paid.page(params[:page]).per(3)
-  end
-
-  def purchased_items
     @items = current_user.orders
       .joins(:item)
       .select("items.*")
       .where("(orders.state = ? OR orders.state = ?) AND items.state = ?",
         "paid", "closed", "published")
       .page(params[:page]).per(3)
+
+  end
+
+  def purchased_items
+    @items = current_user.items.published.paid.page(params[:page]).per(3)
 
   end
 

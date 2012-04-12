@@ -1,12 +1,12 @@
 %h3
-  Your Purchase
+  Purchased Item
 .clear
 
 .list
   .list-header
     = render :partial => "navigation"
     .list-content
-      = render :partial => "account/account_list", :locals => {:items => @items}
+      = render :partial => "items/basic_list", :locals => {:items => @items}
 
 :javascript
   changeNavigationTab(".tab-account");
