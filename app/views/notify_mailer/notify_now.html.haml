@@ -20,9 +20,17 @@
     = link_to @notify.subject.title, item_url(@notify.subject)
 
 - if @notify.subject_type == "User"
-  %h3
-    = link_to @notify.actor.full_name, user_url(@notify.actor)
-    = "#{@notify.event_type.split("_").first} profile"
+  - if @notify.secondary_subject_type == "Order"
+    %h3
+      User
+      = link_to @notify.actor.full_name, user_url(@notify.actor)
+      your following bought item
+      - item = Item.find(@notify.subject_id)
+      = link_to raw("&laquo;#{item.title}&raquo;"), item_url(item)
+  - else
+    %h3
+      = link_to @notify.actor.full_name, user_url(@notify.actor)
+      = "#{@notify.event_type.split("_").first} profile"
 
 - if @notify.subject_type == "Comment"
   %h3
@@ -36,5 +44,6 @@
     - action = @notify.event_type.split("_").first
     = "#{action} you #{action == "added" ? 'to' : 'from' } the authors"
     = link_to @notify.secondary_subject.title, item_url(@notify.secondary_subject)
+
 %br
 = "Email created #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}"
