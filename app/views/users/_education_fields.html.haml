@@ -1,4 +1,4 @@
-%div.edu-fields
+.edu-fields
   %ul.form
     %li
       %strong= f.label :country
@@ -16,5 +16,6 @@
       %strong= f.label :school
       = f.text_field :school, :require => true
 
-    %li.remove
-      = link_to_remove_fields "remove", f
+    - if removable
+      %li.remove
+        = link_to_remove_fields "remove", f

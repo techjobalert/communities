@@ -21,7 +21,7 @@
     .clear
     .section.center
       - if current_user.present?
-        .wrapper
+        .wrapper{"data-pjax-container" => ""}
           .main-content
             .user-info
               = image_tag current_user.avatar_url(:thumb_70), :alt => "#{current_user.full_name}", :id => "popup-user-#{current_user.id}", :class => "popup-user-info my-thumb_70"
@@ -62,9 +62,12 @@
                     YOUR PROFILE
                     %span bla bla bla
 
-            .panel#ajax-main-container{"data-pjax-container" => ""}= yield
+            .panel#ajax-main-container= yield
 
-          = content_for_or_pjax(:relevant_items)
+          - if params[:controller] == 'items' && params[:action] == 'show' && @items
+            %br
+            %h3 Relevant items:
+            = render :partial => 'items/list', :locals => {:items => @items}
 
           .l-settings-navigation{:class => "#{'hidden' unless params[:controller] == 'users' && params[:action] == 'edit'}"}
             .b-settings-nav
@@ -79,9 +82,6 @@
                 = link_to '#', :id => "b-privacy", :class => "b-settings-nav-privacy"  do
                   Privacy
                   %span Privacy settings
-
-
-
 
       - else
         %h1
