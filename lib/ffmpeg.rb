@@ -35,22 +35,18 @@ module CarrierWave
       File.rename tmp_path, current_path
     end
 
-    def convert_to_mp4 *args
+    def convert_to_webm *args
       options = args.inject({}){|o, p| o[p.first] = p.last; o } # combining hash from array of pairs
       tmp_path = uuid_name(current_path)
 
       file = ::FFMPEG::Movie.new(tmp_path)
-      tmp_mp4 = tmp_path+".mp4"
-      tmp_st_mp4 = tmp_path+"st_.mp4"
-      file.transcode(tmp_mp4 , options)
-      p "running qt-faststart"
-      command = %x[qt-faststart #{tmp_mp4} #{tmp_st_mp4}]
-      File.rename tmp_st_mp4, current_path
+      tmp_webm = tmp_path+".webm"
+      file.transcode(tmp_webm , options)
+      File.rename tmp_webm, current_path
       File.delete( tmp_path )
-      File.delete( tmp_mp4 )
     end
 
-    def create_video_thumbnail(h="00",m="00",s="02.0")
+    def create_video_thumbnail(h="00",m="00",s="01.0")
       # args = [h,m,s]
       # args.each_with_index do |t, index|
       #   if index != 0 and d = t.div(60)
