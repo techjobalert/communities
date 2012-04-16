@@ -51,3 +51,23 @@
 
   %p.tools
     = f.submit raw('Next Step &raquo;'), :class => 'light-button green'
+
+  :javascript
+    $( "#add-collegues-to-item-link:ui-dialog" ).dialog( "destroy" );
+    $( "#add-collegues-to-item" ).dialog({
+      resizable: false,
+      autoOpen: false,
+      width: 410,
+      height: 400,
+      modal: true,
+      buttons: {
+        "Close": function() {
+          $( this ).dialog( "close" );
+        }
+      },
+      open: function(event, ui) { $("#collegues-add-form form").submit()}
+    });
+    $( "#add-collegues-to-item-link" ).click(function() {
+      $( "#add-collegues-to-item").dialog( "open" );
+      return false;
+    });

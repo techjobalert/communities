@@ -34,7 +34,7 @@ class ItemsController < InheritedResources::Base
   def edit
     @step = params[:step]
     if not @item.attachments.blank? and @step == "preview"
-      @a_pdf, @a_video = @item.regular_pdf, @item.common_video
+      @a_pdf, @a_video = @item.regular_pdf, @item.regular_video
       @uuid = SecureRandom.uuid.split("-").join()
     end
   end
