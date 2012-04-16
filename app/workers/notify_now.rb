@@ -27,9 +27,11 @@ class NotifyNow
     end
     if event.subject_type == "Item"
       item = event.subject
-      if item and item.state == "published"
-        receivers << event.subject.followers.select{|f| f.following_published == "1"}
-        receivers << event.subject.user.followers.select{|f| f.following_published == "1"}
+      if event.secondary_subject_type == "Order"
+        receivers << event.actor.followers
+      elsif item and item.state == "published"
+          receivers << event.subject.followers.select{|f| f.following_published == "1"}
+          receivers << event.subject.user.followers.select{|f| f.following_published == "1"}
       end
     end
     if event.subject_type == "Contribution"

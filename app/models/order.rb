@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
 
   fires :updated_item,    :on     => :update,
                           :actor  => :user,
-                          :subject => :user,
+                          :subject => :item,
                           :secondary_subject => :self,
                           :if => lambda { |order| order.state == "paid" && order.purchased_at.present? }
 
