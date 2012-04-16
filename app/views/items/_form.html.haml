@@ -4,32 +4,11 @@
     = link_to raw("Create item &raquo;"), "#{@item.id ? edit_item_path(@item.id) : new_item_path()}", :class => "#{'active' if step == 'description'} pjax"
     = link_to raw("Additional information &raquo;"), "#{edit_item_path(@item.id, :step => 'additional') if @item.id}", :class => "#{'active' if step == 'additional'} #{'disabled' unless @item.id} pjax"
     = link_to raw("Upload content &raquo;"), "#{edit_item_path(@item.id, :step => 'upload') if @item.id}", :class => "#{'active' if step == 'upload'} #{'disabled' unless @item.id} pjax"
-    = link_to raw("Presenter video &raquo;"), "#{edit_item_path(@item.id, :step => 'preview') if @item.id and step == 'preview'}", :class => "#{'active' if step == 'preview'} #{'disabled' unless @item.id and step == 'preview'} pjax"
+    = link_to raw("Presenter video &raquo;"), "#{edit_item_path(@item.id, :step => 'preview') if @item.id and @item.presenter_video}", :class => "#{'active' if step == 'preview'} #{'disabled' unless @item.id and @item.presenter_video} pjax"
 
   .b-upload-item__step
     = render :partial => "items/form/#{step}"
 
 :javascript
-  $( "#add-collegues-to-item-link:ui-dialog" ).dialog( "destroy" );
-
-  $( "#add-collegues-to-item" ).dialog({
-    resizable: false,
-    autoOpen: false,
-    width: 410,
-    height: 400,
-    modal: true,
-    buttons: {
-      "Close": function() {
-        $( this ).dialog( "close" );
-      }
-    },
-    open: function(event, ui) { $("#collegues-add-form form").submit()}
-  });
-
-  $( "#add-collegues-to-item-link" ).click(function() {
-    $( "#add-collegues-to-item").dialog( "open" );
-    return false;
-  });
-
   changeNavigationTab(".tab-item");
 
