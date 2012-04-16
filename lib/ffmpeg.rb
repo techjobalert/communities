@@ -41,6 +41,7 @@ module CarrierWave
 
       file = ::FFMPEG::Movie.new(tmp_path)
       tmp_webm = tmp_path+".webm"
+      options[:audio_bitrate] = 32 if File.extname(current_path) == ".3gp"
       file.transcode(tmp_webm , options)
       File.rename tmp_webm, current_path
       File.delete( tmp_path )

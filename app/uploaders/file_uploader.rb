@@ -63,8 +63,9 @@ class FileUploader < CarrierWave::Uploader::Base
     process :convert_to_webm => {
               :audio_codec => 'libvorbis',
               :video_codec => 'libvpx',
+              :audio_bitrate => '128',
               :threads => 1,
-              :custom => "-quality good -cpu-used 0 -b:v 500k -qmin 10 -qmax 42 -maxrate 500k -bufsize 1000k -b:a 128k -r 23.976"
+              :custom => "-quality good -b:v 500k -qmin 10 -qmax 42 -maxrate 500k -bufsize 1000k"
             }
     def full_filename (for_file = model.file.file)
       "webm_#{File.basename(for_file, File.extname(for_file))}.webm"
@@ -74,7 +75,8 @@ class FileUploader < CarrierWave::Uploader::Base
   version :mobile, :from_version => :webm do
     process :convert_to_webm => {
           :threads => 1,
-          :custom => "-vf scale=-1:360"
+          :resolution => "320x240",
+          :custom => ""
         }
     def full_filename (for_file = model.file.file)
       "mobile_#{File.basename(for_file, File.extname(for_file))}.webm"
