@@ -5,7 +5,7 @@ class VideoMerge
     p_att = File.join(Rails.root.to_s,"public", Attachment.find(present_attachment_id).file.webm.to_s)
     recorded_attachment = Attachment.find(recorded_attachment_id)
     r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
-    output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".mp4")
+    output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
     # add_logo = false
     # logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
@@ -19,7 +19,7 @@ class VideoMerge
       :recordedV => r_att,
       :pos => self.add_position(),
       :pad => self.add_pad(),
-      :settings => '-map 0:0 -map 1:1 -codec:v libvpx -quality good -codec:a libvorbis'
+      :settings => '-map 0:0 -map 1:1 -codec:v libvpx -quality good -cpu-used 0 -b:v 500k -qmin 10 -qmax 42 -maxrate 500k -bufsize 1000k-vf -codec:a libvorbis -b:a 128k'
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
       #               -copyright "2012"
