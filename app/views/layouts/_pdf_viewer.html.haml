@@ -28,7 +28,8 @@
       pageNum = 1,
       scale = 1.5,
       canvas = document.getElementById('the-canvas'),
-      ctx = canvas.getContext('2d');
+      ctx = canvas.getContext('2d'),
+      renderingPage = false;
 
   //
   // Get page info from document, resize canvas accordingly, and render page
@@ -37,13 +38,12 @@
     var page = pdfDoc.getPage(num);
     canvas.height = page.height * scale;
     canvas.width = page.width * scale;
-    setTimeout(function(){
-      page.startRendering(ctx)
-    },1000);
+    page.startRendering(ctx)
 
     // Update page counters
     document.getElementById('page_num').textContent = pageNum;
     document.getElementById('page_count').textContent = pdfDoc.numPages;
+    renderingPage = false;
   }
 
   //
@@ -52,8 +52,14 @@
   function goPrevious() {
     if (pageNum <= 1)
       return;
-    pageNum--;
-    renderPage(pageNum);
+    if (renderingPage == false){
+      renderingPage = true;
+      setTimeout(function(){
+        pageNum--;
+        renderPage(pageNum);
+      },1500);
+    }
+    else showHideNotice("notice", "page rendering");
   }
 
   //
@@ -62,8 +68,14 @@
   function goNext() {
     if (pageNum >= pdfDoc.numPages)
       return;
-    pageNum++;
-    renderPage(pageNum);
+    if (renderingPage == false){
+      renderingPage = true;
+      setTimeout(function(){
+        pageNum++;
+        renderPage(pageNum);
+      },1500);
+    }
+    else showHideNotice("notice", "page rendering");
   }
 
   //
