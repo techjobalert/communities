@@ -2,9 +2,9 @@ class VideoMerge
   @queue = :store_asset
 
   def self.perform(present_attachment_id, recorded_attachment_id, params)
-    p_att = File.join(Rails.root.to_s,"public", Attachment.find(present_attachment_id).file.mp4.to_s)
+    p_att = File.join(Rails.root.to_s,"public", Attachment.find(present_attachment_id).file.webm.to_s)
     recorded_attachment = Attachment.find(recorded_attachment_id)
-    r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.mp4.to_s)
+    r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".mp4")
 
     # add_logo = false
@@ -19,7 +19,7 @@ class VideoMerge
       :recordedV => r_att,
       :pos => self.add_position(),
       :pad => self.add_pad(),
-      :settings => '-map 0:0 -map 1:1 -acodec libfaac -vcodec libx264'
+      :settings => '-map 0:0 -map 1:1 -codec:v libvpx -quality good -codec:a libvorbis'
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
       #               -copyright "2012"
