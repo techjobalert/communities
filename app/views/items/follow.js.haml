@@ -1,8 +1,8 @@
 - if @notice[:type] != "error"
-  var fbutton = $(".follow-item-#{@following_item.id}");
+  var fbutton = $(".follow-item-#{@item.id}");
   if (fbutton){
   fbutton.text("Unfollow item").append("<span/>");
-  fbutton.data("method", "delete").attr("href", "#{item_unfollow_path(@following_item)}");
+  fbutton.data("method", "delete").attr("href", "#{item_unfollow_path(@item)}");
   }
 - else
   showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
