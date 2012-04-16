@@ -7,12 +7,19 @@ class AccountController < ApplicationController
   end
 
   def purchase
-    @items = current_user.orders
-      .joins(:item)
-      .select("items.*")
-      .where("(orders.state = ? OR orders.state = ?) AND items.state = ?",
-        "paid", "closed", "published")
-      .page(params[:page]).per(3)
+    # @items = current_user.orders
+    #   .joins(:item)
+    #   .select("items.*")
+    #   .where("(orders.state = ? OR orders.state = ?) AND items.state = ?",
+    #     "paid", "closed", "published")
+    #   .page(params[:page]).per(3)
+
+    items = current_user.orders
+      .includes(:item)
+      .select{ |o| o.state == 'paid' || o.state == 'closed' }
+      .map{ |o| o.item if o.item.state == 'published' }
+
+    @items = Kaminari.paginate_array(items).page(params[:page]).per(3)
 
   end
 

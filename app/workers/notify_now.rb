@@ -17,6 +17,7 @@ class NotifyNow
         end
       end
     end
+
   	if event.subject_type == "Follow"
       followable = event.subject.followable
       if followable.is_a? User and followable.following_me == "1"
@@ -25,13 +26,17 @@ class NotifyNow
         receivers << followable.user
       end
     end
+
     if event.subject_type == "Item"
       item = event.subject
-      if item and item.state == "published"
-        receivers << event.subject.followers.select{|f| f.following_published == "1"}
-        receivers << event.subject.user.followers.select{|f| f.following_published == "1"}
+      if event.secondary_subject_type == "Order"
+        receivers << event.actor.followers
+      elsif item and item.state == "published"
+          receivers << event.subject.followers.select{|f| f.following_published == "1"}
+          receivers << event.subject.user.followers.select{|f| f.following_published == "1"}
       end
     end
+
     if event.subject_type == "Contribution"
       if event.actor.added_as_author == "1" and event.secondary_subject.user != event.actor
         receivers << event.actor
