@@ -42,8 +42,8 @@ class Item < ActiveRecord::Base
   fires :created_item,    :on     => :create,
                           :actor  => :user
 
-  fires :updated_item,    :on     => :update,
-                          :actor  => :user
+  # fires :updated_item,    :on     => :update,
+  #                         :actor  => :user
 
   fires :destroyed_item,  :on     => :destroy,
                           :actor  => :user
