@@ -17,7 +17,7 @@ class AccountController < ApplicationController
     items = current_user.orders
       .includes(:item)
       .select{ |o| o.state == 'paid' || o.state == 'closed' }
-      .map{ |o| o.item if o.item.state == 'published' }
+      .map{ |o| o.item if o.item.present? and o.item.state == 'published' }
 
     @items = Kaminari.paginate_array(items).page(params[:page]).per(3)
 
