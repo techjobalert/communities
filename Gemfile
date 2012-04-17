@@ -32,6 +32,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'thin'
   gem 'turn', :require => false
+  gem 'rails-erd'
 end
 
 group :production do

@@ -2,17 +2,13 @@ class AccountController < ApplicationController
   authorize_resource :class => false
 
   def items
-    @items  = current_user.items.published.page(params[:page]).per(3)
+    @items  = current_user.items
+      .published
+      .page(params[:page]).per(3)
     @notice = params[:notice]
   end
 
   def purchase
-    # @items = current_user.orders
-    #   .joins(:item)
-    #   .select("items.*")
-    #   .where("(orders.state = ? OR orders.state = ?) AND items.state = ?",
-    #     "paid", "closed", "published")
-    #   .page(params[:page]).per(3)
 
     items = current_user.orders
       .includes(:item)
@@ -24,7 +20,9 @@ class AccountController < ApplicationController
   end
 
   def purchased_items
-    @items = current_user.items.published.paid.page(params[:page]).per(3)
+    @items = current_user.items
+      .purchased
+      .page(params[:page]).per(3)
 
   end
 

@@ -34,7 +34,8 @@ class User < ActiveRecord::Base
             inverse_of: :user
 
   has_many :contributions, foreign_key: :contributor_id
-  has_many :items, through: :contributions
+  has_many :contibution_items, through: :contributions
+  has_many :items
   has_many :approvals, class_name: :Item, :foreign_key => "approved_by"
   has_many :educations, :dependent => :destroy
   has_many :orders

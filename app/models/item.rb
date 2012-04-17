@@ -23,6 +23,8 @@ class Item < ActiveRecord::Base
   scope :new_in_last_year, where(:created_at => ((Time.now.years_ago 1)..Time.now))
   scope :paid, where("price != 0")
   scope :free, where(:price => 0 )
+  scope :by_user, lambda{ |user| where("user_id = ?", user.id) }
+  scope :purchased, where("amount != 0")
 
   # Handlers
   before_create  :add_to_contributors

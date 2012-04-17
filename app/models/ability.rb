@@ -40,7 +40,8 @@ class Ability
     can [:items, :purchased_items], :account
     can [ :add_to_contributors,
           :delete_from_contributors,
-          :users_search, :change_price,
+          :users_search,
+          :change_price,
           :merge_presenter_video], Item do |item|
       owner?(item)
     end
