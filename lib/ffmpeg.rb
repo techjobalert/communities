@@ -8,6 +8,10 @@ module CarrierWave
         process :convert_to_mp4 => options
       end
 
+      def convert_to_webm options
+        process :convert_to_webm => options
+      end
+
       def hb_convert_to_mp4 options
         process :hb_convert_to_mp4 => options
       end
@@ -36,14 +40,11 @@ module CarrierWave
     end
 
     def convert_to_webm *args
-      options = args.inject({}){|o, p| o[p.first] = p.last; o } # combining hash from array of pairs
-      tmp_path = uuid_name(current_path)
+      convert_to(".webm", *args)
+    end
 
-      file = ::FFMPEG::Movie.new(tmp_path)
-      tmp_webm = tmp_path+".webm"
-      file.transcode(tmp_webm , options)
-      File.rename tmp_webm, current_path
-      File.delete( tmp_path )
+    def convert_to_mp4 *args
+      convert_to(".mp4", *args)
     end
 
     def create_video_thumbnail(h="00",m="00",s="01.0")
@@ -74,6 +75,18 @@ module CarrierWave
       tmp_path  = File.join( directory, tmp_file )
       File.rename current_path, tmp_path if rename_parent
       tmp_path
+    end
+
+    def convert_to format, *args
+      options = args.inject({}){|o, p| o[p.first] = p.last; o } # combining hash from array of pairs
+      tmp_path = uuid_name(current_path)
+
+      file = ::FFMPEG::Movie.new(tmp_path)
+      tmp_webm = tmp_path+format
+      options[:audio_bitrate] = 32 if File.extname(current_path) == ".3gp"
+      file.transcode(tmp_webm , options)
+      File.rename tmp_webm, current_path
+      File.delete( tmp_path )
     end
   end
 end
