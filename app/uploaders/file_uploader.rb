@@ -13,6 +13,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf_thumbnail,       :if => :is_pdf?
 
   version :webm,                :if => :is_video?
+  version :mp4,                 :if => :is_video?
   version :mobile,              :if => :is_video?
   version :video_thumbnail,     :if => :is_video?
 
@@ -58,6 +59,13 @@ class FileUploader < CarrierWave::Uploader::Base
   #     "mobile_#{File.basename(for_file, File.extname(for_file))}.mp4"
   #   end
   # end
+
+  version :mp4 do
+    process :hb_convert_to_mp4
+    def full_filename (for_file = model.file.file)
+      "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
+    end
+  end
 
   version :webm do
     process :convert_to_webm => {
