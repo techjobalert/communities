@@ -23,7 +23,7 @@ class Attachment < ActiveRecord::Base
       "presentation"
     end
 
-    update_attribute(:attachment_type, item_type)
+    item.update_attribute(:attachment_type, item_type)
   end
 
   def extension_is?(exts)
