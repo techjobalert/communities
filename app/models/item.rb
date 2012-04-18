@@ -101,15 +101,15 @@ class Item < ActiveRecord::Base
   end
 
   def presenter_merged_video
-    attachments.select{|a| a.is_processed_to_webm? && a.attachment_type == "presenter_merged_video"}.last
+    attachments.select{|a| a.is_processed_to_video? && a.attachment_type == "presenter_merged_video"}.last
   end
 
   def presenter_video
-    attachments.select{|a| a.is_processed_to_webm? && a.attachment_type == "presenter_video"}.last
+    attachments.select{|a| a.is_processed_to_video? && a.attachment_type == "presenter_video"}.last
   end
 
   def regular_video
-    attachments.select{|a| a.is_processed_to_webm? && a.attachment_type == "regular"}.last
+    attachments.select{|a| a.is_processed_to_video? && a.attachment_type == "regular"}.last
   end
 
   def regular_pdf

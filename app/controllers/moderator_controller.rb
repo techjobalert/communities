@@ -13,7 +13,7 @@ class ModeratorController < ApplicationController
   def item_show
     unless @item.attachments.blank?
       @a_pdf = @item.attachments.select{|a| a.is_pdf? or a.is_processed_to_pdf? }.last
-      @a_video = @item.attachments.select{|a| a.is_processed_to_webm?}.last
+      @a_video = @item.attachments.select{|a| a.is_processed_to_video?}.last
     end
   end
 
