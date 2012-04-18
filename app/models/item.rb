@@ -25,6 +25,7 @@ class Item < ActiveRecord::Base
   scope :free, where(:price => 0 )
   scope :by_user, lambda{ |user| where("user_id = ?", user.id) }
   scope :purchased, where("amount != 0")
+  scope :content_type, lambda {|attachment_type| where(:attachment_type => attachment_type)}
 
   # Handlers
   before_create  :add_to_contributors
@@ -50,10 +51,14 @@ class Item < ActiveRecord::Base
   fires :destroyed_item,  :on     => :destroy,
                           :actor  => :user
 
-  state_machine :state, :initial => :moderated do
+  state_machine :state, :initial => :draft do
+
+    event :edit do
+      transition [:denied, :published, :moderated] => :draft
+    end
 
     event :moderate do
-      transition [:denied, :published] => :moderated
+      transition [:draft, :published] => :moderated
     end
 
     event :publish do
