@@ -9,6 +9,11 @@
       %li#recorder-status.recorder-icon{:style => "padding-top: 5px;"}
     .clearfix
 
+  = radio_button_tag "pos", "br", true, :title => "bottom right"
+  = radio_button_tag "pos", "mr", false, :title => "middle right"
+  = radio_button_tag "pos", "tl", false, :title => "top left"
+  = radio_button_tag "pos", "ml", false, :title => "middle left"
+
 :javascript
   var videoPlayer = new MediaElementPlayer('#videoPlayer'),
       _stopPoints = [0],
@@ -59,7 +64,8 @@
       },
       mergeFunc = function(){
         var data = {  video_id: "#{@a_video.id}",
-                      record_file_name: recordingFileName};
+                      record_file_name: recordingFileName,
+                      pos: $("input[type=radio]:checked").val()};
         $.ajax({
           url: "#{item_merge_presenter_video_url(@item)}",
           type: "POST",
