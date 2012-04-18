@@ -51,10 +51,16 @@ class ItemsController < InheritedResources::Base
       @item.tag_list = tag_list
     end
 
-    if @item.update_attributes params[:item]
+    @item.attributes = params[:item]
+
+    if @item.changed?
+      @item.edit
       @notice = {:type => "notice", :message => "Item is updated."}
+      unless @item.save
+        @notice = {:type => "error", :message => "error"}
+      end
     else
-      @notice = {:type => "error", :message => "error"}
+      @notice = {:type => "notice", :message => "Item is not changed."}
     end
   end
 
@@ -222,9 +228,17 @@ class ItemsController < InheritedResources::Base
 
   def change_price
     @item = Item.find(params[:item_id])
+    @item.attributes = params[:item]
 
-    if price = params[:item][:price]
-      @item.moderate if @item.update_attribute(:price, price)
+    if @item.changed?
+      if @item.state == "published"
+        @item.moderate
+        additional_message = " Item will be published after premoderation."
+      end
+      @item.save
+      @notice = {
+        :type => "notice",
+        :message => "Item is updated.#{additional_message}" }
     end
   end
 
@@ -241,6 +255,13 @@ class ItemsController < InheritedResources::Base
     else
       @notice = {:type => "error", :message => "error"}
     end
+  end
+
+  def publish
+    @item.moderate
+    @notice = {
+        :type => "notice",
+        :message => "Item will be published after premoderation." }
   end
 
   protected

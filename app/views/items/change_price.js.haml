@@ -1,3 +1,5 @@
-- price = @item.price > 0 ? "#{@item.price}$" : 'free'
-$("#item-#{@item.id}").attr("class","item #{@item.state}").find(".price>span").html("#{price}");
-$("#item-#{@item.id}").find(".change").remove();
+- if @notice
+  showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
+
+  - price = @item.price > 0 ? "#{@item.price}$" : 'free'
+  $("#item-#{@item.id}").attr("class","item #{@item.state}").find(".price>span").html("#{price}");

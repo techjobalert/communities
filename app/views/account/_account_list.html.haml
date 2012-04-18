@@ -7,19 +7,19 @@
           Price:
           %span= price
 
-        = link_to 'Change price', '#', :class => 'change', :id => "change-price-#{item.id}" unless item.moderated?
+        = link_to 'Change price', '#', :class => 'change', :id => "change-price-#{item.id}"
         = link_to item_path(item), :method => "delete", :remote => true , :confirm => 'Are you sure?', :class => 'delete no-history' do
           Delete Item
           %span
       = link_to item_path(item), :class => "media" do
         = image_tag item.attachment_thumb, :class => 'popup-item-info', :id => "popup-item-#{item.id}", :width => "265", :height => "200"
-        .info
-          .purchase
-            %span
-            = "Purchase: #{item.amount}"
-          .view
-            %span
-            = "Views: #{item.views_count}"
+      .info
+        .purchase
+          %span
+          = "Purchase: #{item.amount}"
+        .view
+          %span
+          = "Views: #{item.views_count}"
 
       = link_to item_path(item), :class => "text" do
         = item.description.truncate(120, :separator => " ")

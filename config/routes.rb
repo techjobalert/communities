@@ -27,6 +27,7 @@ Orthodontic::Application.routes.draw do
     delete  "delete_from_contributors"
     post    "add_to_contributors"
     put     "change_price"
+    put     "publish"
     put     "change_keywords"
     get     "users_search"
     get     "pdf_page"

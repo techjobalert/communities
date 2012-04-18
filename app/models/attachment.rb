@@ -12,6 +12,20 @@ class Attachment < ActiveRecord::Base
   process_in_background :file
   store_in_background   :file
 
+  before_create :set_item_type
+
+  def set_item_type
+    item_type = if self.is_pdf? or self.is_processed_to_pdf?
+      "article"
+    elsif self.is_processed_to_video?
+      "video"
+    else
+      "presentation"
+    end
+
+    item.update_attribute(:attachment_type, item_type)
+  end
+
   def extension_is?(exts)
     dot_exts = []
     dot_exts << "."+exts if exts.is_a? String
