@@ -1,4 +1,4 @@
-- step =  @notice[:type] == "error" ? "description" : "additional"
+- step =  @notice[:type] == "error" ? "description" : "upload"
 
 $("#ajax-main-container").html("#{escape_javascript(render :partial => 'form', :locals => {:step => step})}");
 
