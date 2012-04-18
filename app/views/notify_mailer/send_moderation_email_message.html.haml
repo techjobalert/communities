@@ -2,8 +2,8 @@
 
 - unless @message_text.blank?
   %p
-    Publishing of your
-    %i= "\"#{@item_title}\""
+    Publishing of your item
+    %i= raw "&laquo;#{@item_title}&raquo;"
     has been denied.
   %p
     %strong Deny reason:
@@ -11,8 +11,8 @@
     = raw(@message_text)
 - else
   %p
-    Your
-    %i= "\"#{@item_title}\""
+    Your item
+    %i= raw "&laquo;#{@item_title}&raquo;"
     has been published.
 
 %p

@@ -8,28 +8,28 @@
           - if current_user.role?("doctor")
             %li
               = f.check_box :following_me
-              = label "_radio", "following_me", "Someone following me"
+              = label "_radio", "following_me", "Someone following me."
             %li
               = f.check_box :added_as_author
-              = label "_radio", "added_as_author", "Someone added you has a author of an item"
+              = label "_radio", "added_as_author", "Someone has added you to the authors of an item."
             %li
               = f.check_box :following_item
-              = label "_radio", "following_item", "Someone started following your item"
+              = label "_radio", "following_item", "Someone started following your item."
             %li
               = f.check_box :commented_item
-              = label "_radio", "commented_item", "Someone commented on your item"
+              = label "_radio", "commented_item", "Someone has commented on your item."
             %li
               = f.check_box :recommended_comment
-              = label "_radio", "recommended_comment", "Someone recommended your comment"
+              = label "_radio", "recommended_comment", "Someone has recommended your comment."
           %li
             = f.check_box :following_published
-            = label "_radio", "following_published", "Someone of my following has published something"
+            = label "_radio", "following_published", "Someone of my following has published something."
           %li
             = f.check_box :following_bought_item
-            = label "_radio", "following_bought_item", "Someone you are following bought an item"
+            = label "_radio", "following_bought_item", "Someone you are following has bought an item."
           %li
             = f.check_box :item_changes
-            = label "_radio", "item_changes", "Item you following as changed or updated (price, title, summary goes from paid to free and etc)"
+            = label "_radio", "item_changes", "Item you are following has been changed or updated (price, title, summary, became free or commercial and etc.)"
 
           %li.submit= f.submit 'Save changes', :class => 'light-button green'
 

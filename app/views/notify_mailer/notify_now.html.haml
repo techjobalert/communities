@@ -3,11 +3,20 @@
 - if @notify.subject_type == "Follow"
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
-    = "has #{@notify.event_type.split("_").first} to follow #{@notify.secondary_subject_type.underscore}"
+
+    = "has #{@notify.event_type.split("_").first} to follow "
+
     - if @notify.secondary_subject_type == "Item"
+      = "your " if @notify.secondary_subject.user == @owner
+      = "#{@notify.secondary_subject_type.underscore}"
       = link_to @notify.secondary_subject.title, item_url(@notify.secondary_subject)
+
     - elsif @notify.secondary_subject_type == "User"
-      = link_to @notify.secondary_subject.full_name, user_url(@notify.secondary_subject)
+
+      - if @notify.secondary_subject == @owner
+        = "you."
+      - else
+        = link_to @notify.secondary_subject.full_name, user_url(@notify.secondary_subject)
 
 / Create/Update Item
 - if @notify.subject_type == "Item"
@@ -15,14 +24,14 @@
     %h3
       User
       = link_to @notify.actor.full_name, user_url(@notify.actor)
-      your following bought item
+      has bought the item
       - item = Item.find(@notify.subject_id)
       = link_to raw("&laquo;#{item.title}&raquo;"), item_url(item)
   - else
     %h3
       = link_to @notify.actor.full_name, user_url(@notify.actor)
       -if @notify.subject.state == "published" and @notify.subject.moderated_at and (@notify.subject.moderated_at..@notify.subject.moderated_at+60).cover?(Time.now.utc)
-        created new item
+        has created new item
       -else
         = "#{@notify.event_type.split("_").first} item"
       = link_to @notify.subject.title, item_url(@notify.subject)
@@ -35,14 +44,17 @@
 - if @notify.subject_type == "Comment"
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
-    = "#{@notify.event_type.split("_").first} comment "
+    - if @notify.event_type == "created_comment"
+      = "created comment on #{' your' if @notify.subject.commentable.user == @owner} item"
+    - elsif @notify.event_type == "liked_comment"
+      = "likes #{' your' if @notify.subject.user == @owner} comment"
     = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
 
 - if @notify.subject_type == "Contribution"
   %h3
     = link_to @notify.secondary_subject.user.full_name, user_url(@notify.secondary_subject.user)
     - action = @notify.event_type.split("_").first
-    = "#{action} you #{action == "added" ? 'to' : 'from' } the authors"
+    = "has #{action} you #{action == "added" ? 'to' : 'from' } the authors"
     = link_to @notify.secondary_subject.title, item_url(@notify.secondary_subject)
 
 %br
