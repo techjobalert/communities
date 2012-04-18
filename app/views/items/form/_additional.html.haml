@@ -50,7 +50,7 @@
 
 
   %p.tools
-    = f.submit raw('Next Step &raquo;'), :class => 'light-button green'
+    =link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"preview"), {:class => 'light-button green'}
 
   :javascript
     $( "#add-collegues-to-item-link:ui-dialog" ).dialog( "destroy" );
