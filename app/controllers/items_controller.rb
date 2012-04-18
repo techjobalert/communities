@@ -202,7 +202,9 @@ class ItemsController < InheritedResources::Base
     Resque.enqueue(
       VideoMerge,
       params[:video_id],
-      presenter_video.id, {} )
+      presenter_video.id,
+      {:pos => params[:pos]}
+    )
 
     @notice = {:type => 'notice', :message =>
         "your files added to Q for merging"
