@@ -45,8 +45,10 @@ class Item < ActiveRecord::Base
   fires :created_item,    :on     => :create,
                           :actor  => :user
 
-  # fires :updated_item,    :on     => :update,
-  #                         :actor  => :user
+  fires :published_item,  :on     => :update,
+                          :actor  => :user,
+                          :secondary_subject => :self,
+                          :if => lambda { |item| item.state == "published" }
 
   fires :destroyed_item,  :on     => :destroy,
                           :actor  => :user

@@ -30,9 +30,9 @@
   - else
     %h3
       = link_to @notify.actor.full_name, user_url(@notify.actor)
-      -if @notify.subject.state == "published" and @notify.subject.moderated_at and (@notify.subject.moderated_at..@notify.subject.moderated_at+60).cover?(Time.now.utc)
+      - if @notify.subject.state == "published" and @notify.subject.moderated_at and (@notify.subject.moderated_at..@notify.subject.moderated_at + 60).cover?(Time.now.utc)
         has created new item
-      -else
+      - else
         = "#{@notify.event_type.split("_").first} item"
       = link_to @notify.subject.title, item_url(@notify.subject)
 
@@ -45,7 +45,7 @@
   %h3
     = link_to @notify.actor.full_name, user_url(@notify.actor)
     - if @notify.event_type == "created_comment"
-      = "created comment on #{' your' if @notify.subject.commentable.user == @owner} item"
+      = "has commented on #{' your' if @notify.subject.commentable.user == @owner} item"
     - elsif @notify.event_type == "liked_comment"
       = "likes #{' your' if @notify.subject.user == @owner} comment"
     = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
