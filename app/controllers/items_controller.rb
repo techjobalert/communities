@@ -200,7 +200,7 @@ class ItemsController < InheritedResources::Base
         File.join(Rails.root, "..","video","webcam_records","#{params[:record_file_name]}")
       )
     )
-    presenter_video = Attachment.create!({
+    presenter_video = Attachment.new({
       :file => record_file,
       :user => current_user,
       :attachment_type => "presenter_video"})
@@ -209,7 +209,7 @@ class ItemsController < InheritedResources::Base
       VideoMerge,
       params[:video_id],
       presenter_video.id,
-      {:pos => params[:pos]}
+      {:position => params[:position]}
     )
 
     @notice = {:type => 'notice', :message =>
