@@ -12,7 +12,7 @@
 - else
   %p
     Your item
-    %i= raw "&laquo;#{@item_title}&raquo;"
+    %i= link_to raw("&laquo;#{@item_title}&raquo;"), item_url(@item_id)
     has been published.
 
 %p

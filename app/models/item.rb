@@ -42,18 +42,22 @@ class Item < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments
 
-  fires :created_item,    :on     => :create,
-                          :actor  => :user
+  # fires :created_item,    :on     => :create,
+  #                         :actor  => :user
 
   fires :published_item,  :on     => :update,
                           :actor  => :user,
                           :secondary_subject => :self,
-                          :if => lambda { |item| item.state == "published" }
+                          :if => lambda { |item| item.state == "published" and item.moderated_at > (Time.zone.now() - 60.second) }
 
   fires :destroyed_item,  :on     => :destroy,
                           :actor  => :user
 
   state_machine :state, :initial => :draft do
+
+    before_transition :on => :publish do |item|
+      item.number_of_updates += 1
+    end
 
     event :edit do
       transition [:denied, :published, :moderated] => :draft

@@ -19,6 +19,7 @@ class NotifyMailer < ActionMailer::Base
     @message = Message.find(message_id)
     @to_user = @message.receiver
     @item_title = @message.title
+    @item_id = @message.object_id
     @message_text = @message.body
     mail(:to => @to_user.email, :subject => "[orthodontics360] Direct message from moderator")
   end

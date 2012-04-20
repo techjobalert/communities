@@ -31,7 +31,7 @@
     %h3
       = link_to @notify.actor.full_name, user_url(@notify.actor)
       - if @notify.subject.state == "published" and @notify.subject.moderated_at and (@notify.subject.moderated_at..@notify.subject.moderated_at + 60).cover?(Time.now.utc)
-        has created new item
+        = @notify.subject.number_of_updates > 1 ? "has updated item" : "has created new item"
       - else
         = "#{@notify.event_type.split("_").first} item"
       = link_to @notify.subject.title, item_url(@notify.subject)
@@ -46,9 +46,10 @@
     = link_to @notify.actor.full_name, user_url(@notify.actor)
     - if @notify.event_type == "created_comment"
       = "has commented on #{' your' if @notify.subject.commentable.user == @owner} item"
+      = link_to @notify.subject.commentable.title, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
     - elsif @notify.event_type == "liked_comment"
       = "likes #{' your' if @notify.subject.user == @owner} comment"
-    = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
+      = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
 
 - if @notify.subject_type == "Contribution"
   %h3

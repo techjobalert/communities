@@ -1,16 +1,17 @@
 - if defined? search and search
   %h3 Searching item
+- @content_type ||= 'video'
 .list
   .list-header
 
     .nav
-      = link_to root_path(:type => "video"), :class => "movies pjax #{'selected' if @content_type and @content_type == 'video'}" do
+      = link_to root_path(:type => "video"), :class => "movies pjax #{'selected' if @content_type == 'video'}" do
         %span
         Movies
-      = link_to root_path(:type => "article"), :class => "articles pjax  #{'selected' if @content_type and @content_type == 'article'}" do
+      = link_to root_path(:type => "article"), :class => "articles pjax  #{'selected' if @content_type == 'article'}" do
         %span
         Articles
-      = link_to root_path(:type => "presentation"), :class => "presentations pjax  #{'selected' if @content_type and @content_type == 'presentation'}" do
+      = link_to root_path(:type => "presentation"), :class => "presentations pjax  #{'selected' if @content_type == 'presentation'}" do
         %span
         Presentations
     .filter

@@ -30,10 +30,15 @@ class NotifyNow
     if event.subject_type == "Item"
       item = event.subject
       if event.secondary_subject_type == "Order"
-        receivers << event.actor.followers
+        receivers << event.actor.followers.select{|f| f.following_bought_item == "1"}
       elsif item and item.state == "published"
-          receivers << event.subject.followers.select{|f| f.following_published == "1"}
-          receivers << event.subject.user.followers.select{|f| f.following_published == "1"}
+        if item.number_of_updates > 1
+          receivers << item.followers.select{|f| f.item_changes == "1"}
+          receivers << item.user.followers.select{|f| f.following_published == "1"}
+        else
+          receivers << item.followers.select{|f| f.following_published == "1"}
+          receivers << item.user.followers.select{|f| f.following_published == "1"}
+        end
       end
     end
 

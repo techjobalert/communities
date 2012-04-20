@@ -1,11 +1,12 @@
+- @content_type ||= 'video'
 .nav
-  = link_to moderator_path, :class => "pjax movies #{'selected' if params[:action] == 'items'}" do
+  = link_to moderator_path(:type => "video"), :class => "pjax movies #{'selected' if params[:action] == 'items' and  @content_type == 'video'}" do
     %span
     Movies
-  = link_to '#', :class => 'pjax articles' do
+  = link_to moderator_path(:type => "article"), :class => "pjax articles  #{'selected' if params[:action] == 'items' and  @content_type == 'article'}" do
     %span
     Articles
-  = link_to '#', :class => 'pjax presentations' do
+  = link_to moderator_path(:type => "presentation"), :class => "pjax presentations  #{'selected' if params[:action] == 'items' and  @content_type == 'presentation'}" do
     %span
     Presentations
   = link_to moderator_comments_path, :class => "pjax comments #{'selected' if params[:action] == 'comments'}" do
