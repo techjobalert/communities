@@ -8,11 +8,15 @@
 # set :output, "/path/to/my/cron_log.log"
 #
 every 1.day, :at => '12:30 am' do
-  rake "rake ts:rebuild"
+  rake "ts:rebuild"
   runner "CarrierWave.clean_cached_files!"
 end
-every "*/2 * * * *" do
+
+every 2.minutes do
   rake "paypal:transfer"
+end
+
+every 10.minutes do
   rake "thinking_sphinx:index"
 end
 #every 10.minutes do
