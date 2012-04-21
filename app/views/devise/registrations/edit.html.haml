@@ -2,14 +2,14 @@
   = devise_error_messages!
   .form
     %p
-      = f.label :password
+      = f.label :current_password
+      = f.password_field :current_password
+    %p
+      = f.label :password, "New password"
       = f.password_field :password
     %p
       = f.label :password_confirmation
       = f.password_field :password_confirmation
-    %p
-      = f.label :current_password
-      = f.password_field :current_password
     %p.errors-container
 
 :javascript
@@ -40,7 +40,7 @@
       "user[password_confirmation]": {
         required: "Please provide a password confirmation",
         minlength: "Your password confirmation must be at least 6 characters long",
-        equalTo: "Confirmation doesn't match with password"
+        equalTo: "Confirmation doesn't match the password"
       },
       "user[current_password]": {
         required: "Please provide a current password",

@@ -10,20 +10,22 @@
   .list
     .list-header
       .nav.account
-        = link_to users_path(:tab => "followers"), :class => "pjax followers #{ 'selected' if @tab == 'followers'}" do
-          %span
-          Followers
-        = link_to users_path(:tab => "published_together"), :class => "pjax published-together #{ 'selected' if @tab == 'published_together'}" do
-          %span
-          Published
-          %br
-          together
+        - if current_user.role? "doctor"
+          = link_to users_path(:tab => "followers"), :class => "pjax followers #{ 'selected' if @tab == 'followers'}" do
+            %span
+            Followers
+          = link_to users_path(:tab => "published_together"), :class => "pjax published-together #{ 'selected' if @tab == 'published_together'}" do
+            %span
+            Published
+            %br
+            together
         = link_to users_path(:tab => "following"), :class => "pjax following #{ 'selected' if @tab == 'following'}" do
           %span
           Following
-        = link_to users_path(:tab => "patients"), :class => "pjax patients #{ 'selected' if @tab == 'patients'}" do
-          %span
-          Patients
+        - if current_user.role? "doctor"
+          = link_to users_path(:tab => "patients"), :class => "pjax patients #{ 'selected' if @tab == 'patients'}" do
+            %span
+            Patients
       .filter.account.collegues
         .field
           = form_for "", :url => search_users_path, :remote => true, :method => :get do |f|

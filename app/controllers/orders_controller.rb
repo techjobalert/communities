@@ -50,13 +50,13 @@ class OrdersController < ApplicationController
 
         if response.success?
           transaction.pay
-          type = "notice"
+          notice = {:type => "notice", :message => "You have successfully bought the item"}
         else
           transaction.cancel
-          type = "error"
+          notice = {:type => "error", :message => response.message}
         end
 
-        notice = {:type => type, :message => response.message}
+
       else
         notice = {:type => "error", :message => "error"}
       end

@@ -5,8 +5,8 @@ class SessionsController < Devise::SessionsController
     failure_counter = $redis.get(session[:session_id])
     failure_counter = (failure_counter.to_i || 0) + 1
     $redis.set(session[:session_id], failure_counter)
-    
-    if failure_counter <= 4 || simple_captcha_valid?
+
+    if failure_counter <= 3 || simple_captcha_valid?
       resource = warden.authenticate!(auth_options)
       set_flash_message(:notice, :signed_in) if is_navigational_format?
       sign_in(resource_name, resource)

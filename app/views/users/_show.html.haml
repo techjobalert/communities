@@ -21,7 +21,8 @@
                   %span
 
       .b-user-info-body
-        %h2.b-user-title= user.full_name
+        %h2.b-user-title
+          = "#{user.full_name}. #{user.profession_and_degree}"
 
         - if user.show_birthday == "1" and user.birthday.present?
           %p
@@ -39,8 +40,8 @@
             = user.specialization
 
         %p
-          %strong Send a massege:
-          you can send a message directly to email about profesional question
+          %strong Send a messege:
+          you can send a message directly to email about professional question
         - if is_current_user
           %p= image_tag "send-message-public.png"
           %p.right= submit_tag "Send", :class => 'light-button send green public'
@@ -54,7 +55,7 @@
 
       %p
         %strong Biography:
-        = simple_format user.bio
+        = user.bio
 
       %br
 

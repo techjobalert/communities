@@ -3,7 +3,11 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @tab = params[:tab].present? ? params[:tab] : 'followers'
+    @tab = if current_user.role?("doctor")
+      params[:tab].present? ? params[:tab] : 'followers'
+    else
+      'following'
+    end
 
     case @tab
       when "followers"

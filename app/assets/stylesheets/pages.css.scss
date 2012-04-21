@@ -541,7 +541,7 @@
         padding: 6px 5px 6px 15px;
         margin: 13px 10px 0 0px;
         color: #ffffff;
-        width: 150px;
+        width: 155px;
         border: 1px solid #5c867b;
 
         span {
@@ -702,10 +702,15 @@
       word-wrap: break-word;
     }
 
-    b, span, b a  {
+    b, span, b {
       display: block;
       font-size: 16px;
       padding: 2px 0 8px;
+      color: #777;
+      text-decoration: none;
+    }
+
+    b>a {
       color: #777;
       text-decoration: none;
     }
@@ -1087,6 +1092,7 @@
       color: #2e6976;
       margin: 7px 0;
       font-size: 20px;
+      line-height: 22px;
     }
 
     .body {
