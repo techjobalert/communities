@@ -181,7 +181,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def is_presentation? f
-    [".pptx", ".key"].member? File.extname(f.file) and model.file_processing
+    [".pptx", ".key"].member? File.extname(f.file)
   end
 
 end

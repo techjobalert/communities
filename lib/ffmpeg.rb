@@ -75,7 +75,7 @@ module CarrierWave
       tmp_path  = File.join( directory, tmp_file )
       # some fix for handle presentation files converted to video and stored to same folder
       if %w(.pptx .key).member? File.extname(current_path)
-        current_path = current_path + File.exist? current_path+".mov" ? ".mov" : ".wmv"
+        current_path = current_path + (File.exist? current_path+".mov" ? ".mov" : ".wmv")
       end
 
       File.rename current_path, tmp_path if rename_parent
