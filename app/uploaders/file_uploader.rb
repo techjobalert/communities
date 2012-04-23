@@ -156,7 +156,7 @@ class FileUploader < CarrierWave::Uploader::Base
     # Save presentation file to shared folder
     # And send req to mac
     file = File.absolute_path(current_path)
-    uuid_filename = [SecureRandom.uuid, File.basename(file)].join("-")
+    uuid_filename = [SecureRandom.uuid.split("-").join(), File.basename(file)].join("-")
     File.open('../video/video_storage/p_source/' + uuid_filename , "wb") do |f|
       f.write(File.open(file))
     end
