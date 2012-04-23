@@ -1,0 +1,35 @@
+.list
+  .list-header
+
+    .nav
+      = link_to "#{item_relevant_path(current_item)}?type=video", :class => "movies selected", :remote => true do
+        %span
+        Movies
+      = link_to "#{item_relevant_path(current_item)}?type=article", :class => "articles", :remote => true do
+        %span
+        Articles
+      = link_to "#{item_relevant_path(current_item)}?type=presentation", :class => "presentations", :remote => true do
+        %span
+        Presentations
+    .filter
+      .field
+        = form_for "", :url => search_items_path, :remote => true, :method => :get do |f|
+          .tags.home-filter-form
+            .label Sort by
+            .filter-form
+              %span.viewed= f.select "views", options_for_select(['More Viewed', 'Less Viewed']), :prompt => 'Viewd', :include_blank => true
+              %span.identical= f.select "date", options_for_select(['Today', '1 Week', '1 Month', '1 Year']), :prompt => 'Date', :include_blank => true
+              %span.identical= f.select "price", options_for_select(['Free', 'Paid']), :prompt => 'Free/Paid', :include_blank => true
+              %span.identical= f.select "length", options_for_select(['Length']), :prompt => 'Length', :include_blank => true
+              = f.hidden_field "filter_type", :value => "basic"
+            .clear
+          .search
+            = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
+            = f.submit 'Go', :class => 'dark-button'
+        :javascript
+          $(".filter-form select").chosen();
+        .clear
+    .clear
+
+    .list-content
+      = render :partial => "items/basic_list", :locals => {:items => items}

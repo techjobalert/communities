@@ -64,7 +64,7 @@ class Item < ActiveRecord::Base
     end
 
     event :moderate do
-      transition [:draft, :published] => :moderated
+      transition [:denied, :draft, :published] => :moderated
     end
 
     event :publish do
@@ -90,6 +90,7 @@ class Item < ActiveRecord::Base
     indexes user.full_name,  :as => :author, :facet => true, :sortable => true
     has user_id, created_at, views_count
     has "CRC32(state)", :as => :state, :type => :integer
+    has "CRC32(attachment_type)", :as => :attachment_type, :type => :integer
     has price, :type => :integer
     has taggings.tag_id, :as => :tag_ids
     # has "CRC32(tags.name)", :as => :tags, :type => integer

@@ -19,7 +19,7 @@ class ItemsController < InheritedResources::Base
         :without => {:state => "archived".to_crc32},
         :page => params[:page],
         :per_page => 3,
-        :star => true)
+        :star => true )
     end
   end
 
@@ -75,6 +75,7 @@ class ItemsController < InheritedResources::Base
           @notice = {
               :type => "notice",
               :message => "Item will be published after premoderation." }
+          @step = @current_step
         else
           @notice = {
             :type => "error",
@@ -102,8 +103,6 @@ class ItemsController < InheritedResources::Base
 
     if @item.save
       @notice = {:type => 'notice', :message => "Item is created."}
-    else
-      @notice = {:type => 'error', :message => "Some error."}
     end
   end
 
@@ -282,6 +281,20 @@ class ItemsController < InheritedResources::Base
     else
       @notice = {:type => "error", :message => "error"}
     end
+  end
+
+  def relevant
+    attachment_type = params[:type] || 'video'
+
+    @items = Item.search(
+      :q => @item.title,
+      :without_ids => [*@item.id],
+      :with_all => {:tag_ids => @item.tag_ids},
+      :with => {:state => "published".to_crc32, :attachment_type => attachment_type},
+      :without => {:state => "archived".to_crc32},
+      :page => params[:page],
+      :per_page => 3,
+      :star => true )
   end
 
   protected
