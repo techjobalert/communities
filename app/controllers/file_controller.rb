@@ -50,7 +50,7 @@ class FileController < ApplicationController
     attachment = Attachment.find(id)
     if attachment
       attachment.update_attribute("file_processing", nil)
-      #reprocess
+      attachment.recreate_versions!
     end
     render :nothing => true
   end
