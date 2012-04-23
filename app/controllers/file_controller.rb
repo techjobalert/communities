@@ -42,14 +42,12 @@ class FileController < ApplicationController
       return false
     end
 
-    file, id = params[:filename], params[:id]
+    video_path = "/home/buildbot/video/video_storage/p_video/#{params[:filename]}"
 
-    video_path = '/home/buildbot/video'
-    presentation_dir = video_path +'/video_storage/p_video/'
-
-    attachment = Attachment.find(id)
+    attachment = Attachment.find(params[:id])
     if attachment
       attachment.update_attribute("file_processing", nil)
+      FileUtils::mv(video_path, attachment.file.path+File.extname(params[:filename]))
       attachment.recreate_versions!
     end
     render :nothing => true

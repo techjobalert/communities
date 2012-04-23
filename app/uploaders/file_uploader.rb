@@ -162,7 +162,7 @@ class FileUploader < CarrierWave::Uploader::Base
     uri = URI('http://192.168.0.251:3000/convert')
     begin
       Net::HTTP.post_form(uri, 'file' => uuid_filename, 'id' => model.id)
-    rescue Timeout:Error => e
+    rescue Timeout::Error => e
       nil
     end
   end
