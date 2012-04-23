@@ -113,3 +113,4 @@ gem 'streamio-ffmpeg'
 gem 'mini_exiftool'
 # https://github.com/tobsch/mediaelement_rails
 gem "mediaelement_rails", git: "git://github.com/tobsch/mediaelement_rails.git"
+gem "multi_json"

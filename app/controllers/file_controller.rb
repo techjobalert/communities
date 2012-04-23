@@ -16,23 +16,41 @@ class FileController < ApplicationController
     render :json => {:file => {:name => uuid_filename} }
   end
 
+  # def converted_pvideo
+  #   if not params[:filename]
+  #     render :nothing => true
+  #     return false
+  #   end
+  #   pvideo_uuid = params[:filename].split("-").first()
+  #   pvideo_file = params[:filename]
+  #   wvideo = ""
+
+  #   Dir.foreach("../video/webcam_records/") do |file|
+  #     if file.include?(pvideo_uuid)
+  #       wvideo = file
+  #       break
+  #     end
+  #   end
+  #   if pvideo_file and wvideo
+  #     Resque.enqueue( VideoMerge, pvideo_file, wvideo, {})
+  #   end
+  #   render :nothing => true
+  # end
   def converted_pvideo
-    if not params[:filename]
+    if not params[:filename] or not params[:id]
       render :nothing => true
       return false
     end
-    pvideo_uuid = params[:filename].split("-").first()
-    pvideo_file = params[:filename]
-    wvideo = ""
 
-    Dir.foreach("../video/webcam_records/") do |file|
-      if file.include?(pvideo_uuid)
-        wvideo = file
-        break
-      end
-    end
-    if pvideo_file and wvideo
-      Resque.enqueue( VideoMerge, pvideo_file, wvideo, {})
+    file, id = params[:filename], params[:id]
+
+    video_path = '/home/buildbot/video'
+    presentation_dir = video_path +'/video_storage/p_video/'
+
+    attachment = Attachment.find(id)
+    if attachment
+      attachment.update_attribute("file_processing", nil)
+      attachment.recreate_versions!
     end
     render :nothing => true
   end
