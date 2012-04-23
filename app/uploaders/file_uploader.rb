@@ -160,7 +160,11 @@ class FileUploader < CarrierWave::Uploader::Base
     uuid_filename = [SecureRandom.uuid, File.basename(file)].join("-")
     FileUtils::copy_file(file, "../video/video_storage/p_source/#{uuid_filename}")
     uri = URI('http://192.168.0.251:3000/convert')
-    Net::HTTP.post_form(uri, 'file' => uuid_filename, 'id' => model.id)
+    begin
+      Net::HTTP.post_form(uri, 'file' => uuid_filename, 'id' => model.id)
+    rescue Timeout:Error => e
+      nil
+    end
   end
 
   def is_video? f
