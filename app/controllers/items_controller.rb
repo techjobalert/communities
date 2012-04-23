@@ -33,14 +33,19 @@ class ItemsController < InheritedResources::Base
 
   def edit
     @step = params[:step]
-    if not @item.attachments.blank? and @step == "preview"
+    unless @item.attachments.blank?# and @step == "preview"
       @a_pdf, @a_video = @item.regular_pdf, @item.regular_video
+      @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
       @uuid = SecureRandom.uuid.split("-").join()
     end
   end
 
   def update
     @step = params[:step]
+    @current_step = params[:current_step]
+    @a_pdf, @a_video = @item.regular_pdf, @item.common_video if @item.attachments
+    @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
+
 
     if params[:paypal_account]
       @item.user.update_attribute(:paypal_account, params[:paypal_account])
@@ -62,6 +67,28 @@ class ItemsController < InheritedResources::Base
     else
       @notice = {:type => "notice", :message => "Item is not changed."}
     end
+
+    if params[:publish]
+      if @item.attachments
+        if @processed
+          @item.moderate
+          @notice = {
+              :type => "notice",
+              :message => "Item will be published after premoderation." }
+        else
+          @notice = {
+            :type => "error",
+            :message => "not processed" }
+          @step = @current_step
+        end
+      else
+        @notice = {
+          :type => "error",
+          :message => "no attachments" }
+        @step = "upload"
+      end
+    end
+
   end
 
   def create
@@ -255,13 +282,6 @@ class ItemsController < InheritedResources::Base
     else
       @notice = {:type => "error", :message => "error"}
     end
-  end
-
-  def publish
-    @item.moderate
-    @notice = {
-        :type => "notice",
-        :message => "Item will be published after premoderation." }
   end
 
   protected

@@ -31,7 +31,11 @@
 
 = form_for @item, :validate => true, :remote => true do |f|
   .b-upload-item__title.hr Сommercialization
-  = hidden_field_tag "step", "preview"
+  - if @processed
+    = hidden_field_tag "step", "preview"
+  - else
+    = hidden_field_tag "step", "additional"
+
   %p
     = f.label :price, "Set price", :class => "label"
     = f.text_field :price, :class => "price"
@@ -48,9 +52,18 @@
       ever since the 1500s, when an unknown printer took a galley of type
       and scrambled it to make a type specimen book.
 
-
+  %p.help
+    If your item is ready click "Publish" button
+    %br
+    If you wish to add presenter video click "Next step &raquo;" button.
+    In this case you will be able to proceed after processing of your item.
+    You will be notified by e-mail.
   %p.tools
-    =link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"preview"), {:class => 'light-button green'}
+    - if @processed
+      = f.submit "Publish", :class => 'light-button green', :name => 'publish'
+      = f.submit raw('Next Step &raquo;'), :class => 'light-button green'
+    - else
+      = f.submit "Save", :class => 'light-button green'
 
   :javascript
     $( "#add-collegues-to-item-link:ui-dialog" ).dialog( "destroy" );

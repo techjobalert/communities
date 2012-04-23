@@ -16,9 +16,31 @@
     .row
       .fl-l#filelist
 
-  %p.tools
-    =link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"additional"), {:class => 'light-button green'}
+  - if @a_video
+    - if @a_video.file_processing == true
+      .attachment-video
+        %i
+          Your attachment will be placed here after processings
+    - elsif not @a_video.nil?
+      .attachment-video
+        = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video}
 
+  - if @a_pdf
+    - if @a_pdf.file_processing == true
+      .attachment-pdf
+        %i
+          Your attached pdf will be placed here after processings
+    - elsif not @a_pdf.blank?
+      .attachment-pdf
+        = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
+
+  %p.tools
+    - if @item.attachments.blank?
+      %span.light-button.green.upload-page-next-step.disabled= raw('Next Step &raquo;')
+
+      = link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"additional"), {:class => 'light-button green upload-page-next-step hidden'}
+    - else
+      = link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"additional"), {:class => 'light-button green'}
 :javascript
   $(function(){
     var uploaderAttachment = $.initPlupload({

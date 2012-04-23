@@ -68,7 +68,6 @@ $(function() {
           file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>'+
           '</div>');
       });
-
       up.refresh(); // Reposition Flash/Silverlight
     });
 
@@ -94,6 +93,9 @@ $(function() {
         if (f.length){
           f.children("b").html("100%");
           f.append('<input type="hidden" name="item['+response.objClass+'_ids][]" value="'+response.id+'">');
+          $('span.upload-page-next-step').remove();
+          $('a.upload-page-next-step').removeClass('hidden');
+
         }
 
         if (response.url){

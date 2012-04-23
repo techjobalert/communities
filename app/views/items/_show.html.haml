@@ -97,10 +97,9 @@
   - if @a_video
     .text.video
       .preview
-        -if @a_video.file_processing == true
+        - if @a_video.file_processing == true
           .attachment-videoa
-            %i
-              Your attachment will be placed here after processings
+            %i Your attachment will be placed here after processings
         - elsif not @a_video.nil?
           .attachment-video
             = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video}
