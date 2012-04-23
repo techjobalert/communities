@@ -158,9 +158,7 @@ class FileUploader < CarrierWave::Uploader::Base
     cache_stored_file! if !cached?
     file = File.absolute_path(current_path)
     uuid_filename = [SecureRandom.uuid, File.basename(file)].join("-")
-    File.open('../video/video_storage/p_source/' + uuid_filename , "wb") do |f|
-      f.write(File.open(file))
-    end
+    FileUtils::copy_file(file, "../video/video_storage/p_source/#{uuid_filename}")
     uri = URI('http://192.168.0.251:3000/convert')
     Net::HTTP.post_form(uri, 'file' => uuid_filename, 'id' => model.id)
   end
