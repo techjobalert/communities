@@ -25,11 +25,11 @@ module CarrierWave
       end
     end
 
-    def hb_convert_to_mp4(options)
+    def hb_convert_to_mp4
       tmp_path = uuid_name(current_path)
       mp4_tmp_path = tmp_path+".mp4"
       presentation_settings = '-e x264  -q 20.0 -a 1 -E faac,copy:ac3 -B 160,160 -6 dpl2,auto -R Auto,Auto -D 0.0,0.0 -f mp4 -X 720 --loose-anamorphic -m -x cabac=0:ref=2:me=umh:bframes=0:weightp=0:8x8dct=0:trellis=0:subme=6'
-      %x[HandBrakeCLI -i #{tmp_path} #{options['presentation_video'] ? presentation_settings : '-Z Universal'} -O -I -m -o #{mp4_tmp_path}]
+      %x[HandBrakeCLI -i #{tmp_path} #{model.attachment_type == 'presentation_video' ? presentation_settings : '-Z Universal'} -O -I -m -o #{mp4_tmp_path}]
       File.delete( tmp_path )
       File.rename mp4_tmp_path, current_path
     end

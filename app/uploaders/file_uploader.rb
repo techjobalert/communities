@@ -63,9 +63,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # end
 
   version :mp4 do
-    process :hb_convert_to_mp4 => {
-      :presentation_video => model.attachment_type == "presentation_video"
-    }
+    process :hb_convert_to_mp4
     def full_filename (for_file = model.file.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
     end
