@@ -169,14 +169,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def is_video? f
     exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v).map!{|e| "."+ e }
-    res = exts.member? File.extname(f.file)
-    p "is_presentation?(f) #{is_presentation?(f)}"
-    if is_presentation?(f)
-      cp = File.join(File.dirname(f.file), File.basename(f.file, '.*'))
-      res = (File.exist? cp+".mov" or File.exist? cp+".wmv")
-      p "res #{res}"
-    end
-    res
+    exts.member? File.extname(f.file) or (is_presentation?(f) and model.file_processing == nil)
   end
 
   def is_pdf? f

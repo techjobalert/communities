@@ -42,14 +42,15 @@ class FileController < ApplicationController
       return false
     end
 
-    video_path = "/home/buildbot/video/video_storage/p_video/#{params[:filename]}"
-
     attachment = Attachment.find(params[:id])
     if attachment
       attachment.update_attribute("file_processing", nil)
-      cp = File.join(File.dirname(attachment.file.path), File.basename(attachment.file.path, '.*'))
-      FileUtils::mv( video_path, cp + File.extname(params[:filename]) )
-      attachment.file.recreate_versions!
+      record_file = File.open("/home/buildbot/video/video_storage/p_video/#{params[:filename]}")
+      presenter_video = Attachment.new({
+        :file => record_file,
+        :user => current_user,
+        :attachment_type => "presentation_video"})
+      @item.attachments << presenter_video
     end
     render :nothing => true
   end

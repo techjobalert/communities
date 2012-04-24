@@ -73,17 +73,6 @@ module CarrierWave
       directory = File.dirname( current_path )
       tmp_file  = ["tmpfile", SecureRandom.uuid].join("-")+File.extname(current_path)
       tmp_path  = File.join( directory, tmp_file )
-
-      p "==========1"
-      p File.extname(current_path)
-      # some fix for handle presentation files converted to video and stored to same folder
-      if %w(.pptx .key).member? File.extname(current_path)
-        cp = File.join(File.dirname(current_path), File.basename(current_path, '.*'))
-        current_path = cp + (File.exist? cp+".mov" ? ".mov" : ".wmv")
-        p "============2"
-        p current_path
-      end
-
       File.rename current_path, tmp_path if rename_parent
       tmp_path
     end
