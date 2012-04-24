@@ -1,5 +1,6 @@
 - if defined? search and search
-  %h3 Searching item
+  %h3 Search
+
 - @content_type ||= 'video'
 .list
   .list-header
@@ -25,6 +26,7 @@
               %span.identical= f.select "price", options_for_select(['Free', 'Paid']), :prompt => 'Free/Paid', :include_blank => true
               %span.identical= f.select "length", options_for_select(['Length']), :prompt => 'Length', :include_blank => true
               = f.hidden_field "filter_type", :value => "basic"
+              = f.hidden_field "attachment_type", :value => "article"
             .clear
           .search
             = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"

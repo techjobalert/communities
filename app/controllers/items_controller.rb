@@ -15,7 +15,7 @@ class ItemsController < InheritedResources::Base
         :q => @item.title,
         :without_ids => [*@item.id],
         :with_all => {:tag_ids => @item.tag_ids},
-        :with => {:state => "published".to_crc32},
+        :with => {:state => "published".to_crc32, :attachment_type => "video".to_crc32},
         :without => {:state => "archived".to_crc32},
         :page => params[:page],
         :per_page => 3,
@@ -60,12 +60,11 @@ class ItemsController < InheritedResources::Base
 
     if @item.changed?
       @item.edit
-      @notice = {:type => "notice", :message => "Item is updated."}
       unless @item.save
         @notice = {:type => "error", :message => "error"}
       end
     else
-      @notice = {:type => "notice", :message => "Item is not changed."}
+      @notice = {:type => "notice", :message => "Item is updated."}
     end
 
     if params[:publish]
@@ -137,6 +136,7 @@ class ItemsController < InheritedResources::Base
 
   def search
     @render_items, @filter_location = params[:filter_type], params[:filter_location]
+    Rails.logger.info "---#{params}"
     params[:current_user_id] = current_user.id if @render_items == "account"
     params.merge!({SearchParams.per_page_param => 3}) if @filter_location != "main"
     params.merge!({:classes => [Item]})
@@ -290,7 +290,7 @@ class ItemsController < InheritedResources::Base
       :q => @item.title,
       :without_ids => [*@item.id],
       :with_all => {:tag_ids => @item.tag_ids},
-      :with => {:state => "published".to_crc32, :attachment_type => attachment_type},
+      :with => {:state => "published".to_crc32, :attachment_type => attachment_type.to_crc32},
       :without => {:state => "archived".to_crc32},
       :page => params[:page],
       :per_page => 3,

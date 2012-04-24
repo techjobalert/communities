@@ -21,7 +21,8 @@
               %span.identical= f.select "date", options_for_select(['Today', '1 Week', '1 Month', '1 Year']), :prompt => 'Date', :include_blank => true
               %span.identical= f.select "price", options_for_select(['Free', 'Paid']), :prompt => 'Free/Paid', :include_blank => true
               %span.identical= f.select "length", options_for_select(['Length']), :prompt => 'Length', :include_blank => true
-              = f.hidden_field "filter_type", :value => "basic"
+              = f.hidden_field "filter_type", :value => "relevant"
+              = f.hidden_field "attachment_type", :value => "video"
             .clear
           .search
             = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
@@ -31,5 +32,4 @@
         .clear
     .clear
 
-    .list-content
-      = render :partial => "items/basic_list", :locals => {:items => items}
+    .list-content= render :partial => "items/basic_list", :locals => {:items => items, :remote => true}

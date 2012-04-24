@@ -1,4 +1,8 @@
+- remote ||= false
+- @item ||= false
 - if items and not items.blank?
+  :javascript
+    $("#_attachment_type").val("#{items.first.attachment_type}");
   - items.each do |item|
     - if item
       .item
@@ -8,9 +12,13 @@
         = link_to  item.description.truncate(200, :separator => " "), item_path(item), :class => "text pjax"
 
   .clear
-  = paginate items
+  - if remote and @item
+    = paginate items, :params => {:action => "relevant", :controller => "items", :item_id => @item }, :remote => true
+  - else
+    = paginate items
 
 - else
   .no-items No items
 
 .clear
+

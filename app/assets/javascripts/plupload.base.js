@@ -4,21 +4,20 @@ $(function() {
 
 
     settings = {
-      runtimes: "html5,html4,flash",
+      runtimes: "flash,html5,html4",
       browse_button: "pickfiles",
       container: "upcontainer",
       max_file_size: "3mb",
-      flash_swf_url: "assets/plupload/plupload.flash.swf",
+      flash_swf_url: "/assets/plupload/plupload.flash.swf",
       multipart: true,
       multipart_params: {
         authenticity_token: $("meta[name=csrf-token]").attr("content")
       },
-      filters: [{ title: "Images", extensions: "jpg,jpeg,png,JPG,JPEG,PNG"}],
       post_data: {}
     };
-
     // Extend base settings by options
-    $.extend(settings, options);
+    settings = $.extend(settings, options);
+
     if ( !$("#"+settings.container) || !$("#"+settings.browse_button) )
       return false;
 
@@ -139,5 +138,6 @@ $(function() {
         });
       }
     });
+
   }
 });

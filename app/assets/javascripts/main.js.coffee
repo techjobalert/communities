@@ -9,7 +9,7 @@ redactor = undefined
   $(".filter-form select").chosen() if $(".filter-form select").length
 
 $ ->
-  $('a.pjax, .pagination a').pjax("[data-pjax-container]") if $("[data-pjax-container]").length
+  $('a.pjax, .pagination a:not([data-remote=true])').pjax("[data-pjax-container]") if $("[data-pjax-container]").length
 
   $(document)
     .on "pjax:start", ->

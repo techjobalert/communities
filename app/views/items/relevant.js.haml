@@ -1,1 +1,1 @@
-$(".list-content").html("#{escape_javascript(render :partial => 'basic_list', :locals => {:items => @items})}");
+$(".list-content").html("#{escape_javascript(render :partial => 'basic_list', :locals => {:items => @items, :remote => true})}");
