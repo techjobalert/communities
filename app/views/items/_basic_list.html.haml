@@ -1,8 +1,7 @@
 - remote ||= false
 - @item ||= false
-- if items and not items.blank?
-  :javascript
-    $("#_attachment_type").val("#{items.first.attachment_type}");
+- if items.present?
+
   - items.each do |item|
     - if item
       .item

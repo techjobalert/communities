@@ -136,7 +136,6 @@ class ItemsController < InheritedResources::Base
 
   def search
     @render_items, @filter_location = params[:filter_type], params[:filter_location]
-    Rails.logger.info "---#{params}"
     params[:current_user_id] = current_user.id if @render_items == "account"
     params.merge!({SearchParams.per_page_param => 3}) if @filter_location != "main"
     params.merge!({:classes => [Item]})
