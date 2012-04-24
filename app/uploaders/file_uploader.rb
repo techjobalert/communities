@@ -17,6 +17,8 @@ class FileUploader < CarrierWave::Uploader::Base
   version :mobile,              :if => :is_video?
   version :video_thumbnail,     :if => :is_video?
 
+  version :presentation_video,  :if => :is_presentation?
+
   def default_url
     "/default/item_" + [version_name, "default.png"].compact.join('_')
   end
@@ -97,6 +99,10 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
+  version :presentation_video do
+    process :convert_to_video
+  end
+
   protected
 
   def convert_to_pdf
@@ -146,9 +152,24 @@ class FileUploader < CarrierWave::Uploader::Base
     model.file_processing = nil
   end
 
+  def convert_to_video
+    # Save presentation file to shared folder
+    # And send req to mac
+    cache_stored_file! if !cached?
+    file = File.absolute_path(current_path)
+    uuid_filename = [SecureRandom.uuid, File.basename(file)].join("-")
+    FileUtils::copy_file(file, "../video/video_storage/p_source/#{uuid_filename}")
+    uri = URI('http://192.168.0.251:3000/convert')
+    begin
+      Net::HTTP.post_form(uri, 'file' => uuid_filename, 'id' => model.id)
+    rescue Timeout::Error => e
+      nil
+    end
+  end
+
   def is_video? f
     exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v).map!{|e| "."+ e }
-    exts.member? File.extname(f.file)
+    exts.member? File.extname(f.file) or (is_presentation?(f) and model.file_processing == nil)
   end
 
   def is_pdf? f
@@ -157,6 +178,10 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def is_document? f
     [".doc", ".docx"].member? File.extname(f.file) #or model.is_pdf?
+  end
+
+  def is_presentation? f
+    [".pptx", ".key"].member? File.extname(f.file)
   end
 
 end

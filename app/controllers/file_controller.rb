@@ -16,23 +16,41 @@ class FileController < ApplicationController
     render :json => {:file => {:name => uuid_filename} }
   end
 
+  # def converted_pvideo
+  #   if not params[:filename]
+  #     render :nothing => true
+  #     return false
+  #   end
+  #   pvideo_uuid = params[:filename].split("-").first()
+  #   pvideo_file = params[:filename]
+  #   wvideo = ""
+
+  #   Dir.foreach("../video/webcam_records/") do |file|
+  #     if file.include?(pvideo_uuid)
+  #       wvideo = file
+  #       break
+  #     end
+  #   end
+  #   if pvideo_file and wvideo
+  #     Resque.enqueue( VideoMerge, pvideo_file, wvideo, {})
+  #   end
+  #   render :nothing => true
+  # end
   def converted_pvideo
-    if not params[:filename]
+    if not params[:filename] or not params[:id]
       render :nothing => true
       return false
     end
-    pvideo_uuid = params[:filename].split("-").first()
-    pvideo_file = params[:filename]
-    wvideo = ""
 
-    Dir.foreach("../video/webcam_records/") do |file|
-      if file.include?(pvideo_uuid)
-        wvideo = file
-        break
-      end
-    end
-    if pvideo_file and wvideo
-      Resque.enqueue( VideoMerge, pvideo_file, wvideo, {})
+    attachment = Attachment.find(params[:id])
+    if attachment
+      attachment.update_attribute("file_processing", nil)
+      record_file = File.open("/home/buildbot/video/video_storage/p_video/#{params[:filename]}")
+      presenter_video = Attachment.new({
+        :file => record_file,
+        :user => current_user,
+        :attachment_type => "presentation_video"})
+      attachment.item.attachments << presenter_video
     end
     render :nothing => true
   end
