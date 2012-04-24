@@ -48,7 +48,7 @@ class FileController < ApplicationController
     if attachment
       attachment.update_attribute("file_processing", nil)
       cp = File.join(File.dirname(attachment.file.path), File.basename(attachment.file.path, '.*'))
-      FileUtils::mv( video_path, File.join(cp, File.extname(params[:filename])) )
+      FileUtils::mv( video_path, cp + File.extname(params[:filename]) )
       attachment.file.recreate_versions!
     end
     render :nothing => true
