@@ -50,7 +50,7 @@ class FileController < ApplicationController
         :file => record_file,
         :user => current_user,
         :attachment_type => "presentation_video"})
-      @item.attachments << presenter_video
+      attachment.item.attachments << presenter_video
     end
     render :nothing => true
   end
