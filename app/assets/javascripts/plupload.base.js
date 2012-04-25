@@ -1,8 +1,6 @@
 $(function() {
   return $.initPlupload = function(options) {
     var uploader, settings;
-
-
     settings = {
       runtimes: "html5,html4,flash",
       browse_button: "pickfiles",
@@ -17,6 +15,8 @@ $(function() {
     };
     // Extend base settings by options
     settings = $.extend(settings, options);
+
+    // $.extend(plupload.mimeTypes, {key: "application/vnd.apple.keynote"})
 
     if ( !$("#"+settings.container) || !$("#"+settings.browse_button) )
       return false;
