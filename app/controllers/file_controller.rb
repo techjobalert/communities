@@ -50,8 +50,8 @@ class FileController < ApplicationController
       #collect timing from subtitles
       # storing format "00:00:13,290;00:00:17,581" devider ";"
       _timing = []
-      timing = %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| _timing << l.split("-->")[1].strip() if l.include?("-->")}.join(";")
-      presenter_video.timing = timing
+      timing = %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| _timing << l.split("-->")[1].strip() if l.include?("-->")}
+      presenter_video.timing = timing.join(";")
 
       record_file = File.open(p_video)
       presenter_video = Attachment.new({
