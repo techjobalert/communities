@@ -91,6 +91,7 @@ class SearchParams
     end
     opt.push(items_date_interval(params))
     opt.push(items_attachment_type(params))
+    opt.push(items_relevant_item(params))
     opt.push(items_views_filter(params))
     opt.push(items_price_filter(params))
     options = {}
@@ -110,6 +111,13 @@ class SearchParams
 
   def items_order(params)
     {:order => "created_at", :sort_mode =>:desc }
+  end
+
+  def items_relevant_item params
+    if params[:relevant_item_id].present?
+      item = Item.find params[:relevant_item_id]
+      { :without_ids => [*item.id], :with_all => { :tag_ids => item.tag_ids }, :classes => [Item]}
+    end
   end
 
   def items_attachment_type(params)

@@ -11,15 +11,6 @@ class ItemsController < InheritedResources::Base
       @popup = false
       @item.increment!(:views_count)
       @a_pdf, @a_video = @item.regular_pdf, @item.common_video unless @item.attachments.blank?
-      @items = Item.search(
-        :q => @item.title,
-        :without_ids => [*@item.id],
-        :with_all => {:tag_ids => @item.tag_ids},
-        :with => {:state => "published".to_crc32, :attachment_type => "video".to_crc32},
-        :without => {:state => "archived".to_crc32},
-        :page => params[:page],
-        :per_page => 3,
-        :star => true )
     end
   end
 
@@ -33,7 +24,7 @@ class ItemsController < InheritedResources::Base
 
   def edit
     @step = params[:step]
-    unless @item.attachments.blank?# and @step == "preview"
+    unless @item.attachments.blank?
       @a_pdf, @a_video = @item.regular_pdf, @item.regular_video
       @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
       @uuid = SecureRandom.uuid.split("-").join()
@@ -132,6 +123,14 @@ class ItemsController < InheritedResources::Base
     end
 
     redirect_to(items_account_path(:notice => notice))
+  end
+
+  def relevant
+    params[:attachment_type] ||= 'video'
+    params.merge!({:classes => [Item], :relevant_item_id => @item.id})
+    params.merge!({SearchParams.per_page_param => 3})
+
+    @items = SearchParams.new(params).get_search_results
   end
 
   def search
@@ -280,20 +279,6 @@ class ItemsController < InheritedResources::Base
     else
       @notice = {:type => "error", :message => "error"}
     end
-  end
-
-  def relevant
-    attachment_type = params[:type] || 'video'
-
-    @items = Item.search(
-      :q => @item.title,
-      :without_ids => [*@item.id],
-      :with_all => {:tag_ids => @item.tag_ids},
-      :with => {:state => "published".to_crc32, :attachment_type => attachment_type.to_crc32},
-      :without => {:state => "archived".to_crc32},
-      :page => params[:page],
-      :per_page => 3,
-      :star => true )
   end
 
   protected

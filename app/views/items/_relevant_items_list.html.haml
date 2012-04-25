@@ -1,19 +1,19 @@
 .list
   .list-header
-
     .nav
-      = link_to "#{item_relevant_path(current_item)}?type=video", :class => "movies selected", :remote => true do
+      = link_to "#{item_relevant_path(current_item)}?attachment_type=video", :onclick => "searchRelevantItems('video'); return false;", :class => "movies selected" do
         %span
         Movies
-      = link_to "#{item_relevant_path(current_item)}?type=article", :class => "articles", :remote => true do
+      = link_to "#{item_relevant_path(current_item)}?attachment_type=article", :onclick => "searchRelevantItems('article'); return false;", :class => "articles" do
         %span
         Articles
-      = link_to "#{item_relevant_path(current_item)}?type=presentation", :class => "presentations", :remote => true do
+      = link_to "#{item_relevant_path(current_item)}?attachment_type=presentation", :onclick => "searchRelevantItems('presentation'); return false;", :class => "presentations" do
         %span
         Presentations
+
     .filter
       .field
-        = form_for "", :url => search_items_path, :remote => true, :method => :get do |f|
+        = form_for "", :url => item_relevant_path(current_item), :remote => true, :method => :get do |f|
           .tags.home-filter-form
             .label Sort by
             .filter-form
@@ -32,4 +32,7 @@
         .clear
     .clear
 
-    .list-content= render :partial => "items/basic_list", :locals => {:items => items, :remote => true}
+    .list-content
+
+    :javascript
+      searchRelevantItems('video');
