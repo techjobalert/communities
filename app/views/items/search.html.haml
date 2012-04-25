@@ -7,4 +7,6 @@
 = render :partial => path, :locals => @locals
 
 :javascript
-  $('.list-header a.items').addClass("selected");
+  $(".main-content .navigation a").removeClass("selected");
+  $(".tab-home").addClass("selected");
+  $(".l-settings-navigation").html("");

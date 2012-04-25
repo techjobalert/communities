@@ -64,7 +64,7 @@
       },
       mergeFunc = function(){
         var data = {  video_id: "#{@a_video.id}",
-                      record_file_name: recordingFileName,
+                      record_file_name: "1111.flv",//recordingFileName,
                       position: $("input[type=radio]:checked").val()};
         $.ajax({
           url: "#{item_merge_presenter_video_url(@item)}",

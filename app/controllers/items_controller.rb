@@ -67,6 +67,7 @@ class ItemsController < InheritedResources::Base
       if @item.attachments
         if @processed
           @item.moderate
+          @item.save
           @notice = { :type => "notice",
               :message => "Item will be published after premoderation." }
           @step = @current_step
@@ -135,6 +136,7 @@ class ItemsController < InheritedResources::Base
   end
 
   def search
+    @content_type = params[:attachment_type] || 'video'
     @render_items, @filter_location = params[:filter_type], params[:filter_location]
     params[:current_user_id] = current_user.id if @render_items == "account"
     params.merge!({SearchParams.per_page_param => 3}) if @filter_location != "main"
