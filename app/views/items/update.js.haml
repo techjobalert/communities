@@ -5,4 +5,5 @@ $(".tab-item").addClass("selected");
 
 $('form[data-validate]').validate();
 
-showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
+- if @notice.present?
+  showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
