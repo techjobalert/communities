@@ -45,7 +45,14 @@ class FileController < ApplicationController
     attachment = Attachment.find(params[:id])
     if attachment
       attachment.update_attribute("file_processing", nil)
-      record_file = File.open("/home/buildbot/video/video_storage/p_video/#{params[:filename]}")
+      p_video = "/home/buildbot/video/video_storage/p_video/#{params[:filename]}"
+
+      #collect timing from subtitles
+      # storing format "00:00:13,290;00:00:17,581" devider ";"
+      timing = %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}.join(";")
+      presenter_video.timing = timing
+
+      record_file = File.open(p_video)
       presenter_video = Attachment.new({
         :file => record_file,
         :user => current_user,
