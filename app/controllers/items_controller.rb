@@ -37,49 +37,50 @@ class ItemsController < InheritedResources::Base
     @a_pdf, @a_video = @item.regular_pdf, @item.common_video if @item.attachments
     @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
 
+    tag_list_changed = false
+    paypal_account_changed = false
 
-    if params[:paypal_account]
-      @item.user.update_attribute(:paypal_account, params[:paypal_account])
+    paypal_account = params[:paypal_account]
+
+    if paypal_account and @item.user.paypal_account != paypal_account
+      @item.user.update_attribute(:paypal_account, paypal_account)
+      paypal_account_changed = true
     end
 
     if params[:tag_list].present?
       tag_list = JSON::parse(params[:tag_list])
-      @item.tag_list = tag_list
+      if @item.tag_list != tag_list
+        @item.tag_list = tag_list
+        tag_list_changed = true
+      end
     end
 
     @item.attributes = params[:item]
 
-    if @item.changed?
-      @item.edit
-      unless @item.save
-        @notice = {:type => "error", :message => "error"}
-      end
-    else
-      @notice = {:type => "notice", :message => "Item is updated."}
+    @item.edit if @item.changed? or tag_list_changed or paypal_account_changed
+
+    if @item.save and @current_step == 'additional'
+      @notice = { :type => "notice", :message => "Item is saved." }
     end
 
     if params[:publish]
       if @item.attachments
         if @processed
           @item.moderate
-          @notice = {
-              :type => "notice",
+          @notice = { :type => "notice",
               :message => "Item will be published after premoderation." }
           @step = @current_step
         else
-          @notice = {
-            :type => "error",
-            :message => "not processed" }
+          @notice = { :type => "error",
+            :message => "Please wait for the attached file to be processed. Publishing will be available after processing." }
           @step = @current_step
         end
       else
-        @notice = {
-          :type => "error",
-          :message => "no attachments" }
+        @notice = { :type => "error",
+          :message => "Item can't be published without attached files" }
         @step = "upload"
       end
     end
-
   end
 
   def create
