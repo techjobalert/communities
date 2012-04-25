@@ -50,6 +50,12 @@
     success: function (mediaElement, domObject) {
       // mediaElement.addEventListener("pause", pauseCallback);
       // mediaElement.addEventListener("ended", endedCallback);
+      // add event listener
+      mediaElement.addEventListener('timeupdate', function(e) {
+
+          console.log(mediaElement.currentTime);
+
+      }, false);
     },
     // fires when a problem is detected
     error: function (err) {
