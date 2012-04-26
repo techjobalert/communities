@@ -122,15 +122,15 @@ class SearchParams
 
   def items_attachment_type(params)
     attachment_types = ["video","article","presentation"]
+    if params[:filter_type].present?
+      attachment_type = if params[:attachment_type].present?
+        attachment_types.include?(params[:attachment_type]) ? params[:attachment_type] : "video"
+      else
+        "video"
+      end
 
-    attachment_type = if params[:attachment_type].present?
-      attachment_types.include?(params[:attachment_type]) ? params[:attachment_type] : "video"
-    else
-      "video"
+      { :with => { :attachment_type => attachment_type.to_crc32 } }
     end
-
-    { :with => { :attachment_type => attachment_type.to_crc32 } }
-
   end
 
   def items_date_interval(params)
