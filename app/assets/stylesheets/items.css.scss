@@ -753,8 +753,11 @@
 
     .field_with_errors {
       display: inline-block;
-      .label { margin-top: 2px }
+      .label { margin-top: 2px; }
     }
+
+    .abstract .field_with_errors .label {
+       margin-top: 8px; }
 
     .input {
       width: 512px;

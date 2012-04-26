@@ -41,6 +41,9 @@
       = link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"additional"), {:class => 'light-button green upload-page-next-step hidden'}
     - else
       = link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"additional"), {:class => 'light-button green'}
+
+  %p.help
+    Please upload your presentation, movie or article to proceed
 :javascript
   $(function(){
     var uploaderAttachment = $.initPlupload({

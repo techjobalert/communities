@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    # current_user.educations.build
+    @notice = params[:notice] if params[:notice].present?
   end
 
   def update
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
           format.html { redirect_to user_path(current_user, :type => "profile")}
           format.js
         else
-          format.html { redirect_to edit_user_path(current_user)}
+          format.html { redirect_to edit_user_path(current_user, :notice => @notice)}
           format.js
         end
       else
