@@ -48,7 +48,7 @@ class Item < ActiveRecord::Base
   fires :published_item,  :on     => :update,
                           :actor  => :user,
                           :secondary_subject => :self,
-                          :if => lambda { |item| item.state == "published" and item.moderated_at > (Time.zone.now() - 60.second) }
+                          :if => lambda { |item| item.state == "published" and item.moderated_at > (Time.zone.now() - 10.second) }
 
   fires :destroyed_item,  :on     => :destroy,
                           :actor  => :user
