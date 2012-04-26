@@ -77,8 +77,10 @@
         });
       };
 
-  videoPlayer.hideControls();
-  videoPlayer.controlsEnabled = false;
+  //removing play/pause button
+  $(".mejs-overlay-button").remove();
+  // disable controls
+  videoPlayer.disableControls();
 
   document.getElementById("recorder-stop-start").addEventListener('click', function(){
       syncBool ? stopSync() : prestartSync();

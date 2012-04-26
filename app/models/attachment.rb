@@ -19,8 +19,10 @@ class Attachment < ActiveRecord::Base
       "article"
     elsif self.is_processed_to_video?
       "video"
-    else
+    elsif is_presentation?
       "presentation"
+    else
+      "undefined"
     end
 
     item.update_attribute(:attachment_type, item_type)
@@ -50,8 +52,12 @@ class Attachment < ActiveRecord::Base
     extension_is?(%w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v))
   end
 
+  def is_presentation?
+    extension_is?(%w(key ppt pptx))
+  end
+
   def is_processed_to_pdf?
-    extension_is?(["doc","docx"])
+    extension_is?(%w(doc docx))
   end
 
   def get_thumbnail
