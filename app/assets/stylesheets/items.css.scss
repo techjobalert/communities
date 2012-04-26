@@ -934,6 +934,21 @@
       margin-left: 20px; }
   }
 
+  .b-upload-item__presenter-video {
+    margin: 0px 0 0 100px;
+    label {
+      display: inline-block;
+      vertical-align: middle;
+      width: 350px;
+      margin: 20px 0; }
+    img {
+      vertical-align: top; }
+
+    input[type=radio] {
+      margin: 10px;
+      vertical-align: top; }
+  }
+
   .fl-l {
     font-size: 14px;
     padding: 10px 0;

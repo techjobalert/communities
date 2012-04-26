@@ -1,27 +1,27 @@
 - if @processed
   = render :partial =>  (@a_video and !@a_video.file_processing?) ?  "items/form/preview_record_presenter_video": "items/form/preview_video_upload"
 
-  .b-upload-title
-    Set preview
+  / .b-upload-title
+  /   Set preview
 
-    .block
-      = form_for '/' do |f|
-        %ul
-          %li
-            = f.radio_button "radio", "1"
-            = label '_radio', '1', 'Show at most this number of pages', :class => 'checked'
-            = f.text_field ''
-          %li
-            = f.radio_button "radio", "2"
-            = label '_radio', '2', 'Show at most this number of pages'
-            = f.text_field ''
-          %li
-            = f.radio_button "radio", "3"
-            = label '_radio', '3', 'Show at most this number of pages'
-            = f.text_field ''
-      %p
-        %strong Note:
-        Show at most this number of pages Show at most thiser of pages
+  /   .block
+  /     = form_for '/' do |f|
+  /       %ul
+  /         %li
+  /           = f.radio_button "radio", "1"
+  /           = label '_radio', '1', 'Show at most this number of pages', :class => 'checked'
+  /           = f.text_field ''
+  /         %li
+  /           = f.radio_button "radio", "2"
+  /           = label '_radio', '2', 'Show at most this number of pages'
+  /           = f.text_field ''
+  /         %li
+  /           = f.radio_button "radio", "3"
+  /           = label '_radio', '3', 'Show at most this number of pages'
+  /           = f.text_field ''
+  /     %p
+  /       %strong Note:
+  /       Show at most this number of pages Show at most thiser of pages
 
   .tools
     = form_for @item, :remote => true do |f|
