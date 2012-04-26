@@ -13,7 +13,7 @@
           %p
             PayPal account:
             %br
-            = current_user.paypal_account
+            %span#paypal-account-field= current_user.paypal_account
         = link_to "Edit", '#', :class => 'light-button green edit', :id => "paypal-form-dialog"
 
       - if current_user.role? "doctor"
@@ -56,6 +56,7 @@
   .pay-pal-form
     = form_for(current_user, :remote => true) do |f| #, :validate => true
       %p
+        = hidden_field_tag "paypal_account_change", "1"
         = f.label :paypal_account, "PayPal account"
         = f.email_field :paypal_account
 

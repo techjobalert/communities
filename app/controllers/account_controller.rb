@@ -5,7 +5,6 @@ class AccountController < ApplicationController
     @items  = current_user.items
       .published
       .page(params[:page]).per(3)
-    @notice = params[:notice]
   end
 
   def purchase

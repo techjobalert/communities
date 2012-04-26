@@ -1,0 +1,9 @@
+$("#ajax-main-container").html("#{escape_javascript(render :partial => 'account/items', :locals => {:items => @items})}");
+
+- if @notice.present?
+  showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
+
+$(".main-content .navigation a").removeClass("selected");
+$(".tab-account").addClass("selected");
+
+if (jQuery.placeholder) jQuery.placeholder.shim();

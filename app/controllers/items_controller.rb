@@ -118,13 +118,15 @@ class ItemsController < InheritedResources::Base
   end
 
   def destroy
-    if  @item.archive
-      notice = {:type => 'notice', :message => "Item is deleted"}
+    @notice = if  @item.archive
+      {:type => 'notice', :message => "Item is deleted"}
     else
-      notice = {:type => 'error', :message => "Some error."}
+      {:type => 'error', :message => "Some error."}
     end
 
-    redirect_to(items_account_path(:notice => notice))
+    @items  = current_user.items
+      .published
+      .page(params[:page]).per(3)
   end
 
   def relevant

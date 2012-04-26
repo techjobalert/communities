@@ -44,6 +44,8 @@ class UsersController < ApplicationController
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end
 
+      @paypal_account_change = params[:paypal_account_change].present? ? true : false
+
       if current_user.update_attributes params[:user]
         @notice = {:type => 'notice', :message => "Profile successfully updated."}
         if  params[:type].present? &&  params[:type] == "profile"
