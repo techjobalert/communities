@@ -56,7 +56,21 @@
       %p
         %strong Biography:
         = user.bio
+      %br
 
+    - educations = user.educations
+    - if user.show_educations == "1" and  educations.any?
+      %p
+        %strong Education:
+        - user.educations.each do |e|
+          - if e.school.present?
+            %b= "#{e.school}, "
+            %span
+              = "#{e.city}, " if e.city.present?
+              = "#{e.state}, " if e.state.present?
+              = "#{e.country}, " if e.country.present?
+
+          %br
       %br
 
     - if user.items.state_is("published").present?

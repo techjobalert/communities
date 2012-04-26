@@ -18,7 +18,7 @@
     %param{:name => "movie", :value => "/assets/flashmediaelement.swf"}/
     %param{:name => "flashvars", :value => "controls=true&file=#{attachment.file.mp4.url}"}/
     / Image as a last resort
-    %img{:height => "#{h}", :src => "myvideo.jpg", :title => "No video playback capabilities", :width => "#{w}"}
+    %img{:height => "#{h}", :src => "#{attachment.file.video_thumbnail.url}", :title => "No video playback capabilities", :width => "#{w}"}
 
 :javascript
   var mediaElement = $('#videoPlayer').mediaelementplayer(

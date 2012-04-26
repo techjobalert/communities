@@ -121,7 +121,7 @@ class Item < ActiveRecord::Base
   end
 
   def regular_video
-    attachments.select{|a| a.is_processed_to_video? && %w(regular presentation_video).member? a.attachment_type }.last
+    attachments.select{|a| a.is_processed_to_video? && %w(regular presentation_video).member?(a.attachment_type)}.last
   end
 
   def regular_pdf

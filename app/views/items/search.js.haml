@@ -17,15 +17,15 @@
       def_selector = $("#ajax-main-container")
       - @render_items = "list"
       - @locals.merge!({:main_search => true})
-      $(".main-content .navigation a").removeClass("selected");
-      $(".tab-home").addClass("selected");
-      $(".l-settings-navigation").html("");
 
     def_selector.html('#{escape_javascript(render :partial => "#{@tmp_folder}/#{@render_items}", :locals => @locals )}');
 
--else
+- else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
-  $(".main-content .navigation a").removeClass("selected");
-  $(".tab-home").addClass("selected");
+
+$(".main-content .navigation a").removeClass("selected");
+$(".tab-home").addClass("selected");
+$(".l-settings-navigation").html("");
+
 
 if (jQuery.placeholder) jQuery.placeholder.shim();
