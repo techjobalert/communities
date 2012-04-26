@@ -32,13 +32,25 @@
 
 :javascript
   var videoPlayer = new MediaElementPlayer('#videoPlayer'),
-      _stopPoints = [0],
+      _stopPoints = [],
+      _playbackPoints = [],
+      currentPos = 0,
       syncBool = false,
       presync = false,
+      timer = 0,
+      intervarTimer,
+      timerCallback = function(){
+        timer += 0.1;
+      },
       pauseCallback = function(){
-        var pos = videoPlayer.media.currentTime;
-        _stopPoints.push(pos);
-        console.log("add new stop point "+pos);
+        _stopPoints.push(videoPlayer.media.currentTime);
+        _playbackPoints[currentPos]['stop'] = secondsToHms(timer);
+        if (_playbackPoints.length) currentPos++;
+      },
+      playCallback = function(){
+        if (intervarTimer == undefined) intervarTimer = setInterval(timerCallback, 100);
+        _stopPoints.push(videoPlayer.media.currentTime);
+        _playbackPoints.push({start: secondsToHms(timer)})
       },
       endedCallback = function(){
         _stopPoints.push(videoPlayer.media.duration);
@@ -62,6 +74,7 @@
             , 1000 );
       },
       startSync = function(){
+        intervarTimer = setInterval(timerCallback, 50)
         videoPlayer.play();
         startRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Stop sync";
@@ -70,11 +83,12 @@
       },
       stopSync = function(){
         videoPlayer.pause();
+        clearInterval(timer);
         stopRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Start sync";
         syncBool = false;
         stopPoints = _stopPoints;
-        _stopPoints = [0];
+        _stopPoints = [];
         videoPlayer.media.setCurrentTime(0);
         mergeFunc();
       },
@@ -105,5 +119,6 @@
 
   MediaElement('videoPlayer', {success: function(me) {
     me.addEventListener("pause", pauseCallback);
+    me.addEventListener("play",  playCallback);
     me.addEventListener("ended", endedCallback);
   }});
