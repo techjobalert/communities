@@ -130,7 +130,7 @@ class Item < ActiveRecord::Base
 
   def attachment_thumb
 
-    attachment = self.attachments.select{|a| a!= "presenter_video"}.last
+    attachment = self.attachments.select{|a| a != "presenter_video"}.last
 
     if attachment.present? and attachment.file.present?
       attachment.get_thumbnail

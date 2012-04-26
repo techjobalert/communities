@@ -51,11 +51,12 @@
       // mediaElement.addEventListener("pause", pauseCallback);
       // mediaElement.addEventListener("ended", endedCallback);
       // add event listener
-      mediaElement.addEventListener('timeupdate', function(e) {
-
-          console.log(mediaElement.currentTime);
-
-      }, false);
+      if ("#{attachment.attachment_type=='presentation_video'}"){
+        var timing = "#{attachment.timing}".split(";");
+        mediaElement.addEventListener('timeupdate', function(e) {
+          secondsToHms(mediaElement.currentTime)
+        }, false);
+      }
     },
     // fires when a problem is detected
     error: function (err) {
@@ -63,3 +64,11 @@
       showHideNotice("error", "video playback error");
     }
   });
+
+  function secondsToHms(d) {
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+    return ((h > 0 ? (h < 10 ? "0" : "") + h + ":" : "00:") + (m > 0 ? (m < 10 ? "0" : "") + m + ":" : "00:") + (s < 10 ? "0" : "") + s) +","+ d.toFixed(3).toString().split(".")[1];
+  }
