@@ -26,7 +26,9 @@ class VideoMerge
         end
       end
 
-      %x[mencoder -oac copy -ovc copy #{files.join(" ")} -o #{file_prefix}_final.webm]
+      final = File.join(File.dirname(p_att), SecureRandom.hex(10))+"_final.webm"
+      %x[mencoder -oac copy -ovc copy #{files.join(" ")} -o #{final}]
+      p_att = final
     end
     # add_logo = false
     # logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
