@@ -8,8 +8,8 @@ class VideoMerge
     r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
-    if present_attachment.attachment_type == "presentation_video" and present_attachment.playback_points.present?
-      timing = present_attachment.playback_points
+    if present_attachment.attachment_type == "presentation_video" and params["playback_points"].present?
+      timing = params["playback_points"]
       files = []
       timing.each_with_index do |t, idx|
         if timing.size < idx+1

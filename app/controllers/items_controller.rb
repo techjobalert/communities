@@ -236,19 +236,21 @@ class ItemsController < InheritedResources::Base
       :user => current_user,
       :attachment_type => "presenter_video"})
 
+    @item.attachments << presenter_video
+    params[:playback_points].values
+    merge_params = {
+      :position => params[:position]
+    }
     video = Attachment.find(params[:video_id])
     if video.attachment_type == "presentation_video" and params[:playback_points].present?
-      # parse incoming hash
-      video.update_attribute("playback_points", params[:playback_points].values)
+      merge_params.merge!({:playback_points => params[:playback_points].values})
     end
 
-    @item.attachments << presenter_video
     Resque.enqueue(
       VideoMerge,
       params[:video_id],
       presenter_video.id,
-      {:position => params[:position]}
-    )
+      merge_params)
 
     @notice = {:type => 'notice', :message =>
         "your files added to Q for merging"
