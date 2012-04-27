@@ -87,14 +87,16 @@
         stopRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Start sync";
         syncBool = false;
-        stopPoints = _stopPoints;
-        _stopPoints = [];
+        stopPoints, playbackPoints = _stopPoints, _playbackPoints;
+        _stopPoints, _playbackPoints, intervarTimer = [], [], undefined;
         videoPlayer.media.setCurrentTime(0);
         mergeFunc();
       },
       mergeFunc = function(){
         var data = {  video_id: "#{@a_video.id}",
                       record_file_name: recordingFileName,
+                      stop_points: stopPoints,
+                      playbackP_points: playbackPoints,
                       position: $("input[type=radio]:checked").val()};
         $.ajax({
           url: "#{item_merge_presenter_video_url(@item)}",
