@@ -1,10 +1,15 @@
 class VideoMerge
   @queue = :store_asset
 
-  def self.perform(present_attachment_id, recorded_attachment_id, params)
-    p_att = File.join(Rails.root.to_s,"public", Attachment.find(present_attachment_id).file.webm.to_s)
-    recorded_attachment = Attachment.find(recorded_attachment_id)
-    r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
+  def self.perform(present_attachment_id, recorded_attachment, params)
+    present_attachment = Attachment.find(present_attachment_id)
+    p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
+    if not (recorded_attachment =~ /^[0-9]+$/).nil?
+      _recorded_attachment = Attachment.find(recorded_attachment)
+      r_att = File.join(Rails.root.to_s,"public", _recorded_attachment.file.webm.to_s)
+    else
+      r_att = recorded_attachment
+    end
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
     # add_logo = false
@@ -39,9 +44,9 @@ class VideoMerge
 
     cmd = %x[#{command}]
 
-    recorded_attachment.item.attachments << Attachment.new({
+    present_attachment.item.attachments << Attachment.new({
       :file => File.open(output),
-      :user => recorded_attachment.item.user,
+      :user => present_attachment.item.user,
       :attachment_type => "presenter_merged_video"})
     File.delete(output)
   end
