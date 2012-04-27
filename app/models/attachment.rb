@@ -4,7 +4,7 @@ class Attachment < ActiveRecord::Base
   has_many   :attachment_previews, :dependent => :destroy
 
   attr_accessible :user, :file, :item_id, :attachment_type
-  store :video_timing, accessors: [ :timing ]
+  store :video_timing, accessors: [ :playback_points ]
   # validates_presence_of :user
 
   #File upload

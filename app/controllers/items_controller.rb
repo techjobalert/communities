@@ -234,9 +234,12 @@ class ItemsController < InheritedResources::Base
       :file => record_file,
       :user => current_user,
       :attachment_type => "presenter_video"})
-    p presenter_video.video_timing
-    p "====="
-    presenter_video.video_timing[:timing] = params[:playback_points] if params[:playback_points].present?
+
+    video = Attachment.find(params[:video_id])
+    if video.attachment_type == "presentation_video" and params[:playback_points].present?
+      video.update_attribute("playback_points", params[:playback_points])
+    end
+
     @item.attachments << presenter_video
     Resque.enqueue(
       VideoMerge,
