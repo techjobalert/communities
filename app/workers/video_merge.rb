@@ -10,18 +10,23 @@ class VideoMerge
 
     if present_attachment.attachment_type == "presentation_video" and present_attachment.video_timing[:timing].present?
       timing = present_attachment.video_timing[:timing]
-      filenames = []
+      files = []
       timing.each_with_index do |t, idx|
         if timing.size < idx+1
-          file_prefix = SecureRandom.hex(10)
+          file_prefix = File.join(File.dirname(p_att), SecureRandom.hex(10))
           pic_path = File.join(File.dirname(p_att), file_prefix)+".png"
+          # pic
           %x[ffmpeg -ss #{t[:stop]} -t 1 -i #{p_att} -f mjpeg #{pic_path}]
-          %x[ffmpeg -loop_input -f image2 -i {pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r 12 -t {t[:pause_duration]} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}.webm]
-          filenames << file_prefix+".webm"
+          # part before paused
+          %w[ffmpeg -ss #{t[:start]} -t #{t[:stop]} -i #{p_att} -vcodec copy -acodec copy #{file_prefix}_1.webm]
+          # paused part
+          %x[ffmpeg -loop_input -f image2 -i {pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r 12 -t {t[:pause_duration]} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm]
+          files << file_prefix+"_1.webm"
+          files << file_prefix+"_2.webm"
         end
       end
-      # t[:stop];timing[idx+1][:start]
 
+      %x[mencoder -oac copy -ovc copy #{files.join(" ")} -o #{file_prefix}_final.webm]
     end
     # add_logo = false
     # logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
