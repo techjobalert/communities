@@ -2,11 +2,27 @@ class VideoMerge
   @queue = :store_asset
 
   def self.perform(present_attachment_id, recorded_attachment_id, params)
-    p_att = File.join(Rails.root.to_s,"public", Attachment.find(present_attachment_id).file.webm.to_s)
+    present_attachment = Attachment.find(present_attachment_id)
+    p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
     recorded_attachment = Attachment.find(recorded_attachment_id)
     r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
+    if present_attachment.attachment_type == "presentation_video" and present_attachment.video_timing[:timing].present?
+      timing = present_attachment.video_timing[:timing]
+      filenames = []
+      timing.each_with_index do |t, idx|
+        if timing.size < idx+1
+          file_prefix = SecureRandom.hex(10)
+          pic_path = File.join(File.dirname(p_att), file_prefix)+".png"
+          %x[ffmpeg -ss #{t[:stop]} -t 1 -i #{p_att} -f mjpeg #{pic_path}]
+          %x[ffmpeg -loop_input -f image2 -i {pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r 12 -t {t[:pause_duration]} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}.webm]
+          filenames << file_prefix+".webm"
+        end
+      end
+      # t[:stop];timing[idx+1][:start]
+
+    end
     # add_logo = false
     # logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
     #   :pos => self.add_position('tl'),

@@ -39,21 +39,24 @@
       presync = false,
       timer = 0,
       intervarTimer,
+      innerTimer = 0,
+      innerIntervarTimer,
       timerCallback = function(){
         timer += 0.1;
       },
       pauseCallback = function(){
-        _stopPoints.push(videoPlayer.media.currentTime);
+        clearInterval(innerIntervarTimer);
+        innerTimer = 0;
+        innerIntervarTimer = setInterval(function(){innerTimer+= 0.1}, 100);
         _playbackPoints[currentPos]['stop'] = secondsToHms(timer);
         if (_playbackPoints.length) currentPos++;
       },
       playCallback = function(){
         if (intervarTimer == undefined) intervarTimer = setInterval(timerCallback, 100);
-        _stopPoints.push(videoPlayer.media.currentTime);
+        if (innerTimer && currentPos) _playbackPoints[currentPos-1]['pause_duration'] = secondsToHms(innerTimer);
         _playbackPoints.push({start: secondsToHms(timer)})
       },
       endedCallback = function(){
-        _stopPoints.push(videoPlayer.media.duration);
         stopSync();
         console.log("video end");
       },
@@ -74,7 +77,7 @@
             , 1000 );
       },
       startSync = function(){
-        intervarTimer = setInterval(timerCallback, 50)
+        intervarTimer = setInterval(timerCallback, 100)
         videoPlayer.play();
         startRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Stop sync";
@@ -96,7 +99,7 @@
         var data = {  video_id: "#{@a_video.id}",
                       record_file_name: recordingFileName,
                       stop_points: stopPoints,
-                      playbackP_points: playbackPoints,
+                      playback_points: playbackPoints,
                       position: $("input[type=radio]:checked").val()};
         $.ajax({
           url: "#{item_merge_presenter_video_url(@item)}",

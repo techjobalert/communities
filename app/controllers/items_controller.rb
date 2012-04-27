@@ -220,6 +220,7 @@ class ItemsController < InheritedResources::Base
       :attachment_type  => params[:attachment_type] || "regular",
       :item_id => @item.id
     }
+    # delete last file by type
     base_upload(klass, params, options)
   end
 
@@ -233,6 +234,7 @@ class ItemsController < InheritedResources::Base
       :file => record_file,
       :user => current_user,
       :attachment_type => "presenter_video"})
+    presenter_video.video_timing[:timing] = params[:playback_points] if params[:playback_points].present?
     @item.attachments << presenter_video
     Resque.enqueue(
       VideoMerge,
@@ -311,6 +313,10 @@ class ItemsController < InheritedResources::Base
   def base_upload(klass, params, options)
     begin
       russian_translit!(params)
+      last_attachemnt = Attachment.where(
+        :item_id => options[:item_id],
+        :attachment_type => options[:attachment_type]).last
+      last_attachemnt.destroy if last_attachemnt
       obj = klass.create!(options)
       render :json => {:id => obj.id, :objClass => obj.class.name.underscore}, :content_type => "text/json; charset=utf-8"
     rescue ActiveRecord::RecordInvalid => invalid

@@ -12,7 +12,7 @@ class Attachment < ActiveRecord::Base
   process_in_background :file
   store_in_background   :file
 
-  after_create :set_item_type
+  after_save :set_item_type
 
   def set_item_type
     item_type = if self.is_pdf? or self.is_processed_to_pdf?
