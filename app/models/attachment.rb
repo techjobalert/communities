@@ -17,7 +17,7 @@ class Attachment < ActiveRecord::Base
   def set_item_type
     item_type = if is_presentation?
       "presentation"
-    if self.is_pdf? or self.is_processed_to_pdf?
+    elsif self.is_pdf? or self.is_processed_to_pdf?
       "article"
     elsif self.is_processed_to_video?
       "video"
