@@ -1,5 +1,5 @@
 .fl-l{:style => "width:900px"}
-  = render :partial => 'partials/webrecorder', :inline => true
+  = render :partial => 'partials/webrecorder', :inline => true, :locals => {:uuid => @uuid}
   .fl-r
     = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video, :w => 565,:h=>320, :preload => true}, :inline => true
   .clearfix

@@ -36,6 +36,7 @@ class ItemsController < InheritedResources::Base
     @current_step = params[:current_step]
     @a_pdf, @a_video = @item.regular_pdf, @item.common_video if @item.attachments
     @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
+    @uuid = SecureRandom.uuid.split("-").join()
 
     tag_list_changed = false
     paypal_account_changed = false
@@ -237,7 +238,8 @@ class ItemsController < InheritedResources::Base
 
     video = Attachment.find(params[:video_id])
     if video.attachment_type == "presentation_video" and params[:playback_points].present?
-      video.update_attribute("playback_points", params[:playback_points])
+      # parse incoming hash
+      video.update_attribute("playback_points", params[:playback_points].values)
     end
 
     @item.attachments << presenter_video

@@ -15,12 +15,12 @@ class Attachment < ActiveRecord::Base
   after_save :set_item_type
 
   def set_item_type
-    item_type = if self.is_pdf? or self.is_processed_to_pdf?
+    item_type = if is_presentation?
+      "presentation"
+    if self.is_pdf? or self.is_processed_to_pdf?
       "article"
     elsif self.is_processed_to_video?
       "video"
-    elsif is_presentation?
-      "presentation"
     else
       "undefined"
     end
@@ -53,7 +53,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def is_presentation?
-    extension_is?(%w(key ppt pptx))
+    extension_is?(%w(key ppt pptx)) or model.attachment_type == "presentation_video"
   end
 
   def is_processed_to_pdf?
