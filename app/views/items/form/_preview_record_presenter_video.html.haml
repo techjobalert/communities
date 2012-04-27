@@ -32,7 +32,6 @@
 
 :javascript
   var videoPlayer = new MediaElementPlayer('#videoPlayer'),
-      _stopPoints = [],
       _playbackPoints = [],
       currentPos = 0,
       syncBool = false,
@@ -95,15 +94,14 @@
         stopRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Start sync";
         syncBool = false;
-        stopPoints, playbackPoints = _stopPoints, _playbackPoints;
-        _stopPoints, _playbackPoints, intervarTimer = [], [], undefined;
+        playbackPoints = _playbackPoints;
+        _playbackPoints, intervarTimer, innerIntervarTimer = [], undefined, undefined;
         videoPlayer.media.setCurrentTime(0);
         mergeFunc();
       },
       mergeFunc = function(){
         var data = {  video_id: "#{@a_video.id}",
                       record_file_name: recordingFileName,
-                      stop_points: stopPoints,
                       playback_points: playbackPoints,
                       position: $("input[type=radio]:checked").val()};
         $.ajax({
