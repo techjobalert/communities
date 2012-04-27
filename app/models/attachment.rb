@@ -53,7 +53,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def is_presentation?
-    extension_is?(%w(key ppt pptx)) or model.attachment_type == "presentation_video"
+    extension_is?(%w(key ppt pptx)) or self.attachment_type == "presentation_video"
   end
 
   def is_processed_to_pdf?
