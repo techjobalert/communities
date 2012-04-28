@@ -36,6 +36,7 @@ class ItemsController < InheritedResources::Base
     @current_step = params[:current_step]
     @a_pdf, @a_video = @item.regular_pdf, @item.common_video if @item.attachments
     @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
+    @uuid = SecureRandom.uuid.split("-").join()
 
     tag_list_changed = false
     paypal_account_changed = false
@@ -220,6 +221,7 @@ class ItemsController < InheritedResources::Base
       :attachment_type  => params[:attachment_type] || "regular",
       :item_id => @item.id
     }
+    # delete last file by type
     base_upload(klass, params, options)
   end
 
@@ -233,13 +235,22 @@ class ItemsController < InheritedResources::Base
       :file => record_file,
       :user => current_user,
       :attachment_type => "presenter_video"})
+
     @item.attachments << presenter_video
+    params[:playback_points].values
+    merge_params = {
+      :position => params[:position]
+    }
+    video = Attachment.find(params[:video_id])
+    if video.attachment_type == "presentation_video" and params[:playback_points].present?
+      merge_params.merge!({:playback_points => params[:playback_points].values})
+    end
+
     Resque.enqueue(
       VideoMerge,
       params[:video_id],
       presenter_video.id,
-      {:position => params[:position]}
-    )
+      merge_params)
 
     @notice = {:type => 'notice', :message =>
         "your files added to Q for merging"
@@ -311,6 +322,10 @@ class ItemsController < InheritedResources::Base
   def base_upload(klass, params, options)
     begin
       russian_translit!(params)
+      last_attachemnt = Attachment.where(
+        :item_id => options[:item_id],
+        :attachment_type => options[:attachment_type]).last
+      last_attachemnt.destroy if last_attachemnt
       obj = klass.create!(options)
       render :json => {:id => obj.id, :objClass => obj.class.name.underscore}, :content_type => "text/json; charset=utf-8"
     rescue ActiveRecord::RecordInvalid => invalid
