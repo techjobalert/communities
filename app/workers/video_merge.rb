@@ -1,7 +1,6 @@
 class VideoMerge
   @queue = :store_asset
 
-<<<<<<< HEAD
   def self.perform(present_attachment_id, recorded_attachment, params)
     present_attachment = Attachment.find(present_attachment_id)
     p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
@@ -11,13 +10,6 @@ class VideoMerge
     else
       r_att = recorded_attachment
     end
-=======
-  def self.perform(present_attachment_id, recorded_attachment_id, params)
-    present_attachment = Attachment.find(present_attachment_id)
-    p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
-    recorded_attachment = Attachment.find(recorded_attachment_id)
-    r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
->>>>>>> master
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"].present?
