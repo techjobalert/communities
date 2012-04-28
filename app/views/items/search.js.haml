@@ -1,23 +1,31 @@
--if @render_items
-  var def_selector = $("#ajax-main-container .list-content")
+- if @render_items
 
-  !def_selector.length ? def_selector = $("#ajax-main-container") : def_selector
-  - @locals = {:items => @items}
+  - if @render_items == "relevant"
+    $(".list-content").html("#{escape_javascript(render :partial => "items/basic_list", :locals => {:items => @items, :remote => true})}")
 
-  - @tmp_folder ||= @render_items == "basic" ? "items" : "account"
-  - @render_items = @render_items+"_list"
-  -if @filter_location == "main"
-    def_selector = $("#ajax-main-container")
-    - @render_items = "list"
-    - @locals.merge!({:main_search => true})
-    $(".main-content .navigation a").removeClass("selected");
-    $(".tab-home").addClass("selected");
-    $(".l-settings-navigation").html("");
 
-  def_selector.html('#{escape_javascript(render :partial => "#{@tmp_folder}/#{@render_items}", :locals => @locals )}');
--else
+  - else
+    var def_selector = $("#ajax-main-container .list-content")
+
+    !def_selector.length ? def_selector = $("#ajax-main-container") : def_selector
+    - @locals = {:items => @items, :search => true}
+
+    - @tmp_folder ||= @render_items == "basic" ? "items" : "account"
+    - @render_items = @render_items+"_list"
+
+    - if @filter_location == "main"
+      def_selector = $("#ajax-main-container")
+      - @render_items = "list"
+      - @locals.merge!({:main_search => true})
+
+    def_selector.html('#{escape_javascript(render :partial => "#{@tmp_folder}/#{@render_items}", :locals => @locals )}');
+
+- else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
-  $(".main-content .navigation a").removeClass("selected");
-  $(".tab-home").addClass("selected");
+
+$(".main-content .navigation a").removeClass("selected");
+$(".tab-home").addClass("selected");
+$(".l-settings-navigation").html("");
+
 
 if (jQuery.placeholder) jQuery.placeholder.shim();

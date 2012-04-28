@@ -14,7 +14,7 @@ namespace :paypal do
       if seller.present?
         amount = ((t.amount - t.amount * 0.039 - 30) - t.amount * 0.03).to_i
 
-        p g = GATEWAY.transfer(amount, seller, :subject => "Money from Orthodontics360", :note => "Here is the money owed to you.")
+        g = GATEWAY.transfer(amount, seller, :subject => "Money from Orthodontics360", :note => "Here is the money owed to you.")
         if g.params["Ack"] == 'Success'
           if t.update_attributes(:state => 'closed', :paid_to_seller => amount)
             p "---- Status ok."

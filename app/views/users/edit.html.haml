@@ -78,3 +78,8 @@
     $(".l-settings-navigation").removeClass('hidden');
     $(".b-settings-nav-bio").click();
     changeNavigationTab(".tab-settings");
+
+
+  - if @notice
+    :javascript
+      showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");

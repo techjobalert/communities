@@ -11,15 +11,6 @@ class ItemsController < InheritedResources::Base
       @popup = false
       @item.increment!(:views_count)
       @a_pdf, @a_video = @item.regular_pdf, @item.common_video unless @item.attachments.blank?
-      @items = Item.search(
-        :q => @item.title,
-        :without_ids => [*@item.id],
-        :with_all => {:tag_ids => @item.tag_ids},
-        :with => {:state => "published".to_crc32},
-        :without => {:state => "archived".to_crc32},
-        :page => params[:page],
-        :per_page => 3,
-        :star => true)
     end
   end
 
@@ -33,7 +24,7 @@ class ItemsController < InheritedResources::Base
 
   def edit
     @step = params[:step]
-    unless @item.attachments.blank?# and @step == "preview"
+    unless @item.attachments.blank?
       @a_pdf, @a_video = @item.regular_pdf, @item.regular_video
       @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
       @uuid = SecureRandom.uuid.split("-").join()
@@ -45,50 +36,53 @@ class ItemsController < InheritedResources::Base
     @current_step = params[:current_step]
     @a_pdf, @a_video = @item.regular_pdf, @item.common_video if @item.attachments
     @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
+    @uuid = SecureRandom.uuid.split("-").join()
 
+    tag_list_changed = false
+    paypal_account_changed = false
 
-    if params[:paypal_account]
-      @item.user.update_attribute(:paypal_account, params[:paypal_account])
+    paypal_account = params[:paypal_account]
+
+    if paypal_account and @item.user.paypal_account != paypal_account
+      @item.user.update_attribute(:paypal_account, paypal_account)
+      paypal_account_changed = true
     end
 
     if params[:tag_list].present?
       tag_list = JSON::parse(params[:tag_list])
-      @item.tag_list = tag_list
+      if @item.tag_list != tag_list
+        @item.tag_list = tag_list
+        tag_list_changed = true
+      end
     end
 
     @item.attributes = params[:item]
 
-    if @item.changed?
-      @item.edit
-      @notice = {:type => "notice", :message => "Item is updated."}
-      unless @item.save
-        @notice = {:type => "error", :message => "error"}
-      end
-    else
-      @notice = {:type => "notice", :message => "Item is not changed."}
+    @item.edit if @item.changed? or tag_list_changed or paypal_account_changed
+
+    if @item.save and @current_step == 'additional'
+      @notice = { :type => "notice", :message => "Item is saved." }
     end
 
     if params[:publish]
       if @item.attachments
         if @processed
           @item.moderate
-          @notice = {
-              :type => "notice",
+          @item.save
+          @notice = { :type => "notice",
               :message => "Item will be published after premoderation." }
+          @step = @current_step
         else
-          @notice = {
-            :type => "error",
-            :message => "not processed" }
+          @notice = { :type => "error",
+            :message => "Please wait for the attached file to be processed. Publishing will be available after processing." }
           @step = @current_step
         end
       else
-        @notice = {
-          :type => "error",
-          :message => "no attachments" }
+        @notice = { :type => "error",
+          :message => "Item can't be published without attached files" }
         @step = "upload"
       end
     end
-
   end
 
   def create
@@ -102,8 +96,6 @@ class ItemsController < InheritedResources::Base
 
     if @item.save
       @notice = {:type => 'notice', :message => "Item is created."}
-    else
-      @notice = {:type => 'error', :message => "Some error."}
     end
   end
 
@@ -127,16 +119,27 @@ class ItemsController < InheritedResources::Base
   end
 
   def destroy
-    if  @item.archive
-      notice = {:type => 'notice', :message => "Item is deleted"}
+    @notice = if  @item.archive
+      {:type => 'notice', :message => "Item is deleted"}
     else
-      notice = {:type => 'error', :message => "Some error."}
+      {:type => 'error', :message => "Some error."}
     end
 
-    redirect_to(items_account_path(:notice => notice))
+    @items  = current_user.items
+      .published
+      .page(params[:page]).per(3)
+  end
+
+  def relevant
+    params[:attachment_type] ||= 'video'
+    params.merge!({:classes => [Item], :relevant_item_id => @item.id})
+    params.merge!({SearchParams.per_page_param => 3})
+
+    @items = SearchParams.new(params).get_search_results
   end
 
   def search
+    @content_type = params[:attachment_type] || 'video'
     @render_items, @filter_location = params[:filter_type], params[:filter_location]
     params[:current_user_id] = current_user.id if @render_items == "account"
     params.merge!({SearchParams.per_page_param => 3}) if @filter_location != "main"
@@ -218,6 +221,7 @@ class ItemsController < InheritedResources::Base
       :attachment_type  => params[:attachment_type] || "regular",
       :item_id => @item.id
     }
+    # delete last file by type
     base_upload(klass, params, options)
   end
 
@@ -231,7 +235,9 @@ class ItemsController < InheritedResources::Base
       :file => record_file,
       :user => current_user,
       :attachment_type => "presenter_video"})
+
     @item.attachments << presenter_video
+<<<<<<< HEAD
 
     video = Attachment.find(params[:video_id])
     if video.attachment_type == "presentation_video" and params[:playback_points].present?
@@ -239,6 +245,22 @@ class ItemsController < InheritedResources::Base
     else
       Resque.enqueue(VideoMerge, params[:video_id], presenter_video.id, {:position => params[:position]})
     end
+=======
+    params[:playback_points].values
+    merge_params = {
+      :position => params[:position]
+    }
+    video = Attachment.find(params[:video_id])
+    if video.attachment_type == "presentation_video" and params[:playback_points].present?
+      merge_params.merge!({:playback_points => params[:playback_points].values})
+    end
+
+    Resque.enqueue(
+      VideoMerge,
+      params[:video_id],
+      presenter_video.id,
+      merge_params)
+>>>>>>> master
 
     @notice = {:type => 'notice', :message =>
         "your files added to Q for merging"
@@ -310,6 +332,10 @@ class ItemsController < InheritedResources::Base
   def base_upload(klass, params, options)
     begin
       russian_translit!(params)
+      last_attachemnt = Attachment.where(
+        :item_id => options[:item_id],
+        :attachment_type => options[:attachment_type]).last
+      last_attachemnt.destroy if last_attachemnt
       obj = klass.create!(options)
       render :json => {:id => obj.id, :objClass => obj.class.name.underscore}, :content_type => "text/json; charset=utf-8"
     rescue ActiveRecord::RecordInvalid => invalid

@@ -8,8 +8,13 @@ redactor = undefined
 
   $(".filter-form select").chosen() if $(".filter-form select").length
 
+@searchRelevantItems = (type) ->
+  $(".list-header #_attachment_type").val type
+  $(".list-header form").submit()
+
+
 $ ->
-  $('a.pjax, .pagination a').pjax("[data-pjax-container]") if $("[data-pjax-container]").length
+  $('a.pjax, .pagination a:not([data-remote=true])').pjax("[data-pjax-container]") if $("[data-pjax-container]").length
 
   $(document)
     .on "pjax:start", ->

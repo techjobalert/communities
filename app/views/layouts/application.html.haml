@@ -64,10 +64,10 @@
 
             .panel#ajax-main-container= yield
 
-          - if params[:controller] == 'items' && params[:action] == 'show' && @items
+          - if params[:controller] == 'items' && params[:action] == 'show'
             %br
             %h3 Relevant items:
-            = render :partial => 'items/list', :locals => {:items => @items}
+            = render :partial => 'items/relevant_items_list', :locals => {:items => @items, :current_item => @item}
 
           .l-settings-navigation{:class => "#{'hidden' unless params[:controller] == 'users' && params[:action] == 'edit'}"}
             .b-settings-nav
@@ -95,7 +95,7 @@
             .wrapper
               .main-content= yield
 
-              = content_for(:relevant_items) if content_for?(:relevant_items)
+
 
     .l-footer
 

@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    # current_user.educations.build
+    @notice = params[:notice] if params[:notice].present?
   end
 
   def update
@@ -44,13 +44,15 @@ class UsersController < ApplicationController
         params[:user][:birthday] = Date.strptime(params[:user][:birthday], "%m/%d/%Y")
       end
 
+      @paypal_account_change = params[:paypal_account_change].present? ? true : false
+
       if current_user.update_attributes params[:user]
         @notice = {:type => 'notice', :message => "Profile successfully updated."}
         if  params[:type].present? &&  params[:type] == "profile"
           format.html { redirect_to user_path(current_user, :type => "profile")}
           format.js
         else
-          format.html { redirect_to edit_user_path(current_user)}
+          format.html { redirect_to edit_user_path(current_user, :notice => @notice)}
           format.js
         end
       else

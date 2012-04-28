@@ -1,5 +1,5 @@
 .fl-l{:style => "width:900px"}
-  = render :partial => 'partials/webrecorder', :inline => true
+  = render :partial => 'partials/webrecorder', :inline => true, :locals => {:uuid => @uuid}
   .fl-r
     = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video, :w => 565,:h=>320, :preload => true}, :inline => true
   .clearfix
@@ -9,23 +9,57 @@
       %li#recorder-status.recorder-icon{:style => "padding-top: 5px;"}
     .clearfix
 
-  = radio_button_tag "pos", "br", true, :title => "bottom right"
-  = radio_button_tag "pos", "mr", false, :title => "middle right"
-  = radio_button_tag "pos", "tl", false, :title => "top left"
-  = radio_button_tag "pos", "ml", false, :title => "middle left"
+  .b-upload-item
+    .b-upload-item__title.hr Choose thumbnail
+
+  .b-upload-item__presenter-video
+
+    = label_tag "pos_br", "" do
+      = radio_button_tag "pos", "br", true, :title => "bottom right"
+      = image_tag "video/presenter-video-rb.jpg"
+
+    = label_tag "pos_tl", "" do
+      = radio_button_tag "pos", "tl", false, :title => "top left"
+      = image_tag "video/presenter-video-lt.jpg"
+
+    = label_tag "pos_mr", "" do
+      = radio_button_tag "pos", "mr", false, :title => "middle right"
+      = image_tag "video/presenter-video-r.jpg"
+
+    = label_tag "pos_ml", "" do
+      = radio_button_tag "pos", "ml", false, :title => "middle left"
+      = image_tag "video/presenter-video-l.jpg"
 
 :javascript
   var videoPlayer = new MediaElementPlayer('#videoPlayer'),
-      _stopPoints = [0],
+      _playbackPoints = [],
+      currentPos = 0,
       syncBool = false,
       presync = false,
+      timer = 0,
+      intervarTimer,
+      innerTimer = 0,
+      innerIntervarTimer,
+      timerCallback = function(){
+        timer += 0.1;
+      },
       pauseCallback = function(){
-        var pos = videoPlayer.media.currentTime;
-        _stopPoints.push(pos);
-        console.log("add new stop point "+pos);
+        clearInterval(innerIntervarTimer);
+        innerTimer = 0;
+        innerIntervarTimer = setInterval(function(){innerTimer+= 0.1}, 100);
+        if (_playbackPoints.length) currentPos++;
+      },
+      playCallback = function(){
+        if (intervarTimer == undefined) intervarTimer = setInterval(timerCallback, 100);
+        if (innerTimer && currentPos){
+          _playbackPoints[currentPos-1]['stop'] = secondsToHms(timer);
+          timer += innerTimer;
+          _playbackPoints[currentPos-1]['pause_duration'] = secondsToHms(innerTimer);
+          _playbackPoints[currentPos-1]['stop_with_pause_duration'] = secondsToHms(timer);
+        }
+        _playbackPoints.push({start: secondsToHms(timer)})
       },
       endedCallback = function(){
-        _stopPoints.push(videoPlayer.media.duration);
         stopSync();
         console.log("video end");
       },
@@ -46,6 +80,7 @@
             , 1000 );
       },
       startSync = function(){
+        intervarTimer = setInterval(timerCallback, 100)
         videoPlayer.play();
         startRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Stop sync";
@@ -54,17 +89,20 @@
       },
       stopSync = function(){
         videoPlayer.pause();
+        clearInterval(timer);
+        clearInterval(innerIntervarTimer);
         stopRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Start sync";
         syncBool = false;
-        stopPoints = _stopPoints;
-        _stopPoints = [0];
+        playbackPoints = _playbackPoints;
+        _playbackPoints, intervarTimer, innerIntervarTimer = [], undefined, undefined;
         videoPlayer.media.setCurrentTime(0);
         mergeFunc();
       },
       mergeFunc = function(){
         var data = {  video_id: "#{@a_video.id}",
                       record_file_name: recordingFileName,
+                      playback_points: playbackPoints,
                       position: $("input[type=radio]:checked").val()};
         $.ajax({
           url: "#{item_merge_presenter_video_url(@item)}",
@@ -77,8 +115,10 @@
         });
       };
 
-  videoPlayer.hideControls();
-  videoPlayer.controlsEnabled = false;
+  //removing play/pause button
+  $(".mejs-overlay-button").remove();
+  // disable controls
+  videoPlayer.disableControls();
 
   document.getElementById("recorder-stop-start").addEventListener('click', function(){
       syncBool ? stopSync() : prestartSync();
@@ -87,5 +127,6 @@
 
   MediaElement('videoPlayer', {success: function(me) {
     me.addEventListener("pause", pauseCallback);
+    me.addEventListener("play",  playCallback);
     me.addEventListener("ended", endedCallback);
   }});

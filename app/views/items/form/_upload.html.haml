@@ -41,11 +41,18 @@
       = link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"additional"), {:class => 'light-button green upload-page-next-step hidden'}
     - else
       = link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"additional"), {:class => 'light-button green'}
+
+  %p.help
+    Please upload your presentation, movie or article to proceed
 :javascript
   $(function(){
     var uploaderAttachment = $.initPlupload({
         url: "#{item_upload_attachment_path(@item)}",
-        filters: [],
+        // filters : [
+        //     {title : "Presentation files", extensions : "key,ppt,pptx"},
+        //     {title : "Document", extensions : "pdf,doc,docx"},
+        //     {title : "Video files", extensions : "3gpp,3gp,mpeg,mpg,mpe,ogv,mov,webm,flv,mng,asx,asf,wmv,avi,mp4,m4v"},
+        // ],
         max_file_size: "1000mb",
         browse_button: "regular-pickfiles",
         container: "regular-upcontainer",

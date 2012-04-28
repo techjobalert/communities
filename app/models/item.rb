@@ -48,7 +48,7 @@ class Item < ActiveRecord::Base
   fires :published_item,  :on     => :update,
                           :actor  => :user,
                           :secondary_subject => :self,
-                          :if => lambda { |item| item.state == "published" and item.moderated_at > (Time.zone.now() - 60.second) }
+                          :if => lambda { |item| item.state == "published" and item.moderated_at > (Time.zone.now() - 10.second) }
 
   fires :destroyed_item,  :on     => :destroy,
                           :actor  => :user
@@ -64,7 +64,7 @@ class Item < ActiveRecord::Base
     end
 
     event :moderate do
-      transition [:draft, :published] => :moderated
+      transition [:denied, :draft, :published] => :moderated
     end
 
     event :publish do
@@ -90,6 +90,7 @@ class Item < ActiveRecord::Base
     indexes user.full_name,  :as => :author, :facet => true, :sortable => true
     has user_id, created_at, views_count
     has "CRC32(state)", :as => :state, :type => :integer
+    has "CRC32(attachment_type)", :as => :attachment_type, :type => :integer
     has price, :type => :integer
     has taggings.tag_id, :as => :tag_ids
     # has "CRC32(tags.name)", :as => :tags, :type => integer
@@ -120,7 +121,7 @@ class Item < ActiveRecord::Base
   end
 
   def regular_video
-    attachments.select{|a| a.is_processed_to_video? && a.attachment_type == "regular"}.last
+    attachments.select{|a| a.is_processed_to_video? && %w(regular presentation_video).member?(a.attachment_type)}.last
   end
 
   def regular_pdf
@@ -129,7 +130,7 @@ class Item < ActiveRecord::Base
 
   def attachment_thumb
 
-    attachment = self.attachments.select{|a| a!= "presenter_video"}.last
+    attachment = self.attachments.select{|a| a != "presenter_video"}.last
 
     if attachment.present? and attachment.file.present?
       attachment.get_thumbnail

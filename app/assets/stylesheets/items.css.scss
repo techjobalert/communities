@@ -753,8 +753,11 @@
 
     .field_with_errors {
       display: inline-block;
-      .label { margin-top: 2px }
+      .label { margin-top: 2px; }
     }
+
+    .abstract .field_with_errors .label {
+       margin-top: 8px; }
 
     .input {
       width: 512px;
@@ -801,7 +804,7 @@
     }
 
     .help {
-      color: #666;
+      color: #444;
       padding: 20px 0 0;
       font-size: 12px; }
 
@@ -932,6 +935,21 @@
       font-size: 14px;
       vertical-align: middle;
       margin-left: 20px; }
+  }
+
+  .b-upload-item__presenter-video {
+    margin: 0px 0 0 100px;
+    label {
+      display: inline-block;
+      vertical-align: middle;
+      width: 350px;
+      margin: 20px 0; }
+    img {
+      vertical-align: top; }
+
+    input[type=radio] {
+      margin: 10px;
+      vertical-align: top; }
   }
 
   .fl-l {

@@ -4,7 +4,7 @@ class Attachment < ActiveRecord::Base
   has_many   :attachment_previews, :dependent => :destroy
 
   attr_accessible :user, :file, :item_id, :attachment_type
-
+  store :video_timing, accessors: [ :playback_points ]
   # validates_presence_of :user
 
   #File upload
@@ -12,15 +12,17 @@ class Attachment < ActiveRecord::Base
   process_in_background :file
   store_in_background   :file
 
-  after_create :set_item_type
+  after_save :set_item_type
 
   def set_item_type
-    item_type = if self.is_pdf? or self.is_processed_to_pdf?
+    item_type = if is_presentation?
+      "presentation"
+    elsif self.is_pdf? or self.is_processed_to_pdf?
       "article"
     elsif self.is_processed_to_video?
       "video"
     else
-      "presentation"
+      "undefined"
     end
 
     item.update_attribute(:attachment_type, item_type)
@@ -50,8 +52,12 @@ class Attachment < ActiveRecord::Base
     extension_is?(%w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v))
   end
 
+  def is_presentation?
+    extension_is?(%w(key ppt pptx)) or self.attachment_type == "presentation_video"
+  end
+
   def is_processed_to_pdf?
-    extension_is?(["doc","docx"])
+    extension_is?(%w(doc docx))
   end
 
   def get_thumbnail

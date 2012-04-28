@@ -1,2 +1,5 @@
 showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
 $(".user-info .title").html("#{current_user.full_name}")
+
+- if @paypal_account_change
+  $("#paypal-account-field").html("#{current_user.paypal_account}");

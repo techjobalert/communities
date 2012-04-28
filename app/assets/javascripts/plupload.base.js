@@ -1,24 +1,23 @@
 $(function() {
   return $.initPlupload = function(options) {
     var uploader, settings;
-
-
     settings = {
       runtimes: "html5,html4,flash",
       browse_button: "pickfiles",
       container: "upcontainer",
       max_file_size: "3mb",
-      flash_swf_url: "assets/plupload/plupload.flash.swf",
+      flash_swf_url: "/assets/plupload/plupload.flash.swf",
       multipart: true,
       multipart_params: {
         authenticity_token: $("meta[name=csrf-token]").attr("content")
       },
-      filters: [{ title: "Images", extensions: "jpg,jpeg,png,JPG,JPEG,PNG"}],
       post_data: {}
     };
-
     // Extend base settings by options
-    $.extend(settings, options);
+    settings = $.extend(settings, options);
+
+    // $.extend(plupload.mimeTypes, {key: "application/vnd.apple.keynote"})
+
     if ( !$("#"+settings.container) || !$("#"+settings.browse_button) )
       return false;
 
@@ -72,12 +71,10 @@ $(function() {
     });
 
     uploader.bind('Error', function(up, err) {
-      if ($('#filelist').length) $('#filelist').append("<div>Error: " + err.code +
-        ", Message: " + err.message +
-        (err.file ? ", File: " + err.file.name : "") +
-        "</div>"
-      );
-      alert(err.message);
+      if ($('#filelist').length){
+        $('#filelist .filename:last-child').remove();
+        alert("Available file format to upload: pdf, doc, docx, key, 3gpp, 3gp, mpeg, mpg, mpe, ogv, mov, webm, flv, mng, asx, asf, wmv, avi, mp4, m4v")
+      }
       up.refresh(); // Reposition Flash/Silverlight
     });
 
@@ -139,5 +136,6 @@ $(function() {
         });
       }
     });
+
   }
 });

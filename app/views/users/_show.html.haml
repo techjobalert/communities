@@ -40,7 +40,7 @@
             = user.specialization
 
         %p
-          %strong Send a messege:
+          %strong Send a message:
           you can send a message directly to email about professional question
         - if is_current_user
           %p= image_tag "send-message-public.png"
@@ -56,7 +56,21 @@
       %p
         %strong Biography:
         = user.bio
+      %br
 
+    - educations = user.educations
+    - if user.show_educations == "1" and  educations.any?
+      %p
+        %strong Education:
+        - user.educations.each do |e|
+          - if e.school.present?
+            %b= "#{e.school}, "
+            %span
+              = "#{e.city}, " if e.city.present?
+              = "#{e.state}, " if e.state.present?
+              = "#{e.country}, " if e.country.present?
+
+          %br
       %br
 
     - if user.items.state_is("published").present?

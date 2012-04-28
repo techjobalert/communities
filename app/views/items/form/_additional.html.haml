@@ -36,12 +36,14 @@
   - else
     = hidden_field_tag "step", "additional"
 
+  = hidden_field_tag "current_step", "additional"
+
   %p
     = f.label :price, "Set price", :class => "label"
     = f.text_field :price, :class => "price"
   %p
     = label :price, "PayPal account", :class => "label"
-    = text_field_tag "paypal_account", current_user.paypal_account
+    = text_field_tag "paypal_account", @item.user.paypal_account
 
   .b-upload-item__title.hr Copyright Verification
   %p
@@ -53,11 +55,18 @@
       and scrambled it to make a type specimen book.
 
   %p.help
-    If your item is ready click "Publish" button
-    %br
-    If you wish to add presenter video click "Next step &raquo;" button.
-    In this case you will be able to proceed after processing of your item.
-    You will be notified by e-mail.
+    - if @processed
+      If your item is ready click "Publish" button
+      %br
+      If you wish to add presenter video click "Next step &raquo;" button.
+      In this case you will be able to proceed after processing of your item.
+      You will be notified by e-mail.
+    - elsif @a_video or @a_pdf
+      Please wait for the attached file to be processed. Publishing will be
+      available after processing.
+    - else
+      Item can't be published without attached files
+
   %p.tools
     - if @processed
       = f.submit "Publish", :class => 'light-button green', :name => 'publish'

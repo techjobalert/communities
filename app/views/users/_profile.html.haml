@@ -8,7 +8,9 @@
         .spinner.hidden
         :javascript
           $(function(){
-            var uploaderProfile = $.initPlupload({url: "#{user_upload_avatar_path(user)}"});
+            var uploaderProfile = $.initPlupload({
+              filters: [{ title: "Images files", extensions: "jpg,jpeg,png,JPG,JPEG,PNG"}],
+              url: "#{user_upload_avatar_path(user)}"});
           })
       .hidden
         #colorbox

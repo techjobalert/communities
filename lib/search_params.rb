@@ -90,6 +90,8 @@ class SearchParams
       opt.push(items_only_published(params))
     end
     opt.push(items_date_interval(params))
+    opt.push(items_attachment_type(params))
+    opt.push(items_relevant_item(params))
     opt.push(items_views_filter(params))
     opt.push(items_price_filter(params))
     options = {}
@@ -109,6 +111,26 @@ class SearchParams
 
   def items_order(params)
     {:order => "created_at", :sort_mode =>:desc }
+  end
+
+  def items_relevant_item params
+    if params[:relevant_item_id].present?
+      item = Item.find params[:relevant_item_id]
+      { :without_ids => [*item.id], :with_all => { :tag_ids => item.tag_ids }, :classes => [Item]}
+    end
+  end
+
+  def items_attachment_type(params)
+    attachment_types = ["video","article","presentation"]
+    if params[:filter_type].present?
+      attachment_type = if params[:attachment_type].present?
+        attachment_types.include?(params[:attachment_type]) ? params[:attachment_type] : "video"
+      else
+        "video"
+      end
+
+      { :with => { :attachment_type => attachment_type.to_crc32 } }
+    end
   end
 
   def items_date_interval(params)
@@ -159,7 +181,7 @@ class SearchParams
   end
 
   def items_only_published(params)
-    { :with => {:state => "published".to_crc32}, :without => {:state => "archived".to_crc32} }
+    { :with => {:state => "published".to_crc32} }
   end
 
 end

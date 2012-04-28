@@ -5,3 +5,8 @@
   - @locals.merge!({:main_search => true})
 
 = render :partial => path, :locals => @locals
+
+:javascript
+  $(".main-content .navigation a").removeClass("selected");
+  $(".tab-home").addClass("selected");
+  $(".l-settings-navigation").html("");
