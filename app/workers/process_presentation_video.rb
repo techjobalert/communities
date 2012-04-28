@@ -13,7 +13,7 @@ class ProcessPresentationVideo
         if idx+1 <= timing.size
           hex = SecureRandom.hex(10)
           file_prefix = File.join(File.dirname(p_att), hex)
-          pic_path = File.join(File.dirname(p_att), hex)+".png"
+          pic_path = File.join(File.dirname(p_att), hex)+".jpg"
           # pic
           p "ffmpeg -ss #{t['stop']} -t 1 -i #{p_att} -f image2 #{pic_path}"
           %x[ffmpeg -ss #{t['stop']} -t 1 -i #{p_att} -f image2 #{pic_path}]
