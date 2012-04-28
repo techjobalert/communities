@@ -14,7 +14,11 @@
             PayPal account:
             %br
             %span#paypal-account-field= current_user.paypal_account
+          %p.help
+            Please enter a valid PayPal account. Otherwise money for purchasing
+            your item won't be transfered to your account.
         = link_to "Edit", '#', :class => 'light-button green edit', :id => "paypal-form-dialog"
+
 
       - if current_user.role? "doctor"
         .item.half
@@ -59,6 +63,9 @@
         = hidden_field_tag "paypal_account_change", "1"
         = f.label :paypal_account, "PayPal account"
         = f.email_field :paypal_account
+      %p.help
+        Please enter a valid PayPal account. Otherwise money for purchasing
+        your item won't be transfered to your account.
 
 :javascript
   $(document).on("change", "#month_pagination", function(){
