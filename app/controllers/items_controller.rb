@@ -237,7 +237,6 @@ class ItemsController < InheritedResources::Base
       :attachment_type => "presenter_video"})
 
     @item.attachments << presenter_video
-<<<<<<< HEAD
 
     video = Attachment.find(params[:video_id])
     if video.attachment_type == "presentation_video" and params[:playback_points].present?
@@ -245,22 +244,6 @@ class ItemsController < InheritedResources::Base
     else
       Resque.enqueue(VideoMerge, params[:video_id], presenter_video.id, {:position => params[:position]})
     end
-=======
-    params[:playback_points].values
-    merge_params = {
-      :position => params[:position]
-    }
-    video = Attachment.find(params[:video_id])
-    if video.attachment_type == "presentation_video" and params[:playback_points].present?
-      merge_params.merge!({:playback_points => params[:playback_points].values})
-    end
-
-    Resque.enqueue(
-      VideoMerge,
-      params[:video_id],
-      presenter_video.id,
-      merge_params)
->>>>>>> master
 
     @notice = {:type => 'notice', :message =>
         "your files added to Q for merging"
