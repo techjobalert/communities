@@ -8,11 +8,12 @@ class ProcessPresentationVideo
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
       timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
       files = []
-      p "timing #{timing}"
+      tmp_dir = File.join(File.dirname(p_att), SecureRandom.hex(10))
+      FileUtils.mkdir_p(tmp_dir)
       timing.each_with_index do |t, idx|
         if idx+1 <= timing.size and [t['start'], t['stop'], t['pause_duration']].all?
           hex = SecureRandom.hex(10)
-          file_prefix = File.join(File.dirname(p_att), hex)
+          file_prefix = File.join(tmp_dir, hex)
           pic_path = File.join(File.dirname(p_att), hex)+".jpg"
           # pic
           p "ffmpeg -ss #{t['stop']} -t 1 -i #{p_att} -f mjpeg #{pic_path}"
@@ -31,9 +32,10 @@ class ProcessPresentationVideo
       hex = SecureRandom.hex(10)
       file_prefix = File.join(File.dirname(p_att), hex)
       final = file_prefix+"_final.webm"
-      p "mkvmerge -o #{final} #{files.join(" +")}"
-      %x[mkvmerge -o #{final} #{files.join(" +")}]
-      # %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{final}]
+      # %x[mkvmerge -o #{final} #{files.join(" +")}]
+      p "mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{final}"
+      %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{final}]
+      FileUtils.remove_dir(tmp_dir)
       Resque.enqueue(VideoMerge, present_attachment_id, final, {:position => params["position"]})
     end
   end
