@@ -10,8 +10,9 @@ class ProcessPresentationVideo
       hex = SecureRandom.hex(10)
       file_prefix = File.join(File.dirname(p_att), hex)
       files = []
+      p "timing #{timing}"
       timing.each_with_index do |t, idx|
-        if timing.size < idx+1
+        if idx+1 <= timing.size
           pic_path = File.join(File.dirname(p_att), hex)+".png"
           # pic
           p "ffmpeg -ss #{t['stop']} -t 1 -i #{p_att} -f mjpeg #{pic_path}"
