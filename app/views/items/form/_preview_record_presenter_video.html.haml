@@ -43,12 +43,12 @@
       pauseCallback = function(){
         clearInterval(intervarTimer);
         innerTimer = 0;
-        innerIntervarTimer = setInterval(function(){innerTimer+= 0.1}, 100);
+        innerIntervarTimer = setInterval(function(){innerTimer+= 0.01}, 10);
         if (_playbackPoints.length) currentPos++;
       },
       playCallback = function(){
         clearInterval(innerIntervarTimer);
-        intervarTimer = setInterval(function(){timer += 0.1}, 100);
+        intervarTimer = setInterval(function(){timer += 0.01}, 10);
         if (innerTimer && currentPos){
           _playbackPoints[currentPos-1]['stop'] = secondsToHms(timer);
           // timer += innerTimer;
@@ -58,6 +58,8 @@
         _playbackPoints.push({start: secondsToHms(timer)})
       },
       endedCallback = function(){
+        _playbackPoints[currentPos]['stop'] = secondsToHms(timer);
+        _playbackPoints[currentPos]['pause_duration'] = secondsToHms(innerTimer);
         stopSync();
         console.log("video end");
       },
