@@ -58,8 +58,8 @@
         _playbackPoints.push({start: secondsToHms(timer)})
       },
       endedCallback = function(){
-        _playbackPoints[currentPos]['stop'] = secondsToHms(timer);
-        _playbackPoints[currentPos]['pause_duration'] = secondsToHms(innerTimer);
+        _playbackPoints[currentPos-1]['stop'] = secondsToHms(timer);
+        _playbackPoints[currentPos-1]['pause_duration'] = secondsToHms(innerTimer);
         stopSync();
         console.log("video end");
       },

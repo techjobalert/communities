@@ -30,12 +30,15 @@ class ProcessPresentationVideo
       end
 
       hex = SecureRandom.hex(10)
-      file_prefix = File.join(File.dirname(p_att), hex)
-      final = file_prefix+"_final.webm"
+      file_no_sound = File.join(tmp_dir, hex)+"_nosound_final.webm"
+      final = FFile.join(File.dirname(p_att), hex)+"final.webm"
       # %x[mkvmerge -o #{final} #{files.join(" +")}]
-      p "mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{final}"
-      %x[mencoder -oac copy -ovc copy #{files.join(" ")} -o #{final}]
-      FileUtils.remove_dir(tmp_dir)
+      p "mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}"
+      %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}]
+      # add empty audio track
+      p "ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -vcodec libvpx -acodec libvorbis #{final} -map 1:0 -map 0:0"
+      %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -vcodec libvpx -acodec libvorbis #{final} -map 1:0 -map 0:0]
+      # FileUtils.remove_dir(tmp_dir)
       Resque.enqueue(VideoMerge, present_attachment_id, final, {:position => params["position"]})
     end
   end
