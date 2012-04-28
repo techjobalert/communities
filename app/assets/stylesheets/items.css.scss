@@ -484,6 +484,10 @@
     margin: 5px 0;
   }
 
+  .help {
+    padding: 10px;
+    font-size: 10px; }
+
   .csv {
     input {
       width: 35px;
@@ -973,7 +977,6 @@
       &:hover { color: red }
     }
   }
-
 }
 
 #popup-change-password .form label { width: 145px; }

@@ -21,6 +21,7 @@ class Ability
     can :update, User, :id => @user.id
     can [:follow, :unfollow], [User, Item]
     can [:follow, :upload_avatar, :crop_avatar, :send_message], User
+    can [:relevant], Item
     can [:purchase,:payments_info], :account
   end
 
