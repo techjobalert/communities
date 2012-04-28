@@ -10,7 +10,7 @@ class ProcessPresentationVideo
       files = []
       p "timing #{timing}"
       timing.each_with_index do |t, idx|
-        if idx+1 <= timing.size
+        if idx+1 <= timing.size and [t['start'], t['stop'], t['pause_duration']].all?
           hex = SecureRandom.hex(10)
           file_prefix = File.join(File.dirname(p_att), hex)
           pic_path = File.join(File.dirname(p_att), hex)+".jpg"
@@ -31,9 +31,9 @@ class ProcessPresentationVideo
       hex = SecureRandom.hex(10)
       file_prefix = File.join(File.dirname(p_att), hex)
       final = file_prefix+"_final.webm"
-      p "mkvmerge mkvmerge -o #{final} #{files.join(" +")}"
-      %x[mkvmerge mkvmerge -o #{final} #{files.join(" +")}]
-      # %x[mencoder -oac copy -ovc copy #{files.join(" ")} -o #{final}]
+      p "mkvmerge -o #{final} #{files.join(" +")}"
+      %x[mkvmerge -o #{final} #{files.join(" +")}]
+      # %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{final}]
       Resque.enqueue(VideoMerge, present_attachment_id, final, {:position => params["position"]})
     end
   end
