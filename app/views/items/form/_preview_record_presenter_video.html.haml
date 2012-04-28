@@ -53,9 +53,9 @@
         if (intervarTimer == undefined) intervarTimer = setInterval(timerCallback, 100);
         if (innerTimer && currentPos){
           _playbackPoints[currentPos-1]['stop'] = secondsToHms(timer);
-          timer += innerTimer;
+          // timer += innerTimer;
           _playbackPoints[currentPos-1]['pause_duration'] = secondsToHms(innerTimer);
-          _playbackPoints[currentPos-1]['stop_with_pause_duration'] = secondsToHms(timer);
+          // _playbackPoints[currentPos-1]['stop_with_pause_duration'] = secondsToHms(timer);
         }
         _playbackPoints.push({start: secondsToHms(timer)})
       },

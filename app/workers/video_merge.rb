@@ -18,7 +18,7 @@ class VideoMerge
       timing.each_with_index do |t, idx|
         if timing.size < idx+1
           file_prefix = File.join(File.dirname(p_att), SecureRandom.hex(10))
-          pic_path = File.join(File.dirname(p_att), file_prefix)+".png"
+          pic_path = File.join(File.dirname(p_att), file_prefix)+".jpg"
           # pic
           c=%x[ffmpeg -ss #{t['stop']} -t 1 -i #{p_att} -f mjpeg #{pic_path}]
           # part before paused
