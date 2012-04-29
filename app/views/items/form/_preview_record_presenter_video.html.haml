@@ -50,16 +50,18 @@
         clearInterval(innerIntervarTimer);
         intervarTimer = setInterval(function(){timer += 0.01}, 10);
         if (innerTimer && currentPos){
-          _playbackPoints[currentPos-1]['stop'] = secondsToHms(timer);
+          _playbackPoints[currentPos-1]['stop'] = timer;
+          _playbackPoints[currentPos-1]['duration'] = timer - _playbackPoints[currentPos-1]['start'];
+          _playbackPoints[currentPos-1]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
           // timer += innerTimer;
-          _playbackPoints[currentPos-1]['pause_duration'] = secondsToHms(innerTimer);
           // _playbackPoints[currentPos-1]['stop_with_pause_duration'] = secondsToHms(timer);
         }
-        _playbackPoints.push({start: secondsToHms(timer)})
+        _playbackPoints.push({start: timer})
       },
       endedCallback = function(){
-        _playbackPoints[currentPos-1]['stop'] = secondsToHms(timer);
-        _playbackPoints[currentPos-1]['pause_duration'] = secondsToHms(innerTimer);
+        _playbackPoints[currentPos-1]['stop'] = timer);
+        _playbackPoints[currentPos-1]['duration'] = timer - _playbackPoints[currentPos-1]['start'];
+        _playbackPoints[currentPos-1]['pause_duration'] = innerTimer;
         stopSync();
         console.log("video end");
       },
