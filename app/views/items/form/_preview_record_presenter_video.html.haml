@@ -59,7 +59,7 @@
         _playbackPoints.push({start: timer})
       },
       endedCallback = function(){
-        _playbackPoints[currentPos-1]['stop'] = timer);
+        _playbackPoints[currentPos-1]['stop'] = timer;
         _playbackPoints[currentPos-1]['duration'] = timer - _playbackPoints[currentPos-1]['start'];
         _playbackPoints[currentPos-1]['pause_duration'] = innerTimer;
         stopSync();
