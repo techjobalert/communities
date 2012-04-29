@@ -16,8 +16,8 @@ class ProcessPresentationVideo
           file_prefix = File.join(tmp_dir, hex)
           pic_path = File.join(tmp_dir, hex)+".jpg"
           # pic
-          p "ffmpeg -ss #{t['stop']} -t 1 -i #{p_att} -f mjpeg #{pic_path}"
-          %x[ffmpeg -ss #{t['stop']} -t 1 -i #{p_att} -f mjpeg #{pic_path}]
+          p "ffmpeg -i #{p_att} -f mjpeg -ss #{t['stop']} -t 1 #{pic_path}"
+          %x[ffmpeg -i #{p_att} -f mjpeg -ss #{t['stop']} -t 1 #{pic_path}]
           # part before paused
           p "ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['stop']} #{file_prefix}_1.webm"
           %x[ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['stop']} #{file_prefix}_1.webm]
