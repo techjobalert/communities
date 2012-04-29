@@ -1,7 +1,7 @@
 class ProcessPresentationVideo
   @queue = :store_asset
 
-  def self.perform(present_attachment_id, params)
+  def self.perform(present_attachment_id, recorded_attachment_id, params)
     present_attachment = Attachment.find(present_attachment_id)
     p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
 
@@ -39,7 +39,7 @@ class ProcessPresentationVideo
       p "ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -vcodec libvpx -acodec libvorbis #{final} -map 1:0 -map 0:0"
       %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -vcodec libvpx -acodec libvorbis #{final} -map 1:0 -map 0:0]
       # FileUtils.remove_dir(tmp_dir)
-      Resque.enqueue(VideoMerge, present_attachment_id, final, {:position => params["position"]})
+      Resque.enqueue(VideoMerge, final, recorded_attachment_id, {:position => params["position"]})
     end
   end
 end
