@@ -34,7 +34,7 @@ class ItemsController < InheritedResources::Base
   def update
     @step = params[:step]
     @current_step = params[:current_step]
-    @a_pdf, @a_video = @item.regular_pdf, @item.common_video if @item.attachments
+    @a_pdf, @a_video = @item.regular_pdf, @item.regular_video if @item.attachments
     @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
     @uuid = SecureRandom.uuid.split("-").join()
 
