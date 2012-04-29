@@ -44,9 +44,9 @@ class VideoMerge
 
     cmd = %x[#{command}]
 
-    present_attachment.item.attachments << Attachment.new({
+    recorded_attachment.item.attachments << Attachment.new({
       :file => File.open(output),
-      :user => present_attachment.item.user,
+      :user => recorded_attachment.item.user,
       :attachment_type => "presenter_merged_video"})
     File.delete(output)
   end
