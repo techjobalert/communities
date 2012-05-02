@@ -4,21 +4,14 @@
       = image_tag user.avatar_url(:thumb_70), :alt => "#{user.full_name}"
       %span.title= user.full_name
     - if user != current_user
-      .tools{:class => "tools-user-#{@user.id}"}
-        - if current_user.following?(user)
-          = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id} no-history" do
-            Unfollow
-            %span
-        - else
-          = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id} no-history" do
-            Follow
-            %span
+      .following-tools{:class => "tools-user-#{@user.id}"}
+        = render :partial => "users/following", :locals => { :user => @user }
 
     .panel
       - unless user.specialization.blank?
         %p
           %b Specialization:
-          = user.specialization
+          = user.specialization.truncate(150, :separator => " ")
 
       - if user != current_user
         %p
@@ -38,5 +31,5 @@
               %li= link_to item.title.truncate(65, :separator => " "), item_path(item), :class => "publication-item"
     .clear
 
-  %p.right= link_to 'Go to profile', user_path(user), :class => 'pjax light-button go-to-profile'
+  %p.right= link_to '', user_path(user), :class => 'pjax btn go-to-profile'
   .corner

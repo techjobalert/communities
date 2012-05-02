@@ -116,29 +116,6 @@
     margin: 15px 0 10px;
   }
 
-  .light-button.upload {
-    color: #F2EFBD;
-    display: block;
-    float: left;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 32px;
-    padding: 3px 6px 3px 10px;
-    width: 92px;
-    -webkit-text-shadow: none;
-    -moz-text-shadow: none;
-    text-shadow: none;
-
-
-    span {
-      background: url("/assets/search-engine-set.png") no-repeat scroll 0 -33px transparent;
-      display: block;
-      float: right;
-      height: 30px;
-      width: 30px;
-    }
-  }
-
   .btn-hint {
     float: left;
     font-size: 14px;
@@ -912,27 +889,6 @@
       display: block;
       width: 100%;
       margin: 15px 0 10px; }
-
-    .light-button.upload {
-      color: #F2EFBD;
-      display: inline-block;
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 32px;
-      padding: 3px 6px 3px 10px;
-      width: 92px;
-      -webkit-text-shadow: none;
-      -moz-text-shadow: none;
-      text-shadow: none;
-      vertical-align: middle;
-
-      span {
-        background: url("/assets/search-engine-set.png") no-repeat scroll 0 -33px transparent;
-        display: block;
-        float: right;
-        height: 30px;
-        width: 30px; }
-    }
 
     .btn-hint {
       display: inline-block;

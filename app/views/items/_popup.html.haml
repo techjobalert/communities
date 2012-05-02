@@ -35,22 +35,10 @@
 
   .tools
     - if current_user and current_user.following?(item)
-      = link_to item_unfollow_path(item), :remote => true, :method => :delete, :class => "light-button follow-item follow-item-#{item.id} no-history" do
-        Unfollow Item
-        %span
+      = link_to "", item_unfollow_path(item), :remote => true, :method => :delete, :class => "btn popup-btn unfollow-item follow-item-#{item.id}"
     - else
-      = link_to item_follow_path(item), :remote => true, :method => :post, :class => "light-button follow-item follow-item-#{item.id} no-history" do
-        Follow Item
-        %span
+      = link_to "", item_follow_path(item), :remote => true, :method => :post, :class => "btn popup-btn follow-item follow-item-#{item.id}"
 
-    = link_to item_path(item), :class => 'pjax light-button go-to-article' do
-      Go to Article
-      %span
-    = link_to '#', :class => 'pjax light-button make-pdf' do
-      Make PDF
-      %span
-    %br
-    = link_to '#', :class => 'pjax light-button sell' do
-      %b Sell
-      this item
+    = link_to "", item_path(item), :class => 'btn go-to-article'
+    = link_to "", '#', :class => 'btn make-pdf'
   .corner

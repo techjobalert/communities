@@ -1,5 +1,5 @@
 var fbutton = $(".follow-user-#{@following_user.id}");
 if (fbutton){
-fbutton.text("Unfollow").append("<span/>");
+fbutton.removeClass("follow").addClass("unfollow");
 fbutton.data("method", "delete").attr("href", "#{user_unfollow_path(@following_user)}");
 }

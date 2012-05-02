@@ -1,0 +1,4 @@
+- if current_user.following?(user)
+  = link_to "", user_unfollow_path(user), :method => :delete, :remote => :true, :class => "btn unfollow follow-user-#{user.id}"
+- else
+  = link_to "", user_follow_path(user), :method => :post, :remote => :true, :class => "btn follow follow-user-#{user.id}"

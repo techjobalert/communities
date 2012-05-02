@@ -69,10 +69,10 @@
 
   %p.tools
     - if @processed
-      = f.submit "Publish", :class => 'light-button green', :name => 'publish'
-      = f.submit raw('Next Step &raquo;'), :class => 'light-button green'
+      = f.submit "", :class => 'btn publish', :name => 'publish'
+      = f.submit "", :class => 'btn next-step'
     - else
-      = f.submit "Save", :class => 'light-button green'
+      = f.submit "", :class => 'btn save-item'
 
   :javascript
     $( "#add-collegues-to-item-link:ui-dialog" ).dialog( "destroy" );

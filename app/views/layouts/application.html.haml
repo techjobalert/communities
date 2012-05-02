@@ -26,7 +26,7 @@
             .user-info
               = image_tag current_user.avatar_url(:thumb_70), :alt => "#{current_user.full_name}", :id => "popup-user-#{current_user.id}", :class => "popup-user-info my-thumb_70"
               %span.title= current_user.full_name
-            = link_to "","/orthodontic_sale", :class => "btn-our-sales", :remote => true
+            = link_to "","/orthodontic_sale", :class => "btn our-sale", :remote => true
             .clear
             .navigation
               %ul

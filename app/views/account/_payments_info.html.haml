@@ -17,20 +17,15 @@
           %p.help
             Please enter a valid PayPal account. Otherwise money for purchasing
             your item won't be transfered to your account.
-        = link_to "Edit", '#', :class => 'light-button green edit', :id => "paypal-form-dialog"
+        = link_to "", '#', :class => 'btn edit', :id => "paypal-form-dialog"
 
 
       - if current_user.role? "doctor"
         .item.half
           .title Total
           .summ= "#{@icoming_sum} USD"
+          %p= link_to "", new_item_path , :class => 'btn upload-more'
 
-          %p
-            = link_to new_item_path , :class => 'light-button green upload' do
-              %span
-              Uplode more
-              %br
-              quality items
       .clear
 
       - if @transactions.any?

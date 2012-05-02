@@ -18,22 +18,13 @@
 
     - if current_user and item.user.id != current_user.id
       - if not current_user.following?(item)
-        = link_to item_follow_path(item), :method => :post, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do
-          Follow Item
-          %span
+        = link_to "", item_follow_path(item), :method => :post, :remote => true, :class => "btn follow-item follow-item-#{item.id}"
       - else
-        = link_to item_unfollow_path(item), :method => :delete, :remote => true, :class => "light-button follow follow-item-#{item.id} no-history" do
-          Unfollow Item
-          %span
+        = link_to "", item_unfollow_path(item), :method => :delete, :remote => true, :class => "btn unfollow-item follow-item-#{item.id}"
 
     - if item.user == current_user
-      = link_to edit_item_path(item), :class => "light-button edit-item pjax" do
-        Edit Item
-
-      .light-button.set-preview.green
-        %b Set
-        preview
-        %span
+      = link_to "", edit_item_path(item), :class => "btn edit-item pjax"
+      .btn.set-preview
 
       - content_for :popup_set_preview do
         .b-popup-set-preview.popup-container.top
@@ -58,18 +49,9 @@
 
           .corner
 
-    - else
-      .light-button.sell.hidden
-        %b Sell
-        item
-        = text_field 'search', 'form'
-        %span
+    - elsif user_signed_in? && item.paid? && !item.purchased?(current_user)
+      = link_to "", orders_path, :remote => true, :id => "account-form-dialog", :class => "btn buy-item", :method => :post
 
-      - if user_signed_in? && item.paid? && !item.purchased?(current_user)
-        = link_to orders_path, :remote => true, :id => "account-form-dialog", :class => "light-button buy green", :method => :post do
-          %b Buy
-          item
-          %span
 
   - unless @a_video
     .text.pic
@@ -127,11 +109,7 @@
   %h3 Comments
   .b-comments-panel
     - if user_signed_in?
-      = link_to '#', :class => 'light-button new-comment slide-to' do
-        Make a comment
-        %br
-        on this Item
-        %span
+      = link_to '', '#', :class => 'btn new-comment'
       .b-comments-form#comment-form
         = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
     %ul
@@ -233,7 +211,7 @@
     }
 
 :javascript
-  $(".light-button.new-comment.slide-to").on("click", function(){
+  $(".new-comment").on("click", function(){
     $("form#new_comment").submit();
     return false;
   })

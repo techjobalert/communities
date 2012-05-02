@@ -1,7 +1,7 @@
 - if @notice[:type] != "error"
   var fbutton = $(".follow-item-#{@item.id}");
   if (fbutton){
-  fbutton.text("Unfollow item").append("<span/>");
+  fbutton.removeClass("follow-item").addClass("unfollow-item");
   fbutton.data("method", "delete").attr("href", "#{item_unfollow_path(@item)}");
   }
 - else

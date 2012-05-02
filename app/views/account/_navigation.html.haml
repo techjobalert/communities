@@ -32,7 +32,7 @@
       .search
         = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input account-search-field', :id => "qsearch"
         = f.hidden_field "filter_type", :value => "account"
-        = f.submit 'Go', :class => 'dark-button'
+        = f.submit '', :class => 'btn go'
 
     .clear
 .clear
