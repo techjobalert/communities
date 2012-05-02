@@ -75,8 +75,7 @@ class FileUploader < CarrierWave::Uploader::Base
               :video_codec => 'libvpx',
               :audio_bitrate => '128',
               :threads => 1,
-              :custom => "-quality good -b:v 500k -qmin 10 -qmax 42 -maxrate 500k -bufsize 1000k -vpre libvpx-360p"
-              # libvpx-720p
+              :custom => "-quality good -b:v 500k -qmin 10 -qmax 42 -maxrate 500k -bufsize 1000k -vpre libvpx-720p"
             }
     def full_filename (for_file = model.file.file)
       "webm_#{File.basename(for_file, File.extname(for_file))}.webm"
