@@ -9,6 +9,7 @@ class ProcessPresentationVideo
       timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
       files = []
       tmp_dir = File.join(File.dirname(p_att), SecureRandom.hex(10))
+      frame_rate = FFMPEG::Movie.new(p_att).frame_rate
       FileUtils.mkdir_p(tmp_dir)
       timing.each_with_index do |t, idx|
         if idx+1 <= timing.size and [t['start'], t['stop'], t['duration'], t['pause_duration']].all?
@@ -18,13 +19,16 @@ class ProcessPresentationVideo
           # pic
           p "ffmpeg -i #{p_att} -f mjpeg -ss #{t['stop']} -t 1 #{pic_path}"
           %x[ffmpeg -i #{p_att} -f mjpeg -ss #{t['stop']} -t 1 #{pic_path}]
+
           # part before paused
-          p "ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm"
-          %x[ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm]
+          p "ffmpeg -i #{p_att} -vcodec copy -acodec copy -qmax 51 -qmin 11 -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm"
+          %x[ffmpeg -i #{p_att} -vcodec copy -acodec copy -qmax 51 -qmin 11 -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm]
+
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
-          p "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm"
-          %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm]
+          p "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm"
+          %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm]
+
           files << file_prefix+"_1.webm"
           files << file_prefix+"_2.webm"
         end
