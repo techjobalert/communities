@@ -40,7 +40,7 @@
       innerIntervarTimer,
       pauseCallback = function(){
         innerTimer = 0;
-        innerIntervarTimer = setInterval(function(){ innerTimer += 0.01}, 10);
+        innerIntervarTimer = setInterval(function(){ innerTimer += 0.1}, 100);
         if (_playbackPoints.length) currentPos++;
       },
       playCallback = function(){
@@ -49,7 +49,7 @@
           var p = currentPos-1, t = videoPlayer.media.currentTime;
           _playbackPoints[p]['stop'] = t;
           _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
-          _playbackPoints[p]['pause_duration'] = parseFloat(innerTimer.toFixed(3)); // secondsToHms(innerTimer);
+          _playbackPoints[p]['pause_duration'] = innerTimer > 1 ? innerTimer-1 : innerTimer; // secondsToHms(innerTimer);
         }
         _playbackPoints.push({start: _playbackPoints.length ? videoPlayer.media.currentTime : 0 })
       },
