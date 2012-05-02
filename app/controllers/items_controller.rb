@@ -34,7 +34,7 @@ class ItemsController < InheritedResources::Base
   def update
     @step = params[:step]
     @current_step = params[:current_step]
-    @a_pdf, @a_video = @item.regular_pdf, @item.common_video if @item.attachments
+    @a_pdf, @a_video = @item.regular_pdf, @item.regular_video if @item.attachments
     @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
     @uuid = SecureRandom.uuid.split("-").join()
 
@@ -237,20 +237,13 @@ class ItemsController < InheritedResources::Base
       :attachment_type => "presenter_video"})
 
     @item.attachments << presenter_video
-    params[:playback_points].values
-    merge_params = {
-      :position => params[:position]
-    }
+
     video = Attachment.find(params[:video_id])
     if video.attachment_type == "presentation_video" and params[:playback_points].present?
-      merge_params.merge!({:playback_points => params[:playback_points].values})
+      Resque.enqueue(ProcessPresentationVideo, params[:video_id], presenter_video.id, {:playback_points => params[:playback_points].values, :position => params[:position]})
+    else
+      Resque.enqueue(VideoMerge, params[:video_id], presenter_video.id, {:position => params[:position]})
     end
-
-    Resque.enqueue(
-      VideoMerge,
-      params[:video_id],
-      presenter_video.id,
-      merge_params)
 
     @notice = {:type => 'notice', :message =>
         "your files added to Q for merging"

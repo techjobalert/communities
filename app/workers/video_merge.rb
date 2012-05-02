@@ -1,35 +1,17 @@
 class VideoMerge
   @queue = :store_asset
 
-  def self.perform(present_attachment_id, recorded_attachment_id, params)
-    present_attachment = Attachment.find(present_attachment_id)
-    p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
+  def self.perform(present_attachment, recorded_attachment_id, params)
+    if not (present_attachment =~ /^[0-9]+$/).nil?
+      _present_attachment = Attachment.find(present_attachment)
+      p_att = File.join(Rails.root.to_s,"public", _present_attachment.file.webm.to_s)
+    else
+      p_att = present_attachment
+    end
     recorded_attachment = Attachment.find(recorded_attachment_id)
     r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
-    if present_attachment.attachment_type == "presentation_video" and params["playback_points"].present?
-      timing = params["playback_points"]
-      files = []
-      timing.each_with_index do |t, idx|
-        if timing.size < idx+1
-          file_prefix = File.join(File.dirname(p_att), SecureRandom.hex(10))
-          pic_path = File.join(File.dirname(p_att), file_prefix)+".png"
-          # pic
-          c=%x[ffmpeg -ss #{t['stop']} -t 1 -i #{p_att} -f mjpeg #{pic_path}]
-          # part before paused
-          c=%w[ffmpeg -ss #{t['start']} -t #{t['stop']} -i #{p_att} -vcodec copy -acodec copy #{file_prefix}_1.webm]
-          # paused part
-          c=%x[ffmpeg -loop_input -f image2 -i {pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r 12 -t {t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm]
-          files << file_prefix+"_1.webm"
-          files << file_prefix+"_2.webm"
-        end
-      end
-
-      final = File.join(File.dirname(p_att), SecureRandom.hex(10))+"_final.webm"
-      c=%x[mencoder -oac copy -ovc copy #{files.join(" ")} -o #{final}]
-      p_att = final
-    end
     # add_logo = false
     # logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
     #   :pos => self.add_position('tl'),

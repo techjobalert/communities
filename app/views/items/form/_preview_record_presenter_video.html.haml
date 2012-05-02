@@ -40,26 +40,28 @@
       intervarTimer,
       innerTimer = 0,
       innerIntervarTimer,
-      timerCallback = function(){
-        timer += 0.1;
-      },
       pauseCallback = function(){
-        clearInterval(innerIntervarTimer);
+        clearInterval(intervarTimer);
         innerTimer = 0;
-        innerIntervarTimer = setInterval(function(){innerTimer+= 0.1}, 100);
+        innerIntervarTimer = setInterval(function(){innerTimer+= 0.01}, 10);
         if (_playbackPoints.length) currentPos++;
       },
       playCallback = function(){
-        if (intervarTimer == undefined) intervarTimer = setInterval(timerCallback, 100);
+        clearInterval(innerIntervarTimer);
+        intervarTimer = setInterval(function(){timer += 0.01}, 10);
         if (innerTimer && currentPos){
-          _playbackPoints[currentPos-1]['stop'] = secondsToHms(timer);
-          timer += innerTimer;
-          _playbackPoints[currentPos-1]['pause_duration'] = secondsToHms(innerTimer);
-          _playbackPoints[currentPos-1]['stop_with_pause_duration'] = secondsToHms(timer);
+          _playbackPoints[currentPos-1]['stop'] = timer;
+          _playbackPoints[currentPos-1]['duration'] = timer - _playbackPoints[currentPos-1]['start'];
+          _playbackPoints[currentPos-1]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
+          // timer += innerTimer;
+          // _playbackPoints[currentPos-1]['stop_with_pause_duration'] = secondsToHms(timer);
         }
-        _playbackPoints.push({start: secondsToHms(timer)})
+        _playbackPoints.push({start: timer})
       },
       endedCallback = function(){
+        _playbackPoints[currentPos-1]['stop'] = timer;
+        _playbackPoints[currentPos-1]['duration'] = timer - _playbackPoints[currentPos-1]['start'];
+        _playbackPoints[currentPos-1]['pause_duration'] = innerTimer;
         stopSync();
         console.log("video end");
       },
@@ -80,7 +82,6 @@
             , 1000 );
       },
       startSync = function(){
-        intervarTimer = setInterval(timerCallback, 100)
         videoPlayer.play();
         startRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Stop sync";
@@ -89,7 +90,7 @@
       },
       stopSync = function(){
         videoPlayer.pause();
-        clearInterval(timer);
+        clearInterval(intervarTimer);
         clearInterval(innerIntervarTimer);
         stopRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Start sync";
