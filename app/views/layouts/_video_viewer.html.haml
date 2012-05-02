@@ -54,7 +54,7 @@
       if ("#{attachment.attachment_type=='presentation_video'}"){
         var timing = "#{attachment.timing}".split(";");
         var _timing = [];
-        var interval = 225;
+        var interval = 300;
         $.each(timing, function(idx,i){_timing[idx] = i.substring(0,8)})
         mediaElement.addEventListener('timeupdate', function(e) {
           var x = _timing.indexOf(secondsToHms(mediaElement.currentTime).substring(0,8));

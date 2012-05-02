@@ -46,18 +46,18 @@
       playCallback = function(){
         clearInterval(innerIntervarTimer);
         if (currentPos){
-          var p = currentPos-1, t = videoPlayer.media.currentTime;
+          var p = currentPos-1, t = Math.round(videoPlayer.media.currentTime *10 ) / 10;
           _playbackPoints[p]['stop'] = t;
           _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
-          _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
+          _playbackPoints[p]['pause_duration'] = Math.round(innerTimer *10 ) / 10; // secondsToHms(innerTimer);
         }
         _playbackPoints.push({start: _playbackPoints.length ? videoPlayer.media.currentTime : 0 })
       },
       endedCallback = function(){
-        var p = currentPos-1, t = videoPlayer.media.currentTime;
+        var p = currentPos-1, t = Math.round(videoPlayer.media.currentTime *10 ) / 10;
         _playbackPoints[p]['stop'] = t;
         _playbackPoints[p]['duration'] = _playbackPoints[p]['start'] == t ? 0 : t;
-        _playbackPoints[p]['pause_duration'] = innerTimer;
+        _playbackPoints[p]['pause_duration'] = Math.round(innerTimer *10 ) / 10;
         stopSync();
         console.log("video end");
       },
