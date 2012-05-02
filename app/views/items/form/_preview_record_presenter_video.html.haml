@@ -55,8 +55,8 @@
       },
       endedCallback = function(){
         var p = currentPos-1, t = videoPlayer.media.currentTime;
-        _playbackPoints[p]['stop'] = _playbackPoints[p]['start'] == t ? 0 : t;
-        _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
+        _playbackPoints[p]['stop'] = t;
+        _playbackPoints[p]['duration'] = _playbackPoints[p]['start'] == t ? 0 : t;
         _playbackPoints[p]['pause_duration'] = innerTimer;
         stopSync();
         console.log("video end");
