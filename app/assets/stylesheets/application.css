@@ -5,6 +5,7 @@
  *
  *= require normalize
  *= require main
+ *= require btns
  *= require pages
  *= require items
  *= require jquery-ui

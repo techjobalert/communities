@@ -8,5 +8,5 @@
 
     .like-container
       - if user_signed_in? and current_user.role?("doctor") and !current_user.voted_for?(comment)
-        = link_to '+', item_comment_vote_up_path(comment.commentable_id, comment),:remote => true ,:class => 'dark-button no-history'
+        = link_to '', item_comment_vote_up_path(comment.commentable_id, comment), :remote => true, :class => 'btn like-comment'
       .votes= comment.votes.size

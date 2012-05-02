@@ -1,19 +1,17 @@
 .b-search-engine.center
   = link_to '', root_path, :class => 'logo'
-  .search
+  .search-container
     = form_for "", :url => search_items_path, :remote => true, :method => :get do |f|
       = f.text_field "q", :value => params[:q], :placeholder => 'Search for presentations, articles & movies', :class => 'text-input', :id => "main-search"
       = f.hidden_field "filter_type", :value => "basic"
       = f.hidden_field "filter_location", :value => "main"
-      = f.submit 'Search', :class => 'dark-button'
+      = f.submit '', :class => 'btn search'
   - if can? :create, Item
     = link_to new_item_path, :class => 'btn upload popup-cleaner pjax' do
       Upload
       %span
 
-  = link_to '#', :class => 'btn light-button explore' do
-    Explore
-    %span
+  = link_to "", '#', :class => 'btn explore'
   .b-explore-popup.hidden
     .container
       .content

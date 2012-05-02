@@ -5,9 +5,7 @@
   #regular-upcontainer
     .select-file Select File
     .row
-      = link_to '#', :id => 'regular-pickfiles', :class => 'light-button green upload' do
-        Upload
-        %span
+      = link_to '', '#', :id => 'regular-pickfiles', :class => 'btn upload'
 
       .btn-hint
         It can be presentations,
@@ -36,11 +34,11 @@
 
   %p.tools
     - if @item.attachments.blank?
-      %span.light-button.green.upload-page-next-step.disabled= raw('Next Step &raquo;')
+      %span.btn.next-step.upload-page-next-step.disabled
 
-      = link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"additional"), {:class => 'light-button green upload-page-next-step hidden'}
+      = link_to "", edit_item_path(@item, :step=>"additional"), {:class => 'btn next-step upload-page-next-step hidden'}
     - else
-      = link_to raw('Next Step &raquo;'), edit_item_path(@item, :step=>"additional"), {:class => 'light-button green'}
+      = link_to "", edit_item_path(@item, :step=>"additional"), {:class => 'btn next-step'}
 
   %p.help
     Please upload your presentation, movie or article to proceed

@@ -34,15 +34,15 @@
           = form_for @item, :url => item_change_keywords_path(@item), :method => :put, :remote => :true do |f|
             = hidden_field_tag "type", "change_keywords"
             = text_area_tag :tag_list, "", :rows => 1, :class => "keywords-textarea"
-            %p= f.submit "Update keywords", :class => "light-button green"
+            %p= f.submit "", :class => "btn update-keywords"
 
         .b-admin-content-tools
           .b-admin-content-subtitle Deny reason:
           = form_for(Message.new, :url => deny_moderator_item_path(@item), :remote => :true) do |f|
             %p= f.text_area :body, :placeholder => 'Deny reasons'
 
-            = link_to 'Confirm', confirm_moderator_item_path(@item), :remote => true, :class => 'light-button confirm no-history'
-            = f.submit 'Deny', :class => 'light-button deny'
+            = link_to '', confirm_moderator_item_path(@item), :remote => true, :class => 'btn confirm'
+            = f.submit '', :class => 'btn deny'
 
 
 :javascript

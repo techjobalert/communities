@@ -31,7 +31,7 @@
             = f.check_box :item_changes
             = label "_radio", "item_changes", "Item you are following has been changed or updated (price, title, summary, became free or commercial and etc.)"
 
-          %li.submit= f.submit 'Save changes', :class => 'light-button green'
+          %li.submit= f.submit '', :class => 'btn save-changes'
 
     - if current_user.role? "doctor"
       .b-info.b-settings-tab
@@ -43,7 +43,7 @@
             .body
               = f.text_area :bio
 
-              .right= f.submit 'OK', :class => 'light-button green'
+              .right= f.submit '', :class => 'btn ok'
 
         = form_for(current_user, :validate => true) do |f|
           .edu-container
@@ -56,7 +56,7 @@
                 - removable = true
             .right
               = link_to_add_fields "Add Education", f, :educations
-              = f.submit 'OK', :class => 'light-button green'
+              = f.submit '', :class => 'btn ok'
 
       .b-privacy.b-settings-tab.hidden
         .b-settings-title Select profile settings to show everyone:
@@ -72,7 +72,7 @@
               = f.check_box :show_birthday
               = label "_radio", "show_birthday", "Birthday"
 
-            %li.submit= f.submit 'Save changes', :class => 'light-button green'
+            %li.submit= f.submit '', :class => 'btn save-changes'
 
   :javascript
     $(".l-settings-navigation").removeClass('hidden');

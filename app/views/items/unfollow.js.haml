@@ -1,5 +1,5 @@
 var fbutton = $(".follow-item-#{@item.id}");
 if (fbutton){
-fbutton.text("Follow item").append("<span/>");
+fbutton.removeClass("unfollow-item").addClass("follow-item");
 fbutton.data("method", "post").attr("href", "#{item_follow_path(@item)}");
 }

@@ -1,0 +1,192 @@
+.btn {
+  background: url(btns-sprite.png);
+  border: none;
+  display: inline-block;
+  text-decoration: none;
+  vertical-align: middle;
+  opacity: 1;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+  &.ok {
+    background-position: 112px -181px;
+    width: 59px;
+    height: 28px; }
+
+  &.save-changes {
+    background-position: 226px -181px;
+    width: 112px;
+    height: 29px; }
+
+  &.go {
+    background-position: 38px -85px;
+    width: 35px;
+    height: 32px; }
+
+  &.send {
+    background-position: -4px -181px;
+    width: 60px;
+    height: 28px; }
+
+  &.follow {
+    background-position: -97px -468px;
+    width: 83px;
+    height: 36px; }
+
+  &.unfollow {
+    background-position: 0px -468px;
+    width: 95px;
+    height: 36px; }
+
+  &.go-to-profile {
+    background-position: -245px -428px;
+    width: 100px;
+    height: 38px; }
+
+  &.send-your-followers-message {
+    background-position: 0px -85px;
+    width: 281px;
+    height: 42px;
+    float: right;
+    margin-right: 10px; }
+
+  &.save {
+    background-position: -285px -258px;
+    width: 62px;
+    height: 26px; }
+
+  &.change-password {
+    background-position: -3px -258px;
+    width: 137px;
+    height: 26px; }
+
+  &.our-sale {
+    background-position: 0px 85px;
+    width: 224px;
+    height: 44px;
+    float: right;
+    margin-top: 30px;
+    margin-right: 20px; }
+
+  &.edit {
+    background-position: -64px -182px;
+    width: 60px;
+    height: 26px; }
+
+  &.upload-more {
+    background-position: -2px -128px;
+    width: 175px;
+    height: 50px; }
+
+  &.explore {
+    background-position: -165px -330px;
+    height: 51px;
+    left: 466px;
+    top: 82px;
+    width: 126px; }
+
+  &.search {
+    background-position: -178px -132px;
+    height: 43px;
+    width: 132px; }
+
+  &.set-preview {
+    background-position: -120px -211px;
+    height: 39px;
+    width: 169px; }
+
+  &.edit-item {
+    background-position: -185px -467px;
+    width: 80px;
+    height: 38px; }
+
+  &.buy-item {
+    background-position: -2px -287px;
+    width: 135px;
+    height: 40px; }
+
+  &.follow-item {
+    background-position: -129px -427px;
+    width: 116px;
+    height: 39px; }
+
+  &.unfollow-item {
+    background-position: 0px -427px;
+    width: 130px;
+    height: 39px; }
+
+  &.popup-btn.follow-item {
+    background-position: 0px -387px;
+    width: 114px;
+    height: 37px }
+
+  &.popup-btn.unfollow-item {
+    background-position: -114px -388px;
+    width: 114px;
+    height: 37px; }
+
+  &.new-comment {
+    float: right;
+    background-position: 0px -330px;
+    width: 162px;
+    height: 55px;
+    margin: 17px 0px; }
+
+  &.like-comment {
+    background-position: -287px -85px;
+    width: 25px;
+    height: 25px; }
+
+  &.go-to-article {
+    background-position: -231px -388px;
+    width: 114px;
+    height: 37px; }
+
+  &.make-pdf {
+    background-position: -230px -508px;
+    width: 114px;
+    height: 37px; }
+
+  &.next-step {
+    background-position: -139px -287px;
+    width: 124px;
+    height: 41px;
+    &.hidden {
+      display: none; }
+    &.disabled {
+      opacity: 0.5; } }
+
+  &.save-item {
+    background-position: -268px -287px;
+    width: 78px;
+    height: 41px; }
+
+  &.publish {
+    background-position: -220px -550px;
+    width: 126px;
+    height: 41px; }
+
+  &.upload {
+    background-position: 0px -210px;
+    width: 117px;
+    height: 47px; }
+
+  &.confirm {
+    background-position: 0px -554px;
+    width: 109px;
+    height: 38px; }
+
+  &.deny {
+    background-position: -110px -554px;
+    width: 109px;
+    height: 38px; }
+
+  &.update-keywords {
+    background-position: -140px -258px;
+    width: 141px;
+    height: 26px; }
+
+  &:hover {
+    opacity: 0.9; }
+}

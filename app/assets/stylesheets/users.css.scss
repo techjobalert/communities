@@ -26,30 +26,12 @@
     float: left;
     margin-bottom: 10px;
 
+    .tools {
+      padding: 10px;
+      text-align: center; }
+
     .follow {
-      -webkit-border-radius: 8px;
-      -moz-border-radius: 8px;
-      border-radius: 8px;
-      font-weight: normal;
-      font-size: 13px;
-      padding: 10px 5px 10px 11px;
-      margin: 13px auto;
-      width: 85px;
-      display: block;
-      span {
-        background: url("/assets/btn-icons-set.png") no-repeat scroll 0 -2px transparent;
-        display: block;
-        float: right;
-        height: 18px;
-        margin-left: 7px;
-        width: 18px;
-      }
-
-    }
-
-    div.light-button.follow.unfollow {
-      cursor: default;
-    }
+      cursor: default; }
   }
 
   .b-user-info-body {
@@ -128,7 +110,7 @@
       display: block;
     }
     img {
-      border: 3px solid #ddd;
+      border: 3px solid #ddd !important;
     }
   }
 
@@ -222,14 +204,6 @@
       margin: 25px 0 10px;
     }
 
-    .light-button.green {
-      padding: 5px 15px;
-      font-size: 14px;
-      -webkit-text-shadow: none;
-      -moz-text-shadow: none;
-      text-shadow: none;
-      line-height: 1;
-    }
   }
 
   .b-info {
@@ -344,14 +318,6 @@
     .edu-fields {
       margin-top: 20px; }
 
-    .light-button.green {
-      padding: 5px 15px;
-      font-size: 14px;
-      -webkit-text-shadow: none;
-      -moz-text-shadow: none;
-      text-shadow: none;
-      line-height: 1;
-    }
   }
 }
 

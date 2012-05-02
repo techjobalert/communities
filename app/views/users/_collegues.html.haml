@@ -2,9 +2,7 @@
   %h3
     Your Colleagues
   - if current_user.role? "doctor"
-    .light-button.send-message.green#send-message-dialog
-      %b Send
-      your followers a message
+    %span.btn.send-your-followers-message#send-message-dialog
   .clear
 
   .list
@@ -44,7 +42,7 @@
             .search
               = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
               = f.hidden_field "filter_type" , :value => "#{@tab}"
-              = f.submit 'Go', :class => 'dark-button'
+              = f.submit '', :class => 'btn go'
             .clear
       .clear
       .list-content

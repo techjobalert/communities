@@ -7,18 +7,9 @@
         - if user_signed_in? && user.role?("doctor")
           .tools
             - if is_current_user
-              .light-button.follow.unfollow
-                Follow
-                %span
+              %span.btn.follow
             - else
-              - if current_user.following?(user)
-                = link_to user_unfollow_path(user), :method => :delete, :remote => :true, :class => "light-button follow unfollow follow-user-#{user.id} no-history" do
-                  Unfollow
-                  %span
-              - else
-                = link_to user_follow_path(user), :method => :post, :remote => :true, :class => "light-button follow follow-user-#{user.id} no-history" do
-                  Follow
-                  %span
+              = render :partial => "users/following", :locals => { :user => user }
 
       .b-user-info-body
         %h2.b-user-title
@@ -44,7 +35,7 @@
           you can send a message directly to email about professional question
         - if is_current_user
           %p= image_tag "send-message-public.png"
-          %p.right= submit_tag "Send", :class => 'light-button send green public'
+          %p.right= submit_tag "", :class => 'btn send'
         - else
           = render :partial => 'send_message', :locals => {:user => user}
 

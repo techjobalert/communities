@@ -30,7 +30,7 @@
             .clear
           .search
             = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
-            = f.submit 'Go', :class => 'dark-button'
+            = f.submit '', :class => 'btn go'
         :javascript
           $(".filter-form select").chosen();
         .clear
