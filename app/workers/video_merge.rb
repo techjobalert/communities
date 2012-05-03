@@ -55,11 +55,11 @@ class VideoMerge
   def self.add_pad(pad="mr", w=480, h=480, color="black")
     case pad
     when 'mr'
-      'in_w+#{w}:in_h:0:0:#{color}'
+      "in_w+#{w}:in_h:0:0:#{color}"
     when 'ml'
-      'in_w+#{w}:in_h:#{w}:0:#{color}'
+      "in_w+#{w}:in_h:#{w}:0:#{color}"
     else
-      'in_w+#{w}:in_h:0:0:#{color}'
+      "in_w+#{w}:in_h:0:0:#{color}"
     end
   end
 
