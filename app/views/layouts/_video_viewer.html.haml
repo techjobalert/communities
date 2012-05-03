@@ -62,9 +62,9 @@
             var p_ms = Number(secondsToHms(mediaElement.currentTime).substring(9,12));
             var t_ms = Number(timing[x].substring(9,12));
             if (p_ms - interval <= t_ms && p_ms + interval >= t_ms) {
-              timing.shift();
-              mediaElement.setCurrentTime( hmsToSeconds(_timing.shift()) );
+              _timing.shift();
               mediaElement.pause();
+              mediaElement.setCurrentTime( hmsToSeconds(timing.shift()) );
             }
           }
         }, false);
