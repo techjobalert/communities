@@ -56,24 +56,17 @@
   - unless @a_video
     .text.pic
       = image_tag('/assets/logo.png', :width => '200')
-      - if @item.published?
-        %h2= @item.title
-      - else
-        %h2= @item.title + ' (unpublished)'
-
-      .body
-        = simple_format @item.description
+      %h2= @item.title + "#{' (unpublished)' unless @item.published?}"
+      .body= simple_format @item.description
 
       = image_tag '/assets/tmp/p4.png', :class => 'preview'
       .clear
 
-      -if @a_pdf
-        -if @a_pdf.file_processing == true
-          .attachment-pdf
-            %i
-              Your attached pdf will be placed here after processings
-        -elsif not @a_pdf.blank?
-          .attachment-pdf
+      - if @a_pdf
+        .attachment-pdf
+          - if @a_pdf.file_processing == true
+            %i Your attached pdf will be placed here after processings
+          - elsif not @a_pdf.blank?
             = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
 
   - if @a_video
@@ -96,12 +89,12 @@
         = @item.description
       .clear
 
-      -if @a_pdf
-        -if @a_pdf.file_processing == true
+      - if @a_pdf
+        - if @a_pdf.file_processing == true
           .attachment-pdf
             %i
               Your attached pdf will be placed here after processings
-        -elsif not @a_pdf.blank?
+        - elsif not @a_pdf.blank?
           .attachment-pdf
             = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
 

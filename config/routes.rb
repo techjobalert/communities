@@ -36,6 +36,7 @@ Orthodontic::Application.routes.draw do
     get     "tags",               :on => :collection
     post    "upload_attachment"
     post    "merge_presenter_video"
+    get     "attachment/:type/:hash",   :on => :collection,  :action => 'get_attachment'
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
