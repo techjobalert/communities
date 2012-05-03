@@ -24,7 +24,6 @@ class VideoMerge
       :presentV => p_att,
       :recordedV => r_att,
       :pos => self.add_position(),
-      :pad => self.add_pad(),
       :settings => '-map 0:0 -map 1:1 -async 1'
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
@@ -59,8 +58,6 @@ class VideoMerge
       "in_w+#{w}:in_h:0:0:#{color}"
     when 'ml'
       "in_w+#{w}:in_h:#{w}:0:#{color}"
-    else
-      "in_w+#{w}:in_h:0:0:#{color}"
     end
   end
 
