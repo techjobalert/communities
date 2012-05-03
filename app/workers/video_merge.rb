@@ -9,7 +9,7 @@ class VideoMerge
       p_att = present_attachment
     end
     recorded_attachment = Attachment.find(recorded_attachment_id)
-    r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
+    r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.path.to_s)
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
     # add_logo = false
