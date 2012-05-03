@@ -44,6 +44,7 @@
   %p
     = label :price, "PayPal account", :class => "label"
     = text_field_tag "paypal_account", @item.user.paypal_account
+  %p.help Please enter a valid PayPal account. Otherwise money for purchasing your item won't be transfered to your account.
 
   .b-upload-item__title.hr Copyright Verification
   %p
