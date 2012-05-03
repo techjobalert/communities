@@ -40,7 +40,7 @@
       innerIntervarTimer,
       pauseCallback = function(){
         innerTimer = 0;
-        innerIntervarTimer = setInterval(function(){ innerTimer += 0.1}, 100);
+        innerIntervarTimer = setInterval(function(){ innerTimer = parseFloat((innerTimer + 0.01).toFixed(3))}, 10);
         if (_playbackPoints.length) currentPos++;
       },
       playCallback = function(){

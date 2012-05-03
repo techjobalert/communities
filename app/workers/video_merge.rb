@@ -9,7 +9,8 @@ class VideoMerge
       p_att = present_attachment
     end
     recorded_attachment = Attachment.find(recorded_attachment_id)
-    r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
+    # r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
+    r_att = recorded_attachment.file.path.to_s
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
     # add_logo = false
@@ -24,7 +25,7 @@ class VideoMerge
       :recordedV => r_att,
       :pos => self.add_position(),
       :pad => self.add_pad(),
-      :settings => '-map 0:0 -map 1:1'
+      :settings => '-map 0:0 -map 1:1 -async 1'
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
       #               -copyright "2012"
@@ -39,10 +40,11 @@ class VideoMerge
     end
 
     # command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV} [mv]; [in][mv] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output}' % options
-    command = 'ffmpeg -i %{presentV} -i %{recordedV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" %{settings} %{output}' % options
+    # ffmpeg.exe -i LeftInput.mp4 -vf "[in] scale=iw/2:ih/2, pad=2*iw:ih [left]; movie=RightInput.mp4, scale=iw/3:ih/3, fade=out:300:30:alpha=1 [right]; [left][right] overlay=main_w/2:0 [out]" -b:v 768k Output.mp4
+    command  = 'ffmpeg -i %{presentV} -i %{recordedV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" %{settings} %{output}' % options
     command2 = 'ffmpeg -i %{presentV} -i %{recordedV} -vf "[in]setpts=PTS-STARTPTS, pad=%{pad},[T1]overlay=%{pos}[out];movie=%{recordedV},setpts=PTS-STARTPTS[T1]" %{settings} %{output}' % options
 
-    cmd = %x[#{command}]
+    cmd = %w(ml mr).member? params["position"] ? %x[#{command2}] : %x[#{command}]
 
     recorded_attachment.item.attachments << Attachment.new({
       :file => File.open(output),
@@ -54,11 +56,11 @@ class VideoMerge
   def self.add_pad(pad="mr", w=480, h=480, color="black")
     case pad
     when 'mr'
-      'in_w+#{w}:in_h:0:0:#{color}'
+      "in_w+#{w}:in_h:0:0:#{color}"
     when 'ml'
-      'in_w+#{w}:in_h:#{w}:0:#{color}'
+      "in_w+#{w}:in_h:#{w}:0:#{color}"
     else
-      'in_w+#{w}:in_h:0:0:#{color}'
+      "in_w+#{w}:in_h:0:0:#{color}"
     end
   end
 
