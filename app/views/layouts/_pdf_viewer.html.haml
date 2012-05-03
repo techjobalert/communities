@@ -1,4 +1,5 @@
-- pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
+-# pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
+
 %script{:src => "/javascripts/pdf.js", :type => "text/javascript"}
 %div
   %button{:id => "prev", :onclick => "goPrevious()"}
@@ -81,7 +82,7 @@
   //
   // Asynchronously download PDF as an ArrayBuffer
   //
-  PDFJS.getPdf("#{pdf.url}", function getPdfHelloWorld(data) {
+  PDFJS.getPdf("/items/attachment/pdf/#{@hash}", function getPdfHelloWorld(data) {
     pdfDoc = new PDFJS.PDFDoc(data);
     renderPage(pageNum);
   });
