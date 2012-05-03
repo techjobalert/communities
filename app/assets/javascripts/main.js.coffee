@@ -122,7 +122,12 @@ $ ->
       width: 100
       select: (event, ui) ->
         window.location.assign ui.item.url
+        $(this).autocomplete "close"
     ).data("autocomplete")._renderItem = (ul, item) ->
-      $("<li></li>").addClass("qsearch-item").data("item.autocomplete", item).append("<a href=\"" + item.url + "\">" + item.title + "</a>").appendTo ul
+      $("<li></li>")
+        .addClass("qsearch-item")
+        .data("item.autocomplete", item)
+        .append("<a href=\"" + item.url + "\">" + item.title + "</a>")
+        .appendTo ul
 
   $(".sign-in").click() if window.location.hash.indexOf("#sign-in") >= 0

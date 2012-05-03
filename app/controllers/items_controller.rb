@@ -10,8 +10,34 @@ class ItemsController < InheritedResources::Base
     else
       @popup = false
       @item.increment!(:views_count)
+
       @a_pdf, @a_video = @item.regular_pdf, @item.common_video unless @item.attachments.blank?
+
+      @hash = SecureRandom.hex(12)
+
+      if @a_pdf
+        unless @a_pdf.nil? and @a_pdf.file_processing == true
+          pdf = @a_pdf.is_processed_to_pdf? ? @a_pdf.file.pdf : @a_pdf.file
+          $redis.hset(@hash,'pdf', pdf.url)
+        end
+      end
+
+      if @a_video
+        unless @a_video.nil? and @a_video.file_processing == true
+          video = request.user_agent =~ /Mobile|webOS|iPhone/ ? @a_video.file.mobile : @a_video.file.mp4
+          $redis.hset(@hash,'mp4', @a_video.file.mp4.url)
+          $redis.hset(@hash,'webm', @a_video.file.webm.url)
+          $redis.hset(@hash,'mobile', video.url)
+        end
+      end
+
     end
+  end
+
+  def get_attachment
+    url = $redis.hget(params[:hash], params[:type])
+    send_file "#{Rails.root}/public#{url}"
+    $redis.del params[:hash]
   end
 
   def index
