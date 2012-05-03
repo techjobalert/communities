@@ -36,32 +36,28 @@
       currentPos = 0,
       syncBool = false,
       presync = false,
-      timer = 0,
-      intervarTimer,
       innerTimer = 0,
       innerIntervarTimer,
       pauseCallback = function(){
-        clearInterval(intervarTimer);
         innerTimer = 0;
-        innerIntervarTimer = setInterval(function(){innerTimer+= 0.01}, 10);
+        innerIntervarTimer = setInterval(function(){ innerTimer += 0.1}, 100);
         if (_playbackPoints.length) currentPos++;
       },
       playCallback = function(){
         clearInterval(innerIntervarTimer);
-        intervarTimer = setInterval(function(){timer += 0.01}, 10);
-        if (innerTimer && currentPos){
-          _playbackPoints[currentPos-1]['stop'] = timer;
-          _playbackPoints[currentPos-1]['duration'] = timer - _playbackPoints[currentPos-1]['start'];
-          _playbackPoints[currentPos-1]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
-          // timer += innerTimer;
-          // _playbackPoints[currentPos-1]['stop_with_pause_duration'] = secondsToHms(timer);
+        if (currentPos){
+          var p = currentPos-1, t = videoPlayer.media.currentTime;
+          _playbackPoints[p]['stop'] = t;
+          _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
+          _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
         }
-        _playbackPoints.push({start: timer})
+        _playbackPoints.push({start: _playbackPoints.length ? videoPlayer.media.currentTime : 0 })
       },
       endedCallback = function(){
-        _playbackPoints[currentPos-1]['stop'] = timer;
-        _playbackPoints[currentPos-1]['duration'] = timer - _playbackPoints[currentPos-1]['start'];
-        _playbackPoints[currentPos-1]['pause_duration'] = innerTimer;
+        var p = currentPos-1, t = videoPlayer.media.currentTime;
+        _playbackPoints[p]['stop'] = t;
+        _playbackPoints[p]['duration'] = _playbackPoints[p]['start'] == t ? 0 : t;
+        _playbackPoints[p]['pause_duration'] = innerTimer;
         stopSync();
         console.log("video end");
       },
@@ -90,13 +86,12 @@
       },
       stopSync = function(){
         videoPlayer.pause();
-        clearInterval(intervarTimer);
         clearInterval(innerIntervarTimer);
         stopRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Start sync";
         syncBool = false;
         playbackPoints = _playbackPoints;
-        _playbackPoints, intervarTimer, innerIntervarTimer = [], undefined, undefined;
+        _playbackPoints, innerIntervarTimer = [], undefined;
         videoPlayer.media.setCurrentTime(0);
         mergeFunc();
       },

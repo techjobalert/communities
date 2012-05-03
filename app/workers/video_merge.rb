@@ -55,7 +55,7 @@ class VideoMerge
     case pad
     when 'mr'
       'in_w+#{w}:in_h:0:0:#{color}'
-    when ml
+    when 'ml'
       'in_w+#{w}:in_h:#{w}:0:#{color}'
     else
       'in_w+#{w}:in_h:0:0:#{color}'
