@@ -40,14 +40,14 @@
       innerIntervarTimer,
       pauseCallback = function(){
         innerTimer = 0;
-        innerIntervarTimer = setInterval(function(){ innerTimer += 0.1}, 100);
+        innerIntervarTimer = setInterval(function(){ innerTimer = parseFloat((innerTimer + 0.01).toFixed(3))}, 10);
         if (_playbackPoints.length) currentPos++;
       },
       playCallback = function(){
         clearInterval(innerIntervarTimer);
         if (currentPos){
           var p = currentPos-1, t = videoPlayer.media.currentTime;
-          _playbackPoints[p]['stop'] = t-0.5;
+          _playbackPoints[p]['stop'] = t;
           _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
           _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
         }
