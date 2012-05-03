@@ -45,7 +45,7 @@ class VideoMerge
     command  = 'ffmpeg -i %{presentV} -vf "[in] scale=iw/2:ih/2, pad=2*iw:ih [left]; movie=%{recordedV}, scale=iw/3:ih/3, fade=out:300:30:alpha=1 [right]; [left][right] overlay=main_w/2:0 [out]" %{settings} %{output}' % options
     command2 = 'ffmpeg -i %{presentV} -i %{recordedV} -vf "[in]setpts=PTS-STARTPTS, pad=%{pad},[T1]overlay=%{pos}[out];movie=%{recordedV},setpts=PTS-STARTPTS[T1]" %{settings} %{output}' % options
 
-    cmd = options.include? %w(ml mr).member? params["position"] ? %x[#{command2}] : %x[#{command}]
+    cmd = %w(ml mr).member? params["position"] ? %x[#{command2}] : %x[#{command}]
 
     recorded_attachment.item.attachments << Attachment.new({
       :file => File.open(output),
