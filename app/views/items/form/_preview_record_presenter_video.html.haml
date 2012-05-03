@@ -46,8 +46,8 @@
       playCallback = function(){
         clearInterval(innerIntervarTimer);
         if (currentPos){
-          var p = currentPos-1, t = videoPlayer.media.currentTime-0.5;
-          _playbackPoints[p]['stop'] = t;
+          var p = currentPos-1, t = videoPlayer.media.currentTime;
+          _playbackPoints[p]['stop'] = t-0.5;
           _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
           _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
         }
