@@ -25,7 +25,7 @@ class VideoMerge
       :recordedV => r_att,
       :pos => self.add_position(),
       :pad => self.add_pad(),
-      :settings => '-async 1'
+      :settings => '-map 0:0 -map 1:1 -async 1'
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
       #               -copyright "2012"
