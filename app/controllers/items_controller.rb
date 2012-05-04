@@ -37,7 +37,7 @@ class ItemsController < InheritedResources::Base
   def get_attachment
     url = $redis.hget(params[:hash], params[:type])
     send_file "#{Rails.root}/public#{url}"
-    $redis.hdel(params[:hash], params[:type])
+    #$redis.hdel(params[:hash], params[:type])
   end
 
   def index
