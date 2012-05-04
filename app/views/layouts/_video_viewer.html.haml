@@ -1,6 +1,6 @@
 - w||= 435
 - h||= 264
-- preload||= "true"
+- preload||= "none"
 -# att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
 
 %video{:controls => "controls", :height => "#{h}", :poster => "#{attachment.get_thumbnail}", :preload => "#{preload}", :width => "#{w}", :id => "videoPlayer"}
@@ -19,10 +19,13 @@
     %param{:name => "flashvars", :value => "controls=true&file=/items/attachment/mp4/#{@hash}"}/
     / Image as a last resort
     %img{:height => "#{h}", :src => "#{attachment.file.video_thumbnail.url}", :title => "No video playback capabilities", :width => "#{w}"}
-
 :javascript
-  var mediaElement = $('#videoPlayer').mediaelementplayer(
-    {
+  var baseOption = {
+    /*@cc_on
+    @if (@_jscript_version == 9)
+      mode: 'shim',
+    @end
+    @*/
     // shows debug errors on screen
     enablePluginDebug: false,
     // remove or reorder to change plugin priority
@@ -45,8 +48,15 @@
     pluginHeight: -1,
     // rate in milliseconds for Flash and Silverlight to fire the timeupdate event
     // larger number is less accurate, but less strain on plugin->JavaScript bridge
-    timerRate: 250,
+    timerRate: 50,
     // method that fires when the Flash or Silverlight object is ready
+  }
+
+  if ("#{@a_video.attachment_type == 'presentation_video' && current_page?(:controller => 'items', :action => 'edit', :step => 'preview')}"=="true"){
+    $.extend(baseOption, {mode: 'shim'})
+  }
+
+  var baseFunc = {
     success: function (mediaElement, domObject) {
       // mediaElement.addEventListener("pause", pauseCallback);
       // mediaElement.addEventListener("ended", endedCallback);
@@ -54,7 +64,7 @@
       if ("#{attachment.attachment_type=='presentation_video'}"){
         var timing = "#{attachment.timing}".split(";");
         var _timing = [];
-        var interval = 225;
+        var interval = self.timerRate;
         $.each(timing, function(idx,i){_timing[idx] = i.substring(0,8)})
         mediaElement.addEventListener('timeupdate', function(e) {
           var x = _timing.indexOf(secondsToHms(mediaElement.currentTime).substring(0,8));
@@ -75,7 +85,8 @@
       console.log(err);
       showHideNotice("error", "video playback error");
     }
-  });
+  }
+  var mediaElement = $('#videoPlayer').mediaelementplayer($.extend(baseOption, baseFunc));
 
   function secondsToHms(d) {
     d = Number(d);
