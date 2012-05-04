@@ -1,13 +1,13 @@
 - w||= 435
 - h||= 264
 - preload||= "none"
--# att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
+- att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
 
 %video{:controls => "controls", :height => "#{h}", :poster => "#{attachment.get_thumbnail}", :preload => "#{preload}", :width => "#{w}", :id => "videoPlayer"}
   / MP4 for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7
-  %source{:src => "/items/attachment/mobile/#{@hash}", :type => "video/mp4"}
+  %source{:src => "#{att.url}", :type => "video/mp4"}
   / WebM/VP8 for Firefox4, Opera, and Chrome
-  %source{:src => "/items/attachment/webm/#{@hash}", :type => "video/webm"}
+  %source{:src => "#{attachment.file.webm.url}", :type => "video/webm"}
   / Ogg/Vorbis for older Firefox and Opera versions
   / Optional: Add subtitles for each language
   / %track{:kind => "subtitles", :src => "subtitles.srt", :srclang => "en"}/
@@ -16,16 +16,13 @@
   / Flash fallback for non-HTML5 browsers without JavaScript
   %object{:data => "/assets/flashmediaelement.swf", :height => "#{h}", :type => "application/x-shockwave-flash", :width => "#{w}"}
     %param{:name => "movie", :value => "/assets/flashmediaelement.swf"}/
-    %param{:name => "flashvars", :value => "controls=true&file=/items/attachment/mp4/#{@hash}"}/
+    %param{:name => "flashvars", :value => "controls=true&file=#{attachment.file.mp4.url}"}/
     / Image as a last resort
     %img{:height => "#{h}", :src => "#{attachment.file.video_thumbnail.url}", :title => "No video playback capabilities", :width => "#{w}"}
+
 :javascript
-  var baseOption = {
-    /*@cc_on
-    @if (@_jscript_version == 9)
-      mode: 'shim',
-    @end
-    @*/
+  var mediaElement = $('#videoPlayer').mediaelementplayer(
+    {
     // shows debug errors on screen
     enablePluginDebug: false,
     // remove or reorder to change plugin priority
@@ -48,15 +45,8 @@
     pluginHeight: -1,
     // rate in milliseconds for Flash and Silverlight to fire the timeupdate event
     // larger number is less accurate, but less strain on plugin->JavaScript bridge
-    timerRate: 50,
+    timerRate: 250,
     // method that fires when the Flash or Silverlight object is ready
-  }
-
-  if ("#{@a_video.attachment_type == 'presentation_video' && current_page?(:controller => 'items', :action => 'edit', :step => 'preview')}"=="true"){
-    $.extend(baseOption, {mode: 'shim'})
-  }
-
-  var baseFunc = {
     success: function (mediaElement, domObject) {
       // mediaElement.addEventListener("pause", pauseCallback);
       // mediaElement.addEventListener("ended", endedCallback);
@@ -64,7 +54,7 @@
       if ("#{attachment.attachment_type=='presentation_video'}"){
         var timing = "#{attachment.timing}".split(";");
         var _timing = [];
-        var interval = self.timerRate;
+        var interval = 225;
         $.each(timing, function(idx,i){_timing[idx] = i.substring(0,8)})
         mediaElement.addEventListener('timeupdate', function(e) {
           var x = _timing.indexOf(secondsToHms(mediaElement.currentTime).substring(0,8));
@@ -85,8 +75,7 @@
       console.log(err);
       showHideNotice("error", "video playback error");
     }
-  }
-  var mediaElement = $('#videoPlayer').mediaelementplayer($.extend(baseOption, baseFunc));
+  });
 
   function secondsToHms(d) {
     d = Number(d);
