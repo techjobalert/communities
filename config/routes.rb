@@ -83,7 +83,7 @@ Orthodontic::Application.routes.draw do
     end
   end
 
-  match "/uploads/:id/:basename.:extension",
+  match "/uploads/:file_id/:basename.:extension",
     :controller => "items",
     :action => "get_attachment",
     :via => :get

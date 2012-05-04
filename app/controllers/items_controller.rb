@@ -1,6 +1,6 @@
 class ItemsController < InheritedResources::Base
-  before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch]
-  before_filter :get_item, :except => [:index, :new, :create, :tags]
+  before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch, :get_attachment]
+  before_filter :get_item, :except => [:index, :new, :create, :tags, :get_attachment]
   load_and_authorize_resource
 
 
@@ -35,8 +35,7 @@ class ItemsController < InheritedResources::Base
   end
 
   def get_attachment
-    Rails.logger.info "----#{params}"
-    send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:id]}/#{params[:basename]}.#{params[:extension]}", :x_sendfile => true
+    send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}", :x_sendfile => true
   end
 
   def index
