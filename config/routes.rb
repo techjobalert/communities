@@ -36,7 +36,6 @@ Orthodontic::Application.routes.draw do
     get     "tags",               :on => :collection
     post    "upload_attachment"
     post    "merge_presenter_video"
-    get     "attachment/:type/:hash",   :on => :collection,  :action => 'get_attachment'
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
@@ -83,6 +82,12 @@ Orthodontic::Application.routes.draw do
       post "merge",             :action => 'merge'
     end
   end
+
+  match "/uploads/attachment/file/:file_id/:basename.:extension",
+    :controller => "items",
+    :action => "get_attachment",
+    :via => :get,
+    :constraints => { :extension => /(pdf|webm|mp4)/ }
 
   root :to => "home#index"
 
