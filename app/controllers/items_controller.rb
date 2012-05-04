@@ -35,6 +35,7 @@ class ItemsController < InheritedResources::Base
   end
 
   def get_attachment
+    Rails.logger.info "----#{params}"
     send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}", :x_sendfile => true
   end
 
