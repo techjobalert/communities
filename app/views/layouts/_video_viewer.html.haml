@@ -3,6 +3,8 @@
 - preload||= "true"
 - att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
 
+= link_to "Скачай меня!!!!", att.url
+
 %video{:controls => "controls", :height => "#{h}", :poster => "#{attachment.get_thumbnail}", :preload => "#{preload}", :width => "#{w}", :id => "videoPlayer"}
   / MP4 for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7
   %source{:src => "#{att.url}", :type => "video/mp4"}

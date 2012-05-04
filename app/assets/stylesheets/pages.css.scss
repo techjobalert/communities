@@ -390,6 +390,15 @@
       margin: 10px 0 14px;
       overflow: hidden;
       width: 90%;
+
+      .label {
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+
+        color: #fff
+
+      }
     }
 
     .share {
