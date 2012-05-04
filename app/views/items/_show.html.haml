@@ -82,10 +82,7 @@
 
       .body
         = image_tag('/assets/logo.png', :width => '200')
-        - if @item.published?
-          %h2= @item.title
-        - else
-          %h2= @item.title + ' (unpublished)'
+        %h2= @item.title
 
         = @item.description
       .clear
