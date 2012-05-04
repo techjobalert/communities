@@ -127,7 +127,7 @@ $ ->
       $("<li></li>")
         .addClass("qsearch-item")
         .data("item.autocomplete", item)
-        .append("<a href=\"" + item.url + "\">" + item.title + "</a>")
+        .append("<a class='pjax' href=\"" + item.url + "\">" + item.title + "</a>")
         .appendTo ul
 
   $(".sign-in").click() if window.location.hash.indexOf("#sign-in") >= 0
