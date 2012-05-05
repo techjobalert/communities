@@ -2,7 +2,7 @@
   - items.each do |item|
     .item{:class => "#{item.state}", :id => "item-#{item.id}"}
       .tools
-        - price = item.price > 0 ? "#{item.price}$" : 'free'
+        - price = item.paid? ? "#{item.price}$" : 'free'
         .price
           Price:
           %span= price

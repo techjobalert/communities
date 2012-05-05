@@ -2,9 +2,10 @@
 
 .content
   %h1
+    - unless @item.published?
+      %span.label{:class => "#{@item.state}"}= @item.state
     = item.title
-  .share
-    = render :partial => "layouts/share", :locals => {:title => item.title, :description => item.description}
+  .share= render :partial => "layouts/share", :locals => {:title => item.title, :description => item.description}
   .clear
 
   .tools.short
@@ -56,7 +57,7 @@
   - unless @a_video
     .text.pic
       = image_tag('/assets/logo.png', :width => '200')
-      %h2= @item.title + "#{' (unpublished)' unless @item.published?}"
+      %h2= @item.title
       .body= simple_format @item.description
 
       = image_tag '/assets/tmp/p4.png', :class => 'preview'
@@ -81,10 +82,7 @@
 
       .body
         = image_tag('/assets/logo.png', :width => '200')
-        - if @item.published?
-          %h2= @item.title
-        - else
-          %h2= @item.title + ' (unpublished)'
+        %h2= @item.title
 
         = @item.description
       .clear
