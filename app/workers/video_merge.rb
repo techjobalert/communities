@@ -24,7 +24,7 @@ class VideoMerge
       :presentV => p_att,
       :recordedV => r_att,
       :pos => self.add_position(),
-      :settings => '-map 0:0 -map 1:1 -async 1'
+      :settings => '-map 1:0 -map 0:1 -async 1'
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
       #               -copyright "2012"
@@ -46,6 +46,7 @@ class VideoMerge
     else
       command  = 'ffmpeg -i %{presentV} -i %{recordedV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" %{settings} %{output}' % options
     end
+    p command
     %x[#{command}]
 
     recorded_attachment.item.attachments << Attachment.new({

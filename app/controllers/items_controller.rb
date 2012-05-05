@@ -26,7 +26,8 @@ class ItemsController < InheritedResources::Base
       if current_user and item
         if (item.paid? and item.purchased?(current_user)) or (!item.paid?) or item.user == current_user
           error = false
-          send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}", :x_sendfile => true
+          type = "#{params[:extension] == 'pdf' ? 'application' : 'video'}/#{params[:extension]}"
+          send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}", :type => type, :x_sendfile => true
         end
       end
     end
