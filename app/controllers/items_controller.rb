@@ -19,14 +19,20 @@ class ItemsController < InheritedResources::Base
   def get_attachment
 
     attachment = Attachment.find params[:file_id]
+    error = true
     if attachment.present?
       item = attachment.item
 
       if current_user and item
         if (item.paid? and item.purchased?(current_user)) or (!item.paid?) or item.user == current_user
+          error = false
           send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}", :x_sendfile => true
         end
       end
+    end
+
+    if error
+      render :nothing => true
     end
   end
 
