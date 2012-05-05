@@ -36,6 +36,8 @@ class ItemsController < InheritedResources::Base
 
   def get_attachment
     Rails.logger.info "----#{params}"
+    # path = ""
+    # @response.headers['X-Accel-Redirect'] = "/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}"
     send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}", :x_sendfile => true
   end
 
