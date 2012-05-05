@@ -21,7 +21,7 @@
     %img{:height => "#{h}", :src => "#{attachment.file.video_thumbnail.url}", :title => "No video playback capabilities", :width => "#{w}"}
 
 :javascript
-  var mediaElement = $('#videoPlayer').mediaelementplayer(
+  var currentStopTime, mediaElement = $('#videoPlayer').mediaelementplayer(
     {
     // shows debug errors on screen
     enablePluginDebug: false,
@@ -55,6 +55,7 @@
         var timing = "#{attachment.timing}".split(";");
         var _timing = [];
         var interval = 225;
+        console.log(timing)
         $.each(timing, function(idx,i){_timing[idx] = i.substring(0,8)})
         mediaElement.addEventListener('timeupdate', function(e) {
           var x = _timing.indexOf(secondsToHms(mediaElement.currentTime).substring(0,8));
@@ -63,8 +64,10 @@
             var t_ms = Number(timing[x].substring(9,12));
             if (p_ms - interval <= t_ms && p_ms + interval >= t_ms) {
               _timing.shift();
+              var t = hmsToSeconds(timing.shift());
+              currentStopTime = t;
+              mediaElement.setCurrentTime(t);
               mediaElement.pause();
-              mediaElement.setCurrentTime( hmsToSeconds(timing.shift()) );
             }
           }
         }, false);
