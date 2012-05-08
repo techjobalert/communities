@@ -64,6 +64,10 @@ module CarrierWave
       file.transcode(tmp, :custom => "-ss #{h}:#{m}:#{s} -s 435x264 -vframes 1 -f image2")
       File.rename tmp, current_path
       model.file_processing = nil
+
+      # delete source file
+      FileUtils.remove_file model.file.path
+
       if file and %w(presenter_merged_video regular).member? model.attachment_type
         Resque.enqueue(SendProcessedMessage, model.id)
       end

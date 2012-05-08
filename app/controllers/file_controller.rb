@@ -45,7 +45,9 @@ class FileController < ApplicationController
     attachment = Attachment.find(params[:id])
     if attachment
       attachment.update_attribute("file_processing", nil)
-      p_video = "/home/buildbot/video/video_storage/p_video/#{params[:filename]}"
+      p_base = "/home/buildbot/video/video_storage"
+      p_video = File.join(p_base, "p_video", params[:filename])
+      p_source = File.join(p_base, "p_source", params[:filename])
 
       record_file = File.open(p_video)
       presenter_video = Attachment.new({
@@ -60,6 +62,9 @@ class FileController < ApplicationController
       presenter_video.timing = timing.join(";")
 
       attachment.item.attachments << presenter_video
+
+      # remove converted files(presentation and video file)
+      FileUtils.rm %w( #{p_video} #{p_source} )
     end
     render :nothing => true
   end
