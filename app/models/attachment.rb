@@ -29,6 +29,10 @@ class Attachment < ActiveRecord::Base
     item.update_attribute(:attachment_type, item_type)
   end
 
+  def destroy_attachments
+    FileUtils.rmdir File.dirname(file.path), :verbose => true
+  end
+
   def extension_is?(exts)
     dot_exts = []
     dot_exts << "."+exts if exts.is_a? String
