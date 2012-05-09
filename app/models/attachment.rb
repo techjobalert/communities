@@ -12,7 +12,8 @@ class Attachment < ActiveRecord::Base
   process_in_background :file
   store_in_background   :file
 
-  after_save :set_item_type
+  after_save      :set_item_type
+  before_destroy  :destroy_attachments
 
   def set_item_type
     item_type = if is_presentation?

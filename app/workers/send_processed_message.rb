@@ -4,7 +4,7 @@ class SendProcessedMessage
   def self.perform(attachment_id, source_file_path)
     NotifyMailer.send_processed_email_message(attachment_id).deliver
     # delete source file
-    FileUtils.remove_file source_file_path
+    FileUtils.remove_file source_file_path, :verbose => true
   end
 
 end
