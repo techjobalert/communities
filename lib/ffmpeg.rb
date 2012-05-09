@@ -70,8 +70,7 @@ module CarrierWave
       end
 
       # delete source file
-      FileUtils.remove_file model.file.path
-
+      # FileUtils.remove_file model.file.path
     end
 
     private
