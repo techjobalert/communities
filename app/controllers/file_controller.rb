@@ -64,7 +64,7 @@ class FileController < ApplicationController
       attachment.item.attachments << presenter_video
 
       # remove converted files(presentation and video file)
-      FileUtils.rm %w( #{p_video} #{p_source} )
+      FileUtils.rm [p_video, p_source]
     end
     render :nothing => true
   end
