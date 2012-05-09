@@ -39,8 +39,9 @@
       innerTimer = 0,
       innerIntervarTimer,
       pauseCallback = function(){
+        if (currentStopTime) videoPlayer.media.setCurrentTime(currentStopTime);
         innerTimer = 0;
-        innerIntervarTimer = setInterval(function(){ innerTimer = parseFloat((innerTimer + 0.01).toFixed(3))}, 10);
+        innerIntervarTimer = setInterval(function(){ innerTimer = parseFloat((innerTimer + 0.1).toFixed(3))}, 100);
         if (_playbackPoints.length) currentPos++;
       },
       playCallback = function(){
