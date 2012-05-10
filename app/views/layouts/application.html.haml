@@ -23,6 +23,7 @@
       - if current_user.present?
         .wrapper{"data-pjax-container" => ""}
           .main-content
+            .line-3d
             .user-info
               = image_tag current_user.avatar_url(:thumb_70), :alt => "#{current_user.full_name}", :id => "popup-user-#{current_user.id}", :class => "popup-user-info my-thumb_70"
               %span.title= current_user.full_name
@@ -93,7 +94,9 @@
         .section.center
           #ajax-main-container{"data-pjax-container" => ""}
             .wrapper
-              .main-content= yield
+              .main-content
+                .line-3d
+                = yield
 
 
 

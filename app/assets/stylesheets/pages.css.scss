@@ -284,6 +284,18 @@
   background: #fff;
   position: relative;
 
+  .line-3d {
+    border: 1px solid #B8B479;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    background: white;
+    position: absolute;
+    bottom: -3px;
+    height: 40px;
+    left: 2px;
+    width: 953px;
+    z-index: -1; }
 
   .user-info {
     width: 650px;

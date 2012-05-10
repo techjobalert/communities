@@ -1,7 +1,8 @@
--if current_user
+- if current_user
   %h3 Interesting item:
 
 = render :partial => 'items/list', :locals => {:items => @items}
 
 :javascript
   changeNavigationTab(".tab-home");
+  searchRelevantItems('video');
