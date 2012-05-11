@@ -1,4 +1,5 @@
 %br
-= secret_link "#{@item.attachments.last.id}/#{File.basename(@item.attachments.first.file.to_s)}"
+- sl = secret_link("#{@item.attachments.last.id}/#{File.basename(@item.attachments.first.file.to_s)}")
+= link_to sl, sl
 
 = render :partial => 'show', :locals => {:item => @item}
