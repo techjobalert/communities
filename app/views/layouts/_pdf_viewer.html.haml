@@ -81,7 +81,7 @@
   //
   // Asynchronously download PDF as an ArrayBuffer
   //
-  PDFJS.getPdf("#{pdf.url}", function getPdfHelloWorld(data) {
+  PDFJS.getPdf("#{secure_link(attachment, pdf.url)}", function getPdfHelloWorld(data) {
     pdfDoc = new PDFJS.PDFDoc(data);
     renderPage(pageNum);
   });

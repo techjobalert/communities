@@ -31,14 +31,25 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def secret_link path
-    salt = "oth360"
-    expiration_time = (Time.now + 30.seconds).to_i
-    str = "#{salt}#{expiration_time}#{path}"
-    md5 = Base64.encode64(Digest::MD5.digest(str))
-    secret_string = md5.tr("+/", "-_").sub('==', '').chomp
+  def secure_link(attachment, url)
 
-    "/files/#{secret_string}/#{expiration_time}/#{path}"
+    if attachment.present?
+      item = attachment.item
+      path = File.basename(url)
+
+      if current_user and item
+        if (item.paid? and item.purchased?(current_user)) or (!item.paid?) or item.user == current_user or current_user.admin?
+
+          salt = "oth360"
+          expiration_time = (Time.now + 30.seconds).to_i
+          str = "#{salt}#{expiration_time}#{path}"
+          md5 = Base64.encode64(Digest::MD5.digest(str))
+          secret_string = md5.tr("+/", "-_").sub('==', '').chomp
+
+          "/files/#{secret_string}/#{expiration_time}/#{path}"
+        end
+      end
+    end
   end
 
 end

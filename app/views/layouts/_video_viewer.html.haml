@@ -5,9 +5,9 @@
 
 %video{:controls => "controls", :height => "#{h}", :poster => "#{attachment.get_thumbnail}", :preload => "#{preload}", :width => "#{w}", :id => "videoPlayer"}
   / MP4 for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7
-  %source{:src => "#{att.url}", :type => "video/mp4"}
+  %source{:src => "#{secure_link(attachment, att.url)}", :type => "video/mp4"}
   / WebM/VP8 for Firefox4, Opera, and Chrome
-  %source{:src => "#{attachment.file.webm.url}", :type => "video/webm"}
+  %source{:src => "#{secure_link(attachment, attachment.file.webm.url)}", :type => "video/webm"}
   / Ogg/Vorbis for older Firefox and Opera versions
   / Optional: Add subtitles for each language
   / %track{:kind => "subtitles", :src => "subtitles.srt", :srclang => "en"}/
@@ -16,7 +16,7 @@
   / Flash fallback for non-HTML5 browsers without JavaScript
   %object{:data => "/assets/flashmediaelement.swf", :height => "#{h}", :type => "application/x-shockwave-flash", :width => "#{w}"}
     %param{:name => "movie", :value => "/assets/flashmediaelement.swf"}/
-    %param{:name => "flashvars", :value => "controls=true&file=#{attachment.file.mp4.url}"}/
+    %param{:name => "flashvars", :value => "controls=true&file=#{secure_link(attachment, attachment.file.mp4.url)}"}/
     / Image as a last resort
     %img{:height => "#{h}", :src => "#{attachment.file.video_thumbnail.url}", :title => "No video playback capabilities", :width => "#{w}"}
 
