@@ -83,11 +83,11 @@ Orthodontic::Application.routes.draw do
     end
   end
 
-  match "/uploads/attachment/file/:file_id/:basename.:extension",
-    :controller => "items",
-    :action => "get_attachment",
-    :via => :get,
-    :constraints => { :extension => /(pdf|webm|mp4)/ }
+  # match "/uploads/attachment/file/:file_id/:basename.:extension",
+  #   :controller => "items",
+  #   :action => "get_attachment",
+  #   :via => :get,
+  #   :constraints => { :extension => /(pdf|webm|mp4)/ }
 
   root :to => "home#index"
 

@@ -15,26 +15,26 @@ class ItemsController < InheritedResources::Base
     end
   end
 
-  def get_attachment
+  # def get_attachment
 
-    attachment = Attachment.find params[:file_id]
-    error = true
-    if attachment.present?
-      item = attachment.item
+  #   attachment = Attachment.find params[:file_id]
+  #   error = true
+  #   if attachment.present?
+  #     item = attachment.item
 
-      if current_user and item
-        if (item.paid? and item.purchased?(current_user)) or (!item.paid?) or item.user == current_user or current_user.admin?
-          error = false
-          type = "#{params[:extension] == 'pdf' ? 'application' : 'video'}/#{params[:extension]}"
-          send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}", :type => type, :x_sendfile => true
-        end
-      end
-    end
+  #     if current_user and item
+  #       if (item.paid? and item.purchased?(current_user)) or (!item.paid?) or item.user == current_user or current_user.admin?
+  #         error = false
+  #         type = "#{params[:extension] == 'pdf' ? 'application' : 'video'}/#{params[:extension]}"
+  #         send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}", :type => type, :x_sendfile => true
+  #       end
+  #     end
+  #   end
 
-    if error
-      render :nothing => true
-    end
-  end
+  #   if error
+  #     render :nothing => true
+  #   end
+  # end
 
   def index
     @items = Item.state_is("published").order("created_at DESC").page(params[:page])
