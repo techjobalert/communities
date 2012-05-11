@@ -21,13 +21,13 @@ class ProcessPresentationVideo
           %x[ffmpeg -i #{p_att} -f mjpeg -ss #{t['stop']} -t 1 #{pic_path}]
 
           # part before paused
-          p "ffmpeg -i #{p_att} -vcodec copy -acodec copy -qmax 51 -qmin 11 -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm"
-          %x[ffmpeg -i #{p_att} -vcodec copy -acodec copy -qmax 51 -qmin 11 -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm]
+          p "ffmpeg -ss #{t['start']} -t #{t['duration']} -i #{p_att} -vcodec copy -acodec copy #{file_prefix}_1.webm"
+          %x[ffmpeg -ss #{t['start']} -t #{t['duration']} -i #{p_att} -vcodec copy -acodec copy #{file_prefix}_1.webm]
 
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
-          p "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm"
-          %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm]
+          p "ffmpeg -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm"
+          %x[ffmpeg -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm]
 
           files << file_prefix+"_1.webm"
           files << file_prefix+"_2.webm"

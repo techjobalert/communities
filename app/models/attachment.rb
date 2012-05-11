@@ -30,7 +30,9 @@ class Attachment < ActiveRecord::Base
   end
 
   def destroy_attachments
-    FileUtils.rm_rf File.dirname(file.path), :verbose => true
+    if file.path
+      FileUtils.rm_rf File.dirname(file.path), :verbose => true
+    end
   end
 
   def extension_is?(exts)
