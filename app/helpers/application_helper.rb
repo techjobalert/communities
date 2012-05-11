@@ -31,4 +31,14 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  def secret_link path
+    salt = "oth360"
+    expiration_time = (Time.now + 30.seconds).to_i
+    str = "#{salt}#{expiration_time}#{path}"
+    md5 = Base64.encode64(Digest::MD5.digest(str))
+    secret_string = md5.tr("+/", "-_").sub('==', '').chomp
+
+    "/files/#{secret_string}/#{expiration_time}/#{path}"
+  end
+
 end
