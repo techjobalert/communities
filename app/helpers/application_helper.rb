@@ -36,7 +36,7 @@ module ApplicationHelper
     if attachment.present?
       item = attachment.item
       path = File.basename(url)
-
+      Rails.logger.info "----#{path}"
       if current_user and item
         if (item.paid? and item.purchased?(current_user)) or (!item.paid?) or item.user == current_user or current_user.admin?
 
@@ -46,7 +46,7 @@ module ApplicationHelper
           md5 = Base64.encode64(Digest::MD5.digest(str))
           secret_string = md5.tr("+/", "-_").sub('==', '').chomp
 
-          "/files/#{secret_string}/#{expiration_time}/#{path}"
+          "/files/#{secret_string}/#{expiration_time}/#{item.id}/#{path}"
         end
       end
     end
