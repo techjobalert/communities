@@ -248,17 +248,19 @@ class ItemsController < InheritedResources::Base
   end
 
   def merge_presenter_video
-    record_file = File.open(
-      File.expand_path(
-        File.join(Rails.root, "..","video","webcam_records","#{params[:record_file_name]}")
-      )
+    webcam_record_path = File.expand_path(
+      File.join(Rails.root, "..","video","webcam_records","#{params[:record_file_name]}")
     )
+
     presenter_video = Attachment.new({
-      :file => record_file,
+      :file => File.open(webcam_record_path),
       :user => current_user,
       :attachment_type => "presenter_video"})
 
     @item.attachments << presenter_video
+
+    # Removing source file
+    FileUtils.rm webcam_record_path, :verbose => true
 
     video = Attachment.find(params[:video_id])
     if video.attachment_type == "presentation_video" and params[:playback_points].present?
