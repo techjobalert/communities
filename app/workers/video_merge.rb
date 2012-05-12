@@ -52,9 +52,9 @@ class VideoMerge
     log_file_path = File.join(Rails.root, "log","process_video.log")
     File.open(log_file_path, 'w') do |f|
       f.puts("")
-      f.puts "[START][merge] " + Time.now
+      f.puts("[START][merge] " + Time.now.to_s)
       f.puts command
-      f.puts("[END] " + Time.now)
+      f.puts("[END] " + Time.now.to_s)
     end
 
     recorded_attachment.item.attachments << Attachment.new({

@@ -14,7 +14,7 @@ class ProcessPresentationVideo
 
       # debug log
       log_file_path = File.join(Rails.root, "log","process_video.log")
-      File.open(log_file_path, 'w') {|f| f.puts("");f.puts "[START][split-and-merge] " + Time.now }
+      File.open(log_file_path, 'w') {|f| f.puts("");f.puts("[START][split-and-merge] " + Time.now.to_s) }
 
       timing.each_with_index do |t, idx|
         if idx+1 <= timing.size and [t['start'], t['stop'], t['duration'], t['pause_duration']].all?
@@ -55,7 +55,7 @@ class ProcessPresentationVideo
       File.open(log_file_path, 'w') do |f|
         f.puts "mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}"
         f.puts "ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -vcodec libvpx -acodec libvorbis #{final} -map 1:0 -map 0:0"
-        f.puts("[END] " + Time.now)
+        f.puts("[END] " + Time.now.to_s)
       end
 
       #FileUtils.remove_dir(tmp_dir)
