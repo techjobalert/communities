@@ -1,12 +1,18 @@
-.addthis_toolbox.addthis_default_style.addthis_32x32_style
-  %a.addthis_button_facebook
-  %a.addthis_button_twitter
-/ %script{:src => "http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f0f49d4565a51b3", :type => "text/javascript"}
+.share-toolbox
+  = link_to "", "http://www.facebook.com/sharer/sharer.php?u=#{CGI::escape(item_url(item))}&t=#{CGI::escape(item.title)}", :class => "share-btn facebook", :target => "_blank"
+  %a.twitter-share-button{:href => "https://twitter.com/share", "data-size" => "large", "data-count" => "none", "data-hashtags" => "orthodontics360"}
+
 :javascript
-  var addthis_share = {
-    title: "#{escape_javascript(title)}",
-    description: "#{escape_javascript(description.truncate(200, :separator => " "))}",
-    url_transforms : {clean: true},
-    templates: {twitter: '{{title}} {{url}} #ordothontics360'}
+  !function(d,s,id) {
+    var js,fjs = d.getElementsByTagName(s)[0];
+    if (!d.getElementById(id)) {
+      js = d.createElement(s);
+      js.id = id;
+      js.src="//platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js,fjs);
+    }
   }
-  addthis.toolbox(".addthis_toolbox");
+  (document,"script","twitter-wjs");
+
+
+%script{:src => "http://static.ak.fbcdn.net/connect.php/js/FB.Share", :type => "text/javascript"}

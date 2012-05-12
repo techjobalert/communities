@@ -5,7 +5,7 @@
     - unless @item.published?
       %span.label{:class => "#{@item.state}"}= @item.state
     = item.title
-  .share= render :partial => "layouts/share", :locals => {:title => @item.title, :description => @item.description}
+  .share= render :partial => "layouts/share", :locals => {:item => @item}
   .clear
 
   .tools.short

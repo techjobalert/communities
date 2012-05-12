@@ -189,4 +189,19 @@
 
   &:hover {
     opacity: 0.9; }
+
 }
+
+.share-toolbox {
+  display: inline-block;
+  height: 32px;
+  padding-top: 3px;
+}
+
+.share-btn {
+  background: url(shared-icons27.png) no-repeat !important;
+  width: 27px !important;
+  height: 27px !important;
+  display: inline-block !important;
+}
+
