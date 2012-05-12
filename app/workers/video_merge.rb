@@ -4,14 +4,14 @@ class VideoMerge
   def self.perform(present_attachment, recorded_attachment_id, params)
     if not (present_attachment =~ /^[0-9]+$/).nil?
       _present_attachment = Attachment.find(present_attachment)
-      p_att = File.join(Rails.root.to_s,"public", _present_attachment.file.webm.to_s)
+      p_att = File.join(Rails.root.to_s,"public", _present_attachment.file.mp4.to_s)
     else
       p_att = present_attachment
     end
     recorded_attachment = Attachment.find(recorded_attachment_id)
     # r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.webm.to_s)
     r_att = recorded_attachment.file.path.to_s
-    output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
+    output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".mp4")
 
     # add_logo = false
     # logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
@@ -24,7 +24,7 @@ class VideoMerge
       :presentV => p_att,
       :recordedV => r_att,
       :pos => self.add_position(),
-      :settings => '-map 0:0 -map 1:1 -async 1'
+      :settings => '-map 0:0 -map 1:1 -async 1 -g 50'
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
       #               -copyright "2012"
