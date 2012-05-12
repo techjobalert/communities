@@ -48,6 +48,15 @@ class VideoMerge
     end
     %x[#{command}]
 
+    # debug log
+    log_file_path = File.join(Rails.root, "log","process_video.log")
+    File.open(log_file_path, 'w') do |f|
+      f.puts("")
+      f.puts "[START][merge] " + Time.now
+      f.puts command
+      f.puts("[END] " + Time.now)
+    end
+
     recorded_attachment.item.attachments << Attachment.new({
       :file => File.open(output),
       :user => recorded_attachment.item.user,
