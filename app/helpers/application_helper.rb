@@ -40,9 +40,9 @@ module ApplicationHelper
       if current_user and item
         if (item.paid? and item.purchased?(current_user)) or (!item.paid?) or item.user == current_user or current_user.admin?
 
-          salt = "oth360"
+          salt = 360
           expiration_time = (Time.now + 30.seconds).to_i
-          str = "#{salt}"
+          str = "#{salt}#{expiration_time}"
           md5 = Base64.encode64(Digest::MD5.digest(str))
           secret_string = md5.tr("+/", "-_").sub('==', '').chomp
 
