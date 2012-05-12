@@ -35,7 +35,7 @@ class ProcessPresentationVideo
           File.open(log_file_path, 'w') do |f|
             f.puts "ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}"
             f.puts "ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.mp4"
-            f.puts "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f mp4 -vcodec libx264 -ar 22050 -acodec aac -aq 90 -ac 2 #{file_prefix}_2.mp4"
+            f.puts "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f mp4 -vcodec libx264 -ar 22050 -aq 90 -ac 2 #{file_prefix}_2.mp4"
           end
 
           files << file_prefix+"_1.mp4"
