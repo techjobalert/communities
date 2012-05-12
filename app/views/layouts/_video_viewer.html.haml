@@ -1,6 +1,6 @@
 - w||= 435
 - h||= 264
-- preload||= "none"
+- preload||= "true"
 - att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
 
 %video{:controls => "controls", :height => "#{h}", :poster => "#{attachment.get_thumbnail}", :preload => "#{preload}", :width => "#{w}", :id => "videoPlayer"}
