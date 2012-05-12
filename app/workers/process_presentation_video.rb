@@ -29,7 +29,7 @@ class ProcessPresentationVideo
 
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
-          %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f mp4 -vcodec libx264 -ar 22050 -acodec aac -aq 90 -ac 2 #{file_prefix}_2.mp4]
+          %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f mp4 -vcodec libx264 -ar 22050 -aq 90 -ac 2 #{file_prefix}_2.mp4]
 
           # debug log
           File.open(log_file_path, 'w') do |f|
