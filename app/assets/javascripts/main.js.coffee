@@ -12,7 +12,6 @@ redactor = undefined
   $(".list-header #_attachment_type").val type
   $(".list-header form").submit()
 
-
 $ ->
   $('a.pjax, .pagination a:not([data-remote=true])').pjax("[data-pjax-container]") if $("[data-pjax-container]").length
 

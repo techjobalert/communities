@@ -3,16 +3,4 @@
   %a.twitter-share-button{:href => "https://twitter.com/share", "data-size" => "large", "data-count" => "none", "data-hashtags" => "orthodontics360"}
 
 :javascript
-  !function(d,s,id) {
-    var js,fjs = d.getElementsByTagName(s)[0];
-    if (!d.getElementById(id)) {
-      js = d.createElement(s);
-      js.id = id;
-      js.src="//platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js,fjs);
-    }
-  }
-  (document,"script","twitter-wjs");
-
-
-%script{:src => "http://static.ak.fbcdn.net/connect.php/js/FB.Share", :type => "text/javascript"}
+  initShare();

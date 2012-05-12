@@ -53,6 +53,21 @@ function hideNotice(){
   }, 7000);
 }
 
+function initShare(){
+  !function(d,s,id) {
+    var js,fjs = d.getElementsByTagName(s)[0];
+    if (!d.getElementById(id)) {
+      js = d.createElement(s);
+      js.id = id;
+      js.src="//platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js,fjs);
+    }
+  }
+  (document,"script","twitter-wjs");
+
+  if (window.twttr) twttr.widgets.load();
+}
+
 // Helper methods for user -> settings -> educations
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");
