@@ -21,8 +21,8 @@ class ProcessPresentationVideo
           %x[ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}]
 
           # part before paused
-          p "ffmpeg -i #{p_att} -ss #{t['start']} -t #{t['duration']} -vcodec copy -acodec copy #{file_prefix}_1.webm"
-          %x[ffmpeg -i #{p_att} -ss #{t['start']} -t #{t['duration']} -vcodec copy -acodec copy #{file_prefix}_1.webm]
+          p "ffmpeg -ss #{t['start']} -t #{t['duration']} -i #{p_att} -vcodec copy -acodec copy #{file_prefix}_1.webm"
+          %x[ffmpeg -ss #{t['start']} -t #{t['duration']} -i #{p_att} -vcodec copy -acodec copy #{file_prefix}_1.webm]
 
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
