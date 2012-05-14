@@ -4,7 +4,7 @@ class ProcessPresentationVideo
   def self.perform(present_attachment_id, recorded_attachment_id, params)
     present_attachment = Attachment.find(present_attachment_id)
     # p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
-    p_att = present_attachment.file.to_s
+    p_att = present_attachment.file.path
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
       timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
