@@ -3,7 +3,7 @@ class ProcessPresentationVideo
 
   def self.perform(present_attachment_id, recorded_attachment_id, params)
     present_attachment = Attachment.find(present_attachment_id)
-    p_att = File.join(Rails.root.to_s,"public", present_attachment.file.mp4.to_s)
+    p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
       timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
@@ -25,21 +25,22 @@ class ProcessPresentationVideo
           %x[ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}]
 
           # part before paused
-          %x[ffmpeg -i #{p_att} -vcodec copy -acodec pcm_s16le -f s16le -i /dev/zero -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.mp4]
+          %x[ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm]
 
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
-          %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f mp4 -vcodec libx264 -ar 22050 -aq 90 -ac 2 #{file_prefix}_2.mp4]
+          %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm]
 
           # debug log
           File.open(log_file_path, 'w') do |f|
             f.puts "ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}"
-            f.puts "ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.mp4"
-            f.puts "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f mp4 -vcodec libx264 -ar 22050 -aq 90 -ac 2 #{file_prefix}_2.mp4"
+            f.puts "ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm"
+            f.puts "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm"
           end
 
-          files << file_prefix+"_1.mp4"
-          files << file_prefix+"_2.mp4"
+          files << file_prefix+"_1.webm"
+          files << file_prefix+"_2.webm"
+
         end
       end
 
