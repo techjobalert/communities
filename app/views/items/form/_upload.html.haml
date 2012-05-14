@@ -33,19 +33,20 @@
         = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
 
   %p.tools
-    - if @item.attachments.blank?
+    - if @item and @item.attachments.blank?
       %span.btn.next-step.upload-page-next-step.disabled
 
-      = link_to "", edit_item_path(@item, :step=>"additional"), {:class => 'btn next-step upload-page-next-step hidden'}
+      = link_to "", "#", {:class => 'btn next-step upload-page-next-step hidden'}
     - else
-      = link_to "", edit_item_path(@item, :step=>"additional"), {:class => 'btn next-step'}
+      = link_to "", edit_item_path(@item, :step=>"description"), {:class => 'btn next-step'}
 
   %p.help
     Please upload your presentation, movie or article to proceed
+
 :javascript
   $(function(){
     var uploaderAttachment = $.initPlupload({
-        url: "#{item_upload_attachment_path(@item)}",
+        url: "#{upload_attachment_items_path}",
         // filters : [
         //     {title : "Presentation files", extensions : "key,ppt,pptx"},
         //     {title : "Document", extensions : "pdf,doc,docx"},
