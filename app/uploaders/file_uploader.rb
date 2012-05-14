@@ -20,7 +20,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :video_thumbnail,     :if => :is_video?
 
   # presenter_video
-  version :mp4,  :if => :is_presenter_video?
+  version :mp4,                 :if => :is_presenter_video?
 
   # presentation_video
   version :presentation_video,  :if => :is_presentation?
@@ -106,10 +106,6 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   version :presentation_video do
-    process :convert_to_video
-  end
-
-  version :presenter_video do
     process :convert_to_video
   end
 
