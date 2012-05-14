@@ -1,9 +1,12 @@
-- step = "description" unless ["additional","upload","preview"].include?(step)
+- step = "upload" unless ["description", "additional", "preview"].include?(step)
 .b-upload-item
   .b-upload-item__navigation
-    = link_to raw("Create item"), "#{@item.id ? edit_item_path(@item.id) : new_item_path()}", :class => "#{'active' if step == 'description'} pjax"
-    = link_to raw("Upload content"), "#{edit_item_path(@item.id, :step => 'upload') if @item.id}", :class => "#{'active' if step == 'upload'} #{'disabled' unless @item.id} pjax"
+    = link_to raw("Upload content"), "#{@item.id ? edit_item_path(@item.id) : new_item_path()}", :class => "upload-page-upload-btn #{'active' if step == 'upload'} #{'disabled' unless @item.id} pjax"
+
+    = link_to raw("Describe your item"), "#{edit_item_path(@item.id, :step => 'description') if @item.id}", :class => "#{'active' if step == 'description'} #{'disabled' unless @item.id} pjax"
+
     = link_to raw("Additional information"), "#{edit_item_path(@item.id, :step => 'additional') if @item.id}", :class => "additional #{'active' if step == 'additional'} #{'disabled' unless @item.id && @item.attachments} pjax"
+
     = link_to raw("Presenter video"), "#{edit_item_path(@item.id, :step => 'preview') if @item.id and @processed}", :class => "#{'active' if step == 'preview'} #{'disabled' unless @item.id and @processed} pjax"
 
   .b-upload-item__step

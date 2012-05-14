@@ -1,6 +1,6 @@
 class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch, :get_attachment]
-  before_filter :get_item, :except => [:index, :new, :create, :tags, :get_attachment]
+  before_filter :get_item, :except => [:index, :new, :create, :tags, :get_attachment, :upload_attachment]
   load_and_authorize_resource
 
 
@@ -13,28 +13,9 @@ class ItemsController < InheritedResources::Base
 
       @a_pdf, @a_video = @item.regular_pdf, @item.common_video unless @item.attachments.blank?
     end
+
+    @notice = params[:notice] if params[:notice]
   end
-
-  # def get_attachment
-
-  #   attachment = Attachment.find params[:file_id]
-  #   error = true
-  #   if attachment.present?
-  #     item = attachment.item
-
-  #     if current_user and item
-  #       if (item.paid? and item.purchased?(current_user)) or (!item.paid?) or item.user == current_user or current_user.admin?
-  #         error = false
-  #         type = "#{params[:extension] == 'pdf' ? 'application' : 'video'}/#{params[:extension]}"
-  #         send_file "#{Rails.root}/public/uploads/attachment/file/#{params[:file_id]}/#{params[:basename]}.#{params[:extension]}", :type => type, :x_sendfile => true
-  #       end
-  #     end
-  #   end
-
-  #   if error
-  #     render :nothing => true
-  #   end
-  # end
 
   def index
     @items = Item.state_is("published").order("created_at DESC").page(params[:page])
@@ -93,7 +74,8 @@ class ItemsController < InheritedResources::Base
           @item.save
           @notice = { :type => "notice",
               :message => "Item will be published after premoderation." }
-          @step = @current_step
+          # @step = @current_step
+          redirect_to(item_path(@item, :notice => @notice))
         else
           @notice = { :type => "error",
             :message => "Please wait for the attached file to be processed. Publishing will be available after processing." }
@@ -237,12 +219,25 @@ class ItemsController < InheritedResources::Base
 
   def upload_attachment
     klass = Attachment
+
+    if params[:item_id]
+      @item = Item.find(params[:item_id])
+    else
+      @item = Item.new(
+        :title        => "[no title]",
+        :description  => "[no abstract]",
+        :user_id      => current_user.id )
+
+      @item.save( :validate => false )
+    end
+
     options = {
       :user => current_user,
       :file => params[:file],
       :attachment_type  => params[:attachment_type] || "regular",
       :item_id => @item.id
     }
+
     # delete last file by type
     base_upload(klass, params, options)
   end
@@ -344,7 +339,8 @@ class ItemsController < InheritedResources::Base
         :attachment_type => options[:attachment_type]).last
       last_attachemnt.destroy if last_attachemnt
       obj = klass.create!(options)
-      render :json => {:id => obj.id, :objClass => obj.class.name.underscore}, :content_type => "text/json; charset=utf-8"
+      render :json => {:id => obj.id, :objClass => obj.class.name.underscore, :itemID => options[:item_id]}, :content_type => "text/json; charset=utf-8"
+
     rescue ActiveRecord::RecordInvalid => invalid
       Rails.logger.error invalid.inspect
       @notice = {:type => 'error', :message =>

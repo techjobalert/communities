@@ -92,7 +92,10 @@ $(function() {
           f.append('<input type="hidden" name="item['+response.objClass+'_ids][]" value="'+response.id+'">');
           $('span.upload-page-next-step').remove();
           $('a.upload-page-next-step').removeClass('hidden');
-
+          $('a.next-step').attr('href','/items/'+response.itemID+'/edit?step=description');
+          $('.upload-page-upload-btn').attr('href','/items/'+response.itemID+'/edit');
+          uploader.settings.url = "/items/upload_attachment?item_id=" + response.itemID;
+          console.log(uploader.settings.url)
         }
 
         if (response.url){
