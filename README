@@ -1,6 +1,8 @@
 
 need to install
 -avidemux-cli-
+lxsplit
+mencoder
 handbrakecli
 ffmpeg
 x264

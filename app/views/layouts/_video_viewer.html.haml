@@ -56,6 +56,7 @@
         var _timing = [];
         var interval = 225;
         $.each(timing, function(idx,i){_timing[idx] = i.substring(0,8)})
+
         mediaElement.addEventListener('timeupdate', function(e) {
           var x = _timing.indexOf(secondsToHms(mediaElement.currentTime).substring(0,8));
           if ( x != -1){
@@ -70,6 +71,12 @@
             }
           }
         }, false);
+
+        mediaElement.addEventListener('ended', function(e){
+          mediaElement.pause();
+          mediaElement.setCurrentTime(0);
+        });
+
       }
     },
     // fires when a problem is detected
