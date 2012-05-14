@@ -1,1 +1,4 @@
 = render :partial => 'show', :locals => {:item => @item}
+- if @notice.present?
+  :javascript
+    showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");

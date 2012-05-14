@@ -13,6 +13,8 @@ class ItemsController < InheritedResources::Base
 
       @a_pdf, @a_video = @item.regular_pdf, @item.common_video unless @item.attachments.blank?
     end
+
+    @notice = params[:notice] if params[:notice]
   end
 
   def index
@@ -72,7 +74,8 @@ class ItemsController < InheritedResources::Base
           @item.save
           @notice = { :type => "notice",
               :message => "Item will be published after premoderation." }
-          @step = @current_step
+          # @step = @current_step
+          redirect_to(item_path(@item, :notice => @notice))
         else
           @notice = { :type => "error",
             :message => "Please wait for the attached file to be processed. Publishing will be available after processing." }

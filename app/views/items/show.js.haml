@@ -5,3 +5,5 @@
 
   $(".main-content .navigation a").removeClass("selected");
   $(".tab-item").addClass("selected");
+  - if @notice.present?
+    showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
