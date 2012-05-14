@@ -48,8 +48,8 @@ class ProcessPresentationVideo
       hex = SecureRandom.hex(10)
       file_no_sound = File.join(tmp_dir, hex)+"_nosound_final.webm"
       final = File.join(File.dirname(p_att), hex)+"_final.webm"
-      %x[mkvmerge -o #{final} #{files.join(" +")}]
-      # %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}]
+      # %x[mkvmerge -o #{final} #{files.join(" +")}]
+      %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}]
       # add empty audio track
       # %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 -vcodec libvpx -acodec libvorbis #{final} -map 1:0 -map 0:0]
 
