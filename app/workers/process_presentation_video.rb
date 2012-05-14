@@ -3,7 +3,8 @@ class ProcessPresentationVideo
 
   def self.perform(present_attachment_id, recorded_attachment_id, params)
     present_attachment = Attachment.find(present_attachment_id)
-    p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
+    # p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
+    p_att = present_attachment.file.to_s
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
       timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
@@ -25,18 +26,18 @@ class ProcessPresentationVideo
           %x[ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}]
 
           # part before paused
-          %x[ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm]
+          %x[ffmpeg -i #{p_att} -vcodec libvpx -acodec libvorbis -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm]
 
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
           %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm]
 
           # debug log
-          File.open(log_file_path, 'w') do |f|
-            f.puts "ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}"
-            f.puts "ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm"
-            f.puts "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm"
-          end
+          # File.open(log_file_path, 'w') do |f|
+          #   f.puts "ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}"
+          #   f.puts "ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm"
+          #   f.puts "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm"
+          # end
 
           files << file_prefix+"_1.webm"
           files << file_prefix+"_2.webm"
@@ -45,8 +46,8 @@ class ProcessPresentationVideo
       end
 
       hex = SecureRandom.hex(10)
-      file_no_sound = File.join(tmp_dir, hex)+"_nosound_final.mp4"
-      final = File.join(File.dirname(p_att), hex)+"_final.mp4"
+      file_no_sound = File.join(tmp_dir, hex)+"_nosound_final.webm"
+      final = File.join(File.dirname(p_att), hex)+"_final.webm"
       %x[mkvmerge -o #{final} #{files.join(" +")}]
       # %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}]
       # add empty audio track
