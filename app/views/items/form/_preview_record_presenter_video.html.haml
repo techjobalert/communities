@@ -36,6 +36,7 @@
       currentPos = 0,
       syncBool = false,
       presync = false,
+      canPlay = false,
       innerTimer = 0,
       innerIntervarTimer,
       pauseCallback = function(){
@@ -64,7 +65,7 @@
         console.log("video end");
       },
       prestartSync = function(){
-        if (presync) return false;
+        if (presync || !canPlay) return false;
         presync = true;
         var duration = 5,
             intervalCount = 0,
@@ -78,6 +79,9 @@
               }
             }
             , 1000 );
+      },
+      canPlayCallback = function(){
+        canPlay = true;
       },
       startSync = function(){
         videoPlayer.play();
@@ -127,4 +131,5 @@
     me.addEventListener("pause", pauseCallback);
     me.addEventListener("play",  playCallback);
     me.addEventListener("ended", endedCallback);
+    me.addEventListener("canplay", canPlayCallback);
   }});
