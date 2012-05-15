@@ -24,7 +24,7 @@ class VideoMerge
       :presentV => p_att,
       :recordedV => r_att,
       :pos => self.add_position(),
-      :settings => '-map 0:0 -map 1:1 -async 1 -g 50 -threads 1 -vcodec libvpx -acodec libvorbis -quality best -b:v 500k -qmin 10 -qmax 42 -maxrate 1500k -bufsize 1000k -vpre libvpx-720p'
+      :settings => '-map 0:0 -map 1:1 -async 1 -g 50 -threads 1 -vcodec libvpx -acodec libvorbis -quality best -b:a 128k -b:v 1000k -qmin 10 -qmax 42 -maxrate 1500k -bufsize 1000k -vpre libvpx-720p'
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
       #               -copyright "2012"
