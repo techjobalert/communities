@@ -4,12 +4,12 @@ class VideoMerge
   def self.perform(present_attachment, recorded_attachment_id, params)
     if not (present_attachment =~ /^[0-9]+$/).nil?
       _present_attachment = Attachment.find(present_attachment)
-      p_att = File.join(Rails.root.to_s,"public", _present_attachment.file.webm.to_s)
+      p_att = _present_attachment.file.webm.path
     else
       p_att = present_attachment
     end
     recorded_attachment = Attachment.find(recorded_attachment_id)
-    r_att = File.join(Rails.root.to_s,"public", recorded_attachment.file.mp4.to_s)
+    r_att = recorded_attachment.file.presenter_video.path
     # r_att = recorded_attachment.file.path.to_s
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
