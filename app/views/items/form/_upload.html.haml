@@ -43,10 +43,11 @@
   %p.help
     Please upload your presentation, movie or article to proceed
 
+- url = @item ? upload_attachment_items_path(:item_id => @item.id) : upload_attachment_items_path
 :javascript
   $(function(){
     var uploaderAttachment = $.initPlupload({
-        url: "#{upload_attachment_items_path}",
+        url: "#{upload_attachment_items_path},
         // filters : [
         //     {title : "Presentation files", extensions : "key,ppt,pptx"},
         //     {title : "Document", extensions : "pdf,doc,docx"},
