@@ -246,16 +246,21 @@ class ItemsController < InheritedResources::Base
     webcam_record_path = File.expand_path(
       File.join(Rails.root, "..","video","webcam_records","#{params[:record_file_name]}")
     )
+    # add metadata before merge video
+    w_dir  = File.dirname(webcam_record_path)
+    w_file = File.basename(webcam_record_path,".*")+"with_meta.flv"
+    webcam_record_with_meta_data = File.join(w_dir, w_file)
+    %x[yamdi -i #{webcam_record_path} -o #{webcam_record_with_meta_data}]
 
     presenter_video = Attachment.new({
-      :file => File.open(webcam_record_path),
+      :file => File.open(webcam_record_with_meta_data),
       :user => current_user,
       :attachment_type => "presenter_video"})
 
     @item.attachments << presenter_video
 
     # Removing source file
-    FileUtils.rm webcam_record_path, :verbose => true
+    FileUtils.rm([webcam_record_path, webcam_record_with_meta_data], :verbose => true)
 
     video = Attachment.find(params[:video_id])
     if video.attachment_type == "presentation_video" and params[:playback_points].present?
