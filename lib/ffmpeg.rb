@@ -66,7 +66,7 @@ module CarrierWave
       model.file_processing = nil
 
       if file
-        if %w(presenter_merged_video regular).member? model.attachment_type
+        if %w(presenter_merged_video regular presentation_video).member? model.attachment_type
           Resque.enqueue(SendProcessedMessage, model.id)
         end
         Resque.enqueue(RemoveSourceFile, model.file.path)

@@ -15,7 +15,10 @@ class ProcessPresentationVideo
 
       # debug log
       log_file_path = File.join(Rails.root, "log", "process_video.log")
-      File.open(log_file_path, 'w') {|f| f.puts("");f.puts("[START][split-and-merge] " + Time.now.to_s) }
+      File.open(log_file_path, 'w') do |f|
+        f.puts("")
+        f.puts("[START][split-and-merge] " + Time.now.to_s)
+      end
 
       timing.each_with_index do |t, idx|
         if idx+1 <= timing.size and [t['start'], t['stop'], t['duration'], t['pause_duration']].all?
