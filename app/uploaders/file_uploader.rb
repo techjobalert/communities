@@ -19,9 +19,6 @@ class FileUploader < CarrierWave::Uploader::Base
   version :mobile,              :if => :is_video?
   version :video_thumbnail,     :if => :is_video?
 
-  # presenter_video
-  version :presenter_video,     :if => :is_presenter_video?
-
   # presentation_video
   version :presentation_video,  :if => :is_presentation?
 
@@ -109,13 +106,6 @@ class FileUploader < CarrierWave::Uploader::Base
     process :convert_to_video
   end
 
-  version :presenter_video do
-    process :hb_convert_to_mp4
-    def full_filename (for_file = model.file.file)
-      "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
-    end
-  end
-
   protected
 
   def convert_to_pdf
@@ -182,15 +172,10 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def is_video? f
     exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v).map!{|e| "."+ e }
-    if not is_presenter_video?(f)
+    if model.attachment_type != "presenter_video"
       exts.member? File.extname(f.file) or (is_presentation?(f) and model.file_processing == nil)
     end
   end
-
-  def is_presenter_video? f
-    model.attachment_type == "presenter_video"
-  end
-
 
   def is_pdf? f
     [".pdf", ".doc", ".docx"].member? File.extname(f.file)

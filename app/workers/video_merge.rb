@@ -9,7 +9,7 @@ class VideoMerge
       p_att = present_attachment
     end
     recorded_attachment = Attachment.find(recorded_attachment_id)
-    r_att = recorded_attachment.file.presenter_video.path
+    r_att = recorded_attachment.file.path
     # r_att = recorded_attachment.file.path.to_s
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
@@ -24,7 +24,7 @@ class VideoMerge
       :presentV => p_att,
       :recordedV => r_att,
       :pos => self.add_position(),
-      :settings => '-map 0:0 -map 1:1 -async 1 -g 50'
+      :settings => '-map 0:0 -map 1:1 -async 1 -g 50 -threads 1 -vcodec libvpx -acodec libvorbis -quality best -b:v 500k -qmin 10 -qmax 42 -maxrate 1500k -bufsize 1000k -vpre libvpx-720p'
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
       #               -copyright "2012"
