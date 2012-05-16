@@ -52,7 +52,8 @@ class FileController < ApplicationController
       record_file = File.open(p_video)
       presenter_video = Attachment.new({
         :file => record_file,
-        :user => current_user,
+        :user_id => attachment.user.id,
+        :item_id => attachment.item.id,
         :attachment_type => "presentation_video"})
 
       #collect timing from subtitles
