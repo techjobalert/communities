@@ -49,6 +49,10 @@ class VideoMerge
     end
     %x[#{command}]
 
+    # remove prev presenter_merged_video attacgment
+    presenter_merged_video = recorded_attachment.item.attachments.where(attachment_type: "presenter_merged_video")
+    presenter_merged_video.destroy_all if presenter_merged_video
+
     # debug log
     log_file_path = File.join(Rails.root, "log","process_video.log")
     File.open(log_file_path, 'w') do |f|

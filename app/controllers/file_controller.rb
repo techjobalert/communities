@@ -60,13 +60,13 @@ class FileController < ApplicationController
       timing = []
       %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
       presenter_video.timing = timing.join(";")
-      prev_attachment = attachment.item.attachments.where(attachment_type: "presentation_video").last
+      prev_attachment = attachment.item.attachments.where(attachment_type: "presentation_video")
       attachment.item.attachments << presenter_video
 
       # remove converted files(presentation and video file)
       FileUtils.rm [p_video, p_source], :verbose => true
       # remove prev attachment
-      prev_attachment.destroy if prev_attachment
+      prev_attachment.destroy_all if prev_attachment
     end
     render :nothing => true
   end
