@@ -232,10 +232,11 @@ class ItemsController < InheritedResources::Base
     end
 
     options = {
-      :user => current_user,
-      :file => params[:file],
+      :user             => current_user,
+      :user_id          => current_user.id,
+      :file             => params[:file],
       :attachment_type  => params[:attachment_type] || "regular",
-      :item_id => @item.id
+      :item_id          => @item.id
     }
 
     # delete last file by type
@@ -340,10 +341,10 @@ class ItemsController < InheritedResources::Base
   def base_upload(klass, params, options)
     begin
       russian_translit!(params)
-      last_attachemnt = Attachment.where(
+      last_attachment = Attachment.where(
         :item_id => options[:item_id],
         :attachment_type => options[:attachment_type]).last
-      last_attachemnt.destroy if last_attachemnt
+      last_attachment.destroy if last_attachment
       obj = klass.create!(options)
       render :json => {:id => obj.id, :objClass => obj.class.name.underscore, :itemID => options[:item_id]}, :content_type => "text/json; charset=utf-8"
 
