@@ -49,11 +49,10 @@ class FileController < ApplicationController
       p_video = File.join(p_base, "p_video", params[:filename])
       p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+".key")
 
-      record_file = File.open(p_video)
       presenter_video = Attachment.new({
-        :file => record_file,
-        :user_id => attachment.user.id,
-        :item_id => attachment.item.id,
+        :file => File.open(p_video),
+        :user => attachment.user,
+        :item => attachment.item,
         :attachment_type => "presentation_video"})
 
       #collect timing from subtitles
