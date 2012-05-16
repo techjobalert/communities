@@ -28,9 +28,11 @@ class NotifyMailer < ActionMailer::Base
     @attachment = Attachment.find(attachment_id)
     @item = @attachment.item
     @file_name = File.basename(@attachment.file.path)
-    mail(
-      :to => @attachment.user.email,
-      :subject => "[orthodontics360] Your attachment file #{@file_name} processed"
-    )
+    if @item and @file_name
+      mail(
+        :to => @item.user.email,
+        :subject => "[orthodontics360] Your attachment file #{@file_name} processed"
+      )
+    end
   end
 end

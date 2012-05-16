@@ -69,8 +69,13 @@ module CarrierWave
         if %w(presenter_merged_video regular presentation_video).member? model.attachment_type
           Resque.enqueue(SendProcessedMessage, model.id)
         end
+        # remove source file
         Resque.enqueue(RemoveSourceFile, model.file.path)
+        # remove parent source file
+        parent_attachment_source_path = model.item.attachments.where({attachment_type: "presentation_video"}).last
+        Resque.enqueue(RemoveSourceFile, parent_attachment_source_path.file.path) if parent_attachment_source_path
       end
+
     end
 
     private
