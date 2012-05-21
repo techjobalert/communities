@@ -10,12 +10,20 @@ class FileController < ApplicationController
     File.open('../video/video_storage/p_source/' + uuid_filename , "wb") do |f|
       f.write(file.read)
     end
+
+    p "!!!!!!!"
+    p File.extname(file.original_filename)
+    p file.original_filename
+
     file_ext = File.extname(file.original_filename)
     uri = if file_ext == ".key"
       URI(REMOTE_MAC_PATH)
     elsif %w(.ppt .pptx).member? file_ext
       URI(REMOTE_WIN_PATH)
     end
+
+    p uri
+
     Net::HTTP.post_form(uri, 'file' => uuid_filename)
     #redirect_to "/file/load"
     render :json => {:file => {:name => uuid_filename} }
