@@ -163,18 +163,7 @@ class FileUploader < CarrierWave::Uploader::Base
     uuid_filename = [SecureRandom.uuid, File.basename(file)].join("-")
     FileUtils::copy_file(file, "../video/video_storage/p_source/#{uuid_filename}")
 
-    file_ext = File.extname(current_path)
-    if %w(.ppt .pptx).member? file_ext
-      uri = URI(REMOTE_WIN_PATH)
-    elsif file_ext == ".key"
-      uri = URI(REMOTE_MAC_PATH)
-    end
-
-    begin
-      Resque.enqueue(PowerPointConvert, uri, uuid_filename, model.id)
-    rescue Timeout::Error => e
-      nil
-    end
+    Resque.enqueue(PowerPointConvert, File.extname(current_path), uuid_filename, model.id)
   end
 
   def is_video? f
