@@ -12,13 +12,13 @@ class FileController < ApplicationController
     end
 
     file_ext = File.extname(uuid_filename)
-    uri = if %w(.ppt .pptx).member? file_ext
-      URI(REMOTE_WIN_PATH)
+    if %w(.ppt .pptx).member? file_ext
+      uri = URI(REMOTE_WIN_PATH)
     elsif file_ext == ".key"
-      URI(REMOTE_MAC_PATH)
+      uri = URI(REMOTE_MAC_PATH)
     end
 
-    Net::HTTP.post_form(uri, 'file' => uuid_filename) if uri
+    Net::HTTP.post_form(uri, 'file' => uuid_filename) if uri||=nil
     #redirect_to "/file/load"
     render :json => {:file => {:name => uuid_filename} }
   end
