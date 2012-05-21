@@ -171,7 +171,7 @@ class FileUploader < CarrierWave::Uploader::Base
     end
 
     begin
-      Resque.enqueue(PowerPointConvert, uuid_filename, model.id)
+      Resque.enqueue(PowerPointConvert, uri, uuid_filename, model.id)
     rescue Timeout::Error => e
       nil
     end
