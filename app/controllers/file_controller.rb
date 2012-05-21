@@ -10,20 +10,13 @@ class FileController < ApplicationController
     File.open('../video/video_storage/p_source/' + uuid_filename , "wb") do |f|
       f.write(file.read)
     end
-
-    file_ext = File.extname(uuid_filename)
-
-    p file_ext
-    logger.debug file_ext
-    Rails.logger.debug file_ext
-
-    if %w(.ppt .pptx).member? file_ext
-      uri = URI(REMOTE_WIN_PATH)
-    elsif file_ext == ".key"
-      uri = URI(REMOTE_MAC_PATH)
+    file_ext = File.extname(file.original_filename)
+    uri = if file_ext == ".key"
+      URI(REMOTE_MAC_PATH)
+    elsif %w(.ppt .pptx).member? file_ext
+      URI(REMOTE_WIN_PATH)
     end
-
-    Net::HTTP.post_form(uri, 'file' => uuid_filename) if uri||=nil
+    Net::HTTP.post_form(uri, 'file' => uuid_filename)
     #redirect_to "/file/load"
     render :json => {:file => {:name => uuid_filename} }
   end
@@ -56,7 +49,7 @@ class FileController < ApplicationController
 
     attachment = Attachment.find(params[:id])
     if attachment
-      is_keynote = File.extname(params[:filename]) == ".key"
+      is_keynote = File.extname(params[:filename]) == ".mov"
       attachment.update_attribute("file_processing", nil)
       p_base = "/home/buildbot/video/video_storage"
       p_video = File.join(p_base, "p_video", params[:filename])

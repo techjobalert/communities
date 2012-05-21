@@ -162,7 +162,14 @@ class FileUploader < CarrierWave::Uploader::Base
     file = File.absolute_path(current_path)
     uuid_filename = [SecureRandom.uuid, File.basename(file)].join("-")
     FileUtils::copy_file(file, "../video/video_storage/p_source/#{uuid_filename}")
-    uri = URI('http://192.168.0.251:3000/convert')
+
+    file_ext = File.extname(current_path)
+    if %w(.ppt .pptx).member? file_ext
+      uri = URI(REMOTE_WIN_PATH)
+    elsif file_ext == ".key"
+      uri = URI(REMOTE_MAC_PATH)
+    end
+
     begin
       Net::HTTP.post_form(uri, 'file' => uuid_filename, 'id' => model.id)
     rescue Timeout::Error => e
