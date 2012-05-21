@@ -12,6 +12,11 @@ class FileController < ApplicationController
     end
 
     file_ext = File.extname(uuid_filename)
+
+    p file_ext
+    logger.debug file_ext
+    Rails.logger.debug file_ext
+
     if %w(.ppt .pptx).member? file_ext
       uri = URI(REMOTE_WIN_PATH)
     elsif file_ext == ".key"
