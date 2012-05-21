@@ -73,7 +73,7 @@ $(function() {
     uploader.bind('Error', function(up, err) {
       if ($('#filelist').length){
         $('#filelist .filename:last-child').remove();
-        alert("Available file format to upload: pdf, doc, docx, key, 3gpp, 3gp, mpeg, mpg, mpe, ogv, mov, webm, flv, mng, asx, asf, wmv, avi, mp4, m4v")
+        alert("Available file format to upload: pdf, doc, docx, key, ppt, pptx, 3gpp, 3gp, mpeg, mpg, mpe, ogv, mov, webm, flv, mng, asx, asf, wmv, avi, mp4, m4v")
       }
       up.refresh(); // Reposition Flash/Silverlight
     });
