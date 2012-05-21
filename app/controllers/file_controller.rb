@@ -11,9 +11,9 @@ class FileController < ApplicationController
       f.write(file.read)
     end
 
-    p "!!!!!!!"
-    p File.extname(file.original_filename)
-    p file.original_filename
+    logger.info "!!!!!!!"
+    logger.info File.extname(file.original_filename)
+    logger.info file.original_filename
 
     file_ext = File.extname(file.original_filename)
     uri = if file_ext == ".key"
@@ -22,7 +22,7 @@ class FileController < ApplicationController
       URI(REMOTE_WIN_PATH)
     end
 
-    p uri
+    logger.info uri
 
     Net::HTTP.post_form(uri, 'file' => uuid_filename)
     #redirect_to "/file/load"
