@@ -49,11 +49,11 @@ class FileController < ApplicationController
 
     attachment = Attachment.find(params[:id])
     if attachment
-      is_keynote? = File.extname(params[:filename]) == ".key"
+      is_keynote = File.extname(params[:filename]) == ".key"
       attachment.update_attribute("file_processing", nil)
       p_base = "/home/buildbot/video/video_storage"
       p_video = File.join(p_base, "p_video", params[:filename])
-      p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+ (is_keynote? ? ".pptx" : ".key"))
+      p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+ (is_keynote ? ".pptx" : ".key"))
 
       presenter_video = Attachment.new({
         :file => File.open(p_video),
@@ -64,7 +64,7 @@ class FileController < ApplicationController
       #collect timing from subtitles
       # storing format "00:00:13,290;00:00:17,581" devider ";"
       timing = []
-      if is_keynote?
+      if is_keynote
         %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
       else
         p_source_timing = p_video+".txt"
