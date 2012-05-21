@@ -10,7 +10,12 @@ class FileController < ApplicationController
     File.open('../video/video_storage/p_source/' + uuid_filename , "wb") do |f|
       f.write(file.read)
     end
-    uri = URI('http://192.168.0.251:3000/convert')
+    file_ext = File.extname(file.original_filename)
+    uri = if file_ext == ".key"
+      URI(REMOTE_MAC_PATH)
+    elsif %w(.ppt .pptx).member? file_ext
+      URI(REMOTE_WIN_PATH)
+    end
     Net::HTTP.post_form(uri, 'file' => uuid_filename)
     #redirect_to "/file/load"
     render :json => {:file => {:name => uuid_filename} }
@@ -44,10 +49,11 @@ class FileController < ApplicationController
 
     attachment = Attachment.find(params[:id])
     if attachment
+      is_keynote? = File.extname(params[:filename]) == ".key"
       attachment.update_attribute("file_processing", nil)
       p_base = "/home/buildbot/video/video_storage"
       p_video = File.join(p_base, "p_video", params[:filename])
-      p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+".key")
+      p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+ (is_keynote? ? ".pptx" : ".key"))
 
       presenter_video = Attachment.new({
         :file => File.open(p_video),
@@ -58,7 +64,15 @@ class FileController < ApplicationController
       #collect timing from subtitles
       # storing format "00:00:13,290;00:00:17,581" devider ";"
       timing = []
-      %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
+      if is_keynote?
+        %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
+      else
+        p_source_timing = p_video+".txt"
+        File.open(p_source_timing, 'r') do |file|
+          file.each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
+        end
+        FileUtils.remove_file(p_source_timing, :verbose => true)
+      end
       presenter_video.timing = timing.join(";")
       prev_attachment = attachment.item.attachments.where(attachment_type: "presentation_video")
       attachment.item.attachments << presenter_video
