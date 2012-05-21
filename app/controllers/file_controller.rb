@@ -11,18 +11,12 @@ class FileController < ApplicationController
       f.write(file.read)
     end
 
-    logger.info "!!!!!!!"
-    logger.info File.extname(file.original_filename)
-    logger.info file.original_filename
-
-    file_ext = File.extname(file.original_filename)
+    file_ext = File.extname(uuid_filename)
     uri = if %w(.ppt .pptx).member? file_ext
       URI(REMOTE_WIN_PATH)
     elsif file_ext == ".key"
       URI(REMOTE_MAC_PATH)
     end
-
-    logger.info uri
 
     Net::HTTP.post_form(uri, 'file' => uuid_filename) if uri
     #redirect_to "/file/load"
