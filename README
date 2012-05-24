@@ -6,4 +6,10 @@ mencoder
 handbrakecli
 ffmpeg
 x264
+# fix flv
 yamdi
+
+# split pdf http://documentcloud.github.com/docsplit/
+# graphicsmagick poppler-utils tesseract-ocr
+# or http://www.pdflabs.com/docs/pdftk-cli-examples/
+sudo apt-get install pdftk

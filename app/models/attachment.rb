@@ -13,6 +13,7 @@ class Attachment < ActiveRecord::Base
   store_in_background   :file
 
   after_save      :set_item_type
+  after_save      :set_type
   before_destroy  :destroy_attachments
 
   def set_item_type
@@ -27,6 +28,19 @@ class Attachment < ActiveRecord::Base
     end
 
     item.update_attribute(:attachment_type, item_type)
+  end
+
+  def set_type
+    self.attachment_type = if self.attachment_type == "regular"
+      if self.is_processed_to_video?
+        "video"
+      elsif self.is_pdf? or self.is_processed_to_pdf?
+        "pdf"
+      else
+        "regular"
+      end
+    end
+    self.save!
   end
 
   def destroy_attachments

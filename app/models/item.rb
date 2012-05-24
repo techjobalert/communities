@@ -50,13 +50,17 @@ class Item < ActiveRecord::Base
                           :secondary_subject => :self,
                           :if => lambda { |item| item.state == "published" and item.moderated_at > (Time.zone.now() - 10.second) }
 
-  fires :destroyed_item,  :on     => :destroy,
-                          :actor  => :user
+  # fires :destroyed_item,  :on     => :destroy,
+  #                         :actor  => :user
 
   state_machine :state, :initial => :draft do
 
     before_transition :on => :publish do |item|
       item.number_of_updates += 1
+    end
+
+    after_transition :on => :publish do |item|
+      Resque.enqueue(CreatePreview, item.id, item.preview_length) if item.paid?
     end
 
     event :edit do
@@ -122,7 +126,7 @@ class Item < ActiveRecord::Base
   end
 
   def regular_video
-    attachments.select{|a| a.is_processed_to_video? && %w(regular presentation_video).member?(a.attachment_type)}.last
+    attachments.select{|a| a.is_processed_to_video? && %w(video presentation_video).member?(a.attachment_type)}.last
   end
 
   def regular_pdf
