@@ -145,7 +145,7 @@ class Item < ActiveRecord::Base
   end
 
   def paid_view?(user)
-    preview = attachments.where(:attachment_type => "preview").last
+    preview = attachments.where("attachment_type like ?", '%preview%').last
     if (purchased?(user) or self.user == user) and not attachments.blank?
       attachment_type == "video" ? common_video : regular_pdf
     elsif preview
