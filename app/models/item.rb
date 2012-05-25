@@ -4,7 +4,7 @@ class Item < ActiveRecord::Base
 
   attr_accessible :title, :description, :tag_list, :paid, :user, :user_id,
                   :views_count, :amount, :price, :state, :moderated_at,
-                  :approved_by, :attachments
+                  :approved_by, :attachments, :preview_length
   validates :title, :description, :presence => true
 
   acts_as_commentable
