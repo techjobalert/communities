@@ -13,7 +13,7 @@ class CreatePreview
       dest = File.join(File.dirname(attachment.file.path), "splited.pdf")
       system("pdftk A=#{attachment.file.path} cat A1-#{to} output #{dest}")
     when "presenter_merged_video", "presentation_video", "video"
-      dest = File.join(File.dirname(attachment.file.path), "splited.#{File.extname(attachment.file.path)}")
+      dest = File.join(File.dirname(attachment.file.path), "splited#{File.extname(attachment.file.path)}")
       system("ffmpeg -y -i #{attachment.file.path} -ss 0 -t #{to} #{dest}")
     end
 
@@ -22,7 +22,7 @@ class CreatePreview
                 :file => File.open(dest),
                 :user => item.user,
                 :item_id => item.id,
-                :attachment_type => "preview"})
+                :attachment_type => "#{attachment.attachment_type}_preview"})
       #remove source file
       FileUtils.remove_file(dest, :verbose => true)
     end

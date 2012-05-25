@@ -12,12 +12,11 @@ class Attachment < ActiveRecord::Base
   process_in_background :file
   store_in_background   :file
 
-  after_save      :set_item_type
   after_save      :set_type
   before_destroy  :destroy_attachments
 
-  def set_item_type
-    item_type = if is_presentation?
+  def set_type
+    type = if is_presentation?
       "presentation"
     elsif self.is_pdf? or self.is_processed_to_pdf?
       "article"
@@ -26,21 +25,9 @@ class Attachment < ActiveRecord::Base
     else
       "undefined"
     end
-
-    item.update_attribute(:attachment_type, item_type)
-  end
-
-  def set_type
-    self.attachment_type = if self.attachment_type == "regular"
-      if self.is_processed_to_video?
-        "video"
-      elsif self.is_pdf? or self.is_processed_to_pdf?
-        "pdf"
-      else
-        "regular"
-      end
-    end
-    self.save!
+    self.attachment_type = type if self.attachment_type == "regular"
+    save!
+    item.update_attribute(:attachment_type, type)
   end
 
   def destroy_attachments
@@ -74,7 +61,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def is_presentation?
-    extension_is?(%w(key ppt pptx)) or self.attachment_type == "presentation_video"
+    extension_is?(%w(key ppt pptx)) or %w(presentation_video merged_presentation_video).member? self.attachment_type
   end
 
   def is_processed_to_pdf?
