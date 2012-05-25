@@ -68,8 +68,9 @@
           - if @a_pdf.file_processing == true
             %i Your attached pdf will be placed here after processings
           - elsif not @a_pdf.blank?
-            - pdf = item.purchased?(current_user) ? @a_video : @item.attachments.where({:attachment_type => "pdf_preview"})
-            = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
+            - pdf = @item.paid_view?(current_user)
+            -if pdf
+              = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
 
   - if @a_video
     .text.video
@@ -79,8 +80,9 @@
             %i Your attachment will be placed here after processings
         - elsif not @a_video.nil?
           .attachment-video
-            - video = item.purchased?(current_user) ? @a_video : @item.attachments.where({:attachment_type => "video_preview"})
-            = render :partial => "layouts/video_viewer", :locals => {:attachment => video}
+            - video = @item.paid_view?(current_user)
+            -if video
+              = render :partial => "layouts/video_viewer", :locals => {:attachment => video}
 
       .body
         = image_tag('/assets/logo.png', :width => '200')
@@ -96,7 +98,9 @@
               Your attached pdf will be placed here after processings
         - elsif not @a_pdf.blank?
           .attachment-pdf
-            = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
+            - pdf = @item.paid_view?(current_user)
+            -if pdf
+              = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
 
 #comments.b-comments
   %h3 Comments

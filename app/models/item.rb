@@ -8,7 +8,7 @@ class Item < ActiveRecord::Base
   validates :title, :description, :presence => true
 
   acts_as_commentable
-	acts_as_taggable
+  acts_as_taggable
   acts_as_followable
 
   paginates_per 3
@@ -141,6 +141,15 @@ class Item < ActiveRecord::Base
       attachment.get_thumbnail
     else
       "/assets/default/item_thumb_default.png"
+    end
+  end
+
+  def paid_view?(user)
+    preview = attachments.where(:attachment_type => attachment_type).last
+    if (purchased?(user) or self.user == user) and not attachments.blank?
+      attachment_type == "video" ? common_video : regular_pdf
+    elsif preview
+      preview
     end
   end
 
