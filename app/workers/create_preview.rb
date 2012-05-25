@@ -18,12 +18,11 @@ class CreatePreview
     end
 
     if dest
-      new_attachment = Attachment.new({
+      new_attachment = Attachment.create!({
                 :file => File.open(dest),
                 :user => item.user,
-                :item => item,
+                :item_id => item.id,
                 :attachment_type => "preview"})
-      item.attachments << new_attachment
       #remove source file
       FileUtils.remove_file(dest, :verbose => true)
     end
