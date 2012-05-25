@@ -148,7 +148,7 @@ class Item < ActiveRecord::Base
     if paid? and not purchased?(user) and self.user != user
       attachments.where("attachment_type like ?", '%preview%').last
     else
-      attachment_type == "video" ? common_video : regular_pdf
+      attachment_type["video"] ? common_video : regular_pdf
     end
   end
 
