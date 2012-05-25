@@ -29,6 +29,7 @@ class ModeratorController < ApplicationController
     @item.approved_by = current_user
 
     if @message.save and @item.publish
+      Resque.enqueue(CreatePreview, @item.id, @item.preview_length) if @item.paid?
       notice = {:type => 'notice',
         :message => "Item is published. Message was successfully sended."}
       Resque.enqueue(SendModerationMessage, @message.id)

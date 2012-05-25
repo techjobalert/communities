@@ -59,10 +59,6 @@ class Item < ActiveRecord::Base
       item.number_of_updates += 1
     end
 
-    after_transition :on => :publish do |item|
-      Resque.enqueue(CreatePreview, item.id, item.preview_length) if item.paid? and item.attachment_type != "preview"
-    end
-
     event :edit do
       transition [:denied, :published, :moderated] => :draft
     end
