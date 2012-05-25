@@ -14,7 +14,7 @@ class CreatePreview
       system("pdftk A=#{attachment.file.path} cat A1-#{to} output #{dest}")
     when "presenter_merged_video", "presentation_video", "video"
       dest = File.join(File.dirname(attachment.file.path), "splited.#{File.extname(attachment.file.path)}")
-      system("ffmpeg -i #{attachment.file.path} -ss 0 -t #{to} #{dest}")
+      system("ffmpeg -y -i #{attachment.file.path} -ss 0 -t #{to} #{dest}")
     end
 
     if dest

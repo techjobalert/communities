@@ -60,7 +60,7 @@ class Item < ActiveRecord::Base
     end
 
     after_transition :on => :publish do |item|
-      Resque.enqueue(CreatePreview, item.id, item.preview_length) if item.paid?
+      Resque.enqueue(CreatePreview, item.id, item.preview_length) if item.paid? and item.attachment_type != "preview"
     end
 
     event :edit do
@@ -145,7 +145,7 @@ class Item < ActiveRecord::Base
   end
 
   def paid_view?(user)
-    preview = attachments.where(:attachment_type => attachment_type).last
+    preview = attachments.where(:attachment_type => "preview").last
     if (purchased?(user) or self.user == user) and not attachments.blank?
       attachment_type == "video" ? common_video : regular_pdf
     elsif preview
