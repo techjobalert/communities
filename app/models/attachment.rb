@@ -12,7 +12,7 @@ class Attachment < ActiveRecord::Base
   process_in_background :file
   store_in_background   :file
 
-  after_save      :set_type
+  before_save      :set_type
   before_destroy  :destroy_attachments
 
   def set_type
@@ -26,7 +26,6 @@ class Attachment < ActiveRecord::Base
       "undefined"
     end
     self.attachment_type = type if self.attachment_type == "regular"
-    save!
     item.update_attribute(:attachment_type, type)
   end
 
