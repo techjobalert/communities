@@ -60,7 +60,8 @@ class Attachment < ActiveRecord::Base
   end
 
   def is_presentation?
-    extension_is?(%w(key ppt pptx)) or %w(presentation_video merged_presentation_video).member? self.attachment_type
+    presentation_types = %w(presentation_video merged_presentation_video presentation_video_preview)
+    extension_is?(%w(key ppt pptx)) or presentation_types.member? self.attachment_type
   end
 
   def is_processed_to_pdf?
