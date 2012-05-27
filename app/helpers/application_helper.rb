@@ -31,21 +31,18 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  def secure_link(item, url)
-
-    if item.present?
+  def secure_link(attachment, url)
+    if attachment.present?
+      item = attachment.item
       path = File.basename(url)
-      attachment = item.paid_view?(current_user)
 
-      if current_user and item and attachment
-        salt = "orth360"
-        expiration_time = (Time.now + 30.seconds).to_i
-        str = "#{salt}#{request.remote_ip}"
-        md5 = Base64.encode64(Digest::MD5.digest(str))
-        secret_string = md5.tr("+/", "-_").sub('==', '').chomp
+      salt = "orth360"
+      expiration_time = (Time.now + 30.seconds).to_i
+      str = "#{salt}#{request.remote_ip}"
+      md5 = Base64.encode64(Digest::MD5.digest(str))
+      secret_string = md5.tr("+/", "-_").sub('==', '').chomp
 
-        "/files/#{secret_string}/#{expiration_time}/#{attachment.id}/#{path}"
-      end
+      "/files/#{secret_string}/#{expiration_time}/#{attachment.id}/#{path}"
     end
   end
 
