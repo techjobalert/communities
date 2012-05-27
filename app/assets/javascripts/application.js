@@ -134,3 +134,21 @@ function showPopup(popup, obj){
   $(".popup-container").css("display","none");
   popup.css(popup_offset).fadeIn("fast");
 }
+// convert seconds to 00:00:00,123 (format)
+function secondsToHms(d) {
+  d = Number(d);
+  var h = Math.floor(d / 3600);
+  var m = Math.floor(d % 3600 / 60);
+  var s = Math.floor(d % 3600 % 60);
+  return ((h > 0 ? (h < 10 ? "0" : "") + h + ":" : "00:") + (m > 0 ? (m < 10 ? "0" : "") + m + ":" : "00:") + (s < 10 ? "0" : "") + s) +","+ d.toFixed(3).toString().split(".")[1];
+}
+// convert 00:00:01,123 to 1.123 (sec)
+function hmsToSeconds(t) {
+  var ts = t.split(":");
+  var sec = ts[2];
+  if (ts[2].indexOf(",") != -1){
+    var _s = ts[2].split(",");
+    sec = parseFloat([_s[0], _s[1]].join("."));
+  }
+  return parseFloat(parseInt(ts[0])*60+parseInt(ts[1])*60+sec)
+}
