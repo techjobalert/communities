@@ -152,3 +152,6 @@ function hmsToSeconds(t) {
   }
   return parseFloat(parseInt(ts[0])*60+parseInt(ts[1])*60+sec)
 }
+function secondsToMseconds(seconds){
+  parseInt(hmsToSeconds(seconds).replace(".",""))
+}
