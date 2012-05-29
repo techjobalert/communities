@@ -38,7 +38,7 @@
           console.log('loaded');
           setTimeout(function() {
               for(var i = 0; i <= timing_array.length-1; ++i) {
-                  var stop_point_in_sec = hmsToMseconds(timing_array[i]);
+                  var stop_point_in_sec = hmsToSeconds(timing_array[i]);
                   ins.point.add(stop_point_in_sec);
                   console.log('Added point: ' + stop_point_in_sec + ' ms...');
               }

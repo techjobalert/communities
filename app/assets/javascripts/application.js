@@ -152,7 +152,3 @@ function hmsToSeconds(t) {
   }
   return parseFloat(parseInt(ts[0])*60+parseInt(ts[1])*60+sec)
 }
-function hmsToMseconds(t){
-  var _s = hmsToSeconds(t).toString().split(".");
-  return (parseInt(_s[0])*1000 + parseInt(_s[1]))
-}
