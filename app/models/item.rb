@@ -146,7 +146,7 @@ class Item < ActiveRecord::Base
 
   def paid_view?(user)
     if (paid? and purchased?(user)) or (!paid?) or self.user == user or user.admin?
-      %w(presentation video).member? attachment_type ? common_video : regular_pdf
+      (%w(presentation video).member?(attachment_type)) ? common_video : regular_pdf
     else
       attachments.where("attachment_type like ?", '%preview%').last
     end
