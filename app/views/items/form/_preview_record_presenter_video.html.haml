@@ -1,5 +1,13 @@
 .fl-l{:style => "width:900px"}
-  #inscription
+  = render :partial => 'partials/webrecorder', :inline => true, :locals => {:uuid => @uuid}
+  .fl-r
+    = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video, :w => 565,:h=>320, :preload => true}, :inline => true
+  .clearfix
+    %ul.recorder-control.fl-l
+      %li#recorder-stop-start.button.c-white 1.Start record
+    %ul.recorder-control.fl-r
+      %li#recorder-status.recorder-icon{:style => "padding-top: 5px;"}
+    .clearfix
 
   .b-upload-item
     .b-upload-item__title.hr Choose thumbnail
@@ -23,35 +31,105 @@
       = image_tag "video/presenter-video-l.jpg"
 
 :javascript
-  var ins, timing_array;
-  $(function(){
-      timing_array = "#{@a_video.timing}".split(";");
-      ins = Inscription.run({
-          container: 'inscription',
-          player: {
-              resource: "#{secure_link(@a_video, @a_video.file.mp4.url)}",
-              server: 'rtmp://89.209.76.243'
+  var videoPlayer = new MediaElementPlayer('#videoPlayer'),
+      _playbackPoints = [],
+      currentPos = 0,
+      syncBool = false,
+      presync = false,
+      canPlay = false,
+      innerTimer = 0,
+      innerIntervarTimer,
+      pauseCallback = function(){
+        if (currentStopTime) videoPlayer.media.setCurrentTime(currentStopTime);
+        innerTimer = 0;
+        innerIntervarTimer = setInterval(function(){ innerTimer = parseFloat((innerTimer + 0.1).toFixed(3))}, 100);
+        if (_playbackPoints.length) currentPos++;
+      },
+      playCallback = function(){
+        clearInterval(innerIntervarTimer);
+        if (currentPos){
+          var p = currentPos-1, t = videoPlayer.media.currentTime;
+          if (currentStopTime){
+            t = currentStopTime;
+            currentStopTime = undefined;
           }
-      });
-
-      ins.on('load', function() {
-          console.log('loaded');
-          setTimeout(function() {
-              for(var i = 0; i <= timing_array.length-1; ++i) {
-                  var stop_point_in_sec = hmsToSeconds(timing_array[i]);
-                  ins.point.add(stop_point_in_sec);
-                  console.log('Added point: ' + stop_point_in_sec + ' ms...');
+          _playbackPoints[p]['stop'] = t;
+          _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
+          _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
+        }
+        _playbackPoints.push({start: _playbackPoints.length ? t : 0})
+      },
+      endedCallback = function(){
+        _playbackPoints.pop();
+        stopSync();
+        console.log("video end");
+      },
+      prestartSync = function(){
+        if (presync || !canPlay) return false;
+        presync = true;
+        var duration = 5,
+            intervalCount = 0,
+            el = document.getElementById("recorder-status"),
+            interval = setInterval( function(){
+              intervalCount++;
+              el.innerHTML = intervalCount;
+              if (intervalCount == duration){
+                clearInterval(interval);
+                setTimeout(function() { startSync(); }, 1000);
               }
-          }, 5000);
+            }
+            , 1000 );
+      },
+      canPlayCallback = function(){
+        canPlay = true;
+      },
+      startSync = function(){
+        videoPlayer.play();
+        startRecord();
+        document.getElementById("recorder-stop-start").innerHTML = "Stop sync";
+        syncBool = true;
+        presync = false;
+      },
+      stopSync = function(){
+        videoPlayer.pause();
+        clearInterval(innerIntervarTimer);
+        stopRecord();
+        document.getElementById("recorder-stop-start").innerHTML = "Start sync";
+        syncBool = false;
+        playbackPoints = _playbackPoints;
+        _playbackPoints, innerIntervarTimer = [], undefined;
+        videoPlayer.media.setCurrentTime(0);
+        mergeFunc();
+      },
+      mergeFunc = function(){
+        var data = {  video_id: "#{@a_video.id}",
+                      record_file_name: recordingFileName,
+                      playback_points: playbackPoints,
+                      position: $("input[type=radio]:checked").val()};
+        $.ajax({
+          url: "#{item_merge_presenter_video_url(@item)}",
+          type: "POST",
+          dataType: "json",
+          data: data,
+          success: function(data){
+            eval(data);
+          }
+        });
+      };
 
-      });
+  //removing play/pause button
+  $(".mejs-overlay-button").remove();
+  // disable controls
+  videoPlayer.disableControls();
 
-      var callback = function() {
-          console.log(arguments);
-      }
+  document.getElementById("recorder-stop-start").addEventListener('click', function(){
+      syncBool ? stopSync() : prestartSync();
+    }
+    ,false);
 
-      ins.on('play', callback);
-      ins.on('stop', callback);
-      ins.on('pause', callback);
-      ins.on('tick', callback);
-  });
+  MediaElement('videoPlayer', {success: function(me) {
+    me.addEventListener("pause", pauseCallback);
+    me.addEventListener("play",  playCallback);
+    me.addEventListener("ended", endedCallback);
+    me.addEventListener("canplay", canPlayCallback);
+  }});

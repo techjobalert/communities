@@ -31,12 +31,6 @@
 //= require plupload/plupload.html5
 //= require plupload.base
 //
-//  VideoRecorder & VideoPlayer (Sevenov)
-//= require underscore-min.js
-//= require swfobject.js
-//= require backbone-min.js
-//= require inscription.js
-//
 //  Misc*
 //= require jquery.html5-placeholder-shim
 //= require jquery.validate
