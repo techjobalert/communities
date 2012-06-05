@@ -23,7 +23,7 @@
       = image_tag "video/presenter-video-l.jpg"
 
 :javascript
-  var ins;
+  var ins, playbackPoints={};
   $(function(){
       ins = Inscription.run({
           container: 'inscription',
@@ -41,7 +41,7 @@
                 ins.point.add(point);
                 console.log('Added point: ' + point + ' ms...');
             });
-          }, 1000);
+          }, 5000);
 
       });
 
@@ -49,8 +49,14 @@
           console.log(arguments);
       }
 
+      var pauseCallback = function(cuePoints){
+        id = _.size(playbackPoints)
+        playbackPoints[id]["stop"] = hmsToSeconds(cuePoints[0][0]);
+        playbackPoints[id]["pause_duration"] = hmsToSeconds(cuePoints[0][1]/1000);
+      }
+
       ins.on('play', callback);
       ins.on('stop', callback);
-      ins.on('pause', callback);
+      ins.on('pause', pauseCallback);
       ins.on('tick', callback);
   });
