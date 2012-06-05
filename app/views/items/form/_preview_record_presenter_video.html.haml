@@ -23,9 +23,8 @@
       = image_tag "video/presenter-video-l.jpg"
 
 :javascript
-  var ins, timing_array;
+  var ins;
   $(function(){
-      timing_array = "#{@a_video.timing}".split(";");
       ins = Inscription.run({
           container: 'inscription',
           player: {
@@ -37,12 +36,12 @@
       ins.on('load', function() {
           console.log('loaded');
           setTimeout(function() {
-              for(var i = 0; i <= timing_array.length-1; ++i) {
-                  var stop_point_in_sec = hmsToSeconds(timing_array[i]);
-                  ins.point.add(stop_point_in_sec);
-                  console.log('Added point: ' + stop_point_in_sec + ' ms...');
-              }
-          }, 5000);
+            var points = Inscription.Point.read("#{@a_video.timing}");
+            _.each(points, function(point) {
+                ins.point.add(point);
+                console.log('Added point: ' + point + ' ms...');
+            });
+          }, 1000);
 
       });
 
