@@ -1,6 +1,12 @@
 .fl-l{:style => "width:900px"}
   #inscription
 
+  = button_tag(:id => 'start_record_button',:type => 'button', :onclick => "ins.record.start('#{@uuid}.flv')") do
+    = content_tag(:strong, 'Start record')
+
+  = button_tag(:id => 'play_button',:type => 'button', :onclick => "ins.movie.play()") do
+    = content_tag(:strong, 'Play')
+
   .b-upload-item
     .b-upload-item__title.hr Choose thumbnail
 
@@ -49,14 +55,19 @@
           console.log(arguments);
       }
 
-      var pauseCallback = function(cuePoints){
+      var playCallback = function(cuePoints){
         id = _.size(playbackPoints)
         playbackPoints[id]["stop"] = hmsToSeconds(cuePoints[0][0]);
         playbackPoints[id]["pause_duration"] = hmsToSeconds(cuePoints[0][1]/1000);
+        $("#play_button").attr("disabled","true");
       }
 
-      ins.on('play', callback);
-      ins.on('stop', callback);
+      var pauseCallback = function(){
+        $("#play_button").removeAttr('disabled');
+      }
+
+      ins.on('play',  playCallback);
+      ins.on('stop',  callback);
       ins.on('pause', pauseCallback);
-      ins.on('tick', callback);
+      ins.on('tick',  callback);
   });
