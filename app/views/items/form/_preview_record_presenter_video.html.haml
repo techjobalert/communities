@@ -1,13 +1,13 @@
 .fl-l{:style => "width:900px"}
   #inscription
 
-  = button_tag(:id => 'start_record_button', :type => 'button', :disabled => "disabled", :onclick => "ins.record.start('#{@uuid}.flv')") do
+  = button_tag(:id => 'start_record_button', :type => 'button', :disabled => true, :onclick => "ins.record.start('#{@uuid}.flv')") do
     = content_tag(:strong, 'Start record')
 
-  = button_tag(:id => 'play_button',:type => 'button', :onclick => "ins.movie.play()", :disabled => "disabled") do
+  = button_tag(:id => 'play_button',:type => 'button', :onclick => "ins.movie.play()", :disabled => true) do
     = content_tag(:strong, 'Play')
 
-  = button_tag(:id => 'sync_button',:type => 'button', :onclick => "mergeFunc()", :disabled => "disabled") do
+  = button_tag(:id => 'sync_button',:type => 'button', :onclick => "mergeFunc()", :disabled => true) do
     = content_tag(:strong, 'Sync')
 
   .b-upload-item
