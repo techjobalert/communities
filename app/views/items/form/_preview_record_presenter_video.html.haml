@@ -92,8 +92,8 @@
           var points = {
             stop: points[0],
             pause_duration: points[1]/1000,
-            start: _s ? playbackPoints[_s-1] : 0,
-            duration: points[0] - (_s ? playbackPoints[_s-1] : 0)
+            start: _s ? playbackPoints[_s-1].stop : 0,
+            duration: points[0] - (_s ? playbackPoints[_s-1].stop : 0)
           };
           playbackPoints.push(points);
       }

@@ -25,8 +25,10 @@ class Attachment < ActiveRecord::Base
     # else
       # "undefined"
     end
-    self.attachment_type = type if self.attachment_type == "regular"
-    item.update_attribute(:attachment_type, type)
+    if type
+      #self.attachment_type = type if self.attachment_type == "regular"
+      item.update_attribute(:attachment_type, type)
+    end
   end
 
   def destroy_attachments
