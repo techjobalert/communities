@@ -256,7 +256,8 @@ class ItemsController < InheritedResources::Base
     wr_with_meta_data = File.join(w_dir, w_file)
 
     %x[yamdi -i #{webcam_record_path} -o #{wr_with_meta_data}]
-    %x[ffmpeg -i #{wr_with_meta_data} -r 24 #{wr_24fps}]
+    empty_audio_track = FFMPEG::Movie.new(wr_with_meta_data).audio_stream.nil?
+    %x[ffmpeg -i #{wr_with_meta_data} #{empty_audio_track ? '-acodec pcm_s16le -f s16le -i /dev/zero' : ''}-r 24 #{wr_24fps}]
     presenter_video = Attachment.new({
       :file => File.open(wr_24fps),
       :user => current_user,
