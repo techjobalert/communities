@@ -22,8 +22,8 @@ class Attachment < ActiveRecord::Base
       "article"
     elsif self.is_processed_to_video?
       "video"
-    else
-      "undefined"
+    # else
+      # "undefined"
     end
     self.attachment_type = type if self.attachment_type == "regular"
     item.update_attribute(:attachment_type, type)

@@ -103,6 +103,7 @@
         else if (state === "ready"){
           $("#sync_button").removeAttr('disabled');
           playButton.attr("disabled","true");
+          ins.record.stop();
         }
       }
 
