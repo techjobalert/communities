@@ -1,11 +1,14 @@
 .fl-l{:style => "width:900px"}
   #inscription
 
-  = button_tag(:id => 'start_record_button',:type => 'button', :onclick => "ins.record.start('#{@uuid}.flv')") do
+  = button_tag(:id => 'start_record_button', :type => 'button', :disabled => "disabled", :onclick => "ins.record.start('#{@uuid}.flv')") do
     = content_tag(:strong, 'Start record')
 
-  = button_tag(:id => 'play_button',:type => 'button', :onclick => "ins.movie.play()") do
+  = button_tag(:id => 'play_button',:type => 'button', :onclick => "ins.movie.play()", :disabled => "disabled") do
     = content_tag(:strong, 'Play')
+
+  = button_tag(:id => 'sync_button',:type => 'button', :onclick => "mergeFunc()", :disabled => "disabled") do
+    = content_tag(:strong, 'Sync')
 
   .b-upload-item
     .b-upload-item__title.hr Choose thumbnail
@@ -29,7 +32,10 @@
       = image_tag "video/presenter-video-l.jpg"
 
 :javascript
-  var ins, playbackPoints={};
+  var ins,
+      playbackPoints={},
+      playButton = $("#play_button");
+
   $(function(){
       ins = Inscription.run({
           container: 'inscription',
@@ -56,22 +62,52 @@
       };
       var c = 0;
       var onPlay = function(points) {
-          //var id = _.size(playbackPoints);
-          //console.log(points);
           playbackPoints[c] = {}
           playbackPoints[c].stop = secondsToHms(points[0]);
           playbackPoints[c].pause_duration = secondsToHms(points[1]/1000);
           ++c;
-          $("#play_button").attr("disabled","true");
       }
 
-      var onPause = function() {
-          $("#play_button").removeAttr('disabled');
+      var onStateChage = function(state) {
+        console.log(state);
+        if (state === "paused"){
+          playButton.removeAttr('disabled');
+        }
+        else if (state === "playing"){
+          playButton.attr("disabled","true");
+        }
+        else if (state === "ready"){
+          $("#sync_button").removeAttr('disabled');
+          $("#start_record_button").attr("disabled","true");
+          playButton.attr("disabled","true");
+        }
       }
+
+      var onRecorderReady = function(status){
+        if (status == true){
+          $("#start_record_button").removeAttr('disabled');
+          playButton.removeAttr('disabled');
+        }
+      }
+
+      mergeFunc = function(){
+        var data = {  video_id: "#{@a_video.id}",
+                      record_file_name: "#{@uuid}.flv",
+                      playback_points: playbackPoints,
+                      position: $("input[type=radio]:checked").val()};
+        $.ajax({
+          url: "#{item_merge_presenter_video_url(@item)}",
+          type: "POST",
+          dataType: "json",
+          data: data,
+          success: function(data){
+            eval(data);
+          }
+        });
+      };
 
       ins.on('play',  onPlay);
-      //ins.on('stop',  callback);
       ins.on('pause', onPause);
-      //ins.on('tick',  callback);
-      ins.on('stateChange', function(state) {console.log(state)});
+      ins.on('stateChange', onStateChage);
+      ins.on('recorderReady', onRecorderReady);
   });
