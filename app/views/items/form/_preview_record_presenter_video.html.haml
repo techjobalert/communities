@@ -73,4 +73,5 @@
       //ins.on('stop',  callback);
       ins.on('pause', onPause);
       //ins.on('tick',  callback);
+      ins.on('stateChange', function(state) {console.log(state)});
   });
