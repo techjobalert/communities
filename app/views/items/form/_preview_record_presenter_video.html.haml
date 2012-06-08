@@ -53,21 +53,24 @@
 
       var callback = function() {
           console.log(arguments);
+      };
+      var c = 0;
+      var onPlay = function(points) {
+          //var id = _.size(playbackPoints);
+          //console.log(points);
+          playbackPoints[c] = {}
+          playbackPoints[c].stop = secondsToHms(points[0]);
+          playbackPoints[c].pause_duration = secondsToHms(points[1]/1000);
+          ++c;
+          $("#play_button").attr("disabled","true");
       }
 
-      var playCallback = function(cuePoints){
-        id = _.size(playbackPoints)
-        playbackPoints[id]["stop"] = hmsToSeconds(cuePoints[0][0]);
-        playbackPoints[id]["pause_duration"] = hmsToSeconds(cuePoints[0][1]/1000);
-        $("#play_button").attr("disabled","true");
+      var onPause = function() {
+          $("#play_button").removeAttr('disabled');
       }
 
-      var pauseCallback = function(){
-        $("#play_button").removeAttr('disabled');
-      }
-
-      ins.on('play',  playCallback);
-      ins.on('stop',  callback);
-      ins.on('pause', pauseCallback);
-      ins.on('tick',  callback);
+      ins.on('play',  onPlay);
+      //ins.on('stop',  callback);
+      ins.on('pause', onPause);
+      //ins.on('tick',  callback);
   });
