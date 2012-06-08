@@ -41,7 +41,7 @@
     $("#start_record_button").attr("disabled","true");
     ins.record.start(recordFileName);
   }
-  var preparePoints(){
+  var preparePoints = function(){
     return _.map(playbackPoints, function(obj, num){ _.map(obj, function(o,n){ return secondsToHms(o)})})
   }
   var mergeFunc = function(){
@@ -86,16 +86,15 @@
       var callback = function() {
           console.log(arguments);
       };
-      var c = 0;
+
       var onPlay = function(points) {
-          playbackPoints[c] = {}
-          if (playbackPoints[c]){
-              playbackPoints[c].start = playbackPoints[c-1].stop;
-              playbackPoints[c].duration = playbackPoints[c].start - points[0];
+          var points = {stop: points[0], pause_duration: points[1]/1000};
+          if _.size(playbackPoints){
+            var prev = playbackPoints.length-1;
+            var stopStart = {start: playbackPoints[prev].stop, duration: playbackPoints[prev].start - points[0]}
+            points = _.extend(points, stopStart);
           }
-          playbackPoints[c].stop = points[0];
-          playbackPoints[c].pause_duration = points[1]/1000;
-          ++c;
+          playbackPoints.push(points);
       }
 
       var onStateChage = function(state) {
