@@ -7,7 +7,7 @@ class ProcessPresentationVideo
     p_att = present_attachment.file.path
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
-      timing = params["playback_points"].each{|e| e[1].each{|k| k[1].gsub!(",",".")}}
+      timing = params["playback_points"].each{|e| e.each{|k| k.gsub!(",",".")}}
       files = []
       tmp_dir = File.join(File.dirname(p_att), SecureRandom.hex(10))
       frame_rate = FFMPEG::Movie.new(p_att).frame_rate
@@ -27,13 +27,6 @@ class ProcessPresentationVideo
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
           %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm]
-
-          # debug log
-          # File.open(log_file_path, 'w') do |f|
-          #   f.puts "ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}"
-          #   f.puts "ffmpeg -i #{p_att} -vcodec copy -acodec copy -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.webm"
-          #   f.puts "ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 -f webm -vcodec libvpx -ar 22050 -acodec libvorbis -aq 90 -ac 2 #{file_prefix}_2.webm"
-          # end
 
           files << file_prefix+"_1.webm"
           files << file_prefix+"_2.webm"
