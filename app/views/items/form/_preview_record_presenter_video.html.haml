@@ -88,12 +88,13 @@
       };
 
       var onPlay = function(points) {
-          var points = {stop: points[0], pause_duration: points[1]/1000};
-          if _.size(playbackPoints){
-            var prev = playbackPoints.length-1;
-            var stopStart = {start: playbackPoints[prev].stop, duration: playbackPoints[prev].start - points[0]}
-            points = _.extend(points, stopStart);
-          }
+          var _s = _.size(playbackPoints);
+          var points = {
+            stop: points[0],
+            pause_duration: points[1]/1000,
+            start: _s ? playbackPoints[_s-1] : 0,
+            duration: points[0] - (_s ? playbackPoints[_s-1] : 0)
+          };
           playbackPoints.push(points);
       }
 
