@@ -1,7 +1,7 @@
 .fl-l{:style => "width:900px"}
   #inscription
 
-  = button_tag(:id => 'start_record_button', :type => 'button', :disabled => true, :onclick => "ins.record.start('#{@uuid}.flv')") do
+  = button_tag(:id => 'start_record_button', :type => 'button', :disabled => true, :onclick => "startRecord()") do
     = content_tag(:strong, 'Start record')
 
   = button_tag(:id => 'play_button',:type => 'button', :onclick => "ins.movie.play()", :disabled => true) do
@@ -34,7 +34,8 @@
 :javascript
   var ins,
       playbackPoints={},
-      playButton = $("#play_button");
+      playButton = $("#play_button"),
+      recordFileName = "'#{@uuid}.flv'";
 
   $(function(){
       ins = Inscription.run({
@@ -78,7 +79,6 @@
         }
         else if (state === "ready"){
           $("#sync_button").removeAttr('disabled');
-          $("#start_record_button").attr("disabled","true");
           playButton.attr("disabled","true");
         }
       }
@@ -90,9 +90,10 @@
         }
       }
 
-      mergeFunc = function(){
+      var mergeFunc = function(){
+        $("#sync_button strong").text("Saving..")
         var data = {  video_id: "#{@a_video.id}",
-                      record_file_name: "#{@uuid}.flv",
+                      record_file_name: recordFileName,
                       playback_points: playbackPoints,
                       position: $("input[type=radio]:checked").val()};
         $.ajax({
@@ -101,10 +102,16 @@
           dataType: "json",
           data: data,
           success: function(data){
+            $("#sync_button strong").text("Saved")
             eval(data);
           }
         });
       };
+
+      var startRecord = function(){
+        $("#start_record_button").attr("disabled","true");
+        ins.record.start(recordFileName);
+      }
 
       ins.on('play',  onPlay);
       ins.on('stateChange', onStateChage);
