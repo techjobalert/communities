@@ -7,18 +7,11 @@ class ProcessPresentationVideo
     p_att = present_attachment.file.path
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
-      timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
+      timing = params["playback_points"].each{|e| e[1].each{|k| k[1].gsub!(",",".")}}
       files = []
       tmp_dir = File.join(File.dirname(p_att), SecureRandom.hex(10))
       frame_rate = FFMPEG::Movie.new(p_att).frame_rate
       FileUtils.mkdir_p(tmp_dir)
-
-      # debug log
-      log_file_path = File.join(Rails.root, "log", "process_video.log")
-      File.open(log_file_path, 'w') do |f|
-        f.puts("")
-        f.puts("[START][split-and-merge] " + Time.now.to_s)
-      end
 
       timing.each_with_index do |t, idx|
         if idx+1 <= timing.size and [t['start'], t['stop'], t['duration'], t['pause_duration']].all?

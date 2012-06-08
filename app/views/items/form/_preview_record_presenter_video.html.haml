@@ -33,7 +33,7 @@
 
 :javascript
   var ins,
-      playbackPoints={},
+      playbackPoints=[],
       playButton = $("#play_button"),
       recordFileName = "#{@uuid}.flv";
 
@@ -41,12 +41,14 @@
     $("#start_record_button").attr("disabled","true");
     ins.record.start(recordFileName);
   }
-
+  var preparePoints(){
+    return _.map(playbackPoints, function(obj, num){ _.map(obj, function(o,n){ return secondsToHms(o)})})
+  }
   var mergeFunc = function(){
     $("#sync_button strong").text("Saving..");
     var data = {  video_id: "#{@a_video.id}",
                   record_file_name: recordFileName,
-                  playback_points: playbackPoints,
+                  playback_points: preparePoints(),
                   position: $("input[type=radio]:checked").val()};
     $.ajax({
       url: "#{item_merge_presenter_video_url(@item)}",
@@ -87,8 +89,12 @@
       var c = 0;
       var onPlay = function(points) {
           playbackPoints[c] = {}
-          playbackPoints[c].stop = secondsToHms(points[0]);
-          playbackPoints[c].pause_duration = secondsToHms(points[1]/1000);
+          if (playbackPoints[c]){
+              playbackPoints[c].start = playbackPoints[c-1].stop;
+              playbackPoints[c].duration = playbackPoints[c].start - points[0];
+          }
+          playbackPoints[c].stop = points[0];
+          playbackPoints[c].pause_duration = points[1]/1000;
           ++c;
       }
 
