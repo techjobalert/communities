@@ -25,7 +25,7 @@
       .tags.auction-filter-form
         .label Filter by
         .filter-form
-          %span.viewed= f.select "views", options_for_select(['More Viewed', 'Less Viewed']), :prompt => 'Viewd', :include_blank => true
+          %span.viewed= f.select "views", options_for_select(['More Viewed', 'Less Viewed']), :prompt => 'Viewed', :include_blank => true
           %span.identical= f.select "date", options_for_select(['Today', '1 Week', '1 Month', '1 Year']), :prompt => 'Date', :include_blank => true
           %span.identical= f.select "price", options_for_select(['Free', 'Paid']), :prompt => 'Free/Paid', :include_blank => true
         .clear
