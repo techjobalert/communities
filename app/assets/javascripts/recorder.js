@@ -1,6 +1,6 @@
 var Recorder = window.Recorder = {
   ins: undefined,
-  Recorder.playbackPoints:[],
+  playbackPoints: [],
   playButton: $("#play_button"),
   settings: {},
   initialize: function (params) {
@@ -17,13 +17,13 @@ var Recorder = window.Recorder = {
   mergeFunc: function(){
     $("#sync_button strong").text("Saving..");
     var data = {
-      video_id: settings.videoId,
-      record_file_name: settings.recordFileName,
+      video_id: Recorder.settings.videoId,
+      record_file_name: Recorder.settings.recordFileName,
       playback_points: preparePoints(),
       position: $("input[type=radio]:checked").val()
     };
     $.ajax({
-      url: settings.requestUrl,
+      url: Recorder.settings.requestUrl,
       type: "POST",
       dataType: "json",
       data: data,
@@ -38,18 +38,18 @@ var Recorder = window.Recorder = {
     ins = Inscription.run({
       container: 'inscription',
       player: {
-          resource: settings.resourceLink,
-          server: 'rtmp://89.209.76.243'
+        resource: Recorder.settings.resourceLink,
+        server: 'rtmp://89.209.76.243'
       }
     });
 
     ins.on('load', function() {
       console.log('loaded');
       setTimeout(function() {
-        var points = Inscription.Point.read(settings.timing);
+        var points = Inscription.Point.read(Recorder.settings.timing);
         _.each(points, function(point) {
-            ins.point.add(point);
-            console.log('Added point: ' + point + ' ms...');
+          ins.point.add(point);
+          console.log('Added point: ' + point + ' ms...');
         });
       }, 5000);
     });
