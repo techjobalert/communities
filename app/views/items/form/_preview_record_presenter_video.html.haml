@@ -1,3 +1,10 @@
+= content_for :javascript_code do
+  Recorder.initialize({
+    fileName: "#{@uuid}.flv",
+    resourceLink: "#{secure_link(@a_video, @a_video.file.mp4.url)}",
+    requestUrl: "#{item_merge_presenter_video_url(@item)}",
+    timing: "#{@a_video.timing}"
+  })
 .fl-l{:style => "width:900px"}
   #inscription
 
@@ -30,97 +37,3 @@
     = label_tag "pos_ml", "" do
       = radio_button_tag "pos", "ml", false, :title => "middle left"
       = image_tag "video/presenter-video-l.jpg"
-
-:javascript
-  var ins,
-      playbackPoints=[],
-      playButton = $("#play_button"),
-      recordFileName = "#{@uuid}.flv";
-
-  var startRecord = function(){
-    $("#start_record_button").attr("disabled","true");
-    ins.record.start(recordFileName);
-  }
-  var preparePoints = function(){
-    return _.map(playbackPoints, function(obj, num){ _.map(obj, function(o,n){ return secondsToHms(o)})})
-  }
-  var mergeFunc = function(){
-    $("#sync_button strong").text("Saving..");
-    var data = {  video_id: "#{@a_video.id}",
-                  record_file_name: recordFileName,
-                  playback_points: preparePoints(),
-                  position: $("input[type=radio]:checked").val()};
-    $.ajax({
-      url: "#{item_merge_presenter_video_url(@item)}",
-      type: "POST",
-      dataType: "json",
-      data: data,
-      success: function(data){
-        $("#sync_button strong").text("Saved");
-        eval(data);
-      }
-    });
-  };
-
-  $(function(){
-      ins = Inscription.run({
-          container: 'inscription',
-          player: {
-              resource: "#{secure_link(@a_video, @a_video.file.mp4.url)}",
-              server: 'rtmp://89.209.76.243'
-          }
-      });
-
-      ins.on('load', function() {
-          console.log('loaded');
-          setTimeout(function() {
-            var points = Inscription.Point.read("#{@a_video.timing}");
-            _.each(points, function(point) {
-                ins.point.add(point);
-                console.log('Added point: ' + point + ' ms...');
-            });
-          }, 5000);
-
-      });
-
-      var callback = function() {
-          console.log(arguments);
-      };
-
-      var onPlay = function(points) {
-          var _s = _.size(playbackPoints);
-          var points = {
-            stop: points[0],
-            pause_duration: points[1]/1000,
-            start: _s ? playbackPoints[_s-1].stop : 0,
-            duration: points[0] - (_s ? playbackPoints[_s-1].stop : 0)
-          };
-          playbackPoints.push(points);
-      }
-
-      var onStateChage = function(state) {
-        console.log(state);
-        if (state === "paused"){
-          playButton.removeAttr('disabled');
-        }
-        else if (state === "playing"){
-          playButton.attr("disabled","true");
-        }
-        else if (state === "ready"){
-          $("#sync_button").removeAttr('disabled');
-          playButton.attr("disabled","true");
-          ins.record.stop();
-        }
-      }
-
-      var onRecorderReady = function(status){
-        if (status == true){
-          $("#start_record_button").removeAttr('disabled');
-          playButton.removeAttr('disabled');
-        }
-      }
-
-      ins.on('play',  onPlay);
-      ins.on('stateChange', onStateChage);
-      ins.on('recorderReady', onRecorderReady);
-  });
