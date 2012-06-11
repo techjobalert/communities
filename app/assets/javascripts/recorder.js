@@ -35,6 +35,7 @@ var Recorder = window.Recorder = {
   },
   initInscription: function(){
     var ins;
+    var loaded = false;
     ins = Inscription.run({
       container: 'inscription',
       player: {
@@ -42,9 +43,19 @@ var Recorder = window.Recorder = {
         server: 'rtmp://89.209.76.243'
       }
     });
+    // Hack for ajax req
+    setTimeout(function(){
+      if (!loaded){
+        ins.embed();
+      }
+    }, 2000);
 
     ins.on('load', function() {
       console.log('loaded');
+      loaded = true;
+      initPoints();
+    });
+    var initPoints = function(){
       setTimeout(function() {
         var points = Inscription.Point.read(Recorder.settings.timing);
         _.each(points, function(point) {
@@ -52,8 +63,7 @@ var Recorder = window.Recorder = {
           console.log('Added point: ' + point + ' ms...');
         });
       }, 5000);
-    });
-
+    }
     var callback = function() {
       console.log(arguments);
     };
