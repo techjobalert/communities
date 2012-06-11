@@ -3,7 +3,8 @@
     fileName: "#{@uuid}.flv",
     resourceLink: "#{secure_link(@a_video, @a_video.file.mp4.url)}",
     requestUrl: "#{item_merge_presenter_video_url(@item)}",
-    timing: "#{@a_video.timing}"
+    timing: "#{@a_video.timing}",
+    videoId: "#{@a_video.id}"
   })
 .fl-l{:style => "width:900px"}
   #inscription
