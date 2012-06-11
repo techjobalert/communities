@@ -1,21 +1,16 @@
 = content_for :javascript_code do
-  Recorder.initialize({
-    fileName: "#{@uuid}.flv",
-    resourceLink: "#{secure_link(@a_video, @a_video.file.mp4.url)}",
-    requestUrl: "#{item_merge_presenter_video_url(@item)}",
-    timing: "#{@a_video.timing}",
-    videoId: "#{@a_video.id}"
+  Recorder.initialize({fileName: "#{@uuid}.flv", resourceLink: "#{secure_link(@a_video, @a_video.file.mp4.url)}", requestUrl: "#{item_merge_presenter_video_url(@item)}", timing: "#{@a_video.timing}", videoId: "#{@a_video.id}"
   })
 .fl-l{:style => "width:900px"}
   #inscription
 
-  = button_tag(:id => 'start_record_button', :type => 'button', :disabled => true, :onclick => "startRecord()") do
+  = button_tag(:id => 'start_record_button', :type => 'button', :disabled => true, :onclick => "Recorder.startRecord()") do
     = content_tag(:strong, 'Start record')
 
-  = button_tag(:id => 'play_button',:type => 'button', :onclick => "ins.movie.play()", :disabled => true) do
+  = button_tag(:id => 'play_button',:type => 'button', :onclick => "Recorder.ins.movie.play()", :disabled => true) do
     = content_tag(:strong, 'Play')
 
-  = button_tag(:id => 'sync_button',:type => 'button', :onclick => "mergeFunc()", :disabled => true) do
+  = button_tag(:id => 'sync_button',:type => 'button', :onclick => "Recorder.mergeFunc()", :disabled => true) do
     = content_tag(:strong, 'Sync')
 
   .b-upload-item
