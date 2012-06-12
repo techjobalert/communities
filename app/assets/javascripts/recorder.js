@@ -9,7 +9,7 @@ var Recorder = window.Recorder = {
   },
   startRecord: function(){
     $("#start_record_button").attr("disabled","true");
-    ins.record.start(recordFileName);
+    Recorder.ins.record.start(recordFileName);
   },
   preparePoints:function(){
     return _.map(Recorder.playbackPoints, function(obj, num){ _.map(obj, function(o,n){ return secondsToHms(o)})})
