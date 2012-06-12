@@ -114,6 +114,7 @@ h3 {
 }
 
 .list {
+  position: relative;
   border: 1px solid #b8b479;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
@@ -739,7 +740,6 @@ h3 {
   }
 
 #upcontainer{
-
   position: relative;
   display: block;
   width: 148px;
@@ -762,6 +762,10 @@ h3 {
     left: 0;
     background: url('/assets/ajax-loader.gif') no-repeat center center #fff;
     opacity: 0.7;
+  }
+
+  input {
+    cursor: pointer;
   }
 }
 
