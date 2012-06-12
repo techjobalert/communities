@@ -1,7 +1,6 @@
 var Recorder = window.Recorder = {
   ins: undefined,
   playbackPoints: [],
-  playButton: $("#play_button"),
   settings: {},
   initialize: function (params) {
     _.each(params, function(v,k){Recorder.settings[k] = v});
@@ -82,14 +81,14 @@ var Recorder = window.Recorder = {
     var onStateChage = function(state) {
       console.log(state);
       if (state === "paused"){
-        Recorder.playButton.removeAttr('disabled');
+        $("#play_button").removeAttr('disabled');
       }
       else if (state === "playing"){
-        Recorder.playButton.attr("disabled","true");
+        $("#play_button").attr("disabled","true");
       }
       else if (state === "ready"){
         $("#sync_button").removeAttr('disabled');
-        Recorder.playButton.attr("disabled","true");
+        $("#play_button").attr("disabled","true");
         ins.record.stop();
       }
     }
@@ -97,7 +96,7 @@ var Recorder = window.Recorder = {
     var onRecorderReady = function(status){
       if (status == true){
         $("#start_record_button").removeAttr('disabled');
-        Recorder.playButton.removeAttr('disabled');
+        $("#play_button").removeAttr('disabled');
       }
     }
 
