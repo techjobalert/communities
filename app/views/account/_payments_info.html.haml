@@ -7,17 +7,18 @@
   .list-header
     = render :partial => "account/navigation"
     .b-purchased-item
-      .item.half.first
-        .title Account Info
-        .body
-          %p
-            PayPal account:
-            %br
-            %span#paypal-account-field= current_user.paypal_account
-          %p.help
-            Please enter a valid PayPal account. Otherwise money for purchasing
-            your item won't be transfered to your account.
-        = link_to "", '#', :class => 'btn edit', :id => "paypal-form-dialog"
+      - if current_user.role? "doctor"
+        .item.half.first
+          .title Account Info
+          .body
+            %p
+              PayPal account:
+              %br
+              %span#paypal-account-field= current_user.paypal_account
+            %p.help
+              Please enter a valid PayPal account. Otherwise money for purchasing
+              your item won't be transfered to your account.
+          = link_to "", '#', :class => 'btn edit', :id => "paypal-form-dialog"
 
 
       - if current_user.role? "doctor"
