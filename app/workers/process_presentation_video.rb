@@ -3,8 +3,8 @@ class ProcessPresentationVideo
 
   def self.perform(present_attachment_id, recorded_attachment_id, params)
     present_attachment = Attachment.find(present_attachment_id)
-    # p_att = File.join(Rails.root.to_s,"public", present_attachment.file.webm.to_s)
-    p_att = present_attachment.file.path
+    p_att_origin = present_attachment.file.path
+    p_att = File.exist?(p_att_origin) ? p_att_origin : present_attachment.file.webm.path
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
       timing = params["playback_points"].each{|e| e.each{|k| k.gsub!(",",".")}}
@@ -42,14 +42,7 @@ class ProcessPresentationVideo
       # add empty audio track
       %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 -vcodec libvpx -acodec libvorbis #{final} -map 1:0 -map 0:0]
 
-      # debug log
-      File.open(log_file_path, 'w') do |f|
-        f.puts "mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}"
-        f.puts "ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 -vcodec libvpx -acodec libvorbis #{final} -map 1:0 -map 0:0"
-        f.puts("[END] " + Time.now.to_s)
-      end
-
-      #FileUtils.remove_dir(tmp_dir)
+      FileUtils.remove_dir(tmp_dir)
       Resque.enqueue(VideoMerge, final, recorded_attachment_id, {:position => params["position"]})
     end
   end
