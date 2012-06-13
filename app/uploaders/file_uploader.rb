@@ -14,9 +14,9 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf_thumbnail,       :if => :is_pdf?
 
   # video
-  version :webm,                :if => :is_video?
   version :mp4,                 :if => :is_video?
   version :mobile,              :if => :is_video?
+  version :webm,                :if => :is_video?
   version :video_thumbnail,     :if => :is_video?
 
   # presentation_video
@@ -66,7 +66,10 @@ class FileUploader < CarrierWave::Uploader::Base
   # end
 
   version :mp4 do
-    process :hb_convert_to_mp4
+    process :convert_to_mp4 => {
+              :threads => 1,
+              :custom => "-acodec libfaac -ab 128k -ac 2 -vcodec libx264 -vpre slow -crf 22"
+    }
     def full_filename (for_file = model.file.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
     end
@@ -78,24 +81,26 @@ class FileUploader < CarrierWave::Uploader::Base
               :video_codec => 'libvpx',
               :audio_bitrate => '128',
               :threads => 1,
-              :custom => "-quality good -b:v 500k -qmin 10 -qmax 42 -maxrate 500k -bufsize 1000k -vpre libvpx-720p"
+              :custom => "-quality good -b:v 500k -qmin 10 -qmax 42 \
+                          -maxrate 500k -bufsize 1000k -vpre libvpx-720p"
             }
     def full_filename (for_file = model.file.file)
       "webm_#{File.basename(for_file, File.extname(for_file))}.webm"
     end
   end
 
-  version :mobile, :from_version => :webm do
+  version :mobile, :from_version => :mp4 do
     process :convert_to_mp4 => {
               :threads => 1,
-              :custom => "-vcodec libx264 -vpre libx264-ipod640 -async 1"
-        }
+              :custom => "-acodec libfaac -aq 100 -ac 2 -vcodec libx264 -vpre slow \
+                          -vpre ipod640 -crf 26 -map_meta_data 0:0 -vf scale=640:-1"
+    }
     def full_filename (for_file = model.file.file)
       "mobile_#{File.basename(for_file, File.extname(for_file))}.mp4"
     end
   end
 
-  version :video_thumbnail, :from_version => :webm do
+  version :video_thumbnail, :from_version => :mp4 do
     process :create_video_thumbnail
     def full_filename (for_file = model.file.file)
       "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
