@@ -7,7 +7,7 @@ class ProcessPresentationVideo
     p_att = File.exist?(p_att_origin) ? p_att_origin : present_attachment.file.webm.path
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
-      timing = params["playback_points"].each{|e| e.each{|k| k.gsub!(",",".")}}
+      timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
       files = []
       tmp_dir = File.join(File.dirname(p_att), SecureRandom.hex(10))
       frame_rate = FFMPEG::Movie.new(p_att).frame_rate
