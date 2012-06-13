@@ -68,7 +68,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :mp4 do
     process :convert_to_mp4 => {
               :threads => 1,
-              :custom => "-acodec libfaac -ab 128k -ac 2 -vcodec libx264 -vpre slow -crf 22"
+              :custom => "-acodec libfaac -ab 128k -ac 2 -vcodec libx264 -crf 22"
     }
     def full_filename (for_file = model.file.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
@@ -92,7 +92,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :mobile, :from_version => :mp4 do
     process :convert_to_mp4 => {
               :threads => 1,
-              :custom => "-acodec libfaac -aq 100 -ac 2 -vcodec libx264 -vpre slow \
+              :custom => "-acodec libfaac -aq 100 -ac 2 -vcodec libx264 \
                           -vpre ipod640 -crf 26 -map_meta_data 0:0 -vf scale=640:-1"
     }
     def full_filename (for_file = model.file.file)
