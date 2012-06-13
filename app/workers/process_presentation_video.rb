@@ -39,8 +39,9 @@ class ProcessPresentationVideo
       file_no_sound = File.join(tmp_dir, hex)+"_nosound_final.mp4"
       final = File.join(File.dirname(p_att), hex)+"_final.mp4"
       # %x[mkvmerge -o #{final} #{files.join(" +")}]
-      # %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}]
-      %x[MP4Box -cat #{files.join(" -cat ")} -new #{file_no_sound}]
+      # %x[MP4Box -cat #{files.join(" -cat ")} -new #{file_no_sound}]
+      mnc_opts = "-ovc x264 -x264encopts subq=6:partitions=all:8x8dct:me=umh:frameref=5:bframes=3:weight_b:crf=20 -oac faac -nosound"
+      %x[mencoder #{mnc_opts} #{files.join(" ")} -o #{file_no_sound}]
       # add empty audio track
       %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 #{def_mp4_params} #{final} -map 1:0 -map 0:0]
 
