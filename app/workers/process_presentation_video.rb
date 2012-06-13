@@ -8,7 +8,7 @@ class ProcessPresentationVideo
     def_mp4_params = "-acodec libfaac -ab 128k -ac 2 -vcodec libx264 -crf 22"
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
-      timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
+      timing = params["playback_points"]
       files = []
       tmp_dir = File.join(File.dirname(p_att), SecureRandom.hex(10))
       frame_rate = FFMPEG::Movie.new(p_att).frame_rate
@@ -27,7 +27,7 @@ class ProcessPresentationVideo
 
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
-          %x[ffmpeg -loop_input -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -i /dev/zero -vcodec libx264 -crf 22 -r #{frame_rate} -t #{t['pause_duration']} -map 0:0 -map 1:0 #{file_prefix}_2.mp4]
+          %x[ffmpeg -loop 1 -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -ar 44100 -i /dev/zero -vcodec libx264 -crf 22 -r 24 -t #{t['pause_duration']} -map 0:0 -map 1:0 #{file_prefix}_2.mp4]
 
           files << file_prefix+"_1.mp4"
           files << file_prefix+"_2.mp4"

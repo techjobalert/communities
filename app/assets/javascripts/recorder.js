@@ -11,6 +11,7 @@ var Recorder = window.Recorder = {
     Recorder.ins.record.start(Recorder.settings.recordFileName);
   },
   preparePoints:function(){
+    //NOT USING NOW
     for (var id in Recorder.playbackPoints) {
       var obj = Recorder.playbackPoints[id];
       for (var key in obj) {
@@ -24,7 +25,7 @@ var Recorder = window.Recorder = {
     var data = {
       video_id: Recorder.settings.videoId,
       record_file_name: Recorder.settings.recordFileName,
-      playback_points: Recorder.preparePoints(),
+      playback_points: Recorder.playbackPoints,
       position: $("input[type=radio]:checked").val()
     };
     $.ajax({
