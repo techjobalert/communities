@@ -25,7 +25,7 @@ var Recorder = window.Recorder = {
     var data = {
       video_id: Recorder.settings.videoId,
       record_file_name: Recorder.settings.recordFileName,
-      playback_points: Recorder.playbackPoints,
+      playback_points: Recorder.preparePoints,
       position: $("input[type=radio]:checked").val()
     };
     $.ajax({
