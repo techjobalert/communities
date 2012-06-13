@@ -8,7 +8,7 @@ class ProcessPresentationVideo
     def_mp4_params = "-acodec libfaac -ab 128k -ac 2 -vcodec libx264 -crf 22"
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
-      timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
+      timing = params["playback_points"]#.each{|e| e.each{|k| k[1].gsub!(",",".")}}
       files = []
       tmp_dir = File.join(File.dirname(p_att), SecureRandom.hex(10))
       frame_rate = FFMPEG::Movie.new(p_att).frame_rate
