@@ -93,7 +93,7 @@ class FileUploader < CarrierWave::Uploader::Base
     process :convert_to_mp4 => {
               :threads => 1,
               :custom => "-acodec libfaac -aq 100 -ac 2 -vcodec libx264 \
-                          -vpre ipod640 -crf 26 -map_meta_data 0:0 -vf scale=640:-1"
+                          -vpre ipod640 -crf 26 -map_metadata 0:0 -vf scale=640:-1"
     }
     def full_filename (for_file = model.file.file)
       "mobile_#{File.basename(for_file, File.extname(for_file))}.mp4"
