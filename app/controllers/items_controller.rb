@@ -259,12 +259,11 @@ class ItemsController < InheritedResources::Base
       :user => current_user,
       :attachment_type => "presenter_video"})
 
-    @item.attachments << presenter_video
-
     # Removing source file
     FileUtils.rm([webcam_record_path, wr_with_meta_data, wr_24fps], :verbose => true)
-    last_attachment = @item.attachments(:attachment_type => "presenter_video").last
-    last_attachment.destroy if last_attachment
+    # Remove prev presenter_video attachments -> move this to model :after_create
+    last_attachment = @item.attachments(:attachment_type => "presenter_video")
+    last_attachment.destroy_all if last_attachment
 
     @item.attachments << presenter_video
 
