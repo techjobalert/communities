@@ -40,7 +40,7 @@ class ProcessPresentationVideo
       final = File.join(File.dirname(p_att), hex)+"_final.mp4"
       # %x[mkvmerge -o #{final} #{files.join(" +")}]
       # %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}]
-      %x[MP4Box -cat #{files.join(" -cat ")}- new #{file_no_sound}]
+      %x[MP4Box -cat #{files.join(" -cat ")} -new #{file_no_sound}]
       # add empty audio track
       %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 #{def_mp4_params} #{final} -map 1:0 -map 0:0]
 
