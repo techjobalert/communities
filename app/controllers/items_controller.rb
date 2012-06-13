@@ -263,11 +263,10 @@ class ItemsController < InheritedResources::Base
 
     # Removing source file
     FileUtils.rm([webcam_record_path, wr_with_meta_data, wr_24fps], :verbose => true)
+    last_attachment = @item.attachments(:attachment_type => "presenter_video").last
+    last_attachment.destroy if last_attachment
 
     @item.attachments << presenter_video
-
-    # Removing source file
-    #FileUtils.rm([webcam_record_path, wr_with_meta_data], :verbose => true)
 
     video = Attachment.find(params[:video_id])
     if video.attachment_type == "presentation_video" and params[:playback_points].present?

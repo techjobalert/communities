@@ -12,7 +12,7 @@ class Attachment < ActiveRecord::Base
   process_in_background :file
   store_in_background   :file
 
-  before_save      :set_type
+  before_save     :set_type
   before_destroy  :destroy_attachments
 
   def set_type

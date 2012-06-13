@@ -5,7 +5,7 @@ class ProcessPresentationVideo
     present_attachment = Attachment.find(present_attachment_id)
     p_att_origin = present_attachment.file.path
     p_att = File.exist?(p_att_origin) ? p_att_origin : present_attachment.file.mp4.path
-    def_mp4_params = "-acodec libfaac -ab 128k -ac 2 -vcodec libx264 -vpre slow -crf 22"
+    def_mp4_params = "-acodec libfaac -ab 128k -ac 2 -vcodec libx264 -crf 22"
 
     if present_attachment.attachment_type == "presentation_video" and params["playback_points"]
       timing = params["playback_points"].each{|e| e.each{|k| k[1].gsub!(",",".")}}
@@ -20,7 +20,7 @@ class ProcessPresentationVideo
           file_prefix = File.join(tmp_dir, hex)
           pic_path = File.join(tmp_dir, hex)+".jpg"
           # pic
-          %x[ffmpeg -i #{p_att} #{def_mp4_params} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}]
+          %x[ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}]
 
           # part before paused
           %x[ffmpeg -i #{p_att}  -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.mp4]
