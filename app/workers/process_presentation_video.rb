@@ -23,7 +23,7 @@ class ProcessPresentationVideo
           %x[ffmpeg -i #{p_att} -ss #{t['stop']} -sameq -vframes 1 #{pic_path}]
 
           # part before paused
-          %x[ffmpeg -i #{p_att}  -ss #{t['start']} -t #{t['duration']} #{file_prefix}_1.mp4]
+          %x[ffmpeg -i #{p_att}  -ss #{t['start']} -t #{t['duration']} #{def_mp4_params} #{file_prefix}_1.mp4]
 
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
@@ -39,7 +39,8 @@ class ProcessPresentationVideo
       file_no_sound = File.join(tmp_dir, hex)+"_nosound_final.mp4"
       final = File.join(File.dirname(p_att), hex)+"_final.mp4"
       # %x[mkvmerge -o #{final} #{files.join(" +")}]
-      %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}]
+      # %x[mencoder -nosound -oac copy -ovc copy #{files.join(" ")} -o #{file_no_sound}]
+      %x[MP4Box -cat #{files.join(" -cat ")}- new #{file_no_sound}]
       # add empty audio track
       %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 #{def_mp4_params} #{final} -map 1:0 -map 0:0]
 
