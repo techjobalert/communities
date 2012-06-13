@@ -938,4 +938,6 @@
 }
 
 #popup-change-password .form label { width: 145px; }
-#popup-change-password .form .errors-container.error { width: auto; }
+#popup-change-password .form .errors-container.error, #popup-forgot-password .form .errors-container.error { width: auto; }
+
+#popup-forgot-password .form label { width: 40px; }

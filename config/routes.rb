@@ -6,7 +6,8 @@ Orthodontic::Application.routes.draw do
   # mount ImperaviRails::Engine => "/imperavi"
 
   devise_for :users, :controllers => {
-    :registrations => "registrations", :sessions => "sessions"}
+    :registrations => "registrations", :sessions => "sessions", :passwords => "passwords"
+  }
 
   devise_scope :user do
     match '/confirm/:confirmation_token', :to => "devise/confirmations#show", :as => "user_confirm", :only_path => false
