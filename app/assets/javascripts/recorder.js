@@ -11,7 +11,13 @@ var Recorder = window.Recorder = {
     Recorder.ins.record.start(Recorder.settings.recordFileName);
   },
   preparePoints:function(){
-    return _.map(Recorder.playbackPoints, function(obj, num){ _.map(obj, function(o,n){ return secondsToHms(o)})})
+    for (var id in Recorder.playbackPoints) {
+      var obj = Recorder.playbackPoints[id];
+      for (var key in obj) {
+         obj[key] = secondsToHms(obj[key]);
+       }
+    }
+    return Recorder.playbackPoints;
   },
   mergeFunc: function(){
     $("#sync_button strong").text("Saving..");

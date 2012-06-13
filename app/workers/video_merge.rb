@@ -10,6 +10,7 @@ class VideoMerge
     end
     recorded_attachment = Attachment.find(recorded_attachment_id)
     r_att = recorded_attachment.file.path
+    p r_att
     # r_att = recorded_attachment.file.path.to_s
     output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
 
@@ -52,15 +53,6 @@ class VideoMerge
     # remove prev presenter_merged_video attacgment
     presenter_merged_video = recorded_attachment.item.attachments.where(attachment_type: "presenter_merged_video")
     presenter_merged_video.destroy_all if presenter_merged_video
-
-    # debug log
-    log_file_path = File.join(Rails.root, "log","process_video.log")
-    File.open(log_file_path, 'w') do |f|
-      f.puts("")
-      f.puts("[START][merge] " + Time.now.to_s)
-      f.puts command
-      f.puts("[END] " + Time.now.to_s)
-    end
 
     recorded_attachment.item.attachments << Attachment.new({
       :file => File.open(output),
