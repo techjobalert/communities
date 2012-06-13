@@ -262,8 +262,8 @@ class ItemsController < InheritedResources::Base
     # Removing source file
     FileUtils.rm([webcam_record_path, wr_with_meta_data, wr_24fps], :verbose => true)
     # Remove prev presenter_video attachments -> move this to model :after_create
-    last_attachment = @item.attachments(:attachment_type => "presenter_video")
-    last_attachment.destroy_all if last_attachment
+    #last_attachment = @item.attachments(:attachment_type => "presenter_video")
+    #last_attachment.destroy_all if last_attachment
 
     @item.attachments << presenter_video
 
@@ -274,9 +274,7 @@ class ItemsController < InheritedResources::Base
       Resque.enqueue(VideoMerge, params[:video_id], presenter_video.id, {:position => params[:position]})
     end
 
-    @notice = {:type => 'notice', :message =>
-        "your files added to Q for merging"
-      }
+    @notice = {:type => 'notice', :message => "your files added to Q for merging" }
     render :partial => "layouts/notice", :locals => {:notice => @notice}
   end
 
