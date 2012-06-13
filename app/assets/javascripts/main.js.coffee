@@ -129,4 +129,7 @@ $ ->
         .append("<a class='pjax' href=\"" + item.url + "\">" + item.title + "</a>")
         .appendTo ul
 
+  msearch.closest('form').submit ->
+    msearch.autocomplete "close"
+
   $(".sign-in").click() if window.location.hash.indexOf("#sign-in") >= 0

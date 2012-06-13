@@ -43,8 +43,38 @@
           - if failure_counter.to_i >= 3
             = show_simple_captcha(:label => '')
           %p.hidden= f.submit "Submit"
+          = link_to "Forgot password ?", "#", :class => 'forgot-password', :id => "btn-forgot-password"
         = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit();" do
           SIGN IN
           %span to your account
     .clear
+
+    %div{ :id => "popup-forgot-password", :title=>"Forgot Password ?", :style => "display: none" }
+      = render :template => 'devise/passwords/new', :locals => {:resource => @resource, :resource_name => resource_name }
+
     :javascript
+      $("#popup-forgot-password:ui-dialog").dialog ("destroy");
+
+      $("#popup-forgot-password").dialog({
+        autoOpen: false,
+        resizable: false,
+        width: 294,
+        minHeight: "auto",
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            $(this).find("form").submit();
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      });
+
+      $("#btn-forgot-password").click(function() {
+        $("#popup-forgot-password").dialog( "open" );
+        return false;
+      });
+
+
+
