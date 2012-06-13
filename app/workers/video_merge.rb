@@ -12,7 +12,7 @@ class VideoMerge
     r_att = recorded_attachment.file.path
     p r_att
     # r_att = recorded_attachment.file.path.to_s
-    output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".mp4")
+    output = File.join(File.dirname(p_att), SecureRandom.uuid.split("-").join() + ".mp4")
 
     # add_logo = false
     # logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
@@ -49,10 +49,6 @@ class VideoMerge
       command  = 'ffmpeg -i %{presentV} -i %{recordedV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" %{settings} %{output}' % options
     end
     %x[#{command}]
-
-    # remove prev presenter_merged_video attacgment
-    presenter_merged_video = recorded_attachment.item.attachments.where(attachment_type: "presenter_merged_video")
-    presenter_merged_video.destroy_all if presenter_merged_video
 
     recorded_attachment.item.attachments << Attachment.new({
       :file => File.open(output),

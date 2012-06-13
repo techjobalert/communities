@@ -13,6 +13,7 @@ class Attachment < ActiveRecord::Base
   store_in_background   :file
 
   before_save     :set_type
+  before_save     :remove_prev_version
   before_destroy  :destroy_attachments
 
   def set_type
@@ -28,6 +29,12 @@ class Attachment < ActiveRecord::Base
     if type
       #self.attachment_type = type if self.attachment_type == "regular"
       item.update_attribute(:attachment_type, type)
+    end
+  end
+
+  def remove_prev_version
+    if file
+      item.attachments.where(:attachment_type => attachment_type).destroy_all
     end
   end
 
