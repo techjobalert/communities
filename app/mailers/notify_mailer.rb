@@ -24,10 +24,9 @@ class NotifyMailer < ActionMailer::Base
     mail(:to => @to_user.email, :subject => "[orthodontics360] Direct message from moderator")
   end
 
-  def send_processed_email_message(attachment_id)
-    @attachment = Attachment.find(attachment_id)
-    @item = @attachment.item
-    @file_name = File.basename(@attachment.file.path)
+  def send_processed_email_message(item_id)
+    @item = Item.find(item_id)
+    @file_name = File.basename(@item.attachments.file.path)
     if @item and @file_name
       mail(
         :to => @item.user.email,

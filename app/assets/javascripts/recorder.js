@@ -103,7 +103,7 @@ var Recorder = window.Recorder = {
     var onRecorderReady = function(status){
       if (status == true){
         $("#start_record_button").removeAttr('disabled');
-        $("#play_button").removeAttr('disabled');
+        //$("#play_button").removeAttr('disabled');
       }
     }
 

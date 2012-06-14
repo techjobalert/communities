@@ -48,6 +48,8 @@ class VideoMerge
     else
       command  = 'ffmpeg -i %{presentV} -i %{recordedV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" %{settings} %{output}' % options
     end
+      #-map 1:0 -map 0:1
+      #command  = 'ffmpeg -i %{recordedV} -i %{presentV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" %{settings} %{output}' % options
     %x[#{command}]
 
     recorded_attachment.item.attachments << Attachment.new({
