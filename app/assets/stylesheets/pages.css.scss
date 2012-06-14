@@ -117,8 +117,8 @@
       p {
         margin: 5px 0px;
       }
+      .forgot-password { font-size: 13px; font-weight: bold; }
     }
-
 
     .submit-btn {
       background: url('/assets/sign-btn.png') center center no-repeat;
@@ -1003,5 +1003,12 @@
       padding: 5px;
     }
   }
+}
+
+
+#change-password {
+  margin: 20px;
+  .message { display: inline-block; width: auto; }
+  .inputs { &>div { margin-top: 10px; } }
 }
 
