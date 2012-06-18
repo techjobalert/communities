@@ -3,13 +3,10 @@
   .fl-r
     = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video, :w => 565,:h=>320, :preload => true, :features => "progress,duration,volume,fullscreen"}, :inline => true
   .clearfix
-    %ul.recorder-control.fl-l
-      = button_tag(:id => 'recorder-stop-start', :type => 'button', :disabled => true) do
-        = content_tag(:strong, 'Start record')
-      = button_tag(:id => 'play-button',:type => 'button', :onclick => "videoPlayer.play()", :disabled => true) do
-        = content_tag(:strong, 'Play')
-      =# button_tag(:id => 'sync-button',:type => 'button', :onclick => "mergeFunc()", :disabled => true) do
-        =# content_tag(:strong, 'Sync')
+    = button_tag(:id => 'recorder-stop-start', :type => 'button', :disabled => true) do
+      = content_tag(:strong, 'Start record')
+    = button_tag(:id => 'play-button',:type => 'button', :onclick => "videoPlayer.play()", :disabled => true) do
+      = content_tag(:strong, 'Play')
 
     %ul.recorder-control.fl-r
       %li#recorder-status.recorder-icon{:style => "padding-top: 5px;"}
