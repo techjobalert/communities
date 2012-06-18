@@ -17,7 +17,7 @@
 //= require jquery.pjax
 //= require jquery.Jcrop.min
 //= require jquery.colorbox-min
-//= require jquery.ext
+//= require jquery.plugins
 //
 // Chosen (selectbox plugin)*
 //= require chosen.jquery.min
