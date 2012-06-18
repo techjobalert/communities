@@ -1,10 +1,16 @@
 .fl-l{:style => "width:900px"}
   = render :partial => 'partials/webrecorder', :inline => true, :locals => {:uuid => @uuid}
   .fl-r
-    = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video, :w => 565,:h=>320, :preload => true}, :inline => true
+    = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video, :w => 565,:h=>320, :preload => true, :features => "progress,duration,volume,fullscreen"}, :inline => true
   .clearfix
     %ul.recorder-control.fl-l
-      %li#recorder-stop-start.button.c-white 1.Start record
+      = button_tag(:id => 'recorder-stop-start', :type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Start record')
+      = button_tag(:id => 'play-button',:type => 'button', :onclick => "videoPlayer.play()", :disabled => true) do
+        = content_tag(:strong, 'Play')
+      =# button_tag(:id => 'sync-button',:type => 'button', :onclick => "mergeFunc()", :disabled => true) do
+        =# content_tag(:strong, 'Sync')
+
     %ul.recorder-control.fl-r
       %li#recorder-status.recorder-icon{:style => "padding-top: 5px;"}
     .clearfix
@@ -44,6 +50,7 @@
         innerTimer = 0;
         innerIntervarTimer = setInterval(function(){ innerTimer = parseFloat((innerTimer + 0.1).toFixed(3))}, 100);
         if (_playbackPoints.length) currentPos++;
+        $("#play-button").removeAttr('disabled');
       },
       playCallback = function(){
         clearInterval(innerIntervarTimer);
@@ -57,7 +64,8 @@
           _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
           _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
         }
-        _playbackPoints.push({start: _playbackPoints.length ? t : 0})
+        _playbackPoints.push({start: _playbackPoints.length ? t : 0});
+        $("#play-button").attr("disabled","true");
       },
       endedCallback = function(){
         _playbackPoints.pop();
@@ -68,12 +76,12 @@
         if (presync || !canPlay) return false;
         presync = true;
         var duration = 5,
-            intervalCount = 0,
             el = document.getElementById("recorder-status"),
             interval = setInterval( function(){
-              intervalCount++;
-              el.innerHTML = intervalCount;
-              if (intervalCount == duration){
+              duration--;
+              el.innerHTML = duration;
+              $(el).blinkText();
+              if (duration == 0){
                 clearInterval(interval);
                 setTimeout(function() { startSync(); }, 1000);
               }
@@ -82,6 +90,7 @@
       },
       canPlayCallback = function(){
         canPlay = true;
+        $("#recorder-stop-start").removeAttr('disabled');
       },
       startSync = function(){
         videoPlayer.play();
@@ -100,6 +109,8 @@
         _playbackPoints, innerIntervarTimer = [], undefined;
         videoPlayer.media.setCurrentTime(0);
         mergeFunc();
+        $("#play-button").attr("disabled","true");
+        $("#recorder-stop-start").attr("disabled","true");
       },
       mergeFunc = function(){
         var data = {  video_id: "#{@a_video.id}",
@@ -118,9 +129,9 @@
       };
 
   //removing play/pause button
-  $(".mejs-overlay-button").remove();
+  //$(".mejs-overlay-button").remove();
   // disable controls
-  videoPlayer.disableControls();
+  //videoPlayer.disableControls();
 
   document.getElementById("recorder-stop-start").addEventListener('click', function(){
       syncBool ? stopSync() : prestartSync();
