@@ -1,24 +1,22 @@
-<div style="background: #000;float: left;width: 320px;height: 320px;">
-  <div style="width:320px;height:240px;float:left;margin:40px 0;">
-    <object id="recorder" width="100%" height="100%">
-        <param name="movie" value="/assets/WebcamRecorderApp.swf" />
-        <param name="quality" value="high" />
-        <param name="bgcolor" value="#ffffff" />
-        <param name="allowScriptAccess" value="always" />
-        <param name ="flashVars" value="recordingMode=video&serverURL=rtmp://89.209.76.243/&jsListener=jsListener&height=600&width=600" />
-        <embed name="recorder" src="/assets/WebcamRecorderApp.swf"
-          quality="high" bgcolor="#ffffff"
-          width="100%" height="100%"
-          play="true"
-          loop="false"
-          quality="high"
-          allowScriptAccess="always"
-          type="application/x-shockwave-flash"
-          flashVars="recordingMode=video&serverURL=rtmp://89.209.76.243/&jsListener=jsListener"
-          pluginspage="http://www.adobe.com/go/getflashplayer">
-        </embed>
-    </object>
-  </div>
+<div id="recorder" style="width:120px;height:100px;float:left;margin-bottom:30px;bottom: 0;z-index: 1;position: absolute;right: 0;">
+  <object id="recorder" width="100%" height="100%">
+      <param name="movie" value="/assets/WebcamRecorderApp.swf" />
+      <param name="quality" value="high" />
+      <param name="bgcolor" value="#ffffff" />
+      <param name="allowScriptAccess" value="always" />
+      <param name ="flashVars" value="recordingMode=video&serverURL=rtmp://89.209.76.243/&jsListener=jsListener&height=600&width=600" />
+      <embed name="recorder" src="/assets/WebcamRecorderApp.swf"
+        quality="high" bgcolor="#ffffff"
+        width="100%" height="100%"
+        play="true"
+        loop="false"
+        quality="high"
+        allowScriptAccess="always"
+        type="application/x-shockwave-flash"
+        flashVars="recordingMode=video&serverURL=rtmp://89.209.76.243/&jsListener=jsListener"
+        pluginspage="http://www.adobe.com/go/getflashplayer">
+      </embed>
+  </object>
 </div>
 
 <script type="text/javascript">
