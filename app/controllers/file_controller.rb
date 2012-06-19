@@ -74,13 +74,10 @@ class FileController < ApplicationController
         FileUtils.remove_file(p_source_timing, :verbose => true)
       end
       presenter_video.timing = timing.join(";")
-      prev_attachment = attachment.item.attachments.where(attachment_type: "presentation_video")
       attachment.item.attachments << presenter_video
 
       # remove converted files(presentation and video file)
       FileUtils.rm [p_video, p_source], :verbose => true
-      # remove prev attachment
-      prev_attachment.destroy_all if prev_attachment
     end
     render :nothing => true
   end
