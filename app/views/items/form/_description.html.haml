@@ -16,9 +16,6 @@
     .clear
     .text-hint Press "Enter" keyboard button to submit new or use existing keyword
 
-  .row.tools
-    = f.submit "", :class => 'btn next-step'
-
   :javascript
     $('#tag_list').textext({
       plugins : 'autocomplete tags ajax',
@@ -28,4 +25,10 @@
           dataType : 'json',
           cacheResults : true
       }
+    });
+
+    $('.b-upload-item__navigation .additional').click(function() {
+      $('.b-upload-item__step form').submit();
+      if ($('.b-upload-item__step form .field_with_errors').length)
+        return false;
     });
