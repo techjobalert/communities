@@ -30,8 +30,11 @@ $(function() {
     });
     $("#filelist").delegate("i.remove", "click", function() {
       if (confirm('Are you sure to remove this file?')) {
+        if ($("#filelist").find("i.remove").length == 1 && !$('.b-upload-item__uload-regular .attachment').length)
+            $('.b-upload-item__navigation .description').addClass('disabled').attr('href','');
         $(this).parent("div").fadeOut("slow", function(){
           $(this).remove();
+
         });
       }
     });
@@ -90,12 +93,11 @@ $(function() {
         if (f.length){
           f.children("b").html("100%");
           f.append('<input type="hidden" name="item['+response.objClass+'_ids][]" value="'+response.id+'">');
-          $('span.upload-page-next-step').remove();
-          $('a.upload-page-next-step').removeClass('hidden');
-          $('a.next-step').attr('href','/items/'+response.itemID+'/edit?step=description');
+
+          $('.b-upload-item__navigation .description').removeClass('disabled').attr('href','/items/'+response.itemID+'/edit?step=description');
+
           $('.upload-page-upload-btn').attr('href','/items/'+response.itemID+'/edit');
           uploader.settings.url = "/items/upload_attachment?item_id=" + response.itemID;
-          console.log(uploader.settings.url)
         }
 
         if (response.url){
