@@ -16,29 +16,21 @@
 
   - if @a_video
     - if @a_video.file_processing == true
-      .attachment-video
+      .attachment.attachment-video
         %i
           Your attachment will be placed here after processings
     - elsif not @a_video.nil?
-      .attachment-video
+      .attachment.attachment-video
         = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video}
 
   - if @a_pdf
     - if @a_pdf.file_processing == true
-      .attachment-pdf
+      .attachment.attachment-pdf
         %i
           Your attached pdf will be placed here after processings
     - elsif not @a_pdf.blank?
-      .attachment-pdf
+      .attachment.attachment-pdf
         = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
-
-  %p.tools
-    - if @item and @item.attachments.blank?
-      %span.btn.next-step.upload-page-next-step.disabled
-
-      = link_to "", "#", {:class => 'btn next-step upload-page-next-step hidden'}
-    - else
-      = link_to "", edit_item_path(@item, :step=>"description"), {:class => 'btn next-step'}
 
   %p.help
     Please upload your presentation, movie or article to proceed

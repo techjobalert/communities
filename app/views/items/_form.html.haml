@@ -3,7 +3,7 @@
   .b-upload-item__navigation
     = link_to raw("Upload content"), "#{@item.id ? edit_item_path(@item.id) : new_item_path()}", :class => "upload-page-upload-btn #{'active' if step == 'upload'} #{'disabled' unless @item.id} pjax"
 
-    = link_to raw("Describe your item"), "#{edit_item_path(@item.id, :step => 'description') if @item.id}", :class => "#{'active' if step == 'description'} #{'disabled' unless @item.id} pjax"
+    = link_to raw("Describe your item"), "#{edit_item_path(@item.id, :step => 'description') if @item.id}", :class => "description #{'active' if step == 'description'} #{'disabled' unless @item.id} pjax"
 
     = link_to raw("Additional information"), "#{edit_item_path(@item.id, :step => 'additional') if @item.id}", :class => "additional #{'active' if step == 'additional'} #{'disabled' unless @item.id && @item.attachments} pjax"
 
