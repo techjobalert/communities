@@ -17,6 +17,7 @@
 //= require jquery.pjax
 //= require jquery.Jcrop.min
 //= require jquery.colorbox-min
+//= require jquery.plugins
 //
 // Chosen (selectbox plugin)*
 //= require chosen.jquery.min
@@ -30,6 +31,13 @@
 //= require plupload/plupload.html4
 //= require plupload/plupload.html5
 //= require plupload.base
+//
+//  VideoRecorder & VideoPlayer (Sevenov)
+//= require underscore-min.js
+//= require swfobject.js
+//= require backbone-min.js
+//= require inscription.js
+//= require recorder.js
 //
 //  Misc*
 //= require jquery.html5-placeholder-shim

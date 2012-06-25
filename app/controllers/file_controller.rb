@@ -49,11 +49,11 @@ class FileController < ApplicationController
 
     attachment = Attachment.find(params[:id])
     if attachment
-      is_keynote = File.extname(params[:filename]) == ".mov"
+      is_keynote = (File.extname(params[:filename]) == ".mov")
       attachment.update_attribute("file_processing", nil)
       p_base = "/home/buildbot/video/video_storage"
       p_video = File.join(p_base, "p_video", params[:filename])
-      p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+ (is_keynote ? ".pptx" : ".key"))
+      p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+ (is_keynote ? ".key" : ".pptx"))
 
       presenter_video = Attachment.new({
         :file => File.open(p_video),
@@ -74,13 +74,10 @@ class FileController < ApplicationController
         FileUtils.remove_file(p_source_timing, :verbose => true)
       end
       presenter_video.timing = timing.join(";")
-      prev_attachment = attachment.item.attachments.where(attachment_type: "presentation_video")
       attachment.item.attachments << presenter_video
 
       # remove converted files(presentation and video file)
       FileUtils.rm [p_video, p_source], :verbose => true
-      # remove prev attachment
-      prev_attachment.destroy_all if prev_attachment
     end
     render :nothing => true
   end

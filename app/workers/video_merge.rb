@@ -4,27 +4,28 @@ class VideoMerge
   def self.perform(present_attachment, recorded_attachment_id, params)
     if not (present_attachment =~ /^[0-9]+$/).nil?
       _present_attachment = Attachment.find(present_attachment)
-      p_att = _present_attachment.file.webm.path
+      p_att = _present_attachment.file.mp4.path
     else
       p_att = present_attachment
     end
     recorded_attachment = Attachment.find(recorded_attachment_id)
     r_att = recorded_attachment.file.path
+    p r_att
     # r_att = recorded_attachment.file.path.to_s
-    output = File.join(File.dirname(r_att), SecureRandom.uuid.split("-").join() + ".webm")
+    output = File.join(File.dirname(p_att), SecureRandom.uuid.split("-").join() + ".mp4")
 
     # add_logo = false
     # logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
     #   :pos => self.add_position('tl'),
     #   :logo => misc_dir+'logo.png'
     # }
-
+    empty_audio_recorded = FFMPEG::Movie.new(r_att).audio_stream.nil?
     options = {
       :output => output,
       :presentV => p_att,
       :recordedV => r_att,
       :pos => self.add_position(),
-      :settings => '-map 0:0 -map 1:1 -async 1 -g 50'
+      :settings => "-map #{empty_audio_recorded ? 1 : 0}:0 -map 1:1 -async 1 -g 50 -acodec libfaac -ab 128k -ac 2 -vcodec libx264 -crf 22"
       #-threads 1 -vcodec libvpx -acodec libvorbis -quality best -b:a 128k -b:v 1000k -qmin 10 -qmax 42 -maxrate 1500k -bufsize 1000k -vpre libvpx-720p
       # :metadata => '-title "OneWeekendInNYC"
       #               -author "Crazed Mule Productions, Inc."
@@ -47,20 +48,9 @@ class VideoMerge
     else
       command  = 'ffmpeg -i %{presentV} -i %{recordedV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" %{settings} %{output}' % options
     end
+      #-map 1:0 -map 0:1
+      #command  = 'ffmpeg -i %{recordedV} -i %{presentV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" %{settings} %{output}' % options
     %x[#{command}]
-
-    # remove prev presenter_merged_video attacgment
-    presenter_merged_video = recorded_attachment.item.attachments.where(attachment_type: "presenter_merged_video")
-    presenter_merged_video.destroy_all if presenter_merged_video
-
-    # debug log
-    log_file_path = File.join(Rails.root, "log","process_video.log")
-    File.open(log_file_path, 'w') do |f|
-      f.puts("")
-      f.puts("[START][merge] " + Time.now.to_s)
-      f.puts command
-      f.puts("[END] " + Time.now.to_s)
-    end
 
     recorded_attachment.item.attachments << Attachment.new({
       :file => File.open(output),

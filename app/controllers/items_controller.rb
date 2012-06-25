@@ -253,16 +253,17 @@ class ItemsController < InheritedResources::Base
     w_file_24 = File.basename(webcam_record_path,".*")+"with_meta_24fps.flv"
     wr_with_meta_data, wr_24fps = File.join(w_dir, w_file), File.join(w_dir, w_file_24)
     %x[yamdi -i #{webcam_record_path} -o #{wr_with_meta_data}]
-    %x[ffmpeg -i #{wr_with_meta_data} -r 24 #{wr_24fps}]
+    %x[ffmpeg -i #{wr_with_meta_data} -r 24 -ar 44100 -isync #{wr_24fps}]
     presenter_video = Attachment.new({
       :file => File.open(wr_24fps),
       :user => current_user,
       :attachment_type => "presenter_video"})
 
-    @item.attachments << presenter_video
-
     # Removing source file
     FileUtils.rm([webcam_record_path, wr_with_meta_data, wr_24fps], :verbose => true)
+    # Remove prev presenter_video attachments -> move this to model :after_create
+
+    @item.attachments << presenter_video
 
     video = Attachment.find(params[:video_id])
     if video.attachment_type == "presentation_video" and params[:playback_points].present?
@@ -271,9 +272,7 @@ class ItemsController < InheritedResources::Base
       Resque.enqueue(VideoMerge, params[:video_id], presenter_video.id, {:position => params[:position]})
     end
 
-    @notice = {:type => 'notice', :message =>
-        "your files added to Q for merging"
-      }
+    @notice = {:type => 'notice', :message => "your files added to Q for merging" }
     render :partial => "layouts/notice", :locals => {:notice => @notice}
   end
 

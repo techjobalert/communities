@@ -1,11 +1,14 @@
-%h2= "Dear, #{@attachment.user.full_name}!"
+%h2= "Dear, #{@item.user.full_name}!"
 
 %p
   Attached file
   %i= @file_name
   for
   %i
-    =link_to @item.title, edit_item_url(@item, :step=>"preview")
+    -if @item.attachments.last.attachment_type == "presenter_merged_video"
+      =link_to @item.title, item_url(@item)
+    -else
+      =link_to @item.title, edit_item_url(@item, :step=>"preview")
   has been processed.
 
 %p

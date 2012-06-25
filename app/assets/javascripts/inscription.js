@@ -27,6 +27,43 @@
         this.container = container;
     };
 
+    Inscription.Point.read = function(line) {
+
+        var time = function(string) {
+            return (function(arr) {
+                return {
+                    seconds: parseInt(arr[0]),
+                    milliseconds: parseInt(arr[1])
+                }
+            })(string.split(','));
+        };
+
+        var convert = function(string) {
+            return (function(parts) {
+                return _.extend({
+                    hours: parseInt(parts[0]),
+                    minutes: parseInt(parts[1]),
+                }, time(parts[2]))
+            })(string.split(':'))
+        };
+
+        var points = line.split(';');
+        var output = [];
+        _.each(points, function(point){
+            point = convert(point);
+
+            console.log(point);
+
+            output.push(
+                point.hours * 3600 * 1000 +
+                point.minutes * 60 * 1000 +
+                point.seconds * 1000 +
+                point.milliseconds
+            );
+        });
+        return output;
+    }
+
     Inscription.Movie.prototype = {
         play: function() {
             this.container.moviePlay();
@@ -86,7 +123,7 @@
             var args = [
                 "/assets/Inscription.swf", this.element,
                 "800", "600", "11.0",
-                "/assets/expressInstall.swf",
+                "/aseets/expressInstall.swf",
                 flashvars, params, attrs,
                 _.bind(function(e){
                     if(e.success) {
