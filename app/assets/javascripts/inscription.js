@@ -89,6 +89,7 @@
 
         stop: function() {
             this.container.recordStop();
+            return filename;
         },
     };
 

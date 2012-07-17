@@ -38,8 +38,7 @@
                 var points = Inscription.Point.read('00:00:13,290;00:00:17,581;00:00:18,873;00:00:21,663;00:00:23,955;00:00:27,245;00:00:27,245');
 
                 _.each(points, function(point) {
-                    ins.point.add(point);
-                    console.log('Added point: ' + point + ' ms...');
+                    ins.point.add(point);                    
                 });
             }, 5000);
         });
@@ -48,8 +47,26 @@
             console.log(arguments);
         }
 
+        var recordStop = function(){
+          var data = {  video_id: "#{@a_video.id}",
+                      record_file_name: recordingFileName,
+                      playback_points: playbackPoints,
+                      position: $("input[type=radio]:checked").val()};
+          $.ajax({
+            url: "#{item_merge_presenter_video_url(@item)}",
+            type: "POST",
+            dataType: "json",
+            data: data,
+            success: function(data){
+              eval(data);
+            }
+          });
+
+          console.log("ii",arguments);
+        }
+
         ins.on('play', callback);
-        ins.on('stop', callback);
+        ins.on('stop', recordStop);
         ins.on('pause', callback);
         ins.on('tick', callback);
     });
