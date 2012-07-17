@@ -5,7 +5,7 @@
     %link{:rel => "icon", :href => "/assets/favicon.png", :sizes => "16x16"}
     %link{:rel => "shortcut icon", :href => "/assets/favicon.ico", :type => "image/x-icon"}
     = stylesheet_link_tag "application", :debug => Rails.env.development?
-    = javascript_include_tag "application", :debug => Rails.env.development?
+    = javascript_include_tag "application", :debug => true#Rails.env.development?
     = javascript_include_tag "http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f0f49d4565a51b3"
     = csrf_meta_tags
     %meta{"http-equiv" => "X-UA-Compatible", "content" => "IE=9"}
