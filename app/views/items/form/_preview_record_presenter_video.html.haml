@@ -1,17 +1,6 @@
 .fl-l{:style => "width:900px"}
-  = render :partial => 'partials/webrecorder', :inline => true, :locals => {:uuid => @uuid}
-  .fl-r
-    = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video, :w => 920,:h=>600, :preload => true, :features => "progress,duration,fullscreen"}, :inline => true
-  .clearfix
-    = button_tag(:id => 'recorder-stop-start', :type => 'button', :disabled => true) do
-      = content_tag(:strong, 'Start record')
-    = button_tag(:id => 'play-button',:type => 'button', :onclick => "videoPlayer.play()", :disabled => true) do
-      = content_tag(:strong, 'Play')
-
-    %ul.recorder-control.fl-r
-      %li#recorder-status.recorder-icon{:style => "padding-top: 5px;"}
-    .clearfix
-
+  #inscription
+  
   .b-upload-item
     .b-upload-item__title.hr Choose thumbnail
 
@@ -34,111 +23,35 @@
       = image_tag "video/presenter-video-l.jpg"
 
 :javascript
-  $("#recorder").appendTo(".mejs-mediaelement")
-  var videoPlayer = new MediaElementPlayer('#videoPlayer'),
-      _playbackPoints = [],
-      currentPos = 0,
-      syncBool = false,
-      presync = false,
-      canPlay = false,
-      innerTimer = 0,
-      innerIntervarTimer,
-      pauseCallback = function(){
-        if (currentStopTime) videoPlayer.media.setCurrentTime(currentStopTime);
-        innerTimer = 0;
-        innerIntervarTimer = setInterval(function(){ innerTimer = parseFloat((innerTimer + 0.1).toFixed(3))}, 100);
-        if (_playbackPoints.length) currentPos++;
-        $("#play-button").removeAttr('disabled');
-      },
-      playCallback = function(){
-        clearInterval(innerIntervarTimer);
-        if (currentPos){
-          var p = currentPos-1, t = videoPlayer.media.currentTime;
-          if (currentStopTime){
-            t = currentStopTime;
-            currentStopTime = undefined;
-          }
-          _playbackPoints[p]['stop'] = t;
-          _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
-          _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
-        }
-        _playbackPoints.push({start: _playbackPoints.length ? t : 0});
-        $("#play-button").attr("disabled","true");
-      },
-      endedCallback = function(){
-        _playbackPoints.pop();
-        stopSync();
-        console.log("video end");
-      },
-      prestartSync = function(){
-        if (presync || !canPlay) return false;
-        presync = true;
-        var duration = 5,
-            el = document.getElementById("recorder-status"),
-            interval = setInterval( function(){
-              duration--;
-              el.innerHTML = duration;
-              $(el).blinkText();
-              if (duration == 0){
-                clearInterval(interval);
-                setTimeout(function() { startSync(); }, 1000);
-              }
+    var ins;
+    $(function(){
+        ins = Inscription.run({
+            container: 'inscription',
+            player: {
+                resource: "#{secure_link( @a_video,  @a_video.file.mp4.url())}",
+                server: 'rtmp://89.209.76.243'
             }
-            , 1000 );
-      },
-      canPlayCallback = function(){
-        canPlay = true;
-        $("#recorder-stop-start").removeAttr('disabled');
-      },
-      startSync = function(){
-        videoPlayer.play();
-        startRecord();
-        document.getElementById("recorder-stop-start").innerHTML = "Stop sync";
-        syncBool = true;
-        presync = false;
-      },
-      stopSync = function(){
-        videoPlayer.pause();
-        clearInterval(innerIntervarTimer);
-        stopRecord();
-        document.getElementById("recorder-stop-start").innerHTML = "Start sync";
-        syncBool = false;
-        playbackPoints = _playbackPoints;
-        _playbackPoints, innerIntervarTimer = [], undefined;
-        videoPlayer.media.setCurrentTime(0);
-        mergeFunc();
-        $("#play-button").attr("disabled","true");
-        $("#recorder-stop-start").attr("disabled","true");
-      },
-      mergeFunc = function(){
-        var data = {  video_id: "#{@a_video.id}",
-                      record_file_name: recordingFileName,
-                      playback_points: playbackPoints,
-                      position: $("input[type=radio]:checked").val()};
-        $.ajax({
-          url: "#{item_merge_presenter_video_url(@item)}",
-          type: "POST",
-          dataType: "json",
-          data: data,
-          success: function(data){
-            eval(data);
-          }
         });
-      };
 
-  //removing play/pause button
-  //$(".mejs-overlay-play").remove();
-  // disable controls
-  //videoPlayer.disableControls();
+        ins.on('load', function() {
+            setTimeout(function() {
+                var points = Inscription.Point.read('00:00:13,290;00:00:17,581;00:00:18,873;00:00:21,663;00:00:23,955;00:00:27,245;00:00:27,245');
 
-  document.getElementById("recorder-stop-start").addEventListener('click', function(){
-      syncBool ? stopSync() : prestartSync();
-    }
-    ,false);
+                _.each(points, function(point) {
+                    ins.point.add(point);
+                    console.log('Added point: ' + point + ' ms...');
+                });
+            }, 5000);
+        });
 
-  MediaElement('videoPlayer', {success: function(me) {
-    me.addEventListener("pause", pauseCallback);
-    me.addEventListener("play",  playCallback);
-    me.addEventListener("ended", endedCallback);
-    me.addEventListener("canplay", canPlayCallback);
-  }});
+        var callback = function() {
+            console.log(arguments);
+        }
+
+        ins.on('play', callback);
+        ins.on('stop', callback);
+        ins.on('pause', callback);
+        ins.on('tick', callback);
+    });
+
+
