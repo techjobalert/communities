@@ -51,7 +51,15 @@
             console.log(arguments);
         }
 
-        var recordStop = function(){
+        
+
+        ins.on('play', callback);
+        ins.on('stop', callback);
+        ins.on('pause', callback);
+        ins.on('tick', callback);
+    });
+
+    var recordStop = function(){
           var data = {  video_id: "#{@a_video.id}",
                       record_file_name: fileName,
                       playback_points: playbackPoints,
@@ -65,14 +73,6 @@
               eval(data);
             }
           });
-
-          console.log("ii",arguments);
         }
-
-        ins.on('play', callback);
-        ins.on('stop', recordStop);
-        ins.on('pause', callback);
-        ins.on('tick', callback);
-    });
 
 
