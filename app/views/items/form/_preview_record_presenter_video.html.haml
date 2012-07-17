@@ -24,6 +24,7 @@
 
 :javascript
     var ins;
+    var fileName = Inscription.filename();
     $(function(){
         ins = Inscription.run({
             container: 'inscription',
@@ -49,7 +50,7 @@
 
         var recordStop = function(){
           var data = {  video_id: "#{@a_video.id}",
-                      record_file_name: recordingFileName,
+                      record_file_name: fileName,
                       playback_points: playbackPoints,
                       position: $("input[type=radio]:checked").val()};
           $.ajax({
