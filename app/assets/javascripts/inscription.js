@@ -125,7 +125,7 @@
             attrs = {};
 
             var args = [
-                "Inscription.swf", this.element,
+                "/assets/Inscription.swf", this.element,
                 "800", "600", "11.0",
                 "expressInstall.swf",
                 flashvars, params, attrs,
