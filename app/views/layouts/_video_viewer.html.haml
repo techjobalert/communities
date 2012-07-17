@@ -1,90 +1,34 @@
-- w||= 435
-- h||= 264
-- features||= "playpause,progress,current,duration,tracks,volume,fullscreen"
-- preload||= "true"
-- att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
-
-%video{:controls => "controls", :height => "#{h}", :poster => "#{attachment.get_thumbnail}", :preload => "#{preload}", :width => "#{w}", :id => "videoPlayer"}
-  / MP4 for Safari, IE9, iPhone, iPad, Android, and Windows Phone 7
-  %source{:src => "#{secure_link(attachment, att.url)}", :type => "video/mp4"}
-  / WebM/VP8 for Firefox4, Opera, and Chrome
-  %source{:src => "#{secure_link(attachment, attachment.file.webm.url)}", :type => "video/webm"}
-  / Ogg/Vorbis for older Firefox and Opera versions
-  / Optional: Add subtitles for each language
-  / %track{:kind => "subtitles", :src => "subtitles.srt", :srclang => "en"}/
-  / Optional: Add chapters
-  / %track{:kind => "chapters", :src => "chapters.srt", :srclang => "en"}/
-  / Flash fallback for non-HTML5 browsers without JavaScript
-  %object{:data => "/assets/flashmediaelement.swf", :height => "#{h}", :type => "application/x-shockwave-flash", :width => "#{w}"}
-    %param{:name => "movie", :value => "/assets/flashmediaelement.swf"}/
-    %param{:name => "flashvars", :value => "controls=true&file=#{secure_link(attachment, attachment.file.mp4.url)}"}/
-    / Image as a last resort
-    %img{:height => "#{h}", :src => "#{attachment.file.video_thumbnail.url}", :title => "No video playback capabilities", :width => "#{w}"}
-
 :javascript
-  var defaultFeatures = ['playpause','progress','current','duration','tracks','volume','fullscreen'];
-  var currentStopTime, mediaElement = $('#videoPlayer').mediaelementplayer(
-    {
-    // shows debug errors on screen
-    enablePluginDebug: false,
-    // remove or reorder to change plugin priority
-    plugins: ['flash','silverlight'],
-    // specify to force MediaElement to use a particular video or audio type
-    type: '',
-    // path to Flash and Silverlight plugins
-    pluginPath: '/assets/',
-    // name of flash file
-    flashName: 'flashmediaelement.swf',
-    // name of silverlight file
-    features: "#{features}".split(",") || defaultFeatures,
-    silverlightName: 'silverlightmediaelement.xap',
-    // default if the <video width> is not specified
-    defaultVideoWidth: 435,
-    // default if the <video height> is not specified
-    defaultVideoHeight: 264,
-    // overrides <video width>
-    pluginWidth: -1,
-    // overrides <video height>
-    pluginHeight: -1,
-    // rate in milliseconds for Flash and Silverlight to fire the timeupdate event
-    // larger number is less accurate, but less strain on plugin->JavaScript bridge
-    timerRate: 250,
-    // method that fires when the Flash or Silverlight object is ready
-    success: function (mediaElement, domObject) {
-      // mediaElement.addEventListener("pause", pauseCallback);
-      // mediaElement.addEventListener("ended", endedCallback);
-      // add event listener
-      if ("#{attachment.attachment_type=='presentation_video'}"){
-        var timing = "#{attachment.timing}".split(";");
-        var _timing = [];
-        var interval = 225;
-        $.each(timing, function(idx,i){_timing[idx] = i.substring(0,8)})
-
-        mediaElement.addEventListener('timeupdate', function(e) {
-          var x = _timing.indexOf(secondsToHms(mediaElement.currentTime).substring(0,8));
-          if ( x != -1){
-            var p_ms = Number(secondsToHms(mediaElement.currentTime).substring(9,12));
-            var t_ms = Number(timing[x].substring(9,12));
-            if (p_ms - interval <= t_ms && p_ms + interval >= t_ms) {
-              _timing.shift();
-              var t = hmsToSeconds(timing.shift());
-              currentStopTime = t;
-              mediaElement.setCurrentTime(t);
-              mediaElement.pause();
+    var ins;
+    $(function(){
+        ins = Inscription.run({
+            container: 'inscription',
+            player: {
+                resource: 'http://89.209.76.243:5580/uploads/attachment/file/992/mp4_85c01683-647d-4408-a6d8-beae3e538297-presentation_video_Simple4.mp4',
+                server: 'rtmp://89.209.76.243'
             }
-          }
-        }, false);
-
-        mediaElement.addEventListener('ended', function(e){
-          mediaElement.pause();
-          mediaElement.setCurrentTime(0);
         });
 
-      }
-    },
-    // fires when a problem is detected
-    error: function (err) {
-      console.log(err);
-      showHideNotice("error", "video playback error");
-    }
-  });
+        ins.on('load', function() {
+            setTimeout(function() {
+                var points = Inscription.Point.read('00:00:13,290;00:00:17,581;00:00:18,873;00:00:21,663;00:00:23,955;00:00:27,245;00:00:27,245');
+
+                _.each(points, function(point) {
+                    ins.point.add(point);
+                    console.log('Added point: ' + point + ' ms...');
+                });
+            }, 5000);
+
+        });
+
+        var callback = function() {
+            console.log(arguments);
+        }
+
+        ins.on('play', callback);
+        ins.on('stop', callback);
+        ins.on('pause', callback);
+        ins.on('tick', callback);
+    });
+
+#inscription

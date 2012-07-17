@@ -50,7 +50,7 @@ gem 'default_value_for'
 gem 'date_validator'
 
 # JS runtime
-#gem 'therubyracer'
+gem 'therubyracer'
 # clientside validation by ajax
 gem 'client_side_validations', :git => 'git://github.com/bcardarella/client_side_validations.git'
 # Pagination
