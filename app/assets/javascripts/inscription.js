@@ -75,6 +75,10 @@
 
         pause: function() {
             this.container.moviePause();
+        },
+        
+        changeScreenMode: function() {
+            this.container.changeDisplayState();
         }
     };
 
@@ -121,9 +125,9 @@
             attrs = {};
 
             var args = [
-                "/assets/Inscription.swf", this.element,
+                "Inscription.swf", this.element,
                 "800", "600", "11.0",
-                "/aseets/expressInstall.swf",
+                "expressInstall.swf",
                 flashvars, params, attrs,
                 _.bind(function(e){
                     if(e.success) {
