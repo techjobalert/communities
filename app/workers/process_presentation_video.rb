@@ -2,7 +2,6 @@ class ProcessPresentationVideo
   @queue = :store_asset
 
   def self.perform(present_attachment_id, recorded_attachment_id, params)
-    Rails.logger.info("-------------#{recorded_attachment_id}--#{present_attachment_id}----#{params.inspect}")
     present_attachment = Attachment.find(present_attachment_id)
     p_att_origin = present_attachment.file.path
     p_att = File.exist?(p_att_origin) ? p_att_origin : present_attachment.file.mp4.path
