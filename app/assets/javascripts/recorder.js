@@ -46,7 +46,7 @@ var Recorder = window.Recorder = {
       container: Recorder.settings.container,
       player: {
         resource: Recorder.settings.resourceLink,
-        server: 'rtmp://89.209.76.243'
+        server: Recorder.settings.server
       }
     });
     // Hack for ajax req
