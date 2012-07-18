@@ -5,11 +5,7 @@ var Recorder = window.Recorder = {
   initialize: function (params) {
     _.each(params, function(v,k){Recorder.settings[k] = v});
     Recorder.initInscription();
-  },
-  startRecord: function(){
-    $("#start_record_button").attr("disabled","true");
-    Recorder.ins.record.start(Recorder.settings.recordFileName);
-  },
+  },  
   preparePoints:function(){
     //NOT USING NOW
     for (var id in Recorder.playbackPoints) {
@@ -19,26 +15,7 @@ var Recorder = window.Recorder = {
        }
     }
     return Recorder.playbackPoints;
-  },
-  mergeFunc: function(){
-    $("#sync_button strong").text("Saving..");
-    var data = {
-      video_id: Recorder.settings.videoId,
-      record_file_name: Recorder.settings.recordFileName,
-      playback_points: Recorder.playbackPoints,
-      position: $("input[type=radio]:checked").val()
-    };
-    $.ajax({
-      url: Recorder.settings.requestUrl,
-      type: "POST",
-      dataType: "json",
-      data: data,
-      success: function(data){
-        $("#sync_button strong").text("Saved");
-        eval(data);
-      }
-    });
-  },
+  },  
   initInscription: function(){
     var ins;
     var loaded = false;
@@ -60,6 +37,7 @@ var Recorder = window.Recorder = {
       console.log('loaded');
       loaded = true;
       initPoints();
+
     });
     var initPoints = function(){
       setTimeout(function() {
@@ -67,7 +45,7 @@ var Recorder = window.Recorder = {
         _.each(points, function(point) {
           ins.point.add(point);
           console.log('Added point: ' + point + ' ms...');
-        });
+        });         
       }, 5000);
     }
     var callback = function() {
@@ -102,8 +80,7 @@ var Recorder = window.Recorder = {
 
     var onRecorderReady = function(status){
       if (status == true){
-        $("#start_record_button").removeAttr('disabled');
-        //$("#play_button").removeAttr('disabled');
+        $('.b-recorder__tools').fadeIn();
       }
     }
 
@@ -111,5 +88,82 @@ var Recorder = window.Recorder = {
     ins.on('stateChange', onStateChage);
     ins.on('recorderReady', onRecorderReady);
     Recorder.ins = ins;
+  },
+  startPlay: function(){
+    Recorder.ins.movie.play();
+    $('.mv-play').attr("disabled","true");
+    $('.mv-stop').removeAttr('disabled');
+    $('.mv-pause').removeAttr('disabled');
+  },
+  stopPlay: function(){
+    Recorder.ins.movie.stop();
+    $('.mv-pause').attr("disabled","true");
+    $('.rec-stop').attr("disabled","true");
+    $('.mv-play').removeAttr('disabled');
+  },
+  pausePlay: function(){
+    Recorder.ins.movie.pause();
+    $('.mv-pause').attr("disabled","true");
+    $('.mv-play').removeAttr('disabled');    
+  },
+  startRecord: function(){
+    Recorder.ins.record.start(Recorder.settings.recordFileName,);
+    $('.rec-start').attr("disabled","true");
+    $('.rec-stop').removeAttr('disabled');
+  },
+  stopRecord: function(){
+    Recorder.ins.record.stop();
+    $('.rec-stop').attr("disabled","true");
+    $('.rec-start').removeAttr('disabled');
+  },
+  mergeRecord: function(){
+    $("#sync_button strong").text("Saving..");
+    var data = {
+      video_id: Recorder.settings.videoId,
+      record_file_name: Recorder.settings.recordFileName,
+      playback_points: Recorder.playbackPoints,
+      position: $("input[type=radio]:checked").val()
+    };
+    $.ajax({
+      url: Recorder.settings.requestUrl,
+      type: "POST",
+      dataType: "json",
+      data: data,
+      success: function(data){
+        $("#sync_button strong").text("Saved");
+        eval(data);
+      }
+    });
   }
 }
+
+$(document)
+  .on('click', '.rec-start', function(){
+    Recorder.startRecord();
+    return false;
+  })
+
+  .on('click', '.rec-stop', function(){
+    Recorder.stopRecord();
+    return false;
+  })
+
+  .on('click', '.rec-save', function(){
+    Recorder.mergeRecord();
+    return false;
+  })
+
+  .on('click', '.mv-play', function(){
+    Recorder.startPlay();
+    return false;
+  })
+
+  .on('click', '.mv-pause', function(){
+    Recorder.pausePlay();
+    return false;
+  })
+
+  .on('click', '.mv-stop', function(){
+    Recorder.stopPlay();    
+    return false;
+  });

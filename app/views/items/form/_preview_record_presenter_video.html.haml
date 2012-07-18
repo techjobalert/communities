@@ -2,12 +2,19 @@
   .b-recorder
     #inscription.b-recorder__player
     .b-recorder__tools
-      = link_to 'Movie Play', '#', :class => 'link mv-play'
-      = link_to 'Movie Pause', '#', :class => 'link mv-pause noactive'
-      = link_to 'Movie Stop', '#', :class => 'link mv-stop noactive' 
-      = link_to 'Record Start', '#', :class => 'link rec-start'
-      = link_to 'Record Stop', '#', :class => 'link rec-stop noactive'
-      = link_to 'Record Save', '#', :class => 'link rec-save'
+    
+      = button_tag(:class => 'link mv-play', :type => 'button') do
+        = content_tag(:strong, 'Movie Play')
+      = button_tag(:class => 'link mv-pause',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Movie Pause')
+      = button_tag(:class => 'link mv-stop',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Movie Stop')
+      = button_tag(:class => 'link rec-start',:type => 'button') do
+        = content_tag(:strong, 'Record Start')
+      = button_tag(:class => 'link rec-stop',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Record Stop')
+      = button_tag(:class => 'link rec-save',:type => 'button') do
+        = content_tag(:strong, 'Record Save')
 
   
   .b-upload-item
