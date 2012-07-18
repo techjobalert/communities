@@ -1,5 +1,13 @@
 .fl-l{:style => "width:900px"}
-  #inscription
+  .b-recorder
+    #inscription.b-recorder__player
+    .b-recorder__tools
+      = link_to 'Record Start', '#', :class => 'link rec-start'
+      = link_to 'Record Stop', '#', :class => 'link rec-stop'
+      = link_to 'Movie Play', '#', :class => 'link mv-play'
+      = link_to 'Movie Stop', '#', :class => 'link mv-stop'
+      = link_to 'Record Save', '#', :class => 'link rec-save'
+
   
   .b-upload-item
     .b-upload-item__title.hr Choose thumbnail
@@ -27,8 +35,13 @@
     var fileName = Inscription.filename();
     var playbackPoints = [];
 
-    console.log(fileName);
     $(function(){
+        var rStart = $('.rec-start');
+        var rStop = $('.rec-stop');
+        var rSave = $('.rec-save');
+        var mPlay = $('.mv-play');
+        var mStop = $('.mv-play');
+
         ins = Inscription.run({
             container: 'inscription',
             player: {
@@ -39,7 +52,7 @@
 
         ins.on('load', function() {
             setTimeout(function() {
-                var points = Inscription.Point.read('00:00:13,290;00:00:17,581;00:00:18,873;00:00:21,663;00:00:23,955;00:00:27,245;00:00:27,245');
+                var points = Inscription.Point.read('00:00:13,290;00:00:17,581;00:00:18,873;00:00:21,663;00:00:23,955;00:00:35,245;00:00:54,245');
 
                 _.each(points, function(point) {
                     ins.point.add(point);                    
@@ -51,15 +64,12 @@
             console.log(arguments);
         }
 
-        
-
         ins.on('play', callback);
         ins.on('stop', callback);
         ins.on('pause', callback);
         ins.on('tick', callback);
-    });
 
-    var recordStop = function(){
+        var recordStop = function(){
           var data = {  video_id: "#{@a_video.id}",
                       record_file_name: fileName,
                       playback_points: playbackPoints,
@@ -74,5 +84,29 @@
             }
           });
         }
+
+        $(document)
+          .on('click', rStart, function(){
+            ins.record.start(fileName);
+          })
+
+          .on('click', rStop, function(){
+            ins.record.stop();
+          })
+
+          .on('click', rSave, recordStop);
+
+          .on('click', mPlay, function(){
+            ins.movie.play();
+          })
+
+          .on('click', mStop, function(){
+            ins.movie.stop();
+          })
+
+
+    });
+
+    
 
 
