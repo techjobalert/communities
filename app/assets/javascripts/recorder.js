@@ -43,7 +43,7 @@ var Recorder = window.Recorder = {
     var ins;
     var loaded = false;
     ins = Inscription.run({
-      container: 'inscription',
+      container: Recorder.settings.container,
       player: {
         resource: Recorder.settings.resourceLink,
         server: 'rtmp://89.209.76.243'
@@ -63,7 +63,7 @@ var Recorder = window.Recorder = {
     });
     var initPoints = function(){
       setTimeout(function() {
-        var points = Inscription.Point.read('00:00:13,290;00:00:17,581;00:00:18,873;00:00:21,663;00:00:23,955;00:00:35,245;00:00:54,245');
+        var points = Inscription.Point.read(Recorder.settings.timing);
         _.each(points, function(point) {
           ins.point.add(point);
           console.log('Added point: ' + point + ' ms...');

@@ -39,7 +39,9 @@
       playbackPoints: [],
       videoId: "#{@a_video.id}",
       requestUrl: "#{item_merge_presenter_video_url(@item)}",
-      resourceLink: "#{secure_link( @a_video,  @a_video.file.mp4.url())}"
+      resourceLink: "#{secure_link( @a_video,  @a_video.file.mp4.url())}",
+      server: 'rtmp://89.209.76.243',
+      container: "inscription"
     };
     Recorder.initialize();
   });
