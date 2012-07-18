@@ -104,11 +104,12 @@ var Recorder = window.Recorder = {
   },
   startRecord: function(){
     $('.rec-start').attr("disabled","true");
-    $('.rec-stop').removeAttr('disabled');
+    $('.rec-stop').removeAttr('disabled');    
   },
   stopRecord: function(){
     $('.rec-stop').attr("disabled","true");
     $('.rec-start').removeAttr('disabled');
+    $('.rec-save').removeAttr('disabled');
   },
   mergeRecord: function(){
     $("#sync_button strong").text("Saving..");

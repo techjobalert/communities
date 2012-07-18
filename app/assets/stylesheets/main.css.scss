@@ -937,7 +937,7 @@ h3 {
 
     .rec-start {
       background: url(/assets/video/rec.png);
-      opacity: 0.5;
+      opacity: 0.85;
     }
 
     .rec-stop {
@@ -959,6 +959,10 @@ h3 {
 
     .mv-pause {
       background: url(/assets/video/pause.png);
+    }
+
+    .rec-save {
+      background: url(/assets/video/save.png);
     }
   }
 }
