@@ -252,8 +252,9 @@ class ItemsController < InheritedResources::Base
     w_file    = File.basename(webcam_record_path,".*")+"with_meta.flv"
     w_file_24 = File.basename(webcam_record_path,".*")+"with_meta_24fps.flv"
     wr_with_meta_data, wr_24fps = File.join(w_dir, w_file), File.join(w_dir, w_file_24)
-    %x[yamdi -i #{webcam_record_path} -o #{wr_with_meta_data}]
-    %x[ffmpeg -i #{wr_with_meta_data} -r 24 -ar 44100 -isync #{wr_24fps}]
+    %x[yamdi -i #{webcam_record_path} -o #{wr_24fps}]
+    # %x[yamdi -i #{webcam_record_path} -o #{wr_with_meta_data}]
+    # %x[ffmpeg -i #{wr_with_meta_data} -r 24 -ar 44100 -isync #{wr_24fps}]
     presenter_video = Attachment.new({
       :file => File.open(wr_24fps),
       :user => current_user,

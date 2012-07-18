@@ -112,7 +112,7 @@ var Recorder = window.Recorder = {
     $('.rec-save').removeAttr('disabled');
   },
   mergeRecord: function(){
-    $("#sync_button strong").text("Saving..");
+    $('.rec-save').attr("disabled","true");
     var data = {
       video_id: Recorder.settings.videoId,
       record_file_name: Recorder.settings.recordFileName,
