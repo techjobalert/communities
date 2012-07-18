@@ -84,11 +84,15 @@
         $(document)
           .on('click', '.rec-start', function(){
             ins.record.start(fileName);
+            $('.rec-stop').toogleClass('.noactive');
+            $('.rec-start').toogleClass('.noactive');
             return false;
           })
 
           .on('click', '.rec-stop', function(){
             ins.record.stop();
+            $('.rec-stop').toogleClass('.noactive');
+            $('.rec-start').toogleClass('.noactive');
             return false;
           })
 
@@ -96,16 +100,23 @@
 
           .on('click', '.mv-play', function(){
             ins.movie.play();
+            $('.mv-pause').toogleClass('.noactive');
+            $('.mv-play').toogleClass('.noactive');
             return false;
           })
 
           .on('click', '.mv-pause', function(){
             ins.movie.pause();
+            $('.mv-pause').toogleClass('.noactive');
+            $('.mv-play').toogleClass('.noactive');
             return false;
           })
 
           .on('click', '.mv-stop', function(){
             ins.movie.stop();
+            $('.mv-pause').addClass('.noactive');
+            $('.mv-play').removeClass('.noactive');
+            
             return false;
           });
 
