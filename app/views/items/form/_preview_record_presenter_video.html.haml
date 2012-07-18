@@ -2,10 +2,11 @@
   .b-recorder
     #inscription.b-recorder__player
     .b-recorder__tools
-      = link_to 'Record Start', '#', :class => 'link rec-start'
-      = link_to 'Record Stop', '#', :class => 'link rec-stop'
       = link_to 'Movie Play', '#', :class => 'link mv-play'
-      = link_to 'Movie Stop', '#', :class => 'link mv-stop'
+      = link_to 'Movie Pause', '#', :class => 'link mv-pause noactive'
+      = link_to 'Movie Stop', '#', :class => 'link mv-stop noactive' 
+      = link_to 'Record Start', '#', :class => 'link rec-start'
+      = link_to 'Record Stop', '#', :class => 'link rec-stop noactive'
       = link_to 'Record Save', '#', :class => 'link rec-save'
 
   
@@ -83,20 +84,29 @@
         $(document)
           .on('click', '.rec-start', function(){
             ins.record.start(fileName);
+            return false;
           })
 
           .on('click', '.rec-stop', function(){
             ins.record.stop();
+            return false;
           })
 
           .on('click', '.rec-save', recordStop)
 
           .on('click', '.mv-play', function(){
             ins.movie.play();
+            return false;
+          })
+
+          .on('click', '.mv-pause', function(){
+            ins.movie.pause();
+            return false;
           })
 
           .on('click', '.mv-stop', function(){
             ins.movie.stop();
+            return false;
           });
 
 

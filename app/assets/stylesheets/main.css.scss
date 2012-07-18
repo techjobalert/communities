@@ -914,3 +914,48 @@ h3 {
   text-align: left;
   width: auto !important; }
 }
+
+.b-recorder {
+  .b-recorder__tools {
+    .link {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      text-decoration: none;
+      text-indent: -9999px;
+      cursor: pointer;
+
+      &.noactive {
+        display: none;
+      }
+    }
+
+
+
+    .rec-start {
+      background: url(/assets/video/rec.png);
+      opacity: 0.7;
+    }
+
+    .rec-stop {
+      background: url(/assets/video/rec.png);
+    }
+
+    .mv-play {
+      background: url(/assets/video/play.png);
+    }
+    
+    .mv-stop {
+      background: url(/assets/video/stop.png);
+      &.noactive {
+        opacity: 0.7;
+        display: inline-block;
+      }
+    }
+
+    .mv-pause {
+      background: url(/assets/video/pause.png);
+    }
+  }
+}
