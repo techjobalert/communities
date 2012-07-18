@@ -84,15 +84,15 @@
         $(document)
           .on('click', '.rec-start', function(){
             ins.record.start(fileName);
-            $('.rec-stop').toggleClass('.noactive');
-            $('.rec-start').toggleClass('.noactive');
+            $('.rec-stop').toggleClass('noactive');
+            $('.rec-start').toggleClass('noactive');
             return false;
           })
 
           .on('click', '.rec-stop', function(){
             ins.record.stop();
-            $('.rec-stop').toggleClass('.noactive');
-            $('.rec-start').toggleClass('.noactive');
+            $('.rec-stop').toggleClass('noactive');
+            $('.rec-start').toggleClass('noactive');
             return false;
           })
 
@@ -100,22 +100,22 @@
 
           .on('click', '.mv-play', function(){
             ins.movie.play();
-            $('.mv-pause').toggleClass('.noactive');
-            $('.mv-play').toggleClass('.noactive');
+            $('.mv-pause').toggleClass('noactive');
+            $('.mv-play').toggleClass('noactive');
             return false;
           })
 
           .on('click', '.mv-pause', function(){
             ins.movie.pause();
-            $('.mv-pause').toggleClass('.noactive');
-            $('.mv-play').toggleClass('.noactive');
+            $('.mv-pause').toggleClass('noactive');
+            $('.mv-play').toggleClass('noactive');
             return false;
           })
 
           .on('click', '.mv-stop', function(){
             ins.movie.stop();
-            $('.mv-pause').addClass('.noactive');
-            $('.mv-play').removeClass('.noactive');
+            $('.mv-pause').addClass('noactive');
+            $('.mv-play').removeClass('noactive');
             
             return false;
           });
