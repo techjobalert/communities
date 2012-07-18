@@ -917,6 +917,8 @@ h3 {
 
 .b-recorder {
   .b-recorder__tools {
+    display: none;
+
     .link {
       display: inline-block;
       width: 24px;
@@ -933,7 +935,7 @@ h3 {
 
     .rec-start {
       background: url(/assets/video/rec.png);
-      opacity: 0.7;
+      opacity: 0.5;
     }
 
     .rec-stop {
@@ -947,7 +949,7 @@ h3 {
     .mv-stop {
       background: url(/assets/video/stop.png);
       &.noactive {
-        opacity: 0.7;
+        opacity: 0.5;
         display: inline-block;
       }
     }
