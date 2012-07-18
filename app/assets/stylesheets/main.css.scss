@@ -917,7 +917,7 @@ h3 {
 
 .b-recorder {
   .b-recorder__tools {
-    display: none;
+    
 
     .link {
       display: inline-block;
@@ -927,9 +927,11 @@ h3 {
       text-decoration: none;
       text-indent: -9999px;
       cursor: pointer;
+      border: none;
+      background: none;
 
-      &.noactive {
-        display: none;
+      &[disabled=true], &[disabled=disabled], &:disabled {
+        opacity: 0.3;
       }
     }
 
@@ -947,11 +949,7 @@ h3 {
     }
     
     .mv-stop {
-      background: url(/assets/video/stop.png);
-      &.noactive {
-        opacity: 0.5;
-        display: inline-block;
-      }
+      background: url(/assets/video/stop.png);      
     }
 
     .mv-pause {
