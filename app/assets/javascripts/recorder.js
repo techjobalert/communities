@@ -84,7 +84,7 @@ var Recorder = window.Recorder = {
       }
     }
 
-    ins.on('play',  startPlay);
+    ins.on('play',  onPlay);
     ins.on('stateChange', onStateChage);
     ins.on('recorderReady', onRecorderReady);
     Recorder.ins = ins;
@@ -134,7 +134,7 @@ var Recorder = window.Recorder = {
 
 $(document)
   .on('click', '.rec-start', function(){
-    Recorder.ins.record.start(Recorder.settings.recordFileName,);
+    Recorder.ins.record.start(Recorder.settings.recordFileName);
     Recorder.startRecord();
     return false;
   })
