@@ -63,7 +63,7 @@ var Recorder = window.Recorder = {
     });
     var initPoints = function(){
       setTimeout(function() {
-        var points = Inscription.Point.read(Recorder.settings.timing);
+        var points = Inscription.Point.read('00:00:13,290;00:00:17,581;00:00:18,873;00:00:21,663;00:00:23,955;00:00:35,245;00:00:54,245');
         _.each(points, function(point) {
           ins.point.add(point);
           console.log('Added point: ' + point + ' ms...');
