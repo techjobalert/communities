@@ -943,6 +943,11 @@ h3 {
     .rec-stop {
       background: url(/assets/video/rec.png);
     }
+    .rec-stop, .rec-start {
+      &[disabled=true], &[disabled=disabled], &:disabled {
+        display: none;
+      }
+    }
 
     .mv-play {
       background: url(/assets/video/play.png);

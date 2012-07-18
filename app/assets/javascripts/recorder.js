@@ -66,14 +66,13 @@ var Recorder = window.Recorder = {
     var onStateChage = function(state) {
       console.log(state);
       if (state === "paused"){
-        $("#play_button").removeAttr('disabled');
+        Recorder.pausePlay();
       }
       else if (state === "playing"){
-        $("#play_button").attr("disabled","true");
+        Recorder.startPlay();
       }
       else if (state === "ready"){
-        $("#sync_button").removeAttr('disabled');
-        $("#play_button").attr("disabled","true");
+        Recorder.stopRecord();
         ins.record.stop();
       }
     }
