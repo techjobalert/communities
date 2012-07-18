@@ -36,13 +36,8 @@
     var playbackPoints = [];
 
     $(function(){
-        var rStart = $('.rec-start');
-        var rStop = $('.rec-stop');
-        var rSave = $('.rec-save');
-        var mPlay = $('.mv-play');
-        var mStop = $('.mv-play');
 
-        ins = Inscription.run({
+          ins = Inscription.run({
             container: 'inscription',
             player: {
                 resource: "#{secure_link( @a_video,  @a_video.file.mp4.url())}",
@@ -86,21 +81,21 @@
         }
 
         $(document)
-          .on('click', rStart, function(){
+          .on('click', '.rec-start', function(){
             ins.record.start(fileName);
           })
 
-          .on('click', rStop, function(){
+          .on('click', '.rec-stop', function(){
             ins.record.stop();
           })
 
-          .on('click', rSave, recordStop)
+          .on('click', '.rec-save', recordStop)
 
-          .on('click', mPlay, function(){
+          .on('click', '.mv-play', function(){
             ins.movie.play();
           })
 
-          .on('click', mStop, function(){
+          .on('click', '.mv-stop', function(){
             ins.movie.stop();
           });
 
