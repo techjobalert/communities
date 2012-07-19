@@ -11,7 +11,8 @@ class ItemsController < InheritedResources::Base
       @popup = false
       @item.increment!(:views_count)
 
-      @a_pdf, @a_video = @item.regular_pdf, @item.common_video unless @item.attachments.blank?
+      @a_pdf = @item.regular_pdf;
+      @a_video = @item.common_video unless @item.attachments.blank?
     end
 
     @notice = params[:notice] if params[:notice]
