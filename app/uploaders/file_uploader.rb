@@ -160,7 +160,7 @@ class FileUploader < CarrierWave::Uploader::Base
     model.file_processing = nil
   end
 
-  def  
+  def convert_to_video
     # Save presentation file to shared folder
     # And send req to mac
     cache_stored_file! if !cached?
