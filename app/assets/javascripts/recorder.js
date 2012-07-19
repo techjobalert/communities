@@ -16,6 +16,25 @@ var Recorder = window.Recorder = {
     }
     return Recorder.playbackPoints;
   },  
+  mergeRecord: function(){
+    $('.rec-save').attr("disabled","true");
+    var data = {
+      video_id: Recorder.settings.videoId,
+      record_file_name: Recorder.settings.recordFileName,
+      playback_points: preparePoints(),
+      position: $("input[type=radio]:checked").val()
+    };
+    $.ajax({
+      url: Recorder.settings.requestUrl,
+      type: "POST",
+      dataType: "json",
+      data: data,
+      success: function(data){
+        console.log("Заебись четко!");
+        eval(data);
+      }
+    });
+  },
   initInscription: function(){
     var ins;
     var loaded = false;
@@ -110,26 +129,7 @@ var Recorder = window.Recorder = {
     $('.rec-stop').attr("disabled","true");
     $('.rec-start').removeAttr('disabled');
     $('.rec-save').removeAttr('disabled');
-  },
-  mergeRecord: function(){
-    $('.rec-save').attr("disabled","true");
-    var data = {
-      video_id: Recorder.settings.videoId,
-      record_file_name: Recorder.settings.recordFileName,
-      playback_points: Recorder.playbackPoints,
-      position: $("input[type=radio]:checked").val()
-    };
-    $.ajax({
-      url: Recorder.settings.requestUrl,
-      type: "POST",
-      dataType: "json",
-      data: data,
-      success: function(data){
-        console.log("Заебись четко!");
-        eval(data);
-      }
-    });
-  }
+  }  
 }
 
 $(document)
