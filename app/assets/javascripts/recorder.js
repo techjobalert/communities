@@ -72,6 +72,7 @@ var Recorder = window.Recorder = {
     };
 
     var onPlay = function(points) {
+      console.log(points);
       var _s = _.size(Recorder.playbackPoints);
       var points = {
         stop: points[0],
