@@ -51,7 +51,14 @@ class VideoMerge
       #-map 1:0 -map 0:1
       #command  = 'ffmpeg -i %{recordedV} -i %{presentV} -vf "movie=%{recordedV}, scale=180:-1, setpts=PTS-STARTPTS [movie];[in] setpts=PTS-STARTPTS, [movie] overlay=%{pos} [out]" %{settings} %{output}' % options
 
-    Rails.logger.debug command
+    Rails.logger.debug "---------------------------------------------------"
+    Rails.logger.debug "---------------------------------------------------"
+    Rails.logger.debug "---------------------------------------------------"
+    Rails.logger.debug "---------------------------------------------------"
+    Rails.logger.debug "-----------------------------------------#{command}"
+    Rails.logger.debug "---------------------------------------------------"
+    Rails.logger.debug "-----------------------------------------#{options.inspect}"
+    Rails.logger.debug "---------------------------------------------------"
 
     %x[#{command}]
 
