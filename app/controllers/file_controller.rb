@@ -48,6 +48,7 @@ class FileController < ApplicationController
     end
 
     attachment = Attachment.find(params[:id])
+    Rails.logger.info "------------------------------------------- #{attachment.inspect}"
     if attachment
       is_keynote = (File.extname(params[:filename]) == ".mov")
       attachment.update_attribute("file_processing", nil)
@@ -65,8 +66,10 @@ class FileController < ApplicationController
       # storing format "00:00:13,290;00:00:17,581" devider ";"
       timing = []
       if is_keynote
+        Rails.logger.info "-------------------ISKEYNOTE------------------------"
         %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
       else
+        Rails.logger.info "-------------------NOT ISKEYNOTE------------------------"
         p_source_timing = p_video+".txt"
         File.open(p_source_timing, 'r') do |file|
           file.each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
