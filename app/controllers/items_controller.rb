@@ -272,6 +272,8 @@ class ItemsController < InheritedResources::Base
 
     if video.attachment_type == "presentation_video" and params[:playback_points].present?
       CUSTOM_LOGGER.info("------------merge_presenter_video--------ProcessPresentationVideo-----")
+      CUSTOM_LOGGER.info("------------merge_presenter_video--------ProcessPresentationVideo-----#{params[:video_id]} #{presenter_video.id}")
+
       Resque.enqueue(ProcessPresentationVideo, params[:video_id], presenter_video.id, {:playback_points => params[:playback_points].values, :position => params[:position]})
     else
       CUSTOM_LOGGER.info("------------merge_presenter_video--------VideoMerge-----")
