@@ -32,8 +32,8 @@
         var time = function(string) {
             return (function(arr) {
                 return {
-                    seconds: parseInt(arr[0]),
-                    milliseconds: parseInt(arr[1])
+                    seconds: parseInt(arr[0],10),
+                    milliseconds: parseInt(arr[1],10)
                 }
             })(string.split(','));
         };
@@ -41,8 +41,8 @@
         var convert = function(string) {
             return (function(parts) {
                 return _.extend({
-                    hours: parseInt(parts[0]),
-                    minutes: parseInt(parts[1]),
+                    hours: parseInt(parts[0],10),
+                    minutes: parseInt(parts[1],10),
                 }, time(parts[2]))
             })(string.split(':'))
         };
@@ -76,7 +76,7 @@
         pause: function() {
             this.container.moviePause();
         },
-        
+
         changeScreenMode: function() {
             this.container.changeDisplayState();
         }
