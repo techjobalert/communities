@@ -46,7 +46,7 @@ class ProcessPresentationVideo
 
       #FileUtils.remove_dir(tmp_dir)
       CUSTOM_LOGGER.info("------------perform--------ProcessPresentationVideo-----")
-      #Resque.enqueue(VideoMerge, final, recorded_attachment_id, {:position => params["position"]})
+      Resque.enqueue(VideoMerge, final, recorded_attachment_id, {:position => params["position"]})
     end
   end
 end
