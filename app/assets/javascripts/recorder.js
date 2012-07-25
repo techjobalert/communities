@@ -5,7 +5,7 @@ var Recorder = window.Recorder = {
     initialize: function (params) {
       _.each(params, function(v,k){Recorder.settings[k] = v});
       Recorder.initInscription();
-    },  
+    },
     preparePoints:function(){
       //NOT USING NOW
       for (var id in Recorder.playbackPoints) {
@@ -15,7 +15,7 @@ var Recorder = window.Recorder = {
          }
       }
       return Recorder.playbackPoints;
-    },  
+    },
     mergeRecord: function(){
       $('.rec-save').attr("disabled","true");
       var data = {
@@ -30,7 +30,6 @@ var Recorder = window.Recorder = {
         dataType: "json",
         data: data,
         success: function(data){
-          console.log("Заебись четко!");
           eval(data);
         }
       });
@@ -64,7 +63,7 @@ var Recorder = window.Recorder = {
           _.each(points, function(point) {
             ins.point.add(point);
             console.log('Added point: ' + point + ' ms...');
-          });         
+          });
         }, 5000);
       }
       var callback = function() {
@@ -120,17 +119,17 @@ var Recorder = window.Recorder = {
     },
     pausePlay: function(){
       $('.mv-pause').attr("disabled","true");
-      $('.mv-play').removeAttr('disabled');    
+      $('.mv-play').removeAttr('disabled');
     },
     startRecord: function(){
       $('.rec-start').attr("disabled","true");
-      $('.rec-stop').removeAttr('disabled');    
+      $('.rec-stop').removeAttr('disabled');
     },
     stopRecord: function(){
       $('.rec-stop').attr("disabled","true");
       $('.rec-start').removeAttr('disabled');
       $('.rec-save').removeAttr('disabled');
-    }  
+    }
   }
 
   $(document)
@@ -165,6 +164,6 @@ var Recorder = window.Recorder = {
 
     .on('click', '.mv-stop', function(){
       Recorder.ins.movie.stop();
-      Recorder.stopPlay();    
+      Recorder.stopPlay();
       return false;
     });

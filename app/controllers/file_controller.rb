@@ -93,10 +93,10 @@ class FileController < ApplicationController
 
   def merge
     Resque.enqueue( VideoMerge,
-                    params[:presentationVideoFileName],
-                    params[:recordingFileName],
-                    {}
-                  )
+        params[:presentationVideoFileName],
+        params[:recordingFileName],
+        {}
+      )
     render :json => {success: true, msg: "merge request added to Q"}
   end
 

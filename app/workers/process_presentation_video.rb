@@ -1,5 +1,3 @@
-require "custom_logger"
-
 class ProcessPresentationVideo
   @queue = :store_asset
 
@@ -33,7 +31,6 @@ class ProcessPresentationVideo
 
           files << file_prefix+"_1.mp4"
           files << file_prefix+"_2.mp4"
-
         end
       end
 
@@ -48,12 +45,7 @@ class ProcessPresentationVideo
       %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 #{def_mp4_params} #{final} -map 1:0 -map 0:0]
 
       #FileUtils.remove_dir(tmp_dir)
-      CUSTOM_LOGGER.info("------------------------------------------------")
-      CUSTOM_LOGGER.info("------------------------------------------------")
-      CUSTOM_LOGGER.info("------------------------------------------------")
-      CUSTOM_LOGGER.info("----------------------#{final.inspect}")
-      CUSTOM_LOGGER.info("----------------------#{recorded_attachment_id}")
-      CUSTOM_LOGGER.info("----------------------#{params["position"]}")
+      CUSTOM_LOGGER.info("------------perform--------ProcessPresentationVideo-----")
       Resque.enqueue(VideoMerge, final, recorded_attachment_id, {:position => params["position"]})
     end
   end
