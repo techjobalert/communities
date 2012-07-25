@@ -8,10 +8,10 @@ class VideoMerge
     else
       p_att = present_attachment
     end
-    logger.debug("----------------------------------------11111")
-    logger.debug("----------------------------------------11111")
-    logger.debug("----------------------------------------11111")
-    logger.debug("----------------------------------------11111")
+    puts "----------------------1111"
+    puts "----------------------1111"
+    puts "----------------------1111"
+    puts "----------------------1111"
     recorded_attachment = Attachment.find(recorded_attachment_id)
     r_att = recorded_attachment.file.path
     p r_att
