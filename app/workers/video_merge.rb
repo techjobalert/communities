@@ -2,16 +2,16 @@ class VideoMerge
   @queue = :store_asset
 
   def self.perform(present_attachment, recorded_attachment_id, params)
+    require "custom_logger"
+    CUSTOM_LOGGER.info("info from custom logger")
+
     if not (present_attachment =~ /^[0-9]+$/).nil?
       _present_attachment = Attachment.find(present_attachment)
       p_att = _present_attachment.file.mp4.path
     else
       p_att = present_attachment
     end
-    puts "----------------------1111"
-    puts "----------------------1111"
-    puts "----------------------1111"
-    puts "----------------------1111"
+
     recorded_attachment = Attachment.find(recorded_attachment_id)
     r_att = recorded_attachment.file.path
     p r_att
