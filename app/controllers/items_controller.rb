@@ -237,7 +237,8 @@ class ItemsController < InheritedResources::Base
       :user_id          => current_user.id,
       :file             => params[:file],
       :attachment_type  => params[:attachment_type] || "regular",
-      :item_id          => @item.id
+      :item_id          => @item.id,
+      :file_processing  => true
     }
 
     # delete last file by type
