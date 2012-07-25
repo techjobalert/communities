@@ -3,7 +3,9 @@ class VideoMerge
 
   def self.perform(present_attachment, recorded_attachment_id, params)
     require "custom_logger"
-    CUSTOM_LOGGER.info("info from custom logger")
+    CUSTOM_LOGGER.info("----VideoMerge----------present_attachment------#{present_attachment}")
+    CUSTOM_LOGGER.info("----VideoMerge----------recorded_attachment_id------#{recorded_attachment_id}")
+    CUSTOM_LOGGER.info("----VideoMerge----------params------#{params.inspect}")
 
     if not (present_attachment =~ /^[0-9]+$/).nil?
       _present_attachment = Attachment.find(present_attachment)
@@ -12,11 +14,21 @@ class VideoMerge
       p_att = present_attachment
     end
 
+    CUSTOM_LOGGER.info("----VideoMerge-----------p_att-----#{p_att}")
+
     recorded_attachment = Attachment.find(recorded_attachment_id)
+
+    CUSTOM_LOGGER.info("----VideoMerge-----------recorded_attachment-----#{recorded_attachment.inspect}")
+
     r_att = recorded_attachment.file.path
     p r_att
+
+    CUSTOM_LOGGER.info("----VideoMerge-----------r_att-----#{r_att.inspect}")
+
     # r_att = recorded_attachment.file.path.to_s
     output = File.join(File.dirname(p_att), SecureRandom.uuid.split("-").join() + ".mp4")
+
+    CUSTOM_LOGGER.info("----VideoMerge-----------output-----#{output.inspect}")
 
     # add_logo = false
     # logo = "movie=%{logo} [logo]; [in][logo] overlay=%{pos} [out]" % {
@@ -43,7 +55,7 @@ class VideoMerge
       end
       options.merge!({:pos => self.add_position(p)})
     end
-
+    CUSTOM_LOGGER.info("----VideoMerge-----------options-----#{options.inspect}")
     # command = 'ffmpeg -i %{presentV} -vf "movie=%{recordedV} [mv]; [in][mv] overlay=%{pos} [out]" -vcodec libx264 -preset medium %{output}' % options
     # ffmpeg.exe -i LeftInput.mp4 -vf "[in] scale=iw/2:ih/2, pad=2*iw:ih [left]; movie=RightInput.mp4, scale=iw/3:ih/3, fade=out:300:30:alpha=1 [right]; [left][right] overlay=main_w/2:0 [out]" -b:v 768k Output.mp4
 
@@ -57,11 +69,13 @@ class VideoMerge
 
     %x[#{command}]
 
+    CUSTOM_LOGGER.info("----VideoMerge-----------command-----#{command.inspect}")
+
     recorded_attachment.item.attachments << Attachment.new({
       :file => File.open(output),
       :user => recorded_attachment.item.user,
       :attachment_type => "presenter_merged_video"})
-    File.delete(output)
+    # File.delete(output)
   end
 
   def self.add_pad(pad="mr", w=480, h=480, color="black")

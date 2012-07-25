@@ -262,7 +262,7 @@ class ItemsController < InheritedResources::Base
       :attachment_type => "presenter_video"})
 
     # Removing source file
-    FileUtils.rm([webcam_record_path, wr_with_meta_data, wr_24fps], :verbose => true)
+    # FileUtils.rm([webcam_record_path, wr_with_meta_data, wr_24fps], :verbose => true)
     # Remove prev presenter_video attachments -> move this to model :after_create
 
     @item.attachments << presenter_video
