@@ -62,7 +62,7 @@ class VideoMerge
     # File.delete(output)
   end
 
-  def self.add_pad(pad="mr", w=480, h=480, color="black")
+  def self.add_pad(pad="mr", w=680, h=680, color="black")
     case pad
     when 'mr'
       "in_w+#{w}:in_h:0:0:#{color}"
