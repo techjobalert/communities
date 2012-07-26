@@ -64,7 +64,7 @@
         }
         _playbackPoints.push({start: _playbackPoints.length ? t : 0});
         $("#play-button").attr("disabled","true");
-        console.log(playbackPoints);
+        console.log(_playbackPoints);
       },
       endedCallback = function(){
         stopSync();
