@@ -52,7 +52,7 @@
 
     - elsif user_signed_in? && item.paid? && !item.purchased?(current_user)
       = link_to "", orders_path, :remote => true, :id => "account-form-dialog", :class => "btn buy-item", :method => :post
-  = @a_video.inspect
+
   - unless @a_video
     .text.pic
       = image_tag('/assets/logo.png', :width => '200')
@@ -70,6 +70,8 @@
             - pdf = @item.paid_view?(current_user)
             -if pdf
               = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
+      - else
+        %i Your attachment will be placed here after processings
 
   - if @a_video
     .text.video
