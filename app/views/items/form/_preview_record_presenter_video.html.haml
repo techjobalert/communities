@@ -99,6 +99,9 @@
       },
       stopSync = function(){
         videoPlayer.pause();
+        videoPlayer.play();
+        videoPlayer.pause();
+        _playbackPoints.pop();
         clearInterval(innerIntervarTimer);
         stopRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Start sync";
