@@ -15,24 +15,19 @@ class ProcessPresentationVideo
       FileUtils.mkdir_p(tmp_dir)
 
       timing.each_with_index do |t, idx|
-        if idx+1 <= timing.size and [t['start'], t['stop'], t['duration'], t['pause_duration']].all?
+        if idx <= timing.size and [t['start'], t['stop'], t['duration'], t['pause_duration']].all?
           hex = idx.to_s+"_"+SecureRandom.hex(10)
           file_prefix = File.join(tmp_dir, hex)
           pic_path = File.join(tmp_dir, hex)+".jpg"
           # pic
           %x[ffmpeg -i #{p_att} -ss #{t['stop'].gsub(',', '.')} -sameq -vframes 1 #{pic_path}]
-          CUSTOM_LOGGER.info("----------------------------------------");
-          CUSTOM_LOGGER.info("----ffmpeg -i #{p_att} -ss #{t['stop'].gsub(',', '.')} -sameq -vframes 1 #{pic_path}")
 
           # part before paused
           %x[ffmpeg -i #{p_att}  -ss #{t['start'].gsub(',', '.')} -t #{t['duration'].gsub(',', '.')} -r #{frame_rate} #{def_mp4_params} #{file_prefix}_1.mp4]
-          CUSTOM_LOGGER.info("----%x[ffmpeg -i #{p_att}  -ss #{t['start'].gsub(',', '.')} -t #{t['duration'].gsub(',', '.')} -r #{frame_rate} #{def_mp4_params} #{file_prefix}_1.mp4]")
 
           # %x[mencoder -oac copy -ovc copy -ss #START_TIME# -endPos #DURATION#  input.avi -o clip.avi]
           # paused part
           %x[ffmpeg -loop 1 -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -ar 44100 -i /dev/zero -vcodec libx264 -preset medium -tune animation -vprofile baseline -r #{frame_rate} -t #{t['pause_duration'].gsub(',', '.')} -map 0:0 -map 1:0 #{file_prefix}_2.mp4]
-          CUSTOM_LOGGER.info("----ffmpeg -loop 1 -f image2 -i #{pic_path} -acodec pcm_s16le -f s16le -ar 44100 -i /dev/zero -vcodec libx264 -preset medium -tune animation -vprofile baseline -r #{frame_rate} -t #{t['pause_duration'].gsub(',', '.')} -map 0:0 -map 1:0 #{file_prefix}_2.mp4")
-          CUSTOM_LOGGER.info("----------------------------------------");
 
           files << file_prefix+"_1.mp4"
           files << file_prefix+"_2.mp4"
@@ -47,14 +42,10 @@ class ProcessPresentationVideo
       mnc_opts = "-ovc x264 -x264encopts subq=6:partitions=all:8x8dct:me=umh:frameref=5:bframes=3:weight_b:crf=20 -oac faac -nosound"
       %x[mencoder #{mnc_opts} #{files.join(" ")} -o #{file_no_sound}]
 
-      CUSTOM_LOGGER.info("----mencoder #{mnc_opts} #{files.join(" ")} -o #{file_no_sound}");
-
       # add empty audio track
       %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 #{def_mp4_params} #{final} -map 1:0 -map 0:0]
-      CUSTOM_LOGGER.info("----ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 #{def_mp4_params} #{final} -map 1:0 -map 0:0");
 
       #FileUtils.remove_dir(tmp_dir)
-      CUSTOM_LOGGER.info("------------perform--------ProcessPresentationVideo-----")
       Resque.enqueue(VideoMerge, final, recorded_attachment_id, {:position => params["position"]})
     end
   end
