@@ -52,7 +52,7 @@
 
     - elsif user_signed_in? && item.paid? && !item.purchased?(current_user)
       = link_to "", orders_path, :remote => true, :id => "account-form-dialog", :class => "btn buy-item", :method => :post
-
+  = @a_video.inspect
   - unless @a_video
     .text.pic
       = image_tag('/assets/logo.png', :width => '200')
