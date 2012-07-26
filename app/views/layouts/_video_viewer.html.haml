@@ -55,7 +55,7 @@
       // mediaElement.addEventListener("pause", pauseCallback);
       // mediaElement.addEventListener("ended", endedCallback);
       // add event listener
-      if ("#{attachment.attachment_type=='presentation_video'}" && "#{timing}"){
+      if ("#{attachment.attachment_type=='presentation_video'}" == "true" && "#{timing}" == "true"){
         var timing = "#{attachment.timing}".split(";");
         var _timing = [];
         var interval = 225;
