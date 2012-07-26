@@ -101,7 +101,7 @@
         videoPlayer.pause();
         clearInterval(innerIntervarTimer);
         var t = videoPlayer.media.currentTime;
-
+        var p = _playbackPoints.length - 1;
         _playbackPoints[p]['stop'] = t;
         _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
         _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
