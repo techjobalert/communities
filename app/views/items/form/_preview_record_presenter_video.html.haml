@@ -64,6 +64,7 @@
         }
         _playbackPoints.push({start: _playbackPoints.length ? t : 0});
         $("#play-button").attr("disabled","true");
+        console.log(playbackPoints);
       },
       endedCallback = function(){
         stopSync();
@@ -123,7 +124,8 @@
     }
     ,false);
 
-  MediaElement('videoPlayer', {success: function(me) {
+  MediaElement('videoPlayer', {success: function(me, domObject) {
+    console.log(me);
     me.addEventListener("pause", pauseCallback);
     me.addEventListener("play",  playCallback);
     me.addEventListener("ended", endedCallback);
