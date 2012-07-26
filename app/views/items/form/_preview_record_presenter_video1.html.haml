@@ -1,0 +1,53 @@
+.fl-l{:style => "width:900px"}
+  .b-recorder
+    #inscription.b-recorder__player
+    .b-recorder__tools
+
+      = button_tag(:class => 'link mv-play', :type => 'button') do
+        = content_tag(:strong, 'Movie Play')
+      = button_tag(:class => 'link mv-pause',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Movie Pause')
+      = button_tag(:class => 'link mv-stop',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Movie Stop')
+      = button_tag(:class => 'link rec-start',:type => 'button') do
+        = content_tag(:strong, 'Record Start')
+      = button_tag(:class => 'link rec-stop',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Record Stop')
+      = button_tag(:class => 'link rec-save',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Record Save')
+
+
+  .b-upload-item
+    .b-upload-item__title.hr Choose thumbnail
+
+  .b-upload-item__presenter-video
+
+    = label_tag "pos_br", "" do
+      = radio_button_tag "pos", "br", true, :title => "bottom right"
+      = image_tag "video/presenter-video-rb.jpg"
+
+    = label_tag "pos_tl", "" do
+      = radio_button_tag "pos", "tl", false, :title => "top left"
+      = image_tag "video/presenter-video-lt.jpg"
+
+    = label_tag "pos_mr", "" do
+      = radio_button_tag "pos", "mr", false, :title => "middle right"
+      = image_tag "video/presenter-video-r.jpg"
+
+    = label_tag "pos_ml", "" do
+      = radio_button_tag "pos", "ml", false, :title => "middle left"
+      = image_tag "video/presenter-video-l.jpg"
+
+:javascript
+  $(function(){
+    Recorder.settings = {
+      timing: "#{@a_video.timing}",
+      recordFileName: Inscription.filename(),
+      videoId: "#{@a_video.id}",
+      requestUrl: "#{item_merge_presenter_video_url(@item)}",
+      resourceLink: "#{secure_link( @a_video,  @a_video.file.mp4.url())}",
+      server: 'rtmp://89.209.76.243',
+      container: "inscription"
+    };
+    Recorder.initialize();
+  });
