@@ -100,6 +100,16 @@
       stopSync = function(){
         videoPlayer.pause();
         clearInterval(innerIntervarTimer);
+        if (currentPos){
+          var p = currentPos-1, t = videoPlayer.media.currentTime;
+          if (currentStopTime){
+            t = currentStopTime;
+            currentStopTime = undefined;
+          }
+          _playbackPoints[p]['stop'] = t;
+          _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
+          _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
+        }
         stopRecord();
         document.getElementById("recorder-stop-start").innerHTML = "Start sync";
         syncBool = false;
