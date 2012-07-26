@@ -117,7 +117,19 @@
         $("#recorder-stop-start").attr("disabled","true");
       },
       mergeFunc = function(){
-        console.log(playbackPoints);
+        var data = {  video_id: "#{@a_video.id}",
+                      record_file_name: recordingFileName,
+                      playback_points: playbackPoints,
+                      position: $("input[type=radio]:checked").val()};
+        $.ajax({
+          url: "#{item_merge_presenter_video_url(@item)}",
+          type: "POST",
+          dataType: "json",
+          data: data,
+          success: function(data){
+            eval(data);
+          }
+        });
       };
 
   //removing play/pause button
