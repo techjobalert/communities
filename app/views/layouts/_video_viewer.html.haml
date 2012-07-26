@@ -1,3 +1,4 @@
+- timing = timing || false
 - w||= 435
 - h||= 264
 - features||= "playpause,progress,current,duration,tracks,volume,fullscreen"
@@ -54,7 +55,7 @@
       // mediaElement.addEventListener("pause", pauseCallback);
       // mediaElement.addEventListener("ended", endedCallback);
       // add event listener
-      if ("#{attachment.attachment_type=='presentation_video'}" && "#{timing === true}"){
+      if ("#{attachment.attachment_type=='presentation_video'}" && "#{timing}"){
         var timing = "#{attachment.timing}".split(";");
         var _timing = [];
         var interval = 225;
