@@ -13,7 +13,7 @@
       = button_tag(:class => 'link rec-save',:type => 'button', :disabled => true) do
         = content_tag(:strong, 'Record Save')
 
-    #recorder-status.status
+    #recorder-status.status Loading...
     .clearfix
 
   .b-upload-item
@@ -71,7 +71,6 @@
       },
       endedCallback = function(){
         stopSync();
-        console.log("video end");
       },
       prestartSync = function(){
         if (presync || !canPlay) return false;
@@ -80,7 +79,7 @@
             el = document.getElementById("recorder-status"),
             interval = setInterval( function(){
               duration--;
-              el.innerHTML = duration;
+              el.innerHTML = "Please wait " + duration + " sec";
               $(el).blinkText();
               if (duration == 0){
                 clearInterval(interval);

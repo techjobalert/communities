@@ -22,10 +22,12 @@ $ ->
       $(".rec-start").attr('disabled','true');
       $(".rec-save").removeAttr('disabled');
 
-      $(".recorder-status").text = "Recording.."
+      $(".recorder-status")
+        .text = "Recording..."
+        .blinkText();
     stopRecord = ->
       recorder.stopRecording()
       $(".rec-save").attr('disabled','true');
       $(".rec-start").removeAttr('disabled');
-      $(".recorder-status").text = ""
+      $(".recorder-status").text = "Recording is completed"
       recordind = false

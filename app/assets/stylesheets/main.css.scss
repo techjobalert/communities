@@ -916,17 +916,21 @@ h3 {
 }
 
 .b-recorder {
+  .status {
+      float: right;
+      background: #F0F0F0;
+      padding: 6px 15px;
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5) inset;
+      border-radius: 4px;
+      margin-right: 2px;
+      font-size: 11px;
+      line-height: 11px;
+      height: 11px;
+      color: #555;
+      text-shadow: 1px 1px 0 white;
+    }
   .b-recorder__tools {
     float: left;
-
-    .status {
-      float: right;
-      border: none;
-      background: #f0f0f0;
-      border-radius: 4px;
-      box-shadow: 1px 1px 3px rgba(0,0,0,0.5) inset;
-      padding: 5px 10px;
-    }
 
     .link {
       display: inline-block;
