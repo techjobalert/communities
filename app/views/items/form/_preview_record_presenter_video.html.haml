@@ -10,13 +10,9 @@
 
   .b-recorder
     .b-recorder__tools
-      = button_tag(:class => 'link mv-play', :type => 'button') do
+      = button_tag(:class => 'link mv-play', :type => 'button', :onclick => "videoPlayer.play()", :disabled => true) do
         = content_tag(:strong, 'Movie Play')
-      = button_tag(:class => 'link mv-pause',:type => 'button', :disabled => true) do
-        = content_tag(:strong, 'Movie Pause')
-      = button_tag(:class => 'link mv-stop',:type => 'button', :disabled => true) do
-        = content_tag(:strong, 'Movie Stop')
-      = button_tag(:class => 'link rec-start',:type => 'button') do
+      = button_tag(:class => 'link rec-start',:type => 'button', :disabled => true) do
         = content_tag(:strong, 'Record Start')
       = button_tag(:class => 'link rec-stop',:type => 'button', :disabled => true) do
         = content_tag(:strong, 'Record Stop')
@@ -63,7 +59,7 @@
         innerTimer = 0;
         innerIntervarTimer = setInterval(function(){ innerTimer = parseFloat((innerTimer + 0.1).toFixed(3))}, 100);
         if (_playbackPoints.length) currentPos++;
-        $("#play-button").removeAttr('disabled');
+        $(".mv-play").removeAttr('disabled');
       },
       playCallback = function(){
         clearInterval(innerIntervarTimer);
@@ -78,8 +74,7 @@
           _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
         }
         _playbackPoints.push({start: _playbackPoints.length ? t : 0});
-        $("#play-button").attr("disabled","true");
-        console.log(_playbackPoints);
+        $(".mv-play").attr("disabled","true");
       },
       endedCallback = function(){
         stopSync();
@@ -103,12 +98,13 @@
       },
       canPlayCallback = function(){
         canPlay = true;
-        $("#recorder-stop-start").removeAttr('disabled');
+        $(".rec-start").removeAttr('disabled');
       },
       startSync = function(){
         videoPlayer.play();
         startRecord();
-        document.getElementById("recorder-stop-start").innerHTML = "Stop sync";
+        $(".rec-start").attr('disabled','true');
+        $(".rec-stop").removeAttr('disabled');
         syncBool = true;
         presync = false;
       },
@@ -122,14 +118,15 @@
         _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
 
         stopRecord();
-        document.getElementById("recorder-stop-start").innerHTML = "Start sync";
+        $(".rec-stop").attr('disabled','true');
+        $(".rec-start").removeAttr('disabled');
         syncBool = false;
         playbackPoints = _playbackPoints;
         _playbackPoints, innerIntervarTimer = [], undefined;
         videoPlayer.media.setCurrentTime(0);
         mergeFunc();
-        $("#play-button").attr("disabled","true");
-        $("#recorder-stop-start").attr("disabled","true");
+        $(".mv-play").attr("disabled","true");
+        $(".rec-start").attr("disabled","true");
       },
       mergeFunc = function(){
         var data = {  video_id: "#{@a_video.id}",
@@ -152,13 +149,19 @@
   // disable controls
   //videoPlayer.disableControls();
 
-  document.getElementById("recorder-stop-start").addEventListener('click', function(){
-      syncBool ? stopSync() : prestartSync();
+  document.getElementsByClassName("mv-start")[0].addEventListener('click', function(){
+      prestartSync();
     }
     ,false);
 
+  document.getElementsByClassName("mv-stop")[0].addEventListener('click', function(){
+      stopSync();
+    }
+    ,false);
+
+
+
   MediaElement('videoPlayer', {success: function(me, domObject) {
-    console.log(me);
     me.addEventListener("pause", pauseCallback);
     me.addEventListener("play",  playCallback);
     me.addEventListener("ended", endedCallback);

@@ -917,7 +917,7 @@ h3 {
 
 .b-recorder {
   .b-recorder__tools {
-    
+
 
     .link {
       display: inline-block;
@@ -943,7 +943,7 @@ h3 {
     .rec-stop {
       background: url(/assets/video/rec.png);
     }
-    .rec-stop, .rec-start {
+    .rec-stop, .rec-start, .rec-save {
       &[disabled=true], &[disabled=disabled], &:disabled {
         display: none;
       }
@@ -952,9 +952,9 @@ h3 {
     .mv-play {
       background: url(/assets/video/play.png);
     }
-    
+
     .mv-stop {
-      background: url(/assets/video/stop.png);      
+      background: url(/assets/video/stop.png);
     }
 
     .mv-pause {

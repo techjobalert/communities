@@ -3,9 +3,11 @@ $ ->
   if recorder.lenght
     recordind = false
 
-    $(".recorder-stop-start").on "click", (->
-      (if recordind then stopRecord() else record())
+    $(".link rec-start").on "click", (->
+      record()
     )
+    $(".link rec-stop").on "click", (->
+      stopRecord() if recordind
 
     jsListener = (type, arguments) ->
       console.debug type + ":" + arguments
@@ -17,10 +19,13 @@ $ ->
         filename = today + "_webcamvideo.mp4"
         recordind = true
       recorder.record filename
-      $(".recorder-stop-start").text = "stop"
+      $(".rec-start").attr('disabled','true');
+      $(".rec-stop").removeAttr('disabled');
+
       $(".recorder-status").text = "Recording.."
     stopRecord = ->
       recorder.stopRecording()
-      $(".recorder-stop-start").text = "start"
+      $(".rec-stop").attr('disabled','true');
+      $(".rec-start").removeAttr('disabled');
       $(".recorder-status").text = ""
       recordind = false
