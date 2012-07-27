@@ -8,6 +8,21 @@
     = button_tag(:id => 'play-button',:type => 'button', :onclick => "videoPlayer.play()", :disabled => true) do
       = content_tag(:strong, 'Play')
 
+  .b-recorder
+    .b-recorder__tools
+      = button_tag(:class => 'link mv-play', :type => 'button') do
+        = content_tag(:strong, 'Movie Play')
+      = button_tag(:class => 'link mv-pause',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Movie Pause')
+      = button_tag(:class => 'link mv-stop',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Movie Stop')
+      = button_tag(:class => 'link rec-start',:type => 'button') do
+        = content_tag(:strong, 'Record Start')
+      = button_tag(:class => 'link rec-stop',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Record Stop')
+      = button_tag(:class => 'link rec-save',:type => 'button', :disabled => true) do
+        = content_tag(:strong, 'Record Save')
+
     %ul.recorder-control.fl-r
       %li#recorder-status.recorder-icon{:style => "padding-top: 5px;"}
     .clearfix
