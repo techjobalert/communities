@@ -3,10 +3,6 @@
   .fl-r
     = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video, :w => 920,:h=>600, :preload => true, :features => "progress,duration,fullscreen", :timing => true}, :inline => true
   .clearfix
-    = button_tag(:id => 'recorder-stop-start', :type => 'button', :disabled => true) do
-      = content_tag(:strong, 'Start record')
-    = button_tag(:id => 'play-button',:type => 'button', :onclick => "videoPlayer.play()", :disabled => true) do
-      = content_tag(:strong, 'Play')
 
   .b-recorder
     .b-recorder__tools
@@ -14,13 +10,10 @@
         = content_tag(:strong, 'Movie Play')
       = button_tag(:class => 'link rec-start',:type => 'button', :disabled => true) do
         = content_tag(:strong, 'Record Start')
-      = button_tag(:class => 'link rec-stop',:type => 'button', :disabled => true) do
-        = content_tag(:strong, 'Record Stop')
       = button_tag(:class => 'link rec-save',:type => 'button', :disabled => true) do
         = content_tag(:strong, 'Record Save')
 
-    %ul.recorder-control.fl-r
-      %li#recorder-status.recorder-icon{:style => "padding-top: 5px;"}
+    #recorder-status.status
     .clearfix
 
   .b-upload-item
@@ -104,7 +97,7 @@
         videoPlayer.play();
         startRecord();
         $(".rec-start").attr('disabled','true');
-        $(".rec-stop").removeAttr('disabled');
+        $(".rec-save").removeAttr('disabled');
         syncBool = true;
         presync = false;
       },
@@ -118,7 +111,7 @@
         _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
 
         stopRecord();
-        $(".rec-stop").attr('disabled','true');
+        $(".rec-save").attr('disabled','true');
         $(".rec-start").removeAttr('disabled');
         syncBool = false;
         playbackPoints = _playbackPoints;
@@ -154,7 +147,7 @@
     }
     ,false);
 
-  document.getElementsByClassName("rec-stop")[0].addEventListener('click', function(){
+  document.getElementsByClassName("rec-save")[0].addEventListener('click', function(){
       stopSync();
     }
     ,false);

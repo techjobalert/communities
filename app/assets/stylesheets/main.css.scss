@@ -917,7 +917,16 @@ h3 {
 
 .b-recorder {
   .b-recorder__tools {
+    float: left;
 
+    .status {
+      float: right;
+      border: none;
+      background: #f0f0f0;
+      border-radius: 4px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.5) inset;
+      padding: 5px 10px;
+    }
 
     .link {
       display: inline-block;

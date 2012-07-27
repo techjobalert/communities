@@ -6,7 +6,7 @@ $ ->
     $(".link rec-start").on "click", (->
       record()
     )
-    $(".link rec-stop").on "click", (->
+    $(".link rec-save").on "click", (->
       stopRecord() if recordind
 
     jsListener = (type, arguments) ->
@@ -20,12 +20,12 @@ $ ->
         recordind = true
       recorder.record filename
       $(".rec-start").attr('disabled','true');
-      $(".rec-stop").removeAttr('disabled');
+      $(".rec-save").removeAttr('disabled');
 
       $(".recorder-status").text = "Recording.."
     stopRecord = ->
       recorder.stopRecording()
-      $(".rec-stop").attr('disabled','true');
+      $(".rec-save").attr('disabled','true');
       $(".rec-start").removeAttr('disabled');
       $(".recorder-status").text = ""
       recordind = false
