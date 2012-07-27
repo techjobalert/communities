@@ -62,8 +62,8 @@
             t = currentStopTime;
             currentStopTime = undefined;
           }
-          _playbackPoints[p]['stop'] = videoPlayer.media.duration;
-          _playbackPoints[p]['duration'] = videoPlayer.media.duration - _playbackPoints[p]['start'];
+          _playbackPoints[p]['stop'] = t;
+          _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
           _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
         }
         _playbackPoints.push({start: _playbackPoints.length ? t : 0});
@@ -103,7 +103,7 @@
       stopSync = function(){
         videoPlayer.pause();
         clearInterval(innerIntervarTimer);
-        var t = videoPlayer.media.currentTime;
+        var t = videoPlayer.media.duration;
         var p = _playbackPoints.length - 1;
         _playbackPoints[p]['stop'] = t;
         _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
