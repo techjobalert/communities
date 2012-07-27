@@ -133,38 +133,38 @@ var Recorder = window.Recorder = {
     }
   }
 
-  // $(document)
-  //   .on('click', '.rec-start', function(){
-  //     Recorder.ins.record.start(Recorder.settings.recordFileName);
-  //     Recorder.startRecord();
-  //     return false;
-  //   })
+  $(document)
+    .on('click', '.rec-start', function(){
+      Recorder.ins.record.start(Recorder.settings.recordFileName);
+      Recorder.startRecord();
+      return false;
+    })
 
-  //   .on('click', '.rec-stop', function(){
-  //     Recorder.ins.record.stop();
-  //     Recorder.stopRecord();
-  //     return false;
-  //   })
+    .on('click', '.rec-stop', function(){
+      Recorder.ins.record.stop();
+      Recorder.stopRecord();
+      return false;
+    })
 
-  //   .on('click', '.rec-save', function(){
-  //     Recorder.mergeRecord();
-  //     return false;
-  //   })
+    .on('click', '.rec-save', function(){
+      Recorder.mergeRecord();
+      return false;
+    })
 
-  //   .on('click', '.mv-play', function(){
-  //     Recorder.ins.movie.play();
-  //     Recorder.startPlay();
-  //     return false;
-  //   })
+    .on('click', '.mv-play', function(){
+      Recorder.ins.movie.play();
+      Recorder.startPlay();
+      return false;
+    })
 
-  //   .on('click', '.mv-pause', function(){
-  //     Recorder.ins.movie.pause();
-  //     Recorder.pausePlay();
-  //     return false;
-  //   })
+    .on('click', '.mv-pause', function(){
+      Recorder.ins.movie.pause();
+      Recorder.pausePlay();
+      return false;
+    })
 
-  //   .on('click', '.mv-stop', function(){
-  //     Recorder.ins.movie.stop();
-  //     Recorder.stopPlay();
-  //     return false;
-  //   });
+    .on('click', '.mv-stop', function(){
+      Recorder.ins.movie.stop();
+      Recorder.stopPlay();
+      return false;
+    });
