@@ -32,7 +32,7 @@
       recordingFileName = today+"-webcamvideo.flv";
       recordind = true;
     }
-    else{
+    else {
       recordingFileName = fileName;
     }
 
@@ -40,13 +40,13 @@
     $(".rec-start").attr('disabled','true');
     $(".rec-save").removeAttr('disabled');
 
-    document.getElementById("recorder-status").innerHTML = "Recording..";
+    document.getElementById("recorder-status").innerHTML = "Recording...";
   }
   var stopRecord = function(){
     recorder.stopRecording();
     $(".rec-save").attr('disabled','true');
     $(".rec-start").removeAttr('disabled');
-    document.getElementById("recorder-status").innerHTML = "";
+    document.getElementById("recorder-status").innerHTML = "Recording is completed";
     recordind = false;
   }
 </script>

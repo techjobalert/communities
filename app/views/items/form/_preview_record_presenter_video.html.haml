@@ -63,7 +63,7 @@
             currentStopTime = undefined;
           }
           _playbackPoints[p]['stop'] = t;
-          _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
+          _playbackPoints[p]['duration'] = videoPlayer.media.duration - _playbackPoints[p]['start'];
           _playbackPoints[p]['pause_duration'] = innerTimer; // secondsToHms(innerTimer);
         }
         _playbackPoints.push({start: _playbackPoints.length ? t : 0});
