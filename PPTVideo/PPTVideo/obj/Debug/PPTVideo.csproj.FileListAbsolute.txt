@@ -1,0 +1,7 @@
+D:\Provectus\Medical project\PPTVideo\PPTVideo\obj\Debug\PPTVideo.csproj.ResolveComReference.cache
+D:\Provectus\Medical project\PPTVideo\PPTVideo\bin\Debug\PPTVideo.exe
+D:\Provectus\Medical project\PPTVideo\PPTVideo\bin\Debug\PPTVideo.pdb
+D:\Provectus\Medical project\PPTVideo\PPTVideo\obj\Debug\ResolveAssemblyReference.cache
+D:\Provectus\Medical project\PPTVideo\PPTVideo\obj\Debug\PPTVideo.exe
+D:\Provectus\Medical project\PPTVideo\PPTVideo\obj\Debug\PPTVideo.pdb
+D:\Provectus\Medical project\PPTVideo\PPTVideo\bin\Debug\PPTVideo.exe.config
