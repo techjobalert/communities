@@ -62,11 +62,11 @@
             t = currentStopTime;
             currentStopTime = undefined;
           }
-          _playbackPoints[p]['stop'] = t - 0.050;
-          _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
-          _playbackPoints[p]['pause_duration'] = innerTimer ? innerTimer : 0.5; // secondsToHms(innerTimer);
+          _playbackPoints[p]['stop'] = t - 0.041999999999999815;
+          _playbackPoints[p]['duration'] = _playbackPoints[p]['stop'] - _playbackPoints[p]['start'];
+          _playbackPoints[p]['pause_duration'] = innerTimer ? innerTimer : 1; // secondsToHms(innerTimer);
         }
-        _playbackPoints.push({start: _playbackPoints.length ? t : 0});
+        _playbackPoints.push({start: _playbackPoints.length ? t - 0.041999999999999815 : 0});
         $(".mv-play").attr("disabled","true");
       },
       endedCallback = function(){
@@ -105,9 +105,10 @@
         clearInterval(innerIntervarTimer);
         var t = videoPlayer.media.duration;
         var p = _playbackPoints.length - 1;
-        _playbackPoints[p]['stop'] = t - 0.050;
-        _playbackPoints[p]['duration'] = t - _playbackPoints[p]['start'];
-        _playbackPoints[p]['pause_duration'] = innerTimer ? innerTimer : 0.5; // secondsToHms(innerTimer);
+        _playbackPoints[p]['stop'] = t - 0.041999999999999815;
+        _playbackPoints[p]['duration'] = _playbackPoints[p]['stop'] - _playbackPoints[p]['start'];
+        _playbackPoints[p]['pause_duration'] = innerTimer ? innerTimer : 1; // secondsToHms(innerTimer);
+
 
         stopRecord();
         $(".rec-save").attr('disabled','true');
@@ -121,6 +122,7 @@
         $(".rec-start").attr("disabled","true");
       },
       mergeFunc = function(){
+        console.log(playbackPoints)
         var data = {  video_id: "#{@a_video.id}",
                       record_file_name: recordingFileName,
                       playback_points: playbackPoints,

@@ -362,6 +362,7 @@ class ItemsController < InheritedResources::Base
 
   def russian_translit!(params)
     params[:file].original_filename = Russian.translit(params[:name])
+    params[:file].original_filename = params[:file].original_filename.gsub("\s","_")
     params
   end
 end

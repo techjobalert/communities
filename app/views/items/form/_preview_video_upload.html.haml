@@ -13,11 +13,11 @@
         movies and articles.
     .row
       .fl-l#filelist
-
+- url = @item ? upload_attachment_items_path(:item_id => @item.id) : upload_attachment_items_path
 :javascript
   $(function(){
     var uploaderAttachment = $.initPlupload({
-        url: "#{item_upload_attachment_path(@item)}",
+        url: "#{url}",
         filters: [],
         max_file_size: "1000mb",
         browse_button: "regular-pickfiles",
