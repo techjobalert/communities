@@ -43,7 +43,7 @@
   var recording = false,
       recordingFileName,
       recorder = document.recorder,
-      uuid = '<%= uuid %>',
+      uuid = "#{@uuid}",
       videoPlayer = new MediaElementPlayer('#videoPlayer'),
       _playbackPoints = [],
       currentPos = 0,
@@ -67,7 +67,7 @@
     _playbackPoints = [];
     currentPos = 0;
     videoPlayer.media.setCurrentTime(0);
-    //recorder.record(recordingFileName);
+    recorder.record(recordingFileName);
     $(".rec-start").attr('disabled','true');
     $(".rec-save").attr('disabled','true');
 
@@ -75,7 +75,7 @@
   }
 
   var stopRecord = function(){
-    //recorder.stopRecording();
+    recorder.stopRecording();
     $(".rec-save").attr('disabled','true');
     $(".rec-start").removeAttr('disabled');
     document.getElementById("recorder-status").innerHTML = "Recording is completed";
@@ -191,7 +191,7 @@
       playback_points: playbackPoints,
       position: $("input[type=radio]:checked").val()
     };
-
+    $(".rec-save").attr('disabled','true');
     $.ajax({
       url: "#{item_merge_presenter_video_url(@item)}",
       type: "POST",
@@ -213,5 +213,9 @@
 
   document.getElementsByClassName("rec-start")[0].addEventListener('click', function(){
       prestartSync();
+    },false);
+
+  document.getElementsByClassName("rec-save")[0].addEventListener('click', function(){
+      mergeFunc();
     },false);
 
