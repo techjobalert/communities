@@ -1,7 +1,7 @@
 - timing = timing || false
 - w||= 435
 - h||= 264
-- features||= "playpause,progress,current,duration,tracks,volume,fullscreen"
+- features||= "playpause,current,duration,tracks,volume,fullscreen"
 - preload||= "true"
 - att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
 
@@ -23,11 +23,12 @@
     %img{:height => "#{h}", :src => "#{attachment.file.video_thumbnail.url}", :title => "No video playback capabilities", :width => "#{w}"}
 
 :javascript
-  var defaultFeatures = ['playpause','progress','current','duration','tracks','volume','fullscreen'];
+  //var defaultFeatures = ['playpause','progress','current','duration','tracks','volume','fullscreen'];
   var currentStopTime, mediaElement = $('#videoPlayer').mediaelementplayer(
     {
     // shows debug errors on screen
     enablePluginDebug: false,
+    enableKeyboard: false,
     // remove or reorder to change plugin priority
     plugins: ['flash','silverlight'],
     // specify to force MediaElement to use a particular video or audio type
@@ -37,6 +38,8 @@
     // name of flash file
     flashName: 'flashmediaelement.swf',
     // name of silverlight file
+    //features: "#{features}".split(",") || defaultFeatures,
+
     features: "#{features}".split(",") || defaultFeatures,
     silverlightName: 'silverlightmediaelement.xap',
     // default if the <video width> is not specified
@@ -58,29 +61,47 @@
       if ("#{attachment.attachment_type=='presentation_video'}" == "true" && "#{timing}" == "true"){
         var timing = "#{attachment.timing}".split(";");
         var _timing = [];
-        var interval = 225;
-        $.each(timing, function(idx,i){_timing[idx] = i.substring(0,8)})
+        var interval = 250;
+        var currentInterval = 0;
+        var statusContainer;
 
         mediaElement.addEventListener('timeupdate', function(e) {
-          var x = _timing.indexOf(secondsToHms(mediaElement.currentTime).substring(0,8));
-          if ( x != -1){
-            var p_ms = Number(secondsToHms(mediaElement.currentTime).substring(9,12));
-            var t_ms = Number(timing[x].substring(9,12));
-            if (p_ms - interval <= t_ms && p_ms + interval >= t_ms) {
-              _timing.shift();
-              var t = hmsToSeconds(timing.shift());
-              currentStopTime = t;
-              mediaElement.setCurrentTime(t);
-              mediaElement.pause();
+          console.log(timing);
+          $.each(timing, function(idx,time){
+            var roundCurrentTime = secondsToHms(mediaElement.currentTime).substring(0,8);
+            if (currentInterval <= idx && time.indexOf(roundCurrentTime) >= 0){
+              var p_ms = Number(secondsToHms(mediaElement.currentTime).substring(9,12));
+              var t_ms = Number(time.substring(9,12));
+
+              if (p_ms - interval <= t_ms && p_ms + interval >= t_ms) {
+                currentInterval++;
+                var t = hmsToSeconds(time)
+                currentStopTime = t;
+                mediaElement.setCurrentTime(t);
+                mediaElement.pause();
+                return false;
+              }
             }
-          }
+          });
         }, false);
 
         mediaElement.addEventListener('ended', function(e){
-          mediaElement.pause();
-          mediaElement.setCurrentTime(0);
+          currentInterval = 0;
+          statusContainer.innerHTML = "Ready to start";
         });
 
+        mediaElement.addEventListener('canplay', function(e){
+          statusContainer = document.getElementById("recorder-status");
+          statusContainer.innerHTML = "Ready to start";
+        });
+
+        mediaElement.addEventListener('pause', function(e){
+          statusContainer.innerHTML = "Paused";
+        });
+
+        mediaElement.addEventListener('playing', function(e){
+          statusContainer.innerHTML = "Playing";
+        });
       }
     },
     // fires when a problem is detected

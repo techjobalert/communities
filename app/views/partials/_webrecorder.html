@@ -18,35 +18,3 @@
       </embed>
   </object>
 </div>
-
-<script type="text/javascript">
-  var recordind = false,
-      recordingFileName,
-      recorder = document.recorder,
-      uuid = '<%= uuid %>';
-
-  var startRecord = function(fileName){
-    if(!fileName) {
-      var _date = new Date();
-      var today = [uuid, _date.getDate(), _date.getMonth()+1, _date.getFullYear()].join("-");
-      recordingFileName = today+"-webcamvideo.flv";
-      recordind = true;
-    }
-    else {
-      recordingFileName = fileName;
-    }
-
-    recorder.record(recordingFileName);
-    $(".rec-start").attr('disabled','true');
-    $(".rec-save").removeAttr('disabled');
-
-    document.getElementById("recorder-status").innerHTML = "Recording...";
-  }
-  var stopRecord = function(){
-    recorder.stopRecording();
-    $(".rec-save").attr('disabled','true');
-    $(".rec-start").removeAttr('disabled');
-    document.getElementById("recorder-status").innerHTML = "Recording is completed";
-    recordind = false;
-  }
-</script>

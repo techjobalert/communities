@@ -956,7 +956,7 @@ h3 {
     .rec-stop {
       background: url(/assets/video/rec.png);
     }
-    .rec-stop, .rec-start, .rec-save {
+    .rec-save {
       &[disabled=true], &[disabled=disabled], &:disabled {
         display: none;
       }

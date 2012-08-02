@@ -19,7 +19,7 @@ Orthodontic::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
-
+  # ----------------------------------------------------------
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
 
@@ -50,7 +50,7 @@ Orthodontic::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w(
+    config.assets.precompile += %w(
       active_admin.css active_admin.js
       jquery-ui.css jquery-ui.js recorder.js
     )
@@ -87,4 +87,17 @@ Orthodontic::Application.configure do
       :signature => "Ai1PaghZh5FmBLCDCTQpwG8jB264APg.06Ef.OBMPXyJ4E-70ixY1phB"
     )
   end
+
+
+  config.cache_classes = false
+  config.whiny_nils = true
+  # config.sass.cache = false
+  # config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
+  config.assets.compress = false
+  config.assets.debug = true
+  config.assets.logger = false
+
+
+
 end
