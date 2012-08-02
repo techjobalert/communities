@@ -141,7 +141,6 @@
     stopRecord();
 
     $(".rec-save").removeAttr('disabled');
-    $(".rec-start").removeAttr('disabled');
 
     playbackPoints = _playbackPoints;
     _playbackPoints = [];
@@ -185,6 +184,26 @@
     }, 1000 );
   }
 
+  var mergeFunc = function(){
+    var data = {
+      video_id: "#{@a_video.id}",
+      record_file_name: recordingFileName,
+      playback_points: playbackPoints,
+      position: $("input[type=radio]:checked").val()
+    };
+
+    $.ajax({
+      url: "#{item_merge_presenter_video_url(@item)}",
+      type: "POST",
+      dataType: "json",
+      data: data,
+      success: function(data){
+        eval(data);
+        $(".rec-start").removeAttr('disabled');
+      }
+    });
+  };
+
   MediaElement('videoPlayer', {success: function(me, domObject) {
     me.addEventListener("pause", pausedVideo);
     me.addEventListener("play", playingVideo);
@@ -195,84 +214,4 @@
   document.getElementsByClassName("rec-start")[0].addEventListener('click', function(){
       prestartSync();
     },false);
-
-
-      // endedCallback = function(){
-      //   //stopSync();
-      // },
-      // prestartSync = function(){
-      //   if (presync || !canPlay) return false;
-      //   presync = true;
-      //   var duration = 5,
-      //       el = document.getElementById("recorder-status"),
-      //       interval = setInterval( function(){
-      //         duration--;
-      //         el.innerHTML = "Please wait " + duration + " sec";
-      //         $(el).blinkText();
-      //         if (duration == 0){
-      //           clearInterval(interval);
-      //           setTimeout(function() { startSync(); }, 1000);
-      //         }
-      //       }
-      //       , 1000 );
-      // },
-      // canPlayCallback = function(){
-      //   canPlay = true;
-      //   $(".rec-start").removeAttr('disabled');
-      // },
-      // startSync = function(){
-      //   videoPlayer.play();
-      //   startRecord();
-      //   $(".rec-start").attr('disabled','true');
-      //   $(".rec-save").removeAttr('disabled');
-      //   syncBool = true;
-      //   presync = false;
-      // },
-      // stopSync = function(){
-      //   videoPlayer.pause();
-      //   clearInterval(innerIntervarTimer);
-      //   var t = videoPlayer.media.duration;
-      //   var p = _playbackPoints.length - 1;
-      //   _playbackPoints[p]['stop'] = t - 0.041999999999999815;
-      //   _playbackPoints[p]['duration'] = _playbackPoints[p]['stop'] - _playbackPoints[p]['start'];
-      //   _playbackPoints[p]['pause_duration'] = innerTimer ? innerTimer : 1; // secondsToHms(innerTimer);
-
-
-      //   stopRecord();
-      //   $(".rec-save").attr('disabled','true');
-      //   $(".rec-start").removeAttr('disabled');
-      //   syncBool = false;
-      //   playbackPoints = _playbackPoints;
-      //   _playbackPoints, innerIntervarTimer = [], undefined;
-      //   videoPlayer.media.setCurrentTime(0);
-      //   mergeFunc();
-      //   $(".mv-play").attr("disabled","true");
-      //   $(".rec-start").attr("disabled","true");
-      // },
-      // mergeFunc = function(){
-      //   console.log(playbackPoints)
-      //   var data = {  video_id: "#{@a_video.id}",
-      //                 record_file_name: recordingFileName,
-      //                 playback_points: playbackPoints,
-      //                 position: $("input[type=radio]:checked").val()};
-      //   $.ajax({
-      //     url: "#{item_merge_presenter_video_url(@item)}",
-      //     type: "POST",
-      //     dataType: "json",
-      //     data: data,
-      //     success: function(data){
-      //       eval(data);
-      //     }
-      //   });
-      // };
-
-  // document.getElementsByClassName("rec-start")[0].addEventListener('click', function(){
-  //     prestartSync();
-  //   }
-  //   ,false);
-
-  // document.getElementsByClassName("rec-save")[0].addEventListener('click', function(){
-  //     stopSync();
-  //   }
-  //   ,false);
 

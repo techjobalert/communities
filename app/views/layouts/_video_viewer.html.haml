@@ -66,7 +66,6 @@
         var statusContainer;
 
         mediaElement.addEventListener('timeupdate', function(e) {
-          console.log(timing);
           $.each(timing, function(idx,time){
             var roundCurrentTime = secondsToHms(mediaElement.currentTime).substring(0,8);
             if (currentInterval <= idx && time.indexOf(roundCurrentTime) >= 0){
@@ -79,6 +78,8 @@
                 currentStopTime = t;
                 mediaElement.setCurrentTime(t);
                 mediaElement.pause();
+                console.log(timing, currentStopTime, currentInterval);
+
                 return false;
               }
             }
