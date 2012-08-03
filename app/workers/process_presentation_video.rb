@@ -28,6 +28,7 @@ class ProcessPresentationVideo
           files << file_prefix+"_1.mp4"
           CUSTOM_LOGGER.info("------------#{t['pause_duration']}");
           if t['pause_duration'] == "0"
+            CUSTOM_LOGGER.info("--into----------#{t['pause_duration']}");
             # pic
             %x[ffmpeg -i #{p_att} -ss #{t['stop'].gsub(',', '.')} -sameq -vframes 1 #{pic_path}]
 
