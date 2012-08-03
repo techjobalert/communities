@@ -1,0 +1,29 @@
+rake aborted!
+Connection refused - Unable to connect to Redis on 127.0.0.1:6379
+
+Tasks: TOP => resque:work
+(See full trace by running task with --trace)
+*** Starting worker macconverter.provectus.local:12469:*
+[31mCould not find backports-2.3.0 in any of the sources[0m
+[31mCould not find backports-2.3.0 in any of the sources[0m
+rake aborted!
+cannot load such file -- resque/tasks
+
+(See full trace by running task with --trace)
+rake aborted!
+cannot load such file -- resque/tasks
+
+(See full trace by running task with --trace)
+rake aborted!
+cannot load such file -- resque/tasks
+
+(See full trace by running task with --trace)
+rake aborted!
+cannot load such file -- resque/tasks
+
+(See full trace by running task with --trace)
+resqu_start.sh: line 10: bundele: command not found
+resqu_start.sh: line 8: bundele: command not found
+resqu_start.sh: line 4: bundele: command not found
+resqu_start.sh: line 3: bundele: command not found
+[31mCould not find backports-2.3.0 in any of the sources[0m
