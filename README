@@ -13,3 +13,11 @@ yamdi
 # graphicsmagick poppler-utils tesseract-ocr
 # or http://www.pdflabs.com/docs/pdftk-cli-examples/
 sudo apt-get install pdftk
+
+
+# install swftools:
+
+
+sudo add-apt-repository ppa:guilhem-fr/swftools
+sudo apt-get update
+sudo apt-get install swftools

@@ -12,6 +12,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # documents
   version :pdf,                 :if => :is_document?
   version :pdf_thumbnail,       :if => :is_pdf?
+  version :pdf_flash,           :if => :is_pdf?
 
   # video
   version :mp4,                 :if => :is_video?
@@ -49,6 +50,13 @@ class FileUploader < CarrierWave::Uploader::Base
     process :create_pdf_thumbnail
     def full_filename (for_file = model.file.file)
       "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
+    end
+  end
+
+  version :pdf_flash do
+    process :create_pdf_flash
+    def full_filename (for_file = model.file.file)
+      "flash_#{File.basename(for_file, File.extname(for_file))}.swf"
     end
   end
 
@@ -134,18 +142,35 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def create_pdf_thumbnail
     # move upload to local cache
+    
     cache_stored_file! if !cached?
 
     directory = File.dirname( current_path )
     image_path = File.join( directory, "tmp.jpeg")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
-
+    
     pdf = Magick::ImageList.new(path).first
     thumb = pdf.scale(265, 200)
     thumb.write image_path
-
+    
     File.delete current_path
     File.rename image_path, current_path
+    Resque.enqueue(SendProcessedMessage, model.item.id) if file
+    model.file_processing = nil
+  end
+
+  def create_pdf_flash
+    
+    cache_stored_file! if !cached?
+    
+    directory = File.dirname( current_path )
+    flash_path = File.join( directory, "tmp.swf")
+    path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
+    
+    command =%x[pdf2swf #{path} -o #{flash_path} -f -T 9 -t -s storeallcharacters]
+    
+    File.delete current_path
+    File.rename flash_path, current_path
     Resque.enqueue(SendProcessedMessage, model.item.id) if file
     model.file_processing = nil
   end

@@ -1,87 +1,31 @@
 - pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
-%script{:src => "/javascripts/pdf.js", :type => "text/javascript"}
-%div
-  %button{:id => "prev", :onclick => "goPrevious()"}
-    Previous
-  %button{:id => "next", :onclick=> "goNext()"}
-    Next
-  &nbsp; &nbsp;
-  %span
-    Page:
-    %span#page_num
-    \/
-    %span#page_count
+- flash = attachment.file.pdf_flash #attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
 
-%div{:style=>"border: 1px solid beige"}
-  %canvas#the-canvas{:style=>"width:100%"}
-
+%script{:src => "/javascripts/flexpaper_flash.js", :type => "text/javascript"}
+%a{:id => "viewerPlaceHolder", :style => "width:680px;height:480px;display:block"}
 :javascript
-  'use strict';
-  PDFJS.workerSrc = "/javascripts/pdf.js";
-  //
-  // Disable workers to avoid yet another cross-origin issue (workers need the URL of
-  // the script to be loaded, and currently do not allow cross-origin scripts)
-  //
-  PDFJS.disableWorker = true;
+  var fp = new FlexPaperViewer( 
+                '#{asset_path("FlexPaperViewer")}',
+                'viewerPlaceHolder', { config : {
+                SwfFile : '#{ flash.url }',
+                Scale : 0.6, 
+                ZoomTransition : 'easeOut',
+                ZoomTime : 0.5,
+                ZoomInterval : 0.2,
+                FitPageOnLoad : true,
+                FitWidthOnLoad : false,
+                FullScreenAsMaxWindow : false,
+                ProgressiveLoading : false,
+                MinZoomSize : 0.2,
+                MaxZoomSize : 5,
+                SearchMatchAll : false,
+                InitViewMode : 'SinglePage', 
+                ViewModeToolsVisible : true,
+                ZoomToolsVisible : true,
+                NavToolsVisible : true,
+                CursorToolsVisible : true,
+                SearchToolsVisible : true,
+                PrintToolsVisible: false,
+                localeChain: 'en_US'
+             }});
 
-  var pdfDoc = null,
-      pageNum = 1,
-      scale = 1.5,
-      canvas = document.getElementById('the-canvas'),
-      ctx = canvas.getContext('2d'),
-      renderingPage = false;
-
-  //
-  // Get page info from document, resize canvas accordingly, and render page
-  //
-  function renderPage(num) {
-    var page = pdfDoc.getPage(num);
-    canvas.height = page.height * scale;
-    canvas.width = page.width * scale;
-    page.startRendering(ctx)
-
-    // Update page counters
-    document.getElementById('page_num').textContent = pageNum;
-    document.getElementById('page_count').textContent = pdfDoc.numPages;
-    renderingPage = false;
-  }
-
-  //
-  // Go to previous page
-  //
-  function goPrevious() {
-    if (pageNum <= 1)
-      return;
-    if (renderingPage == false){
-      renderingPage = true;
-      setTimeout(function(){
-        pageNum--;
-        renderPage(pageNum);
-      },1500);
-    }
-    else showHideNotice("notice", "page rendering");
-  }
-
-  //
-  // Go to next page
-  //
-  function goNext() {
-    if (pageNum >= pdfDoc.numPages)
-      return;
-    if (renderingPage == false){
-      renderingPage = true;
-      setTimeout(function(){
-        pageNum++;
-        renderPage(pageNum);
-      },1500);
-    }
-    else showHideNotice("notice", "page rendering");
-  }
-
-  //
-  // Asynchronously download PDF as an ArrayBuffer
-  //
-  PDFJS.getPdf("#{secure_link(attachment, pdf.url)}", function getPdfHelloWorld(data) {
-    pdfDoc = new PDFJS.PDFDoc(data);
-    renderPage(pageNum);
-  });
