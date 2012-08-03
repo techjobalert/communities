@@ -14,8 +14,6 @@ class ProcessPresentationVideo
       frame_rate = FFMPEG::Movie.new(p_att).frame_rate || 25
       FileUtils.mkdir_p(tmp_dir)
 
-      require "custom_logger"
-
       timing.each_with_index do |t, idx|
         if idx <= timing.size and [t['start'], t['stop'], t['duration'], t['pause_duration']].all?
           hex = idx.to_s+"_"+SecureRandom.hex(10)
@@ -26,9 +24,8 @@ class ProcessPresentationVideo
           %x[ffmpeg -i #{p_att}  -ss #{t['start'].gsub(',', '.')} -t #{t['duration'].gsub(',', '.')} -r #{frame_rate} #{def_mp4_params} #{file_prefix}_1.mp4]
 
           files << file_prefix+"_1.mp4"
-          CUSTOM_LOGGER.info("------------#{t['pause_duration']}");
+
           if t['pause_duration'] != "0"
-            CUSTOM_LOGGER.info("--into----------#{t['pause_duration']}");
             # pic
             %x[ffmpeg -i #{p_att} -ss #{t['stop'].gsub(',', '.')} -sameq -vframes 1 #{pic_path}]
 
@@ -50,7 +47,7 @@ class ProcessPresentationVideo
       # add empty audio track
       %x[ffmpeg -shortest -ar 44100 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -i #{file_no_sound} -g 50 #{def_mp4_params} #{final} -map 1:0 -map 0:0]
 
-      #FileUtils.remove_dir(tmp_dir)
+      FileUtils.remove_dir(tmp_dir)
       Resque.enqueue(VideoMerge, final, recorded_attachment_id, {:position => params["position"]})
     end
   end
