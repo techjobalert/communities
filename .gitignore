@@ -28,4 +28,7 @@ config/sphinx.yml
 /nbproject
 Gemfile.lock
 
+/video_convert/video_storage/p_source/*
+/video_convert/video_storage/p_video/*
+
 
