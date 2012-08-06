@@ -5,3 +5,10 @@ D:\Provectus\Medical project\PPTVideo\PPTVideo\obj\Debug\ResolveAssemblyReferenc
 D:\Provectus\Medical project\PPTVideo\PPTVideo\obj\Debug\PPTVideo.exe
 D:\Provectus\Medical project\PPTVideo\PPTVideo\obj\Debug\PPTVideo.pdb
 D:\Provectus\Medical project\PPTVideo\PPTVideo\bin\Debug\PPTVideo.exe.config
+C:\Users\User\Documents\GitHub\Orthodontics360\PPTVideo\PPTVideo\bin\Debug\PPTVideo.exe.config
+C:\Users\User\Documents\GitHub\Orthodontics360\PPTVideo\PPTVideo\obj\Debug\PPTVideo.csproj.ResolveComReference.cache
+C:\Users\User\Documents\GitHub\Orthodontics360\PPTVideo\PPTVideo\obj\Debug\PPTVideo.exe
+C:\Users\User\Documents\GitHub\Orthodontics360\PPTVideo\PPTVideo\obj\Debug\PPTVideo.pdb
+C:\Users\User\Documents\GitHub\Orthodontics360\PPTVideo\PPTVideo\bin\Debug\PPTVideo.exe
+C:\Users\User\Documents\GitHub\Orthodontics360\PPTVideo\PPTVideo\bin\Debug\PPTVideo.pdb
+C:\Users\User\Documents\GitHub\Orthodontics360\PPTVideo\PPTVideo\obj\Debug\ResolveAssemblyReference.cache
