@@ -26,9 +26,31 @@ namespace PPTVideo
             {
                 foreach (float time in timeList)
                 {
-                    file.WriteLine(time*1000); //milliseconds
+                    file.WriteLine("0 --> " + getTimeFormat(time)); //milliseconds
                 }
             }
+        }
+
+        static String getTimeFormat(float time)
+        {
+            // --> 00:00:18,873
+
+            double milliseconds = time - Math.Floor(time);
+            double seconds = Math.Floor(Math.Floor(time) % 60);
+            double minutes = Math.Floor((time / 60.0) % 60);
+            double hours = Math.Floor((time / 3600.0) % 60);
+
+            milliseconds = Math.Round(milliseconds*1000.0, 0);
+            
+            String str = "00:00:00.000";
+            str = (hours < 10 ? (String)("0" + hours) : (String)(hours + ""))
+                 + ":" + (minutes < 10 ? (String)("0" + minutes) : (String)(minutes + ""))
+                 + ":" + (seconds < 10 ? (String)("0" + seconds) : (String)(seconds + ""))
+                 + "," + (milliseconds == 0 ? "000" : 
+                    (milliseconds < 10 ? (String)("00" + milliseconds) :
+                        (milliseconds < 100 ? (String)("0" + milliseconds) : (String)(milliseconds + ""))));
+            
+            return str;
         }
 
         static int Main(string[] args)
