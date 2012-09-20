@@ -24,6 +24,7 @@ capybara-*.html
 config/development.sphinx.conf
 config/production.sphinx.conf
 config/sphinx.yml
+config/nginx.conf
 /vendor/erlyvideo/*
 /nbproject
 Gemfile.lock
