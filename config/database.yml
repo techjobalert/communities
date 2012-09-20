@@ -27,7 +27,7 @@ production:
   encoding: utf8
   database: orthodontics360_production
   pool: 5
-  username: root
-  password: root
+  username: ubuntu
+  password: ym1lsc1JaS176Ja 
   host: localhost
   timeout: 5000
