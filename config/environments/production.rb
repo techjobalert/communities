@@ -60,14 +60,14 @@ Orthodontic::Application.configure do
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 =>  587,
-    :domain               => 'orthodontics360.ru',
-    :user_name            => 'provectusit.mailer@gmail.com',
-    :password             => 'provectusit.mailer23',
+    :domain               => 'gmail.com',
+    :user_name            => 'smogilevsky@provectus-it.com',
+    :password             => 'slavaprovectus',
     :authentication       => 'plain',
     :enable_starttls_auto => true }
 
   # Mailer
-  config.action_mailer.default_url_options = { :host => "89.209.76.243:5580" }
+  config.action_mailer.default_url_options = { :host => "50.19.75.77:80" }
 
   # Enable threaded mode
   # config.threadsafe!
