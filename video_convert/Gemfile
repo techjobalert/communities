@@ -9,3 +9,5 @@
  gem 'unicorn'
  gem 'net-sftp'
  gem "backports", "~> 2.3.0"
+ gem 'rake'
+ gem 'aws-sdk'

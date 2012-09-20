@@ -112,3 +112,162 @@
 >> Thin web server (v1.3.1 codename Triple Espresso)
 >> Maximum connections set to 1024
 >> Listening on 0.0.0.0:3000, CTRL+C to stop
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3000, CTRL+C to stop
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3000, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3000, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3000, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Exiting!
+/home/egor/projects/Orthodontics360/video_convert/application.rb:10:in `require': cannot load such file -- ../config/aws_setup (LoadError)
+	from /home/egor/projects/Orthodontics360/video_convert/application.rb:10:in `<top (required)>'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `require'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `block in <main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `instance_eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `initialize'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `new'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:42:in `for'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:169:in `load_adapter'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:73:in `start'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:185:in `run_command'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:151:in `run!'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/bin/thin:6:in `<top (required)>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `<main>'
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Exiting!
+/home/egor/projects/Orthodontics360/video_convert/aws_setup.rb:3:in `<top (required)>': uninitialized constant AWS (NameError)
+	from /home/egor/projects/Orthodontics360/video_convert/application.rb:10:in `require'
+	from /home/egor/projects/Orthodontics360/video_convert/application.rb:10:in `<top (required)>'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `require'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `block in <main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `instance_eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `initialize'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `new'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:42:in `for'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:169:in `load_adapter'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:73:in `start'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:185:in `run_command'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:151:in `run!'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/bin/thin:6:in `<top (required)>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `<main>'
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Exiting!
+/home/egor/projects/Orthodontics360/video_convert/aws_setup.rb:3:in `<top (required)>': uninitialized constant AWS (NameError)
+	from /home/egor/projects/Orthodontics360/video_convert/application.rb:10:in `require'
+	from /home/egor/projects/Orthodontics360/video_convert/application.rb:10:in `<top (required)>'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `require'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `block in <main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `instance_eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `initialize'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `new'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:42:in `for'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:169:in `load_adapter'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:73:in `start'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:185:in `run_command'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:151:in `run!'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/bin/thin:6:in `<top (required)>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `<main>'
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Exiting!
+/home/egor/projects/Orthodontics360/video_convert/aws_setup.rb:3:in `<top (required)>': uninitialized constant AWS (NameError)
+	from /home/egor/projects/Orthodontics360/video_convert/application.rb:10:in `require'
+	from /home/egor/projects/Orthodontics360/video_convert/application.rb:10:in `<top (required)>'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `require'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `block in <main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `instance_eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `initialize'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `new'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:42:in `for'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:169:in `load_adapter'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:73:in `start'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:185:in `run_command'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:151:in `run!'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/bin/thin:6:in `<top (required)>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `<main>'
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Exiting!
+/home/egor/projects/Orthodontics360/video_convert/application.rb:8:in `require': cannot load such file -- aws-sk (LoadError)
+	from /home/egor/projects/Orthodontics360/video_convert/application.rb:8:in `<top (required)>'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `require'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:5:in `block in <main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `instance_eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/rack-1.4.1/lib/rack/builder.rb:51:in `initialize'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `new'
+	from /home/egor/projects/Orthodontics360/video_convert/config.ru:1:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:33:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/rack/adapter/loader.rb:42:in `for'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:169:in `load_adapter'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/controllers/controller.rb:73:in `start'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:185:in `run_command'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/lib/thin/runner.rb:151:in `run!'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/gems/thin-1.4.1/bin/thin:6:in `<top (required)>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/thin:19:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194/bin/ruby_noexec_wrapper:14:in `<main>'
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3000, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3000, CTRL+C to stop
+>> Exiting!
+>> Writing PID to tmp/pids/thin.pid
+>> Using rack adapter
+>> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:3000, CTRL+C to stop
+>> Exiting!

@@ -18,6 +18,9 @@ gem 'unicorn'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'haml-rails'
+gem 'aws-sdk'
+gem 'puma'
+gem 'foreman'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

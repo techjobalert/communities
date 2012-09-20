@@ -1,0 +1,14 @@
+F, [2012-08-09T10:44:20.324518 #4939] FATAL -- : error adding listener addr=/home/egor/projects/Orthodontics360/video_convert/tmp/sockets/unicorn.sock
+/home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/gems/unicorn-4.3.1/lib/unicorn/socket_helper.rb:140:in `initialize': No such file or directory - /home/egor/projects/Orthodontics360/video_convert/tmp/sockets/unicorn.sock (Errno::ENOENT)
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/gems/unicorn-4.3.1/lib/unicorn/socket_helper.rb:140:in `new'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/gems/unicorn-4.3.1/lib/unicorn/socket_helper.rb:140:in `bind_listen'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/gems/unicorn-4.3.1/lib/unicorn/http_server.rb:224:in `listen'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/gems/unicorn-4.3.1/lib/unicorn/http_server.rb:741:in `block in inherit_listeners!'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/gems/unicorn-4.3.1/lib/unicorn/http_server.rb:741:in `each'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/gems/unicorn-4.3.1/lib/unicorn/http_server.rb:741:in `inherit_listeners!'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/gems/unicorn-4.3.1/lib/unicorn/http_server.rb:123:in `start'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/gems/unicorn-4.3.1/bin/unicorn:121:in `<top (required)>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/bin/unicorn:19:in `load'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/bin/unicorn:19:in `<main>'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/bin/ruby_noexec_wrapper:14:in `eval'
+	from /home/egor/.rvm/gems/ruby-1.9.3-p194@sinatra-list/bin/ruby_noexec_wrapper:14:in `<main>'

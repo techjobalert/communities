@@ -2,7 +2,7 @@
 worker_processes 1
 
 
-APP_ROOT = "/Users/administrator/video_convert"
+APP_ROOT = "/home/egor/projects/Orthodontics360/video_convert"
 working_directory APP_ROOT
 
 # This loads the application in the master process before forking

@@ -5,6 +5,7 @@ require 'sinatra/json'
 require 'json'
 require 'net/http'
 require 'resque'
+require 'aws-sdk'
 
 require './job'
 
@@ -23,6 +24,7 @@ module Video
     set :presentations_source, settings.pwd + '/video_storage/p_source/'
     set :presentations_video, settings.pwd + '/video_storage/p_video/'
     set :busy, false
+
 
 
     post '/convert' do

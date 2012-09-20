@@ -20,13 +20,18 @@ class FileUploader < CarrierWave::Uploader::Base
   version :video_thumbnail,     :if => :is_video?
 
   # presentation_video
-  version :presentation_video,  :if => :is_presentation?
+  #version :presentation_video,  :if => :is_presentation?
+  
 
   def default_url
     "/default/item_" + [version_name, "default.png"].compact.join('_')
   end
 
   storage :file
+
+  after :store, :upload_to_s3
+  
+
 
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -107,8 +112,17 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
-  version :presentation_video do
-    process :convert_to_video
+  # version :presentation_video do
+  #   #process :convert_to_video
+  # end
+
+  
+
+  def upload_to_s3(file)
+    if [".pptx", ".key"].member?(File.extname(current_path))
+      uuid_filename = [SecureRandom.uuid, File.basename(current_path)].join("-")
+      Resque.enqueue(PowerPointConvert, File.extname(current_path),uuid_filename, current_path, model.id)
+    end
   end
 
   protected
@@ -160,16 +174,21 @@ class FileUploader < CarrierWave::Uploader::Base
     model.file_processing = nil
   end
 
-  def convert_to_video
-    # Save presentation file to shared folder
-    # And send req to mac
-    cache_stored_file! if !cached?
-    file = File.absolute_path(current_path)
-    uuid_filename = [SecureRandom.uuid, File.basename(file)].join("-")
-    FileUtils::copy_file(file, "../video/video_storage/p_source/#{uuid_filename}")
+  # def convert_to_video
+  #   # Save presentation file to shared folder
+  #   # And send req to mac
+  #   cache_stored_file! if !cached?
+  #   file = File.absolute_path(current_path)
+    
+  #   uuid_filename = [SecureRandom.uuid, File.basename(file)].join("-")
+  #   #FileUtils::copy_file(file, "../video/video_storage/p_source/#{uuid_filename}")
+  #   #Resque.enqueue(PowerPointConvert, File.extname(current_path), uuid_filename, model.id)
+  #   Resque.enqueue(PowerPointConvert, File.extname(current_path),uuid_filename, file, model.id)
+  #   model.file_processing = nil
+  # end
 
-    Resque.enqueue(PowerPointConvert, File.extname(current_path), uuid_filename, model.id)
-  end
+
+  
 
   def is_video? f
     exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v).map!{|e| "."+ e }

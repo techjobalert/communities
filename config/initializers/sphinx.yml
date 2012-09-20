@@ -1,3 +1,4 @@
 development:
-  port: 9316
+  port: 9312
   mem_limit: 128M
+  bin_path: "/usr/local/bin"
