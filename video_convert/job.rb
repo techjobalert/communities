@@ -5,7 +5,8 @@ require 'aws-sdk'
 
 module Video
 
-  class Convert
+  module Convert
+ # class Convert
     @queue = :convert
 
     def self.perform(file, id)
@@ -29,20 +30,21 @@ module Video
       # bucket.objects.delete(file)
 
 
-          %x[s3cmd get s3://orthodontics360-test/#{file} #{presentations_source+file}]
-          %x[s3cmd del s3://orthodontics360-test/#{file}]
+          # %x[s3cmd get s3://orthodontics360-test/#{file} #{presentations_source+file}]
+          # %x[s3cmd del s3://orthodontics360-test/#{file}]
 			file_basename = File.basename(file, ".*")
       file_ext = File.extname(file)
       command = "osascript #{script} #{presentations_source} #{presentations_video} #{file_basename} #{file_ext}"
       output = %x[#{command}]
-      # File.open(log_file, 'w') {|f| f.puts(Time.now.to_s);f.puts(command) }
+      File.open(log_file, 'w') {|f| f.puts(Time.now.to_s);f.puts(command) }
       # obj_video = bucket.objects[file_basename+'.mov']
       # obj_video.write(:file => File.join(presentations_source,file_basename+file_ext))
 
-          %x[s3cmd put #{File.join(presentations_source,file_basename+file_ext)} s3://orthodontics360-test/#{file_basename+'.mov'}]
+          # %x[s3cmd put #{File.join(presentations_source,file_basename+file_ext)} s3://orthodontics360-test/#{file_basename+'.mov'}]
 
       if file_basename and id
-	       _uri = "http://192.168.0.161/file/converted_pvideo?filename=#{obj_video.key}.mov&id=#{id}"
+        _uri = "http://192.168.0.161/file/converted_pvideo?filename=#{file_basename}.mov&id=#{id}"
+	      # _uri = "http://192.168.0.161/file/converted_pvideo?filename=#{obj_video.key}.mov&id=#{id}"
 	      uri = URI(_uri)
 	      req = Net::HTTP::Get.new(uri.request_uri)
 	      req.basic_auth user, password

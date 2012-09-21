@@ -52,37 +52,37 @@ class FileController < ApplicationController
     if attachment
       is_keynote = (File.extname(params[:filename]) == ".mov")
       attachment.update_attribute("file_processing", nil)
-      # p_base = "/home/egor/projects/video/video_storage"
-      # p_video = File.join(p_base, "p_video", params[:filename])
-      # p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+ (is_keynote ? ".key" : ".pptx"))
-      Resque.enqueue(PresentationVideoUpload,attachment,params[:filename],params[:id], is_keynote)
+      p_base = "#{Rails.root}/video/video_storage"
+      p_video = File.join(p_base, "p_video", params[:filename])
+      p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+ (is_keynote ? ".key" : ".pptx"))
+      #Resque.enqueue(PresentationVideoUpload,attachment,params[:filename],params[:id], is_keynote)
         ###
       # p_base = "/home/buildbot/orthodontics360/public/uploads/attachment/file/#{params[:id]}/"
       # %x[wget --user=user --password=orthodontics360 -P #{p_base} #{remote_path}/???/???]
       # p_video = File.join(p_base, params[:filename])
 
-      # presenter_video = Attachment.new({
-      #   :file => File.open(p_video),
-      #   :user => attachment.user,
-      #   :item => attachment.item,
-      #   :attachment_type => "presentation_video"})
+      presenter_video = Attachment.new({
+        :file => File.open(p_video),
+        :user => attachment.user,
+        :item => attachment.item,
+        :attachment_type => "presentation_video"})
 
       #collect timing from subtitles
       # storing format "00:00:13,290;00:00:17,581" devider ";"
    
-      # timing = []
-      # if is_keynote
-      #   %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
-      # else
-      #   p_source_timing = p_video+".txt"
-      #   File.open(p_source_timing, 'r') do |file|
-      #     file.each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
-      #   end
-      #   FileUtils.remove_file(p_source_timing, :verbose => true)
-      # end
-      # presenter_video.timing = timing.join(";")
-      # attachment.item.attachments << presenter_video
-        ###
+      timing = []
+      if is_keynote
+        %x[MP4Box #{p_video} -srt 3 -std].each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
+      else
+        p_source_timing = p_video+".txt"
+        File.open(p_source_timing, 'r') do |file|
+          file.each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
+        end
+        FileUtils.remove_file(p_source_timing, :verbose => true)
+      end
+      presenter_video.timing = timing.join(";")
+      attachment.item.attachments << presenter_video
+      
       # remove converted files(presentation and video file)
       #FileUtils.rm [p_video, p_source], :verbose => true
     end
