@@ -18,7 +18,6 @@ gem 'unicorn'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'haml-rails'
-gem 'aws-sdk'
 gem 'puma'
 gem 'foreman'
 

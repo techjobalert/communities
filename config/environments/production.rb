@@ -67,7 +67,7 @@ Orthodontic::Application.configure do
     :enable_starttls_auto => true }
 
   # Mailer
-  config.action_mailer.default_url_options = { :host => "50.19.75.77:80" }
+  config.action_mailer.default_url_options = { :host => "maia360.com" }
 
   # Enable threaded mode
   # config.threadsafe!
