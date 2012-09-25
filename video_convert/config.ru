@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require 'logger'
-#require 'resque/server'
+require 'resque/server'
 
 require './application'
 
@@ -14,5 +14,5 @@ if AUTH_PASSWORD
 end
 
 run Rack::URLMap.new \
-  "/"       => Video::App.new
-  #,"/resque" => Resque::Server.new
+  "/"       => Video::App.new,
+  "/resque" => Resque::Server.new
