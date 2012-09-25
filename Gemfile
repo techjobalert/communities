@@ -20,6 +20,7 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'puma'
 gem 'foreman'
+gem 'god'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

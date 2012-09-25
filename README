@@ -13,3 +13,9 @@ yamdi
 # graphicsmagick poppler-utils tesseract-ocr
 # or http://www.pdflabs.com/docs/pdftk-cli-examples/
 sudo apt-get install pdftk
+
+
+s3cmd - client for s3, must be setup on each server (mac, ubuntu)
+
+sudo apt-get install s3cmd
+s3cmd --configure # enter keys of bucket which shared between mac & ubuntu
