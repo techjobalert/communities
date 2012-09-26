@@ -32,12 +32,12 @@ class PowerPointConvert
       # res = Net::HTTP.post_form(uri, 'file' => new_object.key, 'id' => model_id)
       #res = Net::HTTP.get_response(uri)
        #if res.is_a?(Net::HTTPSuccess)
-         Rails.logger.debug "#__________________            #{res.body}         _______________"
+         
        #end
      rescue Timeout::Error => e
        nil
      end
-
+     Rails.logger.debug "#__________________            #{res.class}         _______________"
   end
 
 end

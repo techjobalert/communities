@@ -29,6 +29,7 @@ module Video
       # obj_presentation = bucket.objects[file]
       # File.open(presentations_source+file,"wb") { |f| f.write obj_presentation.read }
       # bucket.objects.delete(file)
+       %x[touch #{pwd}/test.txt]
        %x[s3cmd get s3://maia360/#{file} #{presentations_source+file}]
        %x[s3cmd del s3://maia360/#{file}]
 		   file_basename = File.basename(file, ".*")
