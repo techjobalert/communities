@@ -7,6 +7,7 @@ require 'net/http'
 require 'resque'
 
 require './job'
+require './redis'
 
 module Video
 
