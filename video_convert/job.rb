@@ -40,7 +40,7 @@ module Video
       # obj_video.write(:file => File.join(presentations_source,file_basename+file_ext))
 
        # %x[s3cmd put #{File.join(presentations_source,file_basename+file_ext)} s3://orthodontics360-test/#{file_basename+'.mov'}]
-       %x[s3cmd put #{File.join(presentations_video,'video.mov'} s3://maia360/#{file_basename+'.mov'}]
+       %x[s3cmd put #{File.join(presentations_video,'video.mov')} s3://maia360/#{file_basename+'.mov'}]
      #  if file_basename and id
      #    _uri = "http://192.168.0.161/file/converted_pvideo?filename=#{file_basename}.mov&id=#{id}"
 	    #   # _uri = "http://192.168.0.161/file/converted_pvideo?filename=#{obj_video.key}.mov&id=#{id}"
