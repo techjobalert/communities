@@ -8,22 +8,22 @@ class PresentationVideoUpload
 		# unless is_keynote
 		# 	%x[wget --user=user --password=orthodontics360 -P #{p_base} #{remote_path}/presentation_video/#{model_id}/#{filename}.txt]
 		# end
-    s3 = AWS::S3.new
-    bucket = s3.buckets.to_a.last
+    # s3 = AWS::S3.new
+    # bucket = s3.buckets.to_a.last
     
-    obj_video = bucket.objects[filename]
+    # obj_video = bucket.objects[filename]
 
-        %x[s3cmd get s3://orthodontics360/#{filename} #{p_base+filename}]
-        %x[s3cmd del s3://orthodontics360/#{filename}]
+        %x[s3cmd get s3://maia360/#{filename} #{p_base+filename}]
+        %x[s3cmd del s3://maia360/#{filename}]
         
-    File.open(p_base+filename,"wb") { |f| f.write obj_video.read }
-    bucket.objects.delete(filename)
-    unless  is_keynote
-      filename_txt + filename+'.txt'
-      obj_video = bucket.objects[filename_txt]
-      File.open(p_base+filename_txt,"wb") { |f| f.write obj_video.read }
-      bucket.objects.delete(filename_txt)
-    end
+    # File.open(p_base+filename,"wb") { |f| f.write obj_video.read }
+    # bucket.objects.delete(filename)
+    # unless  is_keynote
+    #   filename_txt + filename+'.txt'
+    #   obj_video = bucket.objects[filename_txt]
+    #   File.open(p_base+filename_txt,"wb") { |f| f.write obj_video.read }
+    #   bucket.objects.delete(filename_txt)
+    # end
 
 
     
