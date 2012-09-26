@@ -3,15 +3,15 @@
   .buttons
     = link_to '#sign-up', :class => 'sign-up selected' do
       SIGN UP
-      %span quick blabla text
+      %span to create account
     = link_to '#sign-in', :class => 'sign-in' do
       SIGN IN
-      %span quick blabla text
+      %span to your account
 
   .container
     .content
       .text
-        Maia is a marketplace for specialized to explore, share, create and sell originally content for their medical community
+        Maia is a marketplace for specialized doctors to explore, share, create and sell originally content.
       .media= image_tag "/assets/tmp/p1.jpg"
     #sign-up.sign-up-tab.sign-tab
       = form_for(User.new, :as => User.new, :url => registration_path(:user), :validate => true) do |f|
