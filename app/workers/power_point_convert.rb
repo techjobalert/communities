@@ -37,7 +37,7 @@ class PowerPointConvert
      rescue Timeout::Error => e
        nil
      end
-     Rails.logger.debug "#__________________            #{res.class}         _______________"
+     Rails.logger.debug "#__________________            #{res.body}         _______________"
   end
 
 end
