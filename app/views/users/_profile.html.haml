@@ -24,7 +24,7 @@
             = f.text_field :birthday, :value => date_format(current_user.birthday), :id => 'datepicker'
           - if current_user.role? "doctor"
             %p
-              %strong Profession and degree
+              %strong Profession and degree:
               = f.text_field :profession_and_degree
             %p
               %strong Specialization:
