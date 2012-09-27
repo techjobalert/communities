@@ -39,7 +39,7 @@ class PresentationVideoUpload
        :item => attachment[:item_id],
        :attachment_type => "presentation_video"})
 		 #collect timing from subtitles
-  	storing format "00:00:13,290;00:00:17,581" devider ";"
+  	# storing format "00:00:13,290;00:00:17,581" devider ";"
   	timing = []
     if is_keynote
     	%x[MP4Box #{p_video} -srt 3 -std].each_line{|l| timing << l.split("-->")[1].strip() if l.include?("-->")}
