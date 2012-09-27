@@ -5,7 +5,7 @@ module Video
 
  # module Convert
   class Convert
-    @queue = :converta
+    @queue = :convert
 
     def self.perform(file, id)
       server = 'thin'
