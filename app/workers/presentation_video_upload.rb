@@ -3,7 +3,7 @@ class PresentationVideoUpload
 
 	def self.perform(attachment, filename, model_id, is_keynote)
 		# remote_path = is_keynote ? REMOTE_MAC_PATH : REMOTE_WIN_PATH
-		p_base = "/home/egor/projects/Orthodontics360/public/uploads/attachment/file/#{model_id}/"
+		p_base = "#{Rails.root}/public/uploads/attachment/file/#{model_id}/"
 		# %x[wget --user=user --password=orthodontics360 -P #{p_base} #{remote_path}/presentation_video/#{model_id}/#{filename}]
 		# unless is_keynote
 		# 	%x[wget --user=user --password=orthodontics360 -P #{p_base} #{remote_path}/presentation_video/#{model_id}/#{filename}.txt]
