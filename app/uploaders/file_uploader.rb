@@ -20,7 +20,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :video_thumbnail,     :if => :is_video?
 
   # presentation_video
-  # version :presentation_video,  :if => :is_presentation?
+  version :presentation_video,  :if => :is_presentation?
   
 
   def default_url
