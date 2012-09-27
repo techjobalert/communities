@@ -29,7 +29,7 @@ module Video
     post '/convert' do
       file, id = params[:file], params[:id]
       if file and id
-        Resque.enqueue(Convertat, file, id)
+        Resque.enqueue(Convert, file, id)
       end
     end
 
