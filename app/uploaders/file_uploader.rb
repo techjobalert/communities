@@ -29,7 +29,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   storage :file
 
-  after :store, :upload_to_s3
+  #after :store, :upload_to_s3
   
 
 
@@ -112,9 +112,9 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
-  # version :presentation_video do
-  #   process :convert_to_video
-  # end
+  version :presentation_video do
+    process :convert_to_video
+  end
 
   
 
@@ -183,7 +183,7 @@ class FileUploader < CarrierWave::Uploader::Base
    # FileUtils::copy_file(file, "../video/video_storage/p_source/#{uuid_filename}")
     #Resque.enqueue(PowerPointConvert, File.extname(current_path), uuid_filename, model.id)
     Resque.enqueue(PowerPointConvert, File.extname(current_path),uuid_filename, file, model.id)
- #   model.file_processing = nil
+    model.file_processing = nil
   end
 
 

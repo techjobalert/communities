@@ -16,7 +16,6 @@ module Video
       script = pwd + '/script.applescript'
       log_file = pwd + '/log/video_convert.log'
 
-
       presentations_source = pwd + '/video_storage/p_source/'
       presentations_video = pwd + '/video_storage/p_video/'
 
