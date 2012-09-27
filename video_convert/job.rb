@@ -3,8 +3,8 @@ require 'net/http'
 
 module Video
 
- # module Convert
-  class Convert
+  module Convert
+ # class Convert
     @queue = :convert
 
     def self.perform(file, id)
