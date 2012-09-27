@@ -52,6 +52,7 @@ class PresentationVideoUpload
     end
     presenter_video.timing = timing.join(";")
     attach = Attachment.find(model_id)
+    attach.update_attribute("file_processing", nil)
     attach.item.attachments << presenter_video
       	# remove converted files(presentation and video file)
       	#FileUtils.rm [p_video, p_source], :verbose => true

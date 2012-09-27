@@ -51,7 +51,7 @@ class FileController < ApplicationController
 
     if attachment
       is_keynote = (File.extname(params[:filename]) == ".mov")
-      attachment.update_attribute("file_processing", nil)
+      # attachment.update_attribute("file_processing", nil)
       # p_base = "#{Rails.root}/video/video_storage"
       # p_video = File.join(p_base, "p_video", params[:filename])
       # p_source = File.join(p_base, "p_source", File.basename(params[:filename],".*")+ (is_keynote ? ".key" : ".pptx"))

@@ -183,7 +183,7 @@ class FileUploader < CarrierWave::Uploader::Base
    # FileUtils::copy_file(file, "../video/video_storage/p_source/#{uuid_filename}")
     #Resque.enqueue(PowerPointConvert, File.extname(current_path), uuid_filename, model.id)
     Resque.enqueue(PowerPointConvert, File.extname(current_path),uuid_filename, file, model.id)
-    model.file_processing = nil
+    model.file_processing = true
   end
 
 
