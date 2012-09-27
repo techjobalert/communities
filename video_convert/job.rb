@@ -7,7 +7,7 @@ module Video
  # class Convert
     @queue = :convert
 
-    def self.perform(file, id)
+    def self.perform(file, id, remote_ip)
       server = 'thin'
       user = 'user'
       password = 'orthodontics360'
@@ -52,7 +52,7 @@ module Video
 	    #     http.request(req)
 	    #   }
 	    # end
-      uri = URI("http://54.243.197.54/file/converted_pvideo?filename=#{file_basename}.mov&id=#{id}")
+      uri = URI("http://#{remote_ip}/file/converted_pvideo?filename=#{file_basename}.mov&id=#{id}")
       req = Net::HTTP::Get.new(uri.request_uri)
       res = Net::HTTP.start(uri.hostname, uri.port) {|http|
            http.request(req)
