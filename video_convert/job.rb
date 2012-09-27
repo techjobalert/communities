@@ -1,12 +1,11 @@
 require 'resque'
 require 'net/http'
-require 'resque'
 
 module Video
 
  # module Convert
   class Convert
-    @queue = :convert
+    @queue = :converta
 
     def self.perform(file, id)
       server = 'thin'
