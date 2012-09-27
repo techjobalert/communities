@@ -31,7 +31,7 @@ module Video
       if file and id
         Resque.enqueue(Convert, file, id)
       end
-      "#{Resque}"
+      "#{Convert.methods}"
     end
 
   end
