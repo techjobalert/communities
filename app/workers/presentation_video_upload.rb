@@ -32,8 +32,8 @@ class PresentationVideoUpload
 		p_video = File.join(p_base, filename)
 		presenter_video = Attachment.new({
          :file => File.open(p_video),
-         :user => attachment.user,
-         :item => attachment.item,
+         :user => attachment[:user_id],
+         :item => attachment[:item_id],
          :attachment_type => "presentation_video"})
 		 #collect timing from subtitles
       	# storing format "00:00:13,290;00:00:17,581" devider ";"
