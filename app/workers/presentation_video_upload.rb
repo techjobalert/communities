@@ -48,7 +48,9 @@ class PresentationVideoUpload
        #     FileUtils.remove_file(p_source_timing, :verbose => true)
        #  end
        #  presenter_video.timing = timing.join(";")
-        attachment.item.attachments << presenter_video
+       attach = Attachment.find(model_id)
+
+        attach.item.attachments << presenter_video
       	# remove converted files(presentation and video file)
       	#FileUtils.rm [p_video, p_source], :verbose => true
 	end
