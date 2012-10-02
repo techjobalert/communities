@@ -1,4 +1,3 @@
-
 need to install
 -avidemux-cli-
 lxsplit
@@ -8,6 +7,7 @@ ffmpeg
 x264
 # fix flv
 yamdi
+libreoffice-writer
 
 # split pdf http://documentcloud.github.com/docsplit/
 # graphicsmagick poppler-utils tesseract-ocr
