@@ -15,7 +15,15 @@ yamdi
 sudo apt-get install pdftk
 
 
+
 s3cmd - client for s3, must be setup on each server (mac, ubuntu)
 
 sudo apt-get install s3cmd
 s3cmd --configure # enter keys of bucket which shared between mac & ubuntu
+
+# install swftools:
+
+sudo add-apt-repository ppa:guilhem-fr/swftools
+sudo apt-get update
+sudo apt-get install swftools
+

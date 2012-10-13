@@ -53,6 +53,7 @@ module Orthodontic
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    config.assets.paths << Rails.root.join("app", "assets", "swfs")
 
     config.middleware.use Rack::Pjax
     config.gem "activemerchant", :lib => "active_merchant", :version => "1.4.1"
