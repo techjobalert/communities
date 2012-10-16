@@ -18,6 +18,11 @@
 //= require jquery.Jcrop.min
 //= require jquery.colorbox-min
 //= require jquery.plugins
+//= require jquery.extensions.min
+//
+// Flex paper pdf viewer*
+//= require flexpaper
+//= require flexpaper_handlers
 //
 // Chosen (selectbox plugin)*
 //= require chosen.jquery.min

@@ -10,6 +10,7 @@
  *= require items
  *= require jquery-ui
  *= require users
+ *= require flexpaper
 
  *= require jquery.fileupload-ui
  *= require webrecorder

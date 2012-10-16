@@ -1,31 +1,38 @@
--# pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
-- flash = attachment.file.pdf_flash #attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
+- pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
+-# flash = attachment.file.pdf_flash #attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
 
-%script{:src => "/javascripts/flexpaper_flash.js", :type => "text/javascript"}
-%a{:id => "viewerPlaceHolder", :style => "width:680px;height:480px;display:block"}
+-# %script{:src => "/javascripts/flexpaper/flexpaper_handlers.js", :type => "text/javascript"}
+%div{:id => "viewerPlaceHolder", :style => "width:680px;height:480px;display:block"}
 :javascript
-  var fp = new FlexPaperViewer( 
-                '#{asset_path("FlexPaperViewer")}',
-                'viewerPlaceHolder', { config : {
-                SwfFile : '#{ flash.url }',
-                Scale : 0.6, 
-                ZoomTransition : 'easeOut',
-                ZoomTime : 0.5,
-                ZoomInterval : 0.2,
-                FitPageOnLoad : true,
-                FitWidthOnLoad : false,
-                FullScreenAsMaxWindow : false,
-                ProgressiveLoading : false,
-                MinZoomSize : 0.2,
-                MaxZoomSize : 5,
-                SearchMatchAll : false,
-                InitViewMode : 'SinglePage', 
-                ViewModeToolsVisible : true,
-                ZoomToolsVisible : true,
-                NavToolsVisible : true,
-                CursorToolsVisible : true,
-                SearchToolsVisible : true,
-                PrintToolsVisible: false,
-                localeChain: 'en_US'
-             }});
+
+    $('#viewerPlaceHolder').FlexPaperViewer(
+                   { config : {
+                     PDFFile : '#{ pdf.url }',
+                     jsDirectory : '/javascripts/flexpaper/',
+                     Scale : 0.6,
+                     ZoomTransition : 'easeOut',
+                     ZoomTime : 0.5,
+                     ZoomInterval : 0.2,
+                     FitPageOnLoad : true,
+                     FitWidthOnLoad : false,
+                     FullScreenAsMaxWindow : false,
+                     ProgressiveLoading : false,
+                     MinZoomSize : 0.2,
+                     MaxZoomSize : 5,
+                     SearchMatchAll : false,
+                     InitViewMode : 'Portrait',
+                     RenderingOrder : 'html5',
+                     StartAtPage : '',
+
+                     ViewModeToolsVisible : true,
+                     ZoomToolsVisible : true,
+                     NavToolsVisible : true,
+                     CursorToolsVisible : true,
+                     SearchToolsVisible : true,
+                     WMode : 'window',
+                     localeChain: 'en_US',
+                     localeDirectory : '/javascripts/flexpaper/',
+                     key: '$5a7949586573e07f70d'
+                }}
+    );
 
