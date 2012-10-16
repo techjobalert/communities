@@ -1,5 +1,5 @@
-- pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
--# flash = attachment.file.pdf_flash #attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
+-# pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
+- flash = attachment.file.pdf_flash #attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
 
 -# %script{:src => "/javascripts/flexpaper/flexpaper_handlers.js", :type => "text/javascript"}
 %div{:id => "viewerPlaceHolder", :style => "width:680px;height:480px;display:block"}
@@ -7,7 +7,7 @@
 
     $('#viewerPlaceHolder').FlexPaperViewer(
                    { config : {
-                     PDFFile : '#{ pdf.url }',
+                     SWFFile : '#{ flash.url }',
                      jsDirectory : '/javascripts/flexpaper/',
                      Scale : 0.6,
                      ZoomTransition : 'easeOut',
@@ -21,7 +21,7 @@
                      MaxZoomSize : 5,
                      SearchMatchAll : false,
                      InitViewMode : 'Portrait',
-                     RenderingOrder : 'html5',
+                     RenderingOrder : 'flash',
                      StartAtPage : '',
 
                      ViewModeToolsVisible : true,
@@ -31,8 +31,8 @@
                      SearchToolsVisible : true,
                      WMode : 'window',
                      localeChain: 'en_US',
-                     localeDirectory : '/javascripts/flexpaper/',
-                     key: '$5a7949586573e07f70d'
+                     localeDirectory : '/javascripts/flexpaper/'
+                     //key: '$5a7949586573e07f70d'
                 }}
     );
 

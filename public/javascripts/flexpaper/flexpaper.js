@@ -64,7 +64,6 @@ window.FlexPaperViewerEmbedding = window.$f = function(id, args) {
     _cssDirectory 		= (config.cssDirectory!=null?config.cssDirectory:"css/");
     _localeDirectory 	= (config.localeDirectory!=null?config.localeDirectory:"locale/");
     if(_SWFFile!=null && _SWFFile.indexOf("{" )==0 && _SWFFile.indexOf("[*," ) > 0 && _SWFFile.indexOf("]" ) > 0){_SWFFile = escape(_SWFFile);} // split file fix
-
     window[instance] = flashembed(id, {
         src						    : _jsDirectory+"../FlexPaperViewer.swf",
         version					    : [10, 0],
