@@ -9,5 +9,5 @@ task :start do
 end
 
 task "resque:setup" do
-  ENV['QUEUE'] = '*'
+  ENV['QUEUE'] = 'convert'
 end

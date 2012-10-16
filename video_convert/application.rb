@@ -5,9 +5,9 @@ require 'sinatra/json'
 require 'json'
 require 'net/http'
 require 'resque'
-require 'aws-sdk'
 
 require './job'
+require './redis'
 
 module Video
 
@@ -24,13 +24,12 @@ module Video
     set :presentations_source, settings.pwd + '/video_storage/p_source/'
     set :presentations_video, settings.pwd + '/video_storage/p_video/'
     set :busy, false
-
-
+    
 
     post '/convert' do
       file, id = params[:file], params[:id]
       if file and id
-        Resque.enqueue(Convert, file, id)
+        Resque.enqueue(Convert, file, id, request.ip)
       end
     end
 

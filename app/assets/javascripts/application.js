@@ -18,6 +18,12 @@
 //= require jquery.Jcrop.min
 //= require jquery.colorbox-min
 //= require jquery.plugins
+//= require jquery.extensions.min
+//= require jquery.simplemodal.1.4.3.min
+//
+// Flex paper pdf viewer*
+//= require flexpaper
+//= require flexpaper_handlers
 //
 // Chosen (selectbox plugin)*
 //= require chosen.jquery.min
@@ -33,11 +39,11 @@
 //= require plupload.base
 //
 //  VideoRecorder & VideoPlayer (Sevenov)
-// require underscore-min.js
-// require swfobject.js
-// require backbone-min.js
-// require inscription.js
-// require recorder.js
+//= require underscore-min.js
+//= require swfobject.js
+//= require backbone-min.js
+//= require inscription.js
+//= require recorder.js
 //
 //  Misc*
 //= require jquery.html5-placeholder-shim
