@@ -36,34 +36,34 @@
                 %li
                   = link_to root_path, :class => "pjax tab-home #{ 'selected' if params[:controller] == 'home' && params[:action] == 'index'  }" do
                     HOME
-                    %span bla bla bla
+                    %span General things
 
                 %li
                   = link_to '#', :class => "tab-item #{ 'selected' if params[:controller] == 'items' }", :onClick => "return false;" do
                     ITEM
-                    %span bla bla bla
+                    %span Picked items
 
                 %li
                   = link_to edit_user_path(current_user), :class => "pjax tab-settings #{'selected' if params[:controller] == 'users' && params[:action] == 'edit'  }" do
                     SETTINGS
-                    %span bla bla bla
+                    %span Medical bio
 
                 %li
                   = link_to "#{current_user.role?("doctor") ? items_account_path : purchase_account_path}", :class => "pjax tab-account #{'selected' if params[:controller] == 'account'}" do
                     ACCOUNT
-                    %span bla bla bla
+                    %span Medical store
                 %li
                   = link_to user_path(current_user, :type => "public"), :class => "pjax tab-public" do
                     PUBLIC
-                    %span bla bla bla
+                    %span Your profile
                 %li
                   = link_to users_path(), :class => "pjax tab-collegues large" do
                     COLLEAGUES
-                    %span bla bla bla
+                    %span Your colleagues
                 %li
                   = link_to user_path(current_user), :class => "pjax tab-profile large" do
                     YOUR PROFILE
-                    %span bla bla bla
+                    %span Medical specialization
 
             .panel#ajax-main-container= yield
 

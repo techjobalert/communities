@@ -3,23 +3,22 @@
   .buttons
     = link_to '#sign-up', :class => 'sign-up selected' do
       SIGN UP
-      %span quick blabla text
+      %span to create account
     = link_to '#sign-in', :class => 'sign-in' do
       SIGN IN
-      %span quick blabla text
+      %span to your account
 
   .container
     .content
       .text
-        The quick brown fox jumps over the lazy dog.
-        Foxy parsons quiz and cajole the wiki-girl.
+        Maia is a marketplace for specialized doctors to explore, share, create and sell original content.
       .media= image_tag "/assets/tmp/p1.jpg"
     #sign-up.sign-up-tab.sign-tab
       = form_for(User.new, :as => User.new, :url => registration_path(:user), :validate => true) do |f|
         / = devise_error_messages!
         .inputs
           .toggler
-            %b I am
+            %b I am:
             = f.radio_button :role, "doctor"
             = f.label :role_doctor, 'a Doctor', :class => 'doctor checked'
             = f.radio_button :role, "patient"
