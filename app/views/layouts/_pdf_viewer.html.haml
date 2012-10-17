@@ -6,7 +6,7 @@
 
     $('#viewerPlaceHolder').FlexPaperViewer(
                    { config : {
-                     SWFFile : '#{ flash.url }',
+                     SWFFile : '#{ pdf.url }',
                      jsDirectory : '/javascripts/flexpaper/',
                      Scale : 0.6,
                      ZoomTransition : 'easeOut',
@@ -20,7 +20,7 @@
                      MaxZoomSize : 5,
                      SearchMatchAll : false,
                      InitViewMode : 'Portrait',
-                     RenderingOrder : '',
+                     RenderingOrder : 'html5',
                      StartAtPage : '',
 
                      ViewModeToolsVisible : true,
