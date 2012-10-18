@@ -27,7 +27,7 @@ $(function() {
      *
      * @param String link
      */
-    jQuery('#viewerPlaceHolder').bind('onExternalLinkClicked',function(e,link){
+    jQuery('#document_viewer').bind('onExternalLinkClicked',function(e,link){
 
     });
 
@@ -39,7 +39,7 @@ $(function() {
      * @param int loaded
      * @param int total
      */
-    jQuery('#viewerPlaceHolder').bind('onProgress',function(e,loadedBytes,totalBytes){
+    jQuery('#document_viewer').bind('onProgress',function(e,loadedBytes,totalBytes){
 
     });
 
@@ -47,7 +47,7 @@ $(function() {
      * Handles the event of a document is in progress of loading
      *
      */
-    jQuery('#viewerPlaceHolder').bind('onDocumentLoading',function(e){
+    jQuery('#document_viewer').bind('onDocumentLoading',function(e){
 
     });
 
@@ -55,7 +55,7 @@ $(function() {
      * Handles the event of a document is in progress of loading
      *
      */
-    jQuery('#viewerPlaceHolder').bind('onPageLoading',function(e,pageNumber){
+    jQuery('#document_viewer').bind('onPageLoading',function(e,pageNumber){
 
     });
 
@@ -66,7 +66,7 @@ $(function() {
      *
      * @param int pagenum
      */
-    jQuery('#viewerPlaceHolder').bind('onCurrentPageChanged',function(e,pagenum){
+    jQuery('#document_viewer').bind('onCurrentPageChanged',function(e,pagenum){
 
     });
 
@@ -77,7 +77,7 @@ $(function() {
      *
      * @param int totalPages
      */
-    jQuery('#viewerPlaceHolder').bind('onDocumentLoaded',function(e,totalPages){
+    jQuery('#document_viewer').bind('onDocumentLoaded',function(e,totalPages){
 
     });
 
@@ -88,7 +88,7 @@ $(function() {
      *
      * @param int pageNumber
      */
-    jQuery('#viewerPlaceHolder').bind('onPageLoaded',function(e,pageNumber){
+    jQuery('#document_viewer').bind('onPageLoaded',function(e,pageNumber){
 
     });
 
@@ -99,7 +99,7 @@ $(function() {
      *
      * @param int pageNumber
      */
-    jQuery('#viewerPlaceHolder').bind('onErrorLoadingPage',function(e,pageNumber){
+    jQuery('#document_viewer').bind('onErrorLoadingPage',function(e,pageNumber){
 
     });
 
@@ -110,7 +110,7 @@ $(function() {
      *
      * @param String errorMessage
      */
-    jQuery('#viewerPlaceHolder').bind('onDocumentLoadedError',function(e,errMessage){
+    jQuery('#document_viewer').bind('onDocumentLoadedError',function(e,errMessage){
 
     });
 
@@ -120,7 +120,7 @@ $(function() {
      * @example onDocumentPrinted();
      *
      */
-    jQuery('#viewerPlaceHolder').bind('onDocumentPrinted',function(e){
+    jQuery('#document_viewer').bind('onDocumentPrinted',function(e){
 
     });
 });
