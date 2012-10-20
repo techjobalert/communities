@@ -1,6 +1,6 @@
 need to install
 -avidemux-cli-
-  sudo apt-get install
+  sudo apt-get install avidemux-cli
 lxsplit
 mencoder
 handbrakecli
