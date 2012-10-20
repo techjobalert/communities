@@ -3,8 +3,11 @@ need to install
 lxsplit
 mencoder
 handbrakecli
+
+# https://ffmpeg.org/trac/ffmpeg/wiki/UbuntuCompilationGuide
 ffmpeg
 x264
+
 # fix flv
 yamdi
 libreoffice-writer
