@@ -1,13 +1,14 @@
 need to install
 -avidemux-cli-
+  sudo apt-get install
 lxsplit
 mencoder
 handbrakecli
-
-# https://ffmpeg.org/trac/ffmpeg/wiki/UbuntuCompilationGuide
-ffmpeg
-x264
-
+  sudo add-apt-repository ppa:stebbins/handbrake-release
+  sudo apt-get update
+  sudo apt-get install handbrake-cli
+ffmpeg    x264
+  https://ffmpeg.org/trac/ffmpeg/wiki/UbuntuCompilationGuide
 # fix flv
 yamdi
 libreoffice-writer
