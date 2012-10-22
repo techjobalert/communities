@@ -26,7 +26,7 @@
 */ 
 window.$FlexPaper = window.getDocViewer = window["$FlexPaper"] = function(id){
 	var instance = (id==="undefined")?"":id;
-	
+
     if (window['ViewerMode'] == 'flash') {
 		return window["FlexPaperViewer_Instance"+instance].getApi();
 	}else if(window['ViewerMode'] == 'html'){
@@ -40,8 +40,9 @@ window.$FlexPaper = window.getDocViewer = window["$FlexPaper"] = function(id){
  *
  */
 window.FlexPaperViewerEmbedding = window.$f = function(id, args) {
+    this.id = id;
+
     var config = args.config;
-    
     var _SWFFile,_PDFFile,_IMGFiles,_JSONFile  = "",_jsDirectory="",_cssDirectory="",_localeDirectory="";_WMode = (config.WMode!=null||config.wmmode!=null?config.wmmode||config.WMode:"window");
     var _uDoc = ((config.DOC !=null)?unescape(config.DOC):null);
     var instance = "FlexPaperViewer_Instance"+((id==="undefined")?"":id);
@@ -64,6 +65,7 @@ window.FlexPaperViewerEmbedding = window.$f = function(id, args) {
     _cssDirectory 		= (config.cssDirectory!=null?config.cssDirectory:"css/");
     _localeDirectory 	= (config.localeDirectory!=null?config.localeDirectory:"locale/");
     if(_SWFFile!=null && _SWFFile.indexOf("{" )==0 && _SWFFile.indexOf("[*," ) > 0 && _SWFFile.indexOf("]" ) > 0){_SWFFile = escape(_SWFFile);} // split file fix
+
     window[instance] = flashembed(id, {
         src						    : _jsDirectory+"../FlexPaperViewer.swf",
         version					    : [10, 0],
@@ -371,7 +373,7 @@ function translateUrlByFormat(url,format){
 
         var supportsHTML4   = (browser.mozilla && browser.version.split(".")[0] >= 3) ||
             (browser.chrome) ||
-            (browser.msie && browser.version.split(".")[0] >= 9) ||
+            (browser.msie && browser.version.split(".")[0] >= 8) ||
             (browser.safari) ||
             (browser.opera);
 
@@ -619,7 +621,9 @@ function translateUrlByFormat(url,format){
 		};
 
         jQuery.fn.FlexPaperViewer = function(args){
-            this.element = new FlexPaperViewerEmbedding(this.attr('id'),args);
+            var embed = new FlexPaperViewerEmbedding(this.attr('id'),args);
+            this.element = jQuery('#'+embed.id);
+            return this.element;
         };
 	}else{
         throw new Error("jQuery missing!");
