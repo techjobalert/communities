@@ -4,3 +4,12 @@
   .tools
     = form_for @item, :remote => true do |f|
       = f.submit "", :class => 'btn publish', :name => 'publish'
+
+  - if @a_pdf
+    .attachment-pdf
+      - if @a_pdf.file_processing == true
+        %i Your attached pdf will be placed here after processings
+      - elsif not @a_pdf.blank?
+        - pdf = @item.paid_view?(current_user)
+        -if pdf
+          = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
