@@ -152,4 +152,8 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def can_get_pdf?(user)
+    ((paid? and purchased?(user)) or (!paid? and published?) or self.user == user or user.admin?) and (attachment_type == "article")
+  end
+
 end

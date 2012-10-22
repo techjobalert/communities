@@ -247,7 +247,7 @@ class ItemsController < InheritedResources::Base
 
   def get_attachment
     item = Item.find(params[:item_id])
-    if item.attachment_type == "article" && item.paid_view?(current_user)
+    if item.can_get_pdf?(current_user)
       file_path = item.regular_pdf.file.pdf.path
       send_file file_path, filename: File.basename(file_path), type: "application/pdf"
     else

@@ -1,5 +1,5 @@
--# pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
-- flash = attachment.file.pdf_flash #attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
+- pdf = attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
+-# flash = attachment.file.pdf_flash #attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
 
 -# %div{:id => "viewer_place_holder", :style => "width:770px;height:500px"}
 %div{:id => "document_viewer", :style => "width:100%;height:500px;display:block", :class => "flexpaper_viewer"}
@@ -7,7 +7,7 @@
 
     $('#document_viewer').FlexPaperViewer(
                    { config : {
-                     SWFFile : '#{ flash.url }',
+                     PDFFile : '#{ pdf.url }',
                      jsDirectory : '/javascripts/flexpaper/',
                      Scale : 0.6,
                      ZoomTransition : 'easeOut',
@@ -21,7 +21,7 @@
                      MaxZoomSize : 5,
                      SearchMatchAll : false,
                      InitViewMode : 'Portrait',
-                     RenderingOrder : 'flash',
+                     RenderingOrder : 'html5',
                      StartAtPage : '',
 
                      ViewModeToolsVisible : true,
