@@ -25,6 +25,11 @@
           dataType : 'json',
           cacheResults : true
       }
+    }).bind('tagClick', function(e, tag, value, callback)
+        {
+            var newValue = window.prompt('Edit tag', value);
+            if(newValue)
+                callback(newValue);
     });
 
     $('.b-upload-item__navigation .additional').click(function() {
