@@ -30,7 +30,7 @@ class Attachment < ActiveRecord::Base
     # else
       # "undefined"
     end
-    if type
+    if type && (self.attachment_type != "presenter_merged_video")
       #self.attachment_type = type if self.attachment_type == "regular"
       item.update_attribute(:attachment_type, type)
     end

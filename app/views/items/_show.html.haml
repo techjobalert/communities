@@ -83,7 +83,7 @@
           .attachment-video
             - video = @item.paid_view?(current_user)
             -if video
-              = render :partial => "layouts/video_viewer", :locals => {:attachment => video}
+              = render partial: "layouts/video_viewer",locals: {:attachment => @item.attachment_type == "article" ? @a_video : video}
 
       .body
         = image_tag('/assets/logo.png', :width => '200')
