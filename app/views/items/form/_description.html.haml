@@ -30,6 +30,14 @@
             var newValue = window.prompt('Edit tag', value);
             if(newValue)
                 callback(newValue);
+    }).bind('keypress', function(event)
+        {
+            if(event.which === 44)
+            {
+              $('#tag_list').textext()[0].tags().addTags([ $('#tag_list').val() ]);
+              $('#tag_list').val('');
+              event.preventDefault();
+            }
     });
 
     $('.b-upload-item__navigation .additional').click(function() {
