@@ -64,6 +64,15 @@ class Attachment < ActiveRecord::Base
     extension_is?("pdf")
   end
 
+  def get_imgs
+    if self.is_pdf?
+      fullname = self.is_processed_to_pdf? ? self.file.pdf.url : self.file.url
+      directory = File.dirname(fullname)
+      basename = File.basename(fullname, ".*")
+      "#{directory}/#{basename}-{page}.png"
+    end
+  end
+
   # def is_video?
   #   file.present? and extension_is?("mp4")
   # end
