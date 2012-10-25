@@ -11,7 +11,8 @@ num_workers.times do |num|
     w.name = "resque-#{num}"
     w.group = 'resque'
     w.interval = 30.seconds
-    w.env = {"QUEUE"=>queues_array[num], "RAILS_ENV"=>rails_env}
+    rnum = num < 3 ? 1 : 0
+    w.env = {"QUEUE"=>queues_array[rnum], "RAILS_ENV"=>rails_env}
    # w.start = "/usr/bin/rake -f #{rails_root}/Rakefile environment resque:work"
    	w.start = "bundle exec rake resque:work"
     # restart if memory gets too high
