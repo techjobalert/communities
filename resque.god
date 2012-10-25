@@ -1,6 +1,6 @@
 rails_env = ENV['RAILS_ENV'] || "production"
 rails_root = ENV['RAILS_ROOT']
-num_workers = rails_env == 'production' ? 5 : 2
+num_workers = rails_env == 'production' ? 10 : 2
 
 queues_array = ["notifications_queue,power_point_convert_queue,store_asset,store_asset_notifications_queue",
 "convert"]
