@@ -7,7 +7,8 @@
 
     $('#document_viewer').FlexPaperViewer(
                    { config : {
-                     PDFFile : '#{ pdf.url }',
+                     JSONFile : '#{ attachment.file.pdf_json.url }',
+                     IMGFiles : '#{ attachment.get_imgs }',
                      jsDirectory : '/javascripts/flexpaper/',
                      Scale : 0.6,
                      ZoomTransition : 'easeOut',
@@ -21,7 +22,7 @@
                      MaxZoomSize : 5,
                      SearchMatchAll : false,
                      InitViewMode : 'Portrait',
-                     RenderingOrder : 'html5',
+                     RenderingOrder : 'html4',
                      StartAtPage : '',
 
                      ViewModeToolsVisible : true,

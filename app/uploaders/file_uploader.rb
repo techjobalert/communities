@@ -12,7 +12,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # documents
   version :pdf,                 :if => :is_document?
   version :pdf_thumbnail,       :if => :is_pdf?
-  version :pdf_flash,           :if => :is_pdf?
+  version :pdf_json,            :if => :is_pdf?
 
   # video
   version :mp4,                 :if => :is_video?
@@ -20,6 +20,10 @@ class FileUploader < CarrierWave::Uploader::Base
   version :webm,                :if => :is_video?
   version :video_thumbnail,     :if => :is_video?
 
+
+  after :store, :make_png
+  before :remove, :remove_png
+  after :store, :upload_to_s3
   # presentation_video
   #version :presentation_video,  :if => :is_presentation?
   
@@ -30,7 +34,6 @@ class FileUploader < CarrierWave::Uploader::Base
 
   storage :file
 
-  after :store, :upload_to_s3
   
 
 
@@ -58,10 +61,10 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
-  version :pdf_flash do
-    process :create_pdf_flash
+  version :pdf_json do
+    process :create_pdf_json
     def full_filename (for_file = model.file.file)
-      "flash_#{File.basename(for_file, File.extname(for_file))}.swf"
+      "json_#{File.basename(for_file, File.extname(for_file))}.js"
     end
   end
 
@@ -133,6 +136,7 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
+
   protected
 
   def convert_to_pdf
@@ -188,6 +192,47 @@ class FileUploader < CarrierWave::Uploader::Base
     Resque.enqueue(SendProcessedMessage, model.item.id) if file
     model.file_processing = nil
   end
+
+  def create_pdf_json
+    
+    cache_stored_file! if !cached?
+    
+    directory = File.dirname( current_path )
+    json_path = File.join( directory, "tmp.js")
+    path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
+    
+    command =%x[pdf2json -enc UTF-8 -compress #{path} #{json_path}]
+    
+    File.delete current_path
+    File.rename json_path, current_path
+    Resque.enqueue(SendProcessedMessage, model.item.id) if file
+    model.file_processing = nil
+  end
+
+  def make_png(file)
+    if File.extname(current_path) == ".pdf"
+      directory = File.dirname(current_path)
+      basename = File.basename(current_path, ".pdf")
+      dirbase = directory + '/' + basename
+      command =%x[pdftocairo -png #{current_path} #{dirbase}]
+      Dir.glob("#{dirbase}-0*.png").each do |matched_file|
+        new_name = matched_file.gsub(/-0+(\d+)\.png$/) {|s| "-" + $1 + ".png"}
+        File.rename matched_file, new_name
+      end
+    end
+  end
+
+
+  def remove_png
+    if file && File.extname(file.path) == '.pdf' && File.exists?(file.path)
+      directory = File.dirname(file.path)
+      files = Dir.glob("#{directory}/*.png")
+      files.each do |f|
+        File.delete(f)
+      end
+    end
+  end
+
 
   def merge_presenter_video
     tmp  = current_path+".jpeg"

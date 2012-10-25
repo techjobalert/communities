@@ -30,7 +30,7 @@ class Attachment < ActiveRecord::Base
     # else
       # "undefined"
     end
-    if type
+    if type && (self.attachment_type != "presenter_merged_video")
       #self.attachment_type = type if self.attachment_type == "regular"
       item.update_attribute(:attachment_type, type)
     end
@@ -62,6 +62,15 @@ class Attachment < ActiveRecord::Base
 
   def is_pdf?
     extension_is?("pdf")
+  end
+
+  def get_imgs
+    if self.is_pdf?
+      fullname = self.is_processed_to_pdf? ? self.file.pdf.url : self.file.url
+      directory = File.dirname(fullname)
+      basename = File.basename(fullname, ".*")
+      "#{directory}/#{basename}-{page}.png"
+    end
   end
 
   # def is_video?
