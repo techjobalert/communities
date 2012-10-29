@@ -80,7 +80,7 @@ class Attachment < ActiveRecord::Base
     #   nil
     # end
     if self.pdf_images.present?
-      directory = File.dirname(self.pdf_images.first.file.path)
+      directory = File.dirname(self.pdf_images.first.file.url)
       directory = File.dirname(directory)
       "#{directory}/{page}/page.png"
     else

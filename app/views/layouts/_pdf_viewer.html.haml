@@ -8,7 +8,7 @@
     $('#document_viewer').FlexPaperViewer(
                    { config : {
                      JSONFile : '/#{ attachment.file.pdf_json.path }',
-                     IMGFiles : '/#{ attachment.get_imgs }',
+                     IMGFiles : '#{ attachment.get_imgs }',
                      jsDirectory : '/javascripts/flexpaper/',
                      Scale : 0.6,
                      ZoomTransition : 'easeOut',
