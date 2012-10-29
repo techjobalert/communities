@@ -14,6 +14,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf,                 :if => :is_document?
   version :pdf_thumbnail,       :if => :is_pdf?
   version :pdf_json,            :if => :is_pdf?
+  process :pdf_pngs,            :if => :is_pdf?
 
   # video
   version :mp4,                 :if => :is_video?
@@ -22,11 +23,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :video_thumbnail,     :if => :is_video?
 
 
-  # before :store, :make_png
-  # before :remove, :remove_png
   after :store, :upload_to_s3
-  #after :cache, :debug_cache
-  #after :retrieve_from_cache, :rfc_debug_cache
   # presentation_video
   #version :presentation_video,  :if => :is_presentation?
   
@@ -154,7 +151,6 @@ class FileUploader < CarrierWave::Uploader::Base
     fixed_name = File.basename(tmp_path, '.*') + "." + "pdf"
 
     full_pdf_path = File.join( directory, fixed_name )
-    populate_pages_preview_images(full_pdf_path)
     File.rename full_pdf_path, current_path
 
     # delete tmp file
@@ -170,7 +166,7 @@ class FileUploader < CarrierWave::Uploader::Base
     image_path = File.join( directory, "tmp.jpeg")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
 
-    populate_pages_preview_images(path)
+    #populate_pages_preview_images(path)
     
     pdf = Magick::ImageList.new(path).first
     thumb = pdf.scale(265, 200)
@@ -199,7 +195,6 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def create_pdf_json
-    
     cache_stored_file! if !cached?
     
     directory = File.dirname( current_path )
@@ -214,6 +209,11 @@ class FileUploader < CarrierWave::Uploader::Base
     model.file_processing = nil
   end
 
+
+  def pdf_pngs
+    populate_pages_preview_images(current_path)
+  end
+
   def populate_pages_preview_images(pdf_file_path)
     pdf = Magick::ImageList.new(pdf_file_path)
     pdf_dir_path = File.dirname(pdf_file_path)
@@ -225,48 +225,9 @@ class FileUploader < CarrierWave::Uploader::Base
         file: File.open(page_file),
         page_number: page_number + 1
       )
+      File.delete(page_file)
     end
   end
-
-  def make_png(file)
-    directory = File.dirname(current_path)
-    basename = File.basename(current_path, ".*")
-    dirbase = directory+'/'+basename+'.pdf'
-    Rails.logger.debug "_____#{Dir.entries(directory)}______"
-    # if File.extname(current_path) == ".pdf"
-    #   cache_stored_file! if !cached?
-    #   directory = File.dirname(current_path)
-    #   basename = File.basename(current_path, ".pdf")
-    #   dirbase = directory + '/' + basename
-    #   command =%x[pdftocairo -png #{current_path} #{dirbase}]
-    #   Dir.glob("#{dirbase}-0*.png").each do |matched_file|
-    #     new_name = matched_file.gsub(/-0+(\d+)\.png$/) {|s| "-" + $1 + ".png"}
-    #     File.rename matched_file, new_name
-    #   end
-    # end
-  end
-
-
-  # def remove_png
-    
-  #   # if file && File.extname(file.path) == '.pdf' && File.exists?(file.path)
-  #   #   directory = File.dirname(file.path)
-  #   #   files = Dir.glob("#{directory}/*.png")
-  #   #   files.each do |f|
-  #   #     File.delete(f)
-  #   #   end
-  #   # end
-  # end
-
-
-  # def debug_cache(file)
-  #   #Rails.logger.debug "___cache:______file:______#{file}_|__#{file.path if file}__cp: #{current_path}___"
-  # end
-
-  # def rfc_debug_cache(file)
-  #   #Rails.logger.debug "___rfc:______file:______#{file}_|__#{file.path if file}__cp: #{current_path}___"
-  # end
-
 
   def merge_presenter_video
     tmp  = current_path+".jpeg"
