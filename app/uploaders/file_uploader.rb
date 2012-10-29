@@ -14,7 +14,6 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf,                 :if => :is_document?
   version :pdf_thumbnail,       :if => :is_pdf?
   version :pdf_json,            :if => :is_pdf?
-  process :pdf_pngs,            :if => :is_pdf?
 
   # video
   version :mp4,                 :if => :is_video?
@@ -162,6 +161,8 @@ class FileUploader < CarrierWave::Uploader::Base
     
     cache_stored_file! if !cached?
 
+    populate_pages_preview_images(current_path)
+
     directory = File.dirname( current_path )
     image_path = File.join( directory, "tmp.jpeg")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
@@ -208,9 +209,9 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
 
-  def pdf_pngs
-    populate_pages_preview_images(current_path) if File.extname(current_path) == '.pdf'
-  end
+  # def pdf_pngs
+  #   populate_pages_preview_images(current_path)
+  # end
 
   def populate_pages_preview_images(pdf_file_path)
     pdf = Magick::ImageList.new(pdf_file_path)
