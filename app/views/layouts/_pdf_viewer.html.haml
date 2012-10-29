@@ -7,8 +7,9 @@
 
     $('#document_viewer').FlexPaperViewer(
                    { config : {
-                     JSONFile : '#{ attachment.file.pdf_json.url }',
-                     IMGFiles : '#{ attachment.get_imgs }',
+                     JSONFile : '/#{ attachment.file.pdf_json.path }',
+                     IMGFiles : '/#{ attachment.get_imgs }',
+                     JSONDataType : 'jsonp',
                      jsDirectory : '/javascripts/flexpaper/',
                      Scale : 0.6,
                      ZoomTransition : 'easeOut',
@@ -34,6 +35,7 @@
                      localeChain: 'en_US',
                      localeDirectory : '/javascripts/flexpaper/',
                      key: '$5a7949586573e07f70d'
+                     
                 }}
 
     );
