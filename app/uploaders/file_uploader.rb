@@ -14,7 +14,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf,                 :if => :is_document?
   version :pdf_thumbnail,       :if => :is_pdf?
   version :pdf_json,            :if => :is_pdf?
-  process :pdf_pngs,            :if => :is_pdf?
+  process :pdf_pngs,            :if => :is_only_pdf?
 
   # video
   version :mp4,                 :if => :is_video?
@@ -268,6 +268,10 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def is_presentation? f
     [".pptx", ".key"].member? File.extname(file.path)
+  end
+
+  def is_only_pdf? f
+    File.extname(file.path) == '.pdf'
   end
 
 end
