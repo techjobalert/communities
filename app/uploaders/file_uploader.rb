@@ -1,5 +1,6 @@
 # encoding: utf-8
 require File.join(Rails.root, "lib", "ffmpeg")
+require 'RMagick'
 
 class FileUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
@@ -13,6 +14,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf,                 :if => :is_document?
   version :pdf_thumbnail,       :if => :is_pdf?
   version :pdf_json,            :if => :is_pdf?
+  process :pdf_pngs,            :if => :is_pdf?
 
   # video
   version :mp4,                 :if => :is_video?
@@ -21,8 +23,6 @@ class FileUploader < CarrierWave::Uploader::Base
   version :video_thumbnail,     :if => :is_video?
 
 
-  after :store, :make_png
-  before :remove, :remove_png
   after :store, :upload_to_s3
   # presentation_video
   #version :presentation_video,  :if => :is_presentation?
@@ -32,10 +32,7 @@ class FileUploader < CarrierWave::Uploader::Base
     "/default/item_" + [version_name, "default.png"].compact.join('_')
   end
 
-  storage :file
-
-  
-
+  storage :fog
 
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -152,7 +149,9 @@ class FileUploader < CarrierWave::Uploader::Base
     # encode
     command =%x[libreoffice --headless -convert-to pdf #{tmp_path} -outdir #{directory}]
     fixed_name = File.basename(tmp_path, '.*') + "." + "pdf"
-    File.rename File.join( directory, fixed_name ), current_path
+
+    full_pdf_path = File.join( directory, fixed_name )
+    File.rename full_pdf_path, current_path
 
     # delete tmp file
     File.delete tmp_path
@@ -166,6 +165,8 @@ class FileUploader < CarrierWave::Uploader::Base
     directory = File.dirname( current_path )
     image_path = File.join( directory, "tmp.jpeg")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
+
+    #populate_pages_preview_images(path)
     
     pdf = Magick::ImageList.new(path).first
     thumb = pdf.scale(265, 200)
@@ -194,7 +195,6 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def create_pdf_json
-    
     cache_stored_file! if !cached?
     
     directory = File.dirname( current_path )
@@ -209,30 +209,25 @@ class FileUploader < CarrierWave::Uploader::Base
     model.file_processing = nil
   end
 
-  def make_png(file)
-    if File.extname(current_path) == ".pdf"
-      directory = File.dirname(current_path)
-      basename = File.basename(current_path, ".pdf")
-      dirbase = directory + '/' + basename
-      command =%x[pdftocairo -png #{current_path} #{dirbase}]
-      Dir.glob("#{dirbase}-0*.png").each do |matched_file|
-        new_name = matched_file.gsub(/-0+(\d+)\.png$/) {|s| "-" + $1 + ".png"}
-        File.rename matched_file, new_name
-      end
-    end
+
+  def pdf_pngs
+    populate_pages_preview_images(current_path)
   end
 
+  def populate_pages_preview_images(pdf_file_path)
+    pdf = Magick::ImageList.new(pdf_file_path)
+    pdf_dir_path = File.dirname(pdf_file_path)
+    pdf.write("#{pdf_dir_path}/pdf_preview.png")
+    all_previews = Dir["#{pdf_dir_path}/*.png"]
 
-  def remove_png
-    if file && File.extname(file.path) == '.pdf' && File.exists?(file.path)
-      directory = File.dirname(file.path)
-      files = Dir.glob("#{directory}/*.png")
-      files.each do |f|
-        File.delete(f)
-      end
+    all_previews.each_with_index do |page_file, page_number|
+      model.pdf_images.create!(
+        file: File.open(page_file),
+        page_number: page_number + 1
+      )
+      File.delete(page_file)
     end
   end
-
 
   def merge_presenter_video
     tmp  = current_path+".jpeg"
@@ -256,26 +251,23 @@ class FileUploader < CarrierWave::Uploader::Base
     #model.file_processing = true
   end
 
-
-  
-
   def is_video? f
     exts = %w(3gpp 3gp mpeg mpg mpe ogv mov webm flv mng asx asf wmv avi mp4 m4v).map!{|e| "."+ e }
     if model.attachment_type != "presenter_video"
-      exts.member? File.extname(f.file) or (is_presentation?(f) and model.file_processing == nil)
+      exts.member? File.extname(file.path) or (is_presentation?(f) and model.file_processing == nil)
     end
   end
 
   def is_pdf? f
-    [".pdf", ".doc", ".docx"].member? File.extname(f.file)
+    [".pdf", ".doc", ".docx"].member? File.extname(file.path)
   end
 
   def is_document? f
-    [".doc", ".docx"].member? File.extname(f.file) #or model.is_pdf?
+    [".doc", ".docx"].member? File.extname(file.path)
   end
 
   def is_presentation? f
-    [".pptx", ".key"].member? File.extname(f.file)
+    [".pptx", ".key"].member? File.extname(file.path)
   end
 
 end

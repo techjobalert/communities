@@ -3,6 +3,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :item #, :counter_cache => true
   belongs_to :user #, :counter_cache => true
   has_many   :attachment_previews, :dependent => :destroy
+  has_many   :pdf_images, :dependent => :destroy
 
   attr_accessible :user, :file, :item_id, :attachment_type
   store :video_timing, accessors: [ :playback_points ]
@@ -65,18 +66,25 @@ class Attachment < ActiveRecord::Base
   end
 
   def get_imgs
-    fullname = nil
-    if self.is_pdf?
-      fullname = self.file.url
-    elsif self.is_processed_to_pdf?
-      fullname = self.file.pdf.url
-    end
-    if fullname          
-      directory = File.dirname(fullname)
-      basename = File.basename(fullname, ".*")
-      "#{directory}/#{basename}-{page}.png"
+    # fullname = nil
+    # if self.is_pdf?
+    #   fullname = self.file.url
+    # elsif self.is_processed_to_pdf?
+    #   fullname = self.file.pdf.url
+    # end
+    # if fullname          
+    #   directory = File.dirname(fullname)
+    #   basename = File.basename(fullname, ".*")
+    #   "#{directory}/#{basename}-{page}.png"
+    # else
+    #   nil
+    # end
+    if self.pdf_images.present?
+      directory = File.dirname(self.pdf_images.first.file.url)
+      directory = File.dirname(directory)
+      "#{directory}/{page}/page.png"
     else
-      nil
+      nil  
     end
   end
 
