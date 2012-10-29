@@ -161,11 +161,12 @@ class FileUploader < CarrierWave::Uploader::Base
     
     cache_stored_file! if !cached?
 
-    populate_pages_preview_images(current_path)
+
 
     directory = File.dirname( current_path )
     image_path = File.join( directory, "tmp.jpeg")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
+    populate_pages_preview_images(path)
     
     pdf = Magick::ImageList.new(path).first
     thumb = pdf.scale(265, 200)
