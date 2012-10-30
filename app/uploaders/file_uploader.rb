@@ -174,8 +174,7 @@ class FileUploader < CarrierWave::Uploader::Base
     
     File.delete current_path
     File.rename image_path, current_path
-    Rails.logger.info "____1___#{model.item.id}_____"
-    Resque.enqueue(SendProcessedMessage, model.item.id) if file
+    #Resque.enqueue(SendProcessedMessage, model.item.id) if file
     model.file_processing = nil
   end
 
@@ -191,7 +190,7 @@ class FileUploader < CarrierWave::Uploader::Base
     
     File.delete current_path
     File.rename flash_path, current_path
-    Resque.enqueue(SendProcessedMessage, model.item.id) if file
+    #Resque.enqueue(SendProcessedMessage, model.item.id) if file
     model.file_processing = nil
   end
 
@@ -206,7 +205,7 @@ class FileUploader < CarrierWave::Uploader::Base
     
     File.delete current_path
     File.rename json_path, current_path
-    Resque.enqueue(SendProcessedMessage, model.item.id) if file
+    #Resque.enqueue(SendProcessedMessage, model.item.id) if file
     model.file_processing = nil
   end
 
@@ -236,7 +235,7 @@ class FileUploader < CarrierWave::Uploader::Base
     file = ::FFMPEG::Movie.new(path)
     file.transcode(tmp, :custom => "-ss #{h}:#{m}:#{s} -s 435x264 -vframes 1 -f image2")
     File.rename tmp, current_path
-    Resque.enqueue(SendProcessedMessage, model.item.id) if file
+    #Resque.enqueue(SendProcessedMessage, model.item.id) if file
     model.file_processing = nil
   end
 

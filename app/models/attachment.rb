@@ -19,6 +19,7 @@ class Attachment < ActiveRecord::Base
   before_save     :set_type
   before_save     :remove_prev_version
   before_destroy  :destroy_attachments
+  after_save :send_notification_mail, :if => :asset_uploaded?
   
 
   def set_type
@@ -98,6 +99,16 @@ class Attachment < ActiveRecord::Base
     else
       self.file.video_thumbnail.url
     end
+  end
+
+  private
+
+  def send_notification_mail
+    Resque.enqueue(SendProcessedMessage, self.item_id)
+  end
+
+  def asset_uploaded?
+    file_tmp_changed? && file_changed? && file_processing_changed? && !created_at_changed?
   end
 
 end
