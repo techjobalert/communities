@@ -166,7 +166,7 @@ class FileUploader < CarrierWave::Uploader::Base
     directory = File.dirname( current_path )
     image_path = File.join( directory, "tmp.jpeg")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
-    populate_pages_preview_images(path)
+    
     
     pdf = Magick::ImageList.new(path).first
     thumb = pdf.scale(265, 200)
@@ -200,10 +200,17 @@ class FileUploader < CarrierWave::Uploader::Base
     directory = File.dirname( current_path )
     json_path = File.join( directory, "tmp.js")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
-    
-    command =%x[pdf2json -enc UTF-8 -compress #{path} #{json_path}]
+    result = populate_pages_preview_images(path)
+    width, height, count = result[0], result[1], result[2]
+    images = []
+    count.times do |n|
+      images << {"number" => n+1, "fonts" => [], "text" => [], "width" => width, "height" => height}
+    end
+    File.open(json_path,"w") do |f|
+      f.write(images.to_json)
+    end
 
-    Rails.logger.info "___#{command}_____"
+    #command =%x[pdf2json -enc UTF-8 -compress #{path} #{json_path}]
     
     File.delete current_path
     File.rename json_path, current_path
@@ -232,6 +239,8 @@ class FileUploader < CarrierWave::Uploader::Base
       )
       File.delete(page_file)
     end
+
+    [pdf[0].columns,pdf[0].rows,pdf.count]
   end
 
   def merge_presenter_video
