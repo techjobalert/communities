@@ -5,7 +5,7 @@ queues_array = ["notifications_queue,power_point_convert_queue",
                 "store_asset,store_asset_notifications_queue",
                 "convert",
                 "*"]
-queues_indexes = rails_env == 'production' ? [2,2,0,0,1,1,1,1,1,1] : [2,2,0,0,1,1,1,1,1,1]
+queues_indexes = rails_env == 'production' ? [2,2,0,0,1,1,1,1,1,1] : [3,3]
 
 
 queues_indexes.each_with_index do |elem,index|
