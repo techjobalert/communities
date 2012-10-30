@@ -26,6 +26,10 @@ class NotifyMailer < ActionMailer::Base
 
   def send_processed_email_message(item_id)
     @item = Item.find(item_id)
+    Rails.logger.debug "___3_______#{@item}_____________"
+    Rails.logger.debug "___4_______#{@item.attachments.last}_____________"
+    Rails.logger.debug "___5_______#{@item.attachments.last.file}_____________"
+    Rails.logger.debug "___6_______#{@item.attachments.last.file.path}_____________"
     @file_name = File.basename(@item.attachments.last.file.path)
     if @item and @file_name
       mail(
