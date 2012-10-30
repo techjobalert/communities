@@ -1,19 +1,20 @@
 rails_env = ENV['RAILS_ENV'] || "production"
 rails_root = ENV['RAILS_ROOT']
-num_workers = rails_env == 'production' ? 10 : 2
 
-queues_array = ["notifications_queue,power_point_convert_queue,store_asset,store_asset_notifications_queue",
-"convert"]
+queues_array = ["notifications_queue,power_point_convert_queue",
+                "store_asset,store_asset_notifications_queue",
+                "convert",
+                "*"]
+queues_indexes = rails_env == 'production' ? [2,2,0,0,1,1,1,1,1,1] : [2,2,0,0,1,1,1,1,1,1]
 
-num_workers.times do |num|
+
+queues_indexes.each_with_index do |elem,index|
   God.watch do |w|
     w.dir = "#{rails_root}"
-    w.name = "resque-#{num}"
+    w.name = "resque-#{index}"
     w.group = 'resque'
     w.interval = 30.seconds
-    rnum = num < 3 ? 1 : 0
-    w.env = {"QUEUE"=>queues_array[rnum], "RAILS_ENV"=>rails_env}
-   # w.start = "/usr/bin/rake -f #{rails_root}/Rakefile environment resque:work"
+    w.env = {"QUEUE"=>queues_array[elem], "RAILS_ENV"=>rails_env}
    	w.start = "bundle exec rake resque:work"
     # restart if memory gets too high
     w.transition(:up, :restart) do |on|
