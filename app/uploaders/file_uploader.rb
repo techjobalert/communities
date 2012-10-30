@@ -202,6 +202,8 @@ class FileUploader < CarrierWave::Uploader::Base
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
     
     command =%x[pdf2json -enc UTF-8 -compress #{path} #{json_path}]
+
+    Rails.logger.info "___#{command}_____"
     
     File.delete current_path
     File.rename json_path, current_path
@@ -219,6 +221,9 @@ class FileUploader < CarrierWave::Uploader::Base
     pdf_dir_path = File.dirname(pdf_file_path)
     pdf.write("#{pdf_dir_path}/pdf_preview.png")
     all_previews = Dir["#{pdf_dir_path}/*.png"]
+
+    all_previews.sort_by! {|elem| elem.match(/\d+(?=\.png$)/)[0].to_i}
+    #Rails.logger.debug "_________#{all_previews.inspect}_________"
 
     all_previews.each_with_index do |page_file, page_number|
       model.pdf_images.create!(
