@@ -66,19 +66,6 @@ class Attachment < ActiveRecord::Base
   end
 
   def get_imgs
-    # fullname = nil
-    # if self.is_pdf?
-    #   fullname = self.file.url
-    # elsif self.is_processed_to_pdf?
-    #   fullname = self.file.pdf.url
-    # end
-    # if fullname          
-    #   directory = File.dirname(fullname)
-    #   basename = File.basename(fullname, ".*")
-    #   "#{directory}/#{basename}-{page}.png"
-    # else
-    #   nil
-    # end
     if self.pdf_images.present?
       directory = File.dirname(self.pdf_images.first.file.url)
       directory = File.dirname(directory)
