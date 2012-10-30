@@ -174,7 +174,7 @@ class FileUploader < CarrierWave::Uploader::Base
     
     File.delete current_path
     File.rename image_path, current_path
-    Rails.logger.debug "____1___#{model.item.id}_____"
+    Rails.logger.info "____1___#{model.item.id}_____"
     Resque.enqueue(SendProcessedMessage, model.item.id) if file
     model.file_processing = nil
   end
