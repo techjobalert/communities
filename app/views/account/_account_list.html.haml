@@ -12,8 +12,8 @@
           Delete Item
           %span
       = link_to item_path(item), :class => "media" do
-        - link =  File.exist?(Rails.root.to_s + "/public#{item.attachment_thumb}") ? item.attachment_thumb : "/assets/default/item_thumb_default.png"
-        = image_tag link, :class => 'popup-item-info', :id => "popup-item-#{item.id}", :width => "265", :height => "200"
+        -# link =  File.exist?(Rails.root.to_s + "/public#{item.attachment_thumb}") ? item.attachment_thumb : "/assets/default/item_thumb_default.png"
+        = image_tag item.attachment_thumb, :class => 'popup-item-info', :id => "popup-item-#{item.id}", :width => "265", :height => "200"
       .info
         .purchase
           %span
