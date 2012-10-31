@@ -5,8 +5,8 @@
     - if item
       .item
         .media
-          - link =  File.exist?(Rails.root.to_s + "/public#{item.attachment_thumb}") ? item.attachment_thumb : "/assets/default/item_thumb_default.png"
-          = link_to image_tag(link, :class => 'popup-item-info', :id => "popup-item-#{item.id}", :width => "265", :height => "200"), item_path(item), :class => " pjax"
+          -# link =  File.exist?(Rails.root.to_s + "/public#{item.attachment_thumb}") ? item.attachment_thumb : "/assets/default/item_thumb_default.png"
+          = link_to image_tag(item.attachment_thumb, :class => 'popup-item-info', :id => "popup-item-#{item.id}", :width => "265", :height => "200"), item_path(item), :class => " pjax"
 
         = link_to  item.description.truncate(200, :separator => " "), item_path(item), :class => "text pjax"
 
