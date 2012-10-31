@@ -224,7 +224,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # end
 
   def populate_pages_preview_images(pdf_file_path)
-    pdf = Magick::ImageList.new(pdf_file_path)
+    pdf = Magick::ImageList.new(pdf_file_path) { self.density = 150 }
     pdf_dir_path = File.dirname(pdf_file_path)
     pdf.write("#{pdf_dir_path}/pdf_preview.png")
     all_previews = Dir["#{pdf_dir_path}/*.png"]
