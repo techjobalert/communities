@@ -91,6 +91,7 @@ class User < ActiveRecord::Base
   #                         :actor  => :self
 
   scope :role_is, lambda {|role| where(:role => role)}
+  scope :take_random, lambda {|c| where(:id => all.map(&:id).shuffle.take(c))}
 
   # after_save :reprocess_avatar, :if => :cropping?
 

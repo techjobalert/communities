@@ -47,6 +47,11 @@ $ ->
     .on "click", ".b-search-engine .btn.explore", ->
       $(".b-explore-popup").toggleClass "hidden"
 
+    .on "click", ".tag-link", ->
+      $("#main-search").val($(this).html())
+      $("#main-search").closest("form").submit()
+      
+
     .on "click", ".notice", ->
       $(this).remove()
 
