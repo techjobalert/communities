@@ -7,6 +7,8 @@ class SearchParams
     p = { self.class.per_page_param => 12, self.class.page_param => _params[:page] }
     p.merge!(_params)
     @query, @sort, @page, @per_page = p[self.class.query_param], p[self.class.sort_param], p[self.class.page_param], p[self.class.per_page_param]
+
+
     #@sort = nil unless @sort == 'newest' || @sort == 'oldest'
   end
 
@@ -90,7 +92,9 @@ class SearchParams
       opt.push(items_only_published(params))
     end
     opt.push(items_date_interval(params))
-    opt.push(items_attachment_type(params))
+    if params[:filter_type] != "account"
+      opt.push(items_attachment_type(params))
+    end  
     opt.push(items_relevant_item(params))
     opt.push(items_views_filter(params))
     opt.push(items_price_filter(params))
