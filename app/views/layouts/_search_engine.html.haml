@@ -20,12 +20,12 @@
           %h3 Title here
           %ul
 
-            - User.limit(6).each do |user|
+            - User.take_random(6).each do |user|
               %li= link_to user.full_name, user_path(user)
 
         .column
           %h3 Title here
           %ul
-            - Tag.limit(6).each do |tag|
-              %li= link_to tag.name, '#'
+            - Tag.take_random(6).each do |tag|
+              %li= link_to tag.name, '#', class: "tag-link"
         .clear
