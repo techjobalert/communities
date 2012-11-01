@@ -50,6 +50,7 @@ $ ->
     .on "click", ".tag-link", ->
       $("#main-search").val($(this).html())
       $("#main-search").closest("form").submit()
+      false
       
 
     .on "click", ".notice", ->
