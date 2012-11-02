@@ -47,9 +47,10 @@
           SIGN IN
           %span to your account
     .clear
-
-    %div{ :id => "popup-forgot-password", :title=>"Forgot Password ?", :style => "display: none" }
-      = render :template => 'devise/passwords/new', :locals => {:resource => @resource, :resource_name => resource_name }
+    
+    - if user_signed_in?
+      %div{ :id => "popup-forgot-password", :title=>"Forgot Password ?", :style => "display: none" }
+        = render :template => 'devise/passwords/new', :locals => {:resource => @resource, :resource_name => resource_name }
 
     :javascript
       $("#popup-forgot-password:ui-dialog").dialog ("destroy");
