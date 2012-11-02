@@ -257,7 +257,7 @@ h3 {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px;
-      padding: 4px 12px;
+      padding: 4px 12px 0px;
       box-shadow: 0 -1px 0px #f0eed8, 0 -2px 0px #e0ddb1;
     }
 
@@ -273,15 +273,21 @@ h3 {
 
     .search {
       float: right;
+      white-space: nowrap;
+      padding: 6px 0 8px;
+
       .text-input {
-        width: 158px;
-        margin-top: 6px;
+        width: 180px;
+        display: inline-block;
+        float: left;
+        vertical-align: middle;
+        margin-right: 2px;
       }
     }
 
     &.collegues {
       .text-input {
-        width: 132px;
+        width: 167px;
       }
     }
   }
@@ -815,17 +821,17 @@ h3 {
   }
 
   &.home-filter-form {
-    width: 352px !important;
+    width: 362px !important;
 
 
     .identical {
-      .chzn-container { width: 90px !important; }
-      .chzn-drop { width: 88px !important; }
+      .chzn-container { width: 94px !important; }
+      .chzn-drop { width: 92px !important; }
     }
   }
 
   &.collegues-filter-form {
-    width: 370px !important;
+    width: 368px !important;
     .degree {
       .chzn-container { width: 68px !important; }
       .chzn-drop { width: 66px !important; }
@@ -860,11 +866,11 @@ h3 {
         overflow: hidden;
         white-space: nowrap;
         position: relative;
-        height: 23px;
+        height: 25px;
         padding: 0 0 0 6px;
         color: #444444;
         text-decoration: none;
-        width: 102px;
+        width: 107px;
       }
 
       .placeholder {
