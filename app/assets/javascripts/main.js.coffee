@@ -135,6 +135,38 @@ $ ->
         .append("<a class='pjax' href=\"" + item.url + "\">" + item.title + "</a>")
         .appendTo ul
 
+  ssearch = $("#qsearch")
+  if ssearch.length
+    console.log('hui')
+    ssearch.autocomplete(
+      source: (request,response) ->
+        form = ssearch.closest('form')
+        $.ajax
+          url: "/items/qsearch"
+          data:
+            term: ssearch.val()
+            filter_type: form.find("#_filter_type").val()
+            attachment_type: form.find("#_attachment_type").val()
+            price: form.find("#_price").val() 
+            date: form.find("#_date").val()
+          type: "GET"
+          success: (data) ->
+            response $.map(data, (item) ->
+              url: item.url
+              title: item.title
+            )  
+      minLength: 3
+      width: 100
+      select: (event, ui) ->
+        window.location.assign ui.item.url
+        $(this).autocomplete "close"
+    ).data("autocomplete")._renderItem = (ul, item) ->
+      $("<li></li>")
+        .addClass("qsearch-item")
+        .data("item.autocomplete", item)
+        .append("<a class='pjax' href=\"" + item.url + "\">" + item.title + "</a>")
+        .appendTo ul
+
   msearch.closest('form').submit ->
     msearch.autocomplete "close"
 

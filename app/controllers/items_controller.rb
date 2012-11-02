@@ -165,6 +165,11 @@ class ItemsController < InheritedResources::Base
       SearchParams.per_page_param => 5,
       :classes => [Item]
     }
+    [:filter_type, :price, :attachment_type, :date].each do |param_name|
+      if params[param_name]
+        _params.merge!({param_name => params[param_name]})
+      end
+    end
     search_params = SearchParams.new(_params)
     results = search_params.get_search_results || []
     @search_results = results.select{|r| r.state == "published"}.map do |item|
