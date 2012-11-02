@@ -1,14 +1,16 @@
 # encoding: utf-8
 require File.join(Rails.root, "lib", "ffmpeg")
 require 'RMagick'
+require 'carrierwave/processing/mime_types'
 
 class FileUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   include CarrierWave::RMagick
   include CarrierWave::FFMPEG
   include ::CarrierWave::Backgrounder::DelayStorage
+  include CarrierWave::MimeTypes
   # include CarrierWave::MimeTypes
-  # process :set_content_type
+ 
 
   # documents
   version :pdf,                 :if => :is_document?
@@ -45,6 +47,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   version :pdf do
     process :convert_to_pdf
+    #process :set_content_type
     def full_filename (for_file = model.file.file)
       "document_#{File.basename(for_file, File.extname(for_file))}.pdf"
     end
@@ -52,6 +55,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   version :pdf_thumbnail do
     process :create_pdf_thumbnail
+    #process :set_content_type
     def full_filename (for_file = model.file.file)
       "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
     end
@@ -59,6 +63,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   version :pdf_json do
     process :create_pdf_json
+    #process :set_content_type
     def full_filename (for_file = model.file.file)
       "json_#{File.basename(for_file, File.extname(for_file))}.js"
     end
@@ -82,6 +87,7 @@ class FileUploader < CarrierWave::Uploader::Base
               :threads => 1,
               :custom => "-acodec libfaac -ab 128k -ac 2 -vcodec libx264 -crf 22"
     }
+    #process :set_content_type
     def full_filename (for_file = model.file.file)
       "mp4_#{File.basename(for_file, File.extname(for_file))}.mp4"
     end
@@ -96,6 +102,7 @@ class FileUploader < CarrierWave::Uploader::Base
               :custom => "-quality good -b:v 500k -qmin 10 -qmax 42 \
                           -maxrate 500k -bufsize 1000k -vpre libvpx-720p"
             }
+    #process :set_content_type        
     def full_filename (for_file = model.file.file)
       "webm_#{File.basename(for_file, File.extname(for_file))}.webm"
     end
@@ -107,6 +114,7 @@ class FileUploader < CarrierWave::Uploader::Base
               :custom => "-acodec libfaac -aq 100 -ac 2 -vcodec libx264 \
                           -vpre libx264-ipod640 -async 1"
     }
+     #process :set_content_type
     def full_filename (for_file = model.file.file)
       "mobile_#{File.basename(for_file, File.extname(for_file))}.mp4"
     end
@@ -114,6 +122,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   version :video_thumbnail, :from_version => :mp4 do
     process :create_video_thumbnail
+    #process :set_content_type
     def full_filename (for_file = model.file.file)
       "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
     end
@@ -175,6 +184,7 @@ class FileUploader < CarrierWave::Uploader::Base
     File.delete current_path
     File.rename image_path, current_path
     #Resque.enqueue(SendProcessedMessage, model.item.id) if file
+    self.file.instance_variable_set(:@content_type, "image/jpeg")
     model.file_processing = nil
   end
 
