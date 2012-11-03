@@ -2,6 +2,7 @@ class VoteObserver < ActiveRecord::Observer
   observe ActsAsVotable::Vote
 
   def after_create(v)
+    Rails.logger.info "------- after_create_observe: #{v}    -------"
     TimelineEvent.create!({
       :event_type             => "liked_comment",
       :subject_type           => v.votable_type,
