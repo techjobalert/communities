@@ -224,7 +224,7 @@ class FileUploader < CarrierWave::Uploader::Base
     pdf.write("#{pdf_dir_path}/pdf_preview.png")
     all_previews = Dir["#{pdf_dir_path}/*.png"]
 
-    all_previews.sort_by! {|elem| elem.match(/\d+(?=\.png$)/)[0].to_i}
+    all_previews.sort_by! {|elem| elem.match(/\d+(?=\.png$)/)[0].to_i} if pdf.count > 1
 
     all_previews.each_with_index do |page_file, page_number|
       model.pdf_images.create!(
