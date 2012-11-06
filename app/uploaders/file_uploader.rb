@@ -170,7 +170,7 @@ class FileUploader < CarrierWave::Uploader::Base
     
     
     pdf = Magick::ImageList.new(path).first
-    thumb = pdf.scale(265, 200)
+    thumb = pdf.resize_to_fill(265, 200, ::Magick::NorthGravity)
     thumb.write image_path
     
     File.delete current_path
