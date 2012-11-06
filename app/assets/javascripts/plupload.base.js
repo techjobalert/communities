@@ -49,11 +49,17 @@ $(function() {
 
     uploader.bind("BeforeUpload", function(up, file, info) {
       $('.b-upload-item__navigation .description').removeAttr('href');
-      $('.b-upload-item__navigation a').addClass('disabled');
+
+      // var tab_links = $('.b-upload-item__navigation a:not(:last)');
+      // if(!$('.b-upload-item__navigation a:last').hasClass('disabled'))
+      //   tab_links.push($('.b-upload-item__navigation a:last'));
+
+      $('.b-upload-item__navigation a:not(.disabled)').addClass('disabled').addClass('disabled-by-callback');
       $('.b-upload-item__navigation a').bind('click.disabledlink', function(e) {
           e.preventDefault();
           return false;
       });
+
 
       $('.spinner').removeClass('hidden');
       if (Object.keys(settings.post_data).length)
@@ -104,7 +110,7 @@ $(function() {
 
           $('.b-upload-item__navigation .description').attr('href','/items/'+response.itemID+'/edit?step=description');
           $('.b-upload-item__navigation a').unbind('.disabledlink');
-          $('.b-upload-item__navigation a').removeClass('disabled');
+          $('.b-upload-item__navigation a.disabled-by-callback').removeClass('disabled').removeClass('disabled-by-callback');
 
           $('.upload-page-upload-btn').attr('href','/items/'+response.itemID+'/edit');
           uploader.settings.url = "/items/upload_attachment?item_id=" + response.itemID;
