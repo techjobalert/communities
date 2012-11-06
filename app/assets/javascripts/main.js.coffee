@@ -137,7 +137,6 @@ $ ->
 
   ssearch = $("#qsearch")
   if ssearch.length
-    console.log('hui')
     ssearch.autocomplete(
       source: (request,response) ->
         form = ssearch.closest('form')
