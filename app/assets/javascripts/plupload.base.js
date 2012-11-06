@@ -48,9 +48,16 @@ $(function() {
     // });
 
     uploader.bind("BeforeUpload", function(up, file, info) {
+      $('.b-upload-item__navigation .description').addClass('disabled').removeAttr('href');
+      $('.b-upload-item__navigation a').bind('click.disabledlink', function(e) {
+          e.preventDefault();
+          return false;
+      });
+
       $('.spinner').removeClass('hidden');
       if (Object.keys(settings.post_data).length)
         $.extend(up.settings.multipart_params, settings.post_data);
+
     });
 
     uploader.bind("UploadComplete", function(up, files) {
@@ -95,6 +102,7 @@ $(function() {
           f.append('<input type="hidden" name="item['+response.objClass+'_ids][]" value="'+response.id+'">');
 
           $('.b-upload-item__navigation .description').removeClass('disabled').attr('href','/items/'+response.itemID+'/edit?step=description');
+          $('.b-upload-item__navigation a').unbind('.disabledlink');
 
           $('.upload-page-upload-btn').attr('href','/items/'+response.itemID+'/edit');
           uploader.settings.url = "/items/upload_attachment?item_id=" + response.itemID;
