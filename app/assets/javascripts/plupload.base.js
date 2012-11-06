@@ -48,7 +48,8 @@ $(function() {
     // });
 
     uploader.bind("BeforeUpload", function(up, file, info) {
-      $('.b-upload-item__navigation .description').addClass('disabled').removeAttr('href');
+      $('.b-upload-item__navigation .description').removeAttr('href');
+      $('.b-upload-item__navigation a').addClass('disabled');
       $('.b-upload-item__navigation a').bind('click.disabledlink', function(e) {
           e.preventDefault();
           return false;
@@ -101,8 +102,9 @@ $(function() {
           f.children("b").html("100%");
           f.append('<input type="hidden" name="item['+response.objClass+'_ids][]" value="'+response.id+'">');
 
-          $('.b-upload-item__navigation .description').removeClass('disabled').attr('href','/items/'+response.itemID+'/edit?step=description');
+          $('.b-upload-item__navigation .description').attr('href','/items/'+response.itemID+'/edit?step=description');
           $('.b-upload-item__navigation a').unbind('.disabledlink');
+          $('.b-upload-item__navigation a').removeClass('disabled');
 
           $('.upload-page-upload-btn').attr('href','/items/'+response.itemID+'/edit');
           uploader.settings.url = "/items/upload_attachment?item_id=" + response.itemID;
