@@ -5,6 +5,6 @@ CarrierWave.configure do |config|
     :aws_secret_access_key  => 'QZybguErqf4GFfJFw5J5JqjC3v67VVQ/TIoJhT+o',
     :region => 'eu-west-1'
   }
-  config.fog_directory  = Rails.env.development? ? 'maia360_dev' : 'maia360'                     
+  config.fog_directory  = Rails.env.development? ? 'maia360dev' : 'maia360'                     
   config.fog_public     = true                                  
 end
