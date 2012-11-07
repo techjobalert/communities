@@ -11,7 +11,7 @@ class Item < ActiveRecord::Base
   acts_as_taggable
   acts_as_followable
 
-  paginates_per 3
+  paginates_per 30
 
   # Scopes
 
