@@ -53,7 +53,7 @@ class FileUploader < CarrierWave::Uploader::Base
   version :pdf_thumbnail do
     process :create_pdf_thumbnail
     def full_filename (for_file = model.file.file)
-      "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
+      "thumb_#{File.basename(for_file, File.extname(for_file))}.png"
     end
   end
 
@@ -162,10 +162,8 @@ class FileUploader < CarrierWave::Uploader::Base
     
     cache_stored_file! if !cached?
 
-
-
     directory = File.dirname( current_path )
-    image_path = File.join( directory, "tmp.jpeg")
+    image_path = File.join( directory, "tmp.png")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
     
     
@@ -175,7 +173,7 @@ class FileUploader < CarrierWave::Uploader::Base
     
     File.delete current_path
     File.rename image_path, current_path
-    self.file.instance_variable_set(:@content_type, "image/jpeg")
+    self.file.instance_variable_set(:@content_type, "image/png")
     model.file_processing = nil
   end
 
