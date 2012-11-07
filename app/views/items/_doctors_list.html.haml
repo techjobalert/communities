@@ -1,6 +1,6 @@
 %ul
   - doctors.each do |u|
-    -if u
+    - if u
       %li{:id => "user-#{u.id}"}
         = image_tag u.avatar_url(:thumb_45)
         = text_with_br u.full_name

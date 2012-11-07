@@ -8,7 +8,7 @@
   .share= render :partial => "layouts/share", :locals => {:item => @item}
   .clear
 
-  .tools.short
+  .tools.short{:class => "#{'public' unless user_signed_in?}"}
     .items
       %ul
         - item.contributors.each do |contributor|
@@ -100,19 +100,19 @@
             - pdf = @item.paid_view?(current_user)
             -if pdf
               = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
-
-#comments.b-comments
-  %h3 Comments
-  .b-comments-panel
-    - if user_signed_in?
-      = link_to '', '#', :class => 'btn new-comment'
-      .b-comments-form#comment-form
-        = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
-    %ul
-      - if @item.comment_threads.present?
-        - @item.comment_threads.each do |comment|
-          = render :partial => "comments/comment", :locals => {:comment => comment}
-      .clear
+- if user_signed_in?
+  #comments.b-comments
+    %h3 Comments
+    .b-comments-panel
+      - if user_signed_in?
+        = link_to '', '#', :class => 'btn new-comment'
+        .b-comments-form#comment-form
+          = render :partial => "comments/form", :locals => {:commentable => @item, :url => item_comments_path(@item)}
+      %ul
+        - if @item.comment_threads.present?
+          - @item.comment_threads.each do |comment|
+            = render :partial => "comments/comment", :locals => {:comment => comment}
+        .clear
 
 - if user_signed_in? && item.paid? && !item.purchased?(current_user)
   %div{ :id => "account-form", :title=>"Buy item", :style => "display: none" }
