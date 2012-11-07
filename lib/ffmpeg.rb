@@ -64,6 +64,7 @@ module CarrierWave
       file = ::FFMPEG::Movie.new(path)
       file.transcode(tmp, :custom => "-ss #{h}:#{m}:#{s} -s 435x264 -vframes 1 -f image2")
       File.rename tmp, current_path
+      self.file.instance_variable_set(:@content_type, "image/jpeg")
       model.file_processing = nil
 
       if file
