@@ -5,9 +5,13 @@
       - collaborators.each do |collaborator|
         %li
           - if show_popup
-            = link_to image_tag(collaborator.avatar_url(:thumb_60), :class => "popup-user-info", :id => "popup-user-#{collaborator.id}"), user_path(collaborator), :class => "pjax"
+            = link_to user_path(collaborator), :class => "pjax" do
+              = image_tag(collaborator.avatar_url(:thumb_60), :class => "popup-user-info", :id => "popup-user-#{collaborator.id}")
+              .text
+                %b= collaborator.full_name
+                = collaborator.specialization.truncate(80, :separator => " ") if collaborator.specialization.present?
           - else
             = image_tag collaborator.avatar_url(:thumb_60)
-          .text
-            %b= collaborator.full_name
-            = collaborator.specialization.truncate(60, :separator => " ") if collaborator.specialization.present?
+            .text
+              %b= collaborator.full_name
+              = collaborator.specialization.truncate(80, :separator => " ") if collaborator.specialization.present?

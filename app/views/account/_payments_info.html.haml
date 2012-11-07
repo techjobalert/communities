@@ -24,7 +24,7 @@
       - if current_user.role? "doctor"
         .item.half
           .title Total
-          .summ= "#{@icoming_sum} USD"
+          .summ= "#{@incoming_sum} USD"
           %p= link_to "", new_item_path , :class => 'btn upload-more'
 
       .clear

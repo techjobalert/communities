@@ -379,14 +379,14 @@
   }
 
   .content {
-    padding: 20px 20px 0;
+    padding: 10px 20px 0;
 
     h1 {
       float: left;
       font-size: 26px;
       font-weight: normal;
       line-height: 32px;
-      margin: 10px 0 14px;
+      margin: 0px 0 14px;
       overflow: hidden;
       width: 85%;
 
@@ -415,7 +415,7 @@
 
     .share {
       float: right;
-      padding-top: 10px;
+      padding-top: 0px;
     }
 
     .tools {
@@ -462,6 +462,10 @@
             display: table;}
         }
 
+        &.public .items {
+          width: 100%;
+        }
+
         .btn {
           float: right;
           margin: 10px 0 0 5px;}
@@ -470,7 +474,7 @@
           display: table-cell;
           font-size: 12px;
           vertical-align: middle;
-          padding: 0 20px 0 10px;
+          padding: 0 10px 0 10px;
           text-decoration: none;
           color: #1B1E26;
         }
@@ -483,9 +487,10 @@
 
       h2 {
         color: #2e6976;
-        margin: 7px 0;
+        margin: 7px 0 0;
         font-size: 20px;
         line-height: 22px;
+        text-align: left;
       }
 
       .body {
@@ -504,8 +509,7 @@
 
       &.pic {
         .body {
-          margin: 7px 20px 7px 0px;
-          width: 665px;
+          margin: 0px 0px 7px 0px;
         }
 
         .preview {
@@ -518,7 +522,7 @@
           width: 435px;
         }
         .body {
-          margin: 7px 0px 7px 20px;
+          margin: 0px 0px 7px 20px;
           width: 459px;
         }
       }
@@ -910,7 +914,7 @@
 
     h2 {
       color: #2e6976;
-      margin: 7px 0;
+      margin: 7px 0 0;
       font-size: 20px;
       line-height: 22px;
     }
@@ -919,7 +923,7 @@
       font-size: 12px;
       line-height: 17px;
       float: left;
-      margin: 7px 20px 7px 0px;
+      margin: 0px 20px 7px 0px;
       text-align: justify;
     }
 
@@ -930,8 +934,7 @@
 
     &.pic {
       .body {
-        margin: 7px 20px 7px 0px;
-        width: 665px;
+        margin: 0px 0px 7px 0px;
       }
 
       .preview {
@@ -944,7 +947,7 @@
         width: 435px;
       }
       .body {
-        margin: 7px 0px 7px 20px;
+        margin: 0px 0px 7px 20px;
         width: 459px;
       }
     }
