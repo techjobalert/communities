@@ -15,12 +15,13 @@
         %h2.b-user-title
           = "#{user.full_name}. #{user.profession_and_degree}"
 
+        
+        - if user.show_birthday == "1" and user.birthday.present?
+          %p
+            %strong Birthday:
+            = user.birthday
+            
         - if user_signed_in?
-          - if user.show_birthday == "1" and user.birthday.present?
-            %p
-              %strong Birthday:
-              = user.birthday
-
           - unless user.profession_and_degree.blank?
             %p
               %strong Profession and degree
@@ -47,35 +48,34 @@
 
       .clear
 
-    - if user_signed_in?
-      - if user.show_bio == "1" and  user.bio.present?
-        %h2 Medical Profile
+    - if user.show_bio == "1" and  user.bio.present?
+      %h2 Medical Profile
 
-        %p
-          %strong Biography:
-          = user.bio
-        %br
+      %p
+        %strong Biography:
+        = user.bio
+      %br
 
 
-      - educations = user.educations
-      - if user.show_educations == "1" and  educations.any?
-        %p
-          %strong Education:
-          - user.educations.each do |e|
-            - if e.school.present?
-              %b= "#{e.school}, "
-              %span
-                = "#{e.city}, " if e.city.present?
-                = "#{e.state}, " if e.state.present?
-                = "#{e.country}, " if e.country.present?
+    - educations = user.educations
+    - if user.show_educations == "1" and  educations.any?
+      %p
+        %strong Education:
+        - user.educations.each do |e|
+          - if e.school.present?
+            %b= "#{e.school}, "
+            %span
+              = "#{e.city}, " if e.city.present?
+              = "#{e.state}, " if e.state.present?
+              = "#{e.country}, " if e.country.present?
 
-            %br
-        %br
+          %br
+      %br
 
-      - if user.items.state_is("published").present?
-        %h2 Publications
-        = render :partial => 'list_of_items', :locals => {:items => user.items.state_is("published"), :show_popup => !is_current_user}
-        %br
+    - if user.items.state_is("published").present?
+      %h2 Publications
+      = render :partial => 'list_of_items', :locals => {:items => user.items.state_is("published"), :show_popup => !is_current_user}
+      %br
 
   - if user_signed_in? && current_user.role?("doctor")
     = render :partial => 'sidebar', :locals => {:collaborators => collaborators, :show_popup => !is_current_user}
