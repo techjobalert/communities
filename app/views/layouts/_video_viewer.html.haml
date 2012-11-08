@@ -1,7 +1,8 @@
 - timing = timing || false
 - w||= 435
 - h||= 264
-- features||= "playpause,current,duration,tracks,volume,fullscreen"
+
+- features||= "playpause,current,progress,duration,tracks,volume,fullscreen"
 - preload||= "true"
 - att = request.user_agent =~ /Mobile|webOS|iPhone/ ? attachment.file.mobile : attachment.file.mp4
 
@@ -23,7 +24,7 @@
     %img{:height => "#{h}", :src => "#{attachment.file.video_thumbnail.url}", :title => "No video playback capabilities", :width => "#{w}"}
 
 :javascript
-  //var defaultFeatures = ['playpause','progress','current','duration','tracks','volume','fullscreen'];
+  / var defaultFeatures = ['playpause','progress','current','duration','tracks','volume','fullscreen'];
   var currentStopTime, mediaElement = $('#videoPlayer').mediaelementplayer(
     {
     // shows debug errors on screen
@@ -40,7 +41,8 @@
     // name of silverlight file
     //features: "#{features}".split(",") || defaultFeatures,
 
-    features: "#{features}".split(",") || defaultFeatures,
+    features: "#{features}".split(","),
+    // || defaultFeatures,
     silverlightName: 'silverlightmediaelement.xap',
     // default if the <video width> is not specified
     defaultVideoWidth: 435,
