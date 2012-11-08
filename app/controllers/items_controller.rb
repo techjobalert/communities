@@ -361,14 +361,25 @@ class ItemsController < InheritedResources::Base
       last_attachment = Attachment.where(
         :item_id => options[:item_id],
         :attachment_type => options[:attachment_type]).last
-      last_attachment.destroy if last_attachment
-      obj = klass.create!(options)
-      render :json => {:id => obj.id, :objClass => obj.class.name.underscore, :itemID => options[:item_id]}, :content_type => "text/json; charset=utf-8"
 
+      if last_attachment && last_attachment.file_processing
+        @notice = {:type => 'error', :message =>
+          "can't replace file before processing"
+        }
+        render :partial => "layouts/notice", :locals => {:notice => @notice}
+      else
+        if last_attachment
+          last_attachment.destroy 
+        end  
+        obj = klass.create!(options)
+        render :json => {:id => obj.id, :objClass => obj.class.name.underscore, :itemID => options[:item_id]}, :content_type => "text/json; charset=utf-8"
+      end
+      
     rescue ActiveRecord::RecordInvalid => invalid
+      
       Rails.logger.error invalid.inspect
       @notice = {:type => 'error', :message =>
-        "#{t current_user.errors.keys.first} #{current_user.errors.values.first.first.to_s}"
+        "#{t current_user.errors.keys.first} #{current_user.errors.values.first.to_s}"
       }
       render :partial => "layouts/notice", :locals => {:notice => @notice}
     end

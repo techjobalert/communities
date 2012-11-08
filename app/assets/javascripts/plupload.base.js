@@ -97,12 +97,11 @@ $(function() {
 
     uploader.bind("FileUploaded", function(up, file, info) {
 
+      var f = $('#' + file.id);
       try {
         var response = $.parseJSON(info.response),
             coords,
             cropArea = false;
-
-        var f = $('#' + file.id);
 
         if (f.length){
           f.children("b").html("100%");
@@ -124,7 +123,10 @@ $(function() {
             $('<div id="crop-save">Save</div>').appendTo('#cboxContent');
           }});
         }
-      } catch (e) {eval(info.response);}
+      } catch (e) {
+        eval(info.response); 
+        f.remove();
+      }
 
 
 
