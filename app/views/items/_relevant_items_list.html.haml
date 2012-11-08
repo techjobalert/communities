@@ -1,39 +1,41 @@
-.list
-  .line-3d
-  .list-header
-    .nav
-      = link_to "#{item_relevant_path(current_item)}?attachment_type=video", :onclick => "searchRelevantItems('video'); return false;", :class => "movies selected" do
-        %span
-        Movies
-      = link_to "#{item_relevant_path(current_item)}?attachment_type=article", :onclick => "searchRelevantItems('article'); return false;", :class => "articles" do
-        %span
-        Articles
-      = link_to "#{item_relevant_path(current_item)}?attachment_type=presentation", :onclick => "searchRelevantItems('presentation'); return false;", :class => "presentations" do
-        %span
-        Presentations
+#relevant_items
+  %h3 Relevant items:
+  .list
+    .line-3d
+    .list-header
+      .nav
+        = link_to "#{item_relevant_path(current_item)}?attachment_type=video", :onclick => "searchRelevantItems('video'); return false;", :class => "movies selected" do
+          %span
+          Movies
+        = link_to "#{item_relevant_path(current_item)}?attachment_type=article", :onclick => "searchRelevantItems('article'); return false;", :class => "articles" do
+          %span
+          Articles
+        = link_to "#{item_relevant_path(current_item)}?attachment_type=presentation", :onclick => "searchRelevantItems('presentation'); return false;", :class => "presentations" do
+          %span
+          Presentations
 
-    .filter
-      .field
-        = form_for "", :url => item_relevant_path(current_item), :remote => true, :method => :get do |f|
-          .tags.home-filter-form
-            .label Sort by
-            .filter-form
-              %span.viewed= f.select "views", options_for_select(['More Viewed', 'Less Viewed']), :prompt => 'Viewed', :include_blank => true
-              %span.identical= f.select "date", options_for_select(['Today', '1 Week', '1 Month', '1 Year']), :prompt => 'Date', :include_blank => true
-              %span.identical= f.select "price", options_for_select(['Free', 'Paid']), :prompt => 'Free/Paid', :include_blank => true
-              %span.identical= f.select "length", options_for_select(['Length']), :prompt => 'Length', :include_blank => true
-              = f.hidden_field "filter_type", :value => "relevant"
-              = f.hidden_field "attachment_type", :value => "video"
-            .clear
-          .search
-            = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
-            = f.submit '', :class => 'btn go'
-        :javascript
-          $(".filter-form select").chosen();
-        .clear
-    .clear
+      .filter
+        .field
+          = form_for "", :url => item_relevant_path(current_item), :remote => true, :method => :get do |f|
+            .tags.home-filter-form
+              .label Sort by
+              .filter-form
+                %span.viewed= f.select "views", options_for_select(['More Viewed', 'Less Viewed']), :prompt => 'Viewed', :include_blank => true
+                %span.identical= f.select "date", options_for_select(['Today', '1 Week', '1 Month', '1 Year']), :prompt => 'Date', :include_blank => true
+                %span.identical= f.select "price", options_for_select(['Free', 'Paid']), :prompt => 'Free/Paid', :include_blank => true
+                %span.identical= f.select "length", options_for_select(['Length']), :prompt => 'Length', :include_blank => true
+                = f.hidden_field "filter_type", :value => "relevant"
+                = f.hidden_field "attachment_type", :value => "video"
+              .clear
+            .search
+              = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
+              = f.submit '', :class => 'btn go'
+          :javascript
+            $(".filter-form select").chosen();
+          .clear
+      .clear
 
-    .list-content
+      .list-content
 
-    :javascript
-      searchRelevantItems('video');
+      :javascript
+        searchRelevantItems('video');
