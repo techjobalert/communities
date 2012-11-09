@@ -22,6 +22,9 @@ class ItemsController < InheritedResources::Base
     @items = Item.state_is("published").order("created_at DESC").page(params[:page])
   end
 
+  def following 
+  end
+
   def new
 
   end
@@ -145,6 +148,7 @@ class ItemsController < InheritedResources::Base
 
   def search
     @content_type = params[:attachment_type] || 'video'
+    @following = params[:following]
     @render_items, @filter_location = params[:filter_type], params[:filter_location]
     params[:current_user_id] = current_user.id if @render_items == "account"
     params.merge!({SearchParams.per_page_param => 30}) if @filter_location != "main"

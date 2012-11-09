@@ -94,6 +94,9 @@ class SearchParams
     opt.push(items_date_interval(params))
     if params[:filter_type] != "account"
       opt.push(items_attachment_type(params))
+    end
+    if params[:following]
+      opt.push(items_by_follower(params[:following]))
     end  
     opt.push(items_relevant_item(params))
     opt.push(items_views_filter(params))
@@ -178,6 +181,11 @@ class SearchParams
         { :without => {:price => 0} }
       end
     end
+  end
+
+
+  def items_by_follower(follower_id)
+    { :with => {:follower_ids => follower_id}}
   end
 
   def items_by_owner(params)

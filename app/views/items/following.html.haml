@@ -1,0 +1,6 @@
+%h3 Following item:
+
+= render :partial => 'list', :locals => {:following => true, :items => @items}
+
+:javascript
+  searchRelevantItems('video');

@@ -24,7 +24,8 @@
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
 
 $(".main-content .navigation a").removeClass("selected");
-$(".tab-home").addClass("selected");
+- tab_name = @following ? 'tab-item' : 'tab-home'
+$(".#{tab_name}").addClass("selected");
 $(".l-settings-navigation").html("");
 $("#relevant_items").remove();
 
