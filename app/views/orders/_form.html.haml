@@ -39,6 +39,18 @@
   = label :pay_account, :state
   = grouped_collection_select :pay_account, :state, Country.order(:name), :states, :name, :iso, :name, :class => "state"
 %p
+  = label :pay_account, :address1, "address1"
+  = text_field :pay_account, :address1, :class => "required"
+  %span.error_container
+%p
+  = label :pay_account, :city, "city"
+  = text_field :pay_account, :city, :class => "required"
+  %span.error_container
+%p
+  = label :pay_account, :zipcode, "zipcode"
+  = text_field :pay_account, :zipcode, :class => "required"
+  %span.error_container
+%p
   = label :pay_account, :phone, "Home Tel"
   = text_field :pay_account, :phone, :class => "number"
   %span.error_container
