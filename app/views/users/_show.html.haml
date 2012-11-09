@@ -6,9 +6,7 @@
         = image_tag user.avatar_url(:thumb_143)
         - if user_signed_in? && user.role?("doctor")
           .tools
-            - if is_current_user
-              %span.btn.follow
-            - else
+            - if !is_current_user
               = render :partial => "users/following", :locals => { :user => user }
 
       .b-user-info-body
@@ -35,10 +33,7 @@
           %p
             %strong Send a message:
             you can send a message directly to email about professional question
-          - if is_current_user
-            %p= image_tag "send-message-public.png"
-            %p.right= submit_tag "", :class => 'btn send'
-          - else
+          - if !is_current_user
             = render :partial => 'send_message', :locals => {:user => user}
 
         - else
