@@ -39,6 +39,7 @@ class Item < ActiveRecord::Base
   has_many    :contributors, through: :contributions
   has_many    :attachments, :dependent => :destroy
   has_many    :presenter_videos, :dependent => :destroy
+  has_many    :follows, :as => :followable, :conditions => {:blocked => false}
 
   accepts_nested_attributes_for :attachments
 
@@ -97,6 +98,7 @@ class Item < ActiveRecord::Base
     has "CRC32(attachment_type)", :as => :attachment_type, :type => :integer
     has price, :type => :integer
     has taggings.tag_id, :as => :tag_ids
+    has follows.follower_id, :as => :follower_ids
     # has "CRC32(tags.name)", :as => :tags, :type => integer
     # where "state = 'published'"
     set_property :enable_star => true

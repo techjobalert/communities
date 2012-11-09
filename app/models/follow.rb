@@ -19,4 +19,17 @@ class Follow < ActiveRecord::Base
     self.update_attribute(:blocked, true)
   end
 
+  after_save :set_item_delta_flag
+  after_destroy :set_item_delta_flag
+
+
+  private 
+
+  def set_item_delta_flag
+    if self.followable_type == 'Item'
+      followable.delta = true
+      followable.save
+    end  
+  end
+
 end

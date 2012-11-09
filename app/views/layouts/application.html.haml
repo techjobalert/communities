@@ -39,9 +39,13 @@
                     %span General things
 
                 %li
-                  = link_to '#', :class => "tab-item #{ 'selected' if params[:controller] == 'items' }", :onClick => "return false;" do
+                  - item_tab_url = current_user.follows_by_type('Item').present? ? following_items_path : '#'
+                  = link_to item_tab_url, :class => "tab-item #{ 'selected' if params[:controller] == 'items' }"  do
                     ITEM
-                    %span Picked items
+                    - if params[:action] == 'following'
+                      %span General things
+                    - else
+                      %span Picked items
 
                 %li
                   = link_to edit_user_path(current_user), :class => "pjax tab-settings #{'selected' if params[:controller] == 'users' && params[:action] == 'edit'  }" do

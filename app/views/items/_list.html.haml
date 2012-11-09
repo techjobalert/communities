@@ -27,6 +27,7 @@
               %span.identical= f.select "length", options_for_select(['Length']), :prompt => 'Length', :include_blank => true
               = f.hidden_field "filter_type", :value => "basic"
               = f.hidden_field "attachment_type", :value => "video"
+              = f.hidden_field "following", :value => current_user.id if defined?(following) and user_signed_in?
             .clear
           .search
             = f.text_field "q", :value => params[:q] ,:placeholder => 'Free search', :class => 'text-input', :id => "qsearch"
