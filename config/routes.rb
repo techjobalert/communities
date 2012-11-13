@@ -73,6 +73,9 @@ Orthodontic::Application.routes.draw do
   # Captcha refresh
   match '/captcha_refresh' => "home#new_captcha"
 
+  # Rendering json for articles
+  match 'items/:id/attachments/:attachment_id/get_pdf_json' => "items#get_pdf_json", :via => :get, :as => :get_pdf_json
+
   # Static pages
   match '/orthodontic_sale' => "home#orthodontic_sale"
 

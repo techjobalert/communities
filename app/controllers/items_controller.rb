@@ -1,7 +1,7 @@
 class ItemsController < InheritedResources::Base
-  before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch]
+  before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch, :get_pdf_json]
   before_filter :get_item, :except => [:index, :new, :create, :tags, :get_attachment, :upload_attachment]
-  load_and_authorize_resource
+  load_and_authorize_resource :except => :get_pdf_json
 
 
   def show
@@ -23,6 +23,15 @@ class ItemsController < InheritedResources::Base
   end
 
   def following 
+  end
+
+  def get_pdf_json
+    detail = Attachment.find(params[:attachment_id]).document_detail
+    count = (@item.preview_length <= detail.page_count) ?  @item.preview_length : detail.page_count   
+    width,height = detail.page_width,detail.page_height
+    json_array = Array.new(count) { |i| {"number" => i+1, 
+      "fonts" => [], "text" => [], "width" => width, "height" => height} }
+    render :json => json_array
   end
 
   def new

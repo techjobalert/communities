@@ -208,6 +208,8 @@ class FileUploader < CarrierWave::Uploader::Base
       f.write(images.to_json)
     end
 
+    model.create_document_detail(page_count: count, page_width: width, page_height: height)
+
     #command =%x[pdf2json -enc UTF-8 -compress #{path} #{json_path}]
     
     File.delete current_path

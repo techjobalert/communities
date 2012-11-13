@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
                   :views_count, :amount, :price, :state, :moderated_at,
                   :approved_by, :attachments, :preview_length
   validates :title, :description, :presence => true
+  #validate :preview_length_validation, :on => :update
 
   acts_as_commentable
   acts_as_taggable
@@ -147,10 +148,14 @@ class Item < ActiveRecord::Base
   end
 
   def paid_view?(user)
-    if (paid? and purchased?(user)) or (!paid?) or self.user == user or user.admin?
-      (%w(presentation video).member?(attachment_type)) ? common_video : regular_pdf
+    if attachment_type != 'article'
+      if (paid? and purchased?(user)) or (!paid?) or self.user == user or user.admin?
+        common_video
+      else
+        attachments.where("attachment_type like ?", '%preview%').last
+      end
     else
-      attachments.where("attachment_type like ?", '%preview%').last
+      regular_pdf
     end
   end
 
