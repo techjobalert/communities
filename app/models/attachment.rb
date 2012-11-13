@@ -4,6 +4,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :user #, :counter_cache => true
   has_many   :attachment_previews, :dependent => :destroy
   has_many   :pdf_images, :dependent => :destroy
+  has_one    :document_detail, :dependent => :destroy
 
   attr_accessible :user, :file, :item_id, :attachment_type
   store :video_timing, accessors: [ :playback_points ]

@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
                   :views_count, :amount, :price, :state, :moderated_at,
                   :approved_by, :attachments, :preview_length
   validates :title, :description, :presence => true
+  #validate :preview_length_validation, :on => :update
 
   acts_as_commentable
   acts_as_taggable
@@ -29,6 +30,7 @@ class Item < ActiveRecord::Base
 
   # Handlers
   before_create  :add_to_contributors
+  around_update :update_preview, :if => :preview_length_changed?
 
   belongs_to  :user, :counter_cache => true, class_name: :User, inverse_of: :items
   belongs_to  :approved_by, class_name: :User, :foreign_key => "approved_by"
@@ -147,15 +149,38 @@ class Item < ActiveRecord::Base
   end
 
   def paid_view?(user)
-    if (paid? and purchased?(user)) or (!paid?) or self.user == user or user.admin?
-      (%w(presentation video).member?(attachment_type)) ? common_video : regular_pdf
+    if attachment_type != 'article'
+      if (paid? and purchased?(user)) or (!paid?) or self.user == user or user.admin?
+        common_video
+      else
+        attachments.where("attachment_type like ?", '%preview%').last
+      end
     else
-      attachments.where("attachment_type like ?", '%preview%').last
+      regular_pdf
     end
   end
 
   def can_get_pdf?(user)
     ((paid? and purchased?(user)) or (!paid? and published?) or self.user == user or user.admin?) and (attachment_type == "article")
+  end
+
+  private
+
+  def update_preview
+    if self.paid? && self.attachment_type.match(/video/)
+      last_attachment = self.attachments.where(:attachment_type => "#{self.attachment_type}_preview").last
+      if last_attachment && last_attachment.file_processing
+        self.errors.add(:preview_length,"can't change preview length before current preview file processing")
+        return false
+      else
+        if last_attachment
+          last_attachment.destroy 
+        end  
+        yield
+      end
+    else
+      yield
+    end
   end
 
 end
