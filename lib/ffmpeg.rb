@@ -97,7 +97,11 @@ module CarrierWave
       tmp_webm = tmp_path+format
       options[:audio_bitrate] = 32 if File.extname(current_path) == ".3gp"
       file.transcode(tmp_webm , options)
+
       File.rename tmp_webm, current_path
+      if (format == ".mp4")
+        self.file.instance_variable_set(:@content_type, "video/mp4")        
+      end
       File.delete( tmp_path )
     end
   end
