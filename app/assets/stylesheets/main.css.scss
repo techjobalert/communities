@@ -524,6 +524,8 @@ h3 {
 
   b {
     color: #2f6d7a;
+    font-weight: normal;
+    font-size: 12px;
   }
 
   h3 {
@@ -531,6 +533,16 @@ h3 {
     margin: 10px 20px;
     font-weight: bold;
     overflow: hidden;
+  }
+
+  .popup-container__title {
+    margin-bottom: 0px;
+  }
+
+  .with-date {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    padding-top: 0px;
   }
 }
 
@@ -601,11 +613,14 @@ img.popup-item-info {
 
 .b-popup-item-info{
   span.date {
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    border-radius: 7px;
-    padding: 4px 10px;
-    background: #f1efd1;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 0px 10px;
+    line-height: 26px;
+    height: 25px;
+    font-size: 12px;
+    background: rgba(241,239,209,0.8);
     display: block;
     float: left;
     .margin {
@@ -619,10 +634,10 @@ img.popup-item-info {
     border-top: 1px dotted #70a99a;
     border-bottom: 1px dotted #70a99a;
     margin: 0 20px;
-    padding: 15px 0;
+    padding: 10px 0 15px;
     overflow: hidden;
     ul {
-      padding: 0px;
+      padding: 5px 0px 0px;
       margin: 0px;
       li {
         padding-right: 15px;
@@ -633,9 +648,13 @@ img.popup-item-info {
 
       a {
         color: #1b1e26;
+        text-decoration: none;
         &:hover {
           color:#2F6D7A
         }
+      }
+      span {
+        text-decoration: underline;
       }
     }
 
