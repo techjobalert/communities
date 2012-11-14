@@ -80,7 +80,7 @@
         - elsif not @a_video.nil?
           .attachment-video
             - video = @item.paid_view?(current_user)
-            -if video
+            - if video
               = render partial: "layouts/video_viewer",locals: {:attachment => @item.attachment_type == "article" ? @a_video : video}
 
       .body
