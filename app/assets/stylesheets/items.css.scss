@@ -941,3 +941,41 @@
 #popup-change-password .form .errors-container.error, #popup-forgot-password .form .errors-container.error { width: auto; }
 
 #popup-forgot-password .form label { width: 40px; }
+
+.b-public-with {
+  display: inline-block;
+
+  .b-public-with__container {
+    white-space: nowrap;
+  }
+
+  .b-public-with__list {
+    margin: 0 0 10px;
+    padding: 0;
+  }
+
+  .b-public-with__item {
+    list-style: none;
+    overflow: hidden;
+    display: inline-block;
+    width: 140px;
+    margin-right: 10px;
+
+    a {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    img {
+      border: 2px solid #ebebeb;
+      display: block;
+    }
+
+    .title {
+      font-size: 12px;
+      padding: 0 10px 0 10px;
+      text-decoration: none;
+      color: #1B1E26;
+    }
+  }
+}

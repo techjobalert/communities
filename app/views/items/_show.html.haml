@@ -8,12 +8,17 @@
   .share= render :partial => "layouts/share", :locals => {:item => @item}
   .clear
 
-  .tools.short{:class => "#{'public' unless user_signed_in?}"}
-    .items
-      %ul
-        - item.contributors.each do |contributor|
-          %li
-            .item
+  - if user_signed_in?
+    - count = (item.user != current_user and (!item.paid? or item.purchased?(current_user))) ? 5 : 4
+
+
+  - count ||= 6
+  .tools
+    .b-public-with
+      .b-public-with__container
+        %ul.b-public-with__list
+          - item.contributors.limit(count).each do |contributor|
+            %li.b-public-with__item
               = link_to image_tag(contributor.avatar_url(:thumb_60), :class => 'popup-user-info', :id => "popup-user-#{contributor.id}"), user_path(contributor)
               = link_to text_with_br(contributor.full_name), user_path(contributor), :class => "title"
 
