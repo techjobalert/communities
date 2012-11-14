@@ -5,10 +5,12 @@
       = render :partial => "navigations"
       .list-content
         - if @items.present?
-          - @items.each do |item|
+          - @items.each_with_index do |item, index|    
             .item
               = link_to (image_tag item.attachment_thumb, :width => "265", :height => "200"), moderator_item_path(item), :class => "pjax media"
               = link_to item.description.truncate(120, :separator => " "), moderator_item_path(item), :class => "pjax text"
+            - if (index % 3 == 2)
+              .clear
           .clear
           = paginate @items
 

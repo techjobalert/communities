@@ -1,18 +1,18 @@
 .b-popup-item-info.popup-container{:class => "popup-item-#{item.id}"}
   .container
-    %h3= item.title
+    %h3.popup-container__title= item.title
 
-    %p
+    %p.with-date
       %span.date
-        %b Date
+        %b Date:
         = item.created_at.strftime("%d/%m/%y")
 
         %b.margin Reads:
         = item.views_count
-    %p
+    %p{:style => "margin-top: 5px;"}
       %b.title Summery
       %br
-      = item.description.truncate(250, :separator => ' ')
+      = item.description.truncate(390, :separator => ' ')
 
     .authors
       - if item.contributors.present?
@@ -23,7 +23,7 @@
               = link_to user_path(contributor), :class => "popup-cleaner pjax" do
                 = image_tag contributor.avatar_url(:thumb_45), :width => '45', :height => '45'
                 %br
-                = text_with_br contributor.full_name
+                %span= text_with_br contributor.full_name
 
     - if item.tags.present?
       %p
@@ -42,10 +42,10 @@
     = link_to "", item_path(item), :class => 'btn go-to-article'
     - if item.can_get_pdf?(current_user)
       = link_to "", item_get_attachment_path(item), :class => 'btn make-pdf'
-    %br
-    - if user_signed_in?
-      - if !item.paid? and item.user_id == current_user.id
-        = link_to "Sell this item", edit_item_path(item.id, :step => "additional"), :class => "btn popup-btn sell-item"
-      - elsif item.user_id != current_user.id and item.paid? and !item.purchased?(current_user) 
-        = link_to "", orders_path, :remote => true, :class => "btn buy-item", :method => :post 
+    %div
+      - if user_signed_in?
+        - if !item.paid? and item.user_id == current_user.id
+          = link_to "", edit_item_path(item.id, :step => "additional"), :class => "btn sell-this-item popup-btn"
+        - elsif item.user_id != current_user.id and item.paid? and !item.purchased?(current_user) 
+          = link_to "", orders_path, :remote => true, :class => "btn buy-this-item popup-btn", :method => :post 
   .corner

@@ -82,9 +82,9 @@ Orthodontic::Application.configure do
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test  #production
     ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-      :login => "seller_1352472754_biz_api1.gmail.com",
-      :password => "1352472806",
-      :signature => "AR0aHFS4r6YWeVLa-CFPbS9-yDHqAtEw4z.oD21kS2v4oKOjXQ91mF30"
+      :login => "maia_1352880356_biz_api1.gmail.com",
+      :password => "1352880418",
+      :signature => "ARUEeN2ATTxo501qSLuCnCOApfFEAs5o-1XdJcXcQb70zw3p9klLFk0z"
     )
   end
 
