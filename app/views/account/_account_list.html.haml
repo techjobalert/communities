@@ -1,5 +1,5 @@
 - if items.present?
-  - items.each do |item|
+  - items.each_with_index do |item, index|   
     .item{:class => "#{item.state}", :id => "item-#{item.id}"}
       .tools
         - price = item.paid? ? "#{item.price}$" : 'free'
@@ -30,6 +30,8 @@
           %p
             = f.label :price
             = f.text_field :price
+    - if (index % 3 == 2)
+      .clear
   .clear
   = paginate items
   .clear

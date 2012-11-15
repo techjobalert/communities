@@ -148,9 +148,17 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def owner? user
+    self.user == user
+  end
+
   def paid_view?(user)
     if attachment_type != 'article'
-      if (paid? and purchased?(user)) or (!paid?) or self.user == user or user.admin?
+      return common_video unless paid?
+
+      return attachments.where("attachment_type like ?", '%preview%').last unless user
+
+      if (paid? and purchased?(user)) or owner?(user) or user.admin?      
         common_video
       else
         attachments.where("attachment_type like ?", '%preview%').last

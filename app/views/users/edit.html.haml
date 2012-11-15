@@ -72,9 +72,10 @@
               = f.check_box :show_birthday
               = label "_radio", "show_birthday", "Birthday"
 
-            %li.submit= f.submit '', :class => 'btn save-changes'
-          .right
-            = link_to "", "#", :class => 'btn change-password', :id => "btn-change-password"
+            %li.submit
+              = link_to "", "#", :class => 'btn change-password', :id => "btn-change-password"
+              = f.submit '', :class => 'btn save-changes'
+          
 
 - if current_user.role? "doctor"
   %div{ :id => "popup-change-password", :title=>"Change Password", :style => "display: none" }
