@@ -21,17 +21,17 @@
             %strong Birthday:
             = user.birthday
             
+        - unless user.profession_and_degree.blank?
+          %p
+            %strong Profession and degree
+            = user.profession_and_degree
+
+        - unless user.specialization.blank?
+          %p
+            %strong Specialization:
+            = user.specialization
+
         - if user_signed_in?
-          - unless user.profession_and_degree.blank?
-            %p
-              %strong Profession and degree
-              = user.profession_and_degree
-
-          - unless user.specialization.blank?
-            %p
-              %strong Specialization:
-              = user.specialization
-
           %p
             %strong Send a message:
             you can send a message directly to email about professional question
@@ -40,11 +40,6 @@
             %p.right= submit_tag "", :class => 'btn send'
           - else
             = render :partial => 'send_message', :locals => {:user => user}
-
-        - else
-          %p
-            %strong Biography:
-            = user.bio
 
       .clear
 
