@@ -73,13 +73,42 @@
               = label "_radio", "show_birthday", "Birthday"
 
             %li.submit= f.submit '', :class => 'btn save-changes'
+          .right
+            = link_to "", "#", :class => 'btn change-password', :id => "btn-change-password"
+
+- if current_user.role? "doctor"
+  %div{ :id => "popup-change-password", :title=>"Change Password", :style => "display: none" }
+    = render :template => 'devise/registrations/edit', :locals => {:resource => @resource, :resource_name => resource_name }
+
 
   :javascript
+    $("#popup-change-password:ui-dialog").dialog ("destroy");
+
+    $("#popup-change-password").dialog({
+      autoOpen: false,
+      resizable: false,
+      width: 400,
+      modal: true,
+      buttons: {
+        "Change my password": function() {
+          $(this).find("form").submit();
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+
+    $("#btn-change-password").click(function() {
+      $("#popup-change-password").dialog( "open" );
+      return false;
+    });
+    
     $(".l-settings-navigation").removeClass('hidden');
     $(".b-settings-nav-bio").click();
     changeNavigationTab(".tab-settings");
 
 
-  - if @notice
-    :javascript
-      showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");
+- if @notice
+  :javascript
+    showHideNotice("#{@notice[:type]}", "#{@notice[:message]}");

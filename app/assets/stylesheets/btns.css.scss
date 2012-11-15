@@ -117,10 +117,14 @@
     width: 130px;
     height: 39px; }
 
+  &.popup-btn {
+    margin-right: 3px; 
+  }
+
   &.popup-btn.follow-item {
     background-position: 0px -387px;
     width: 114px;
-    height: 37px }
+    height: 37px; }
 
   &.popup-btn.unfollow-item {
     background-position: -114px -388px;
@@ -142,12 +146,19 @@
   &.go-to-article {
     background-position: -231px -388px;
     width: 114px;
-    height: 37px; }
+    height: 37px;
+    margin-right: 3px; }
 
   &.make-pdf {
     background-position: -230px -508px;
     width: 114px;
-    height: 37px; }
+    height: 37px;
+    &.disabled {
+      opacity: 0.6;
+      cursor: default; }
+    }
+
+
 
   &.next-step {
     background-position: -139px -287px;
@@ -192,13 +203,16 @@
     background-position: 0px -43px;
     width: 355px;
     height: 40px;
-    margin-bottom: 6px;
+    margin-top: 6px;
+    margin-left: 2px;
   }
   &.popup-btn.buy-this-item {
     background-position: 0px 0px;
     width: 355px;
     height: 40px;
-    margin-bottom: 6px;
+    margin-top: 6px;
+    margin-left: 2px;
+
   }
 
   &:hover {
