@@ -93,6 +93,8 @@ class User < ActiveRecord::Base
   scope :role_is, lambda {|role| where(:role => role)}
   scope :take_random, lambda {|c| where(:id => all.map(&:id).shuffle.take(c))}
 
+  after_initialize :init_default_settings, :if => :new_record?
+
   # after_save :reprocess_avatar, :if => :cropping?
 
   def self.collaborators user
@@ -106,9 +108,14 @@ class User < ActiveRecord::Base
     role == name
   end
 
+  def self.degrees
+    role_is('doctor').select(:profession_and_degree).uniq.map(&:profession_and_degree)
+  end
+
   define_index do
     indexes full_name, :sortable => true
     indexes specialization, :sortable => true
+    has "CRC32(profession_and_degree)", :as => :degree, :type => :integer 
     # indexes role
     has created_at, updated_at
     set_property :enable_star => true
@@ -119,9 +126,25 @@ class User < ActiveRecord::Base
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
 
-  # private
+  private
+  
   #   def reprocess_avatar
   #     self.avatar.recreate_versions!
   #   end
+
+    def init_default_settings
+      self.following_me = true
+      self.following_published = true
+      self.added_as_author = true
+      self.following_item = true
+      self.commented_item = true
+      self.recommended_comment = true
+      self.following_bought_item = true
+      self.item_changes = true
+
+      self.show_bio = true
+      self.show_educations = true
+      self.show_birthday = true
+    end
 
 end
