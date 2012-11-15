@@ -135,6 +135,14 @@ $ ->
         .append("<a class='pjax' href=\"" + item.url + "\">" + item.title + "</a>")
         .appendTo ul
 
+  usearch = $("#collegues-add-form #q")
+  if usearch.length
+    usearch.autocomplete
+      source: (request,response) ->
+        form = usearch.closest('form')
+        form.submit()
+      minLength: 2
+  
   ssearch = $("#qsearch")
   if ssearch.length
     ssearch.autocomplete(
