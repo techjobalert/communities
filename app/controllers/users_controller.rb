@@ -194,7 +194,6 @@ class UsersController < ApplicationController
       options.merge!(:with => {:degree => params[:degree].to_crc32})
     end
     _users = User.search(params[:q], options)
-    Rails.logger.info "--- options: #{options} --- _users: #{_users} -----"
     ids = case params[:filter_type]
     when "following"
       current_user.following_by_type('User').map{|x| x.id}
@@ -205,7 +204,6 @@ class UsersController < ApplicationController
     when "patients"
       current_user.followers.map {|f| f.id if f.role?("patient")}
     end
-    Rails.logger.info " --- ids: #{ids} -----"
     if ids
       @users = _users.select {|u| u and u.id.in? ids }
     else
