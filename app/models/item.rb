@@ -66,6 +66,10 @@ class Item < ActiveRecord::Base
       Resque.enqueue(CreatePreview, item.id, item.preview_length) if item.paid?
     end
 
+    after_transition :on => :moderate do |item|
+      Resque.enqueue(SendProcessedMessage, item.id) if item.processed?
+    end
+
     event :edit do
       transition [:denied, :published, :moderated] => :draft
     end
@@ -115,6 +119,10 @@ class Item < ActiveRecord::Base
   def purchased?(user)
     order = self.orders.where("user_id = ? AND state = ?", user.id, "paid")
     order.present?
+  end
+
+  def processed?
+    self.attachments.map(&:file_processing).compact.empty?
   end
 
   def common_video
