@@ -189,7 +189,11 @@ class UsersController < ApplicationController
   end
 
   def search
-    _users = User.search(params[:q], :star => true)
+    options = {:star => true}
+    if params[:degree].present? 
+      options.merge!(:with => {:degree => params[:degree].to_crc32})
+    end
+    _users = User.search(params[:q], options)
     ids = case params[:filter_type]
     when "following"
       current_user.following_by_type('User').map{|x| x.id}

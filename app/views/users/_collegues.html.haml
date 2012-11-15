@@ -31,7 +31,7 @@
               .label Filter by
               .filter-form
                 - if @tab != 'patients'
-                  %span.degree= f.select "degree", options_for_select(['Degree', 'Degree']), :prompt => 'Degree', :include_blank => true
+                  %span.degree= f.select "degree", options_for_select(User.degrees), :prompt => 'Degree', :include_blank => true
                   %span.specialization= f.select "specialization", options_for_select(['Specialization', 'Specialization']), :prompt => 'Specialization', :include_blank => true
                   %span.num_pub= f.text_field "num_pub", :placeholder => 'Num’ of publishing'
                 - elsif @tab == 'patients'

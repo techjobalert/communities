@@ -106,9 +106,14 @@ class User < ActiveRecord::Base
     role == name
   end
 
+  def self.degrees
+    role_is('doctor').select(:profession_and_degree).uniq.map(&:profession_and_degree)
+  end
+
   define_index do
     indexes full_name, :sortable => true
     indexes specialization, :sortable => true
+    has "CRC32(profession_and_degree)", :as => :degree, :type => :integer 
     # indexes role
     has created_at, updated_at
     set_property :enable_star => true
