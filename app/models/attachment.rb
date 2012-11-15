@@ -105,7 +105,9 @@ class Attachment < ActiveRecord::Base
   private
 
   def send_notification_mail
-    Resque.enqueue(SendProcessedMessage, self.item_id)
+    if self.item.processed? && self.item.state == "moderated"
+      Resque.enqueue(SendProcessedMessage, self.item_id)
+    end
   end
 
   def asset_uploaded?
