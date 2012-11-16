@@ -41,6 +41,12 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :attachments, :dependent => :destroy
   has_many :presenter_videos, :dependent => :destroy
+  has_many :follower_users, :class_name => 'Follow', :as => :followable, 
+    :conditions => {:blocked => false, :follower_type => 'User'}
+  has_many :following_users, :class_name => 'Follow', :as => :follower,
+    :conditions => {:blocked => false, :followable_type => 'User'}
+
+  has_many :published_items, :class_name => 'Item', :conditions => {:state => 'published'}
 
   accepts_nested_attributes_for :educations, :allow_destroy => true
 
@@ -109,22 +115,32 @@ class User < ActiveRecord::Base
   end
 
   def self.degrees
-    role_is('doctor').select(:profession_and_degree).uniq.map(&:profession_and_degree)
+    role_is('doctor').select(:profession_and_degree).uniq.map(&:profession_and_degree).compact
+  end
+
+  def self.specializations
+    role_is('doctor').select(:specialization).uniq.map(&:specialization).compact
   end
 
   define_index do
     indexes full_name, :sortable => true
-    indexes specialization, :sortable => true
-    has "CRC32(profession_and_degree)", :as => :degree, :type => :integer 
+    has "CRC32(specialization)", :as => :specialization, :type => :integer
+    has "CRC32(profession_and_degree)", :as => :degree, :type => :integer
+    has following_users.followable_id, :as => :following_ids
+    has follower_users.follower_id, :as => :follower_ids
+    has "CRC32(role)", :as => :role, :type => :integer
+    has :id
     # indexes role
     has created_at, updated_at
     set_property :enable_star => true
     set_property :min_infix_len => 1
+    set_property :delta => true
   end
 
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
+
 
   private
   

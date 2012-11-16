@@ -31,6 +31,7 @@ class Item < ActiveRecord::Base
   # Handlers
   before_create  :add_to_contributors
   around_update :update_preview, :if => :preview_length_changed?
+  before_destroy :set_user_delta_flag, :if => Proc.new {|item| item.state == 'published' }
 
   belongs_to  :user, :counter_cache => true, class_name: :User, inverse_of: :items
   belongs_to  :approved_by, class_name: :User, :foreign_key => "approved_by"
@@ -68,6 +69,14 @@ class Item < ActiveRecord::Base
 
     after_transition :on => :moderate do |item|
       Resque.enqueue(SendProcessedMessage, item.id) if item.processed?
+    end
+
+    after_transition any => :published do |item|
+      item.set_user_delta_flag
+    end
+
+    after_transition :published => any - :published do |item|
+      item.set_user_delta_flag
     end
 
     event :edit do
@@ -180,6 +189,10 @@ class Item < ActiveRecord::Base
     ((paid? and purchased?(user)) or (!paid? and published?) or self.user == user or user.admin?) and (attachment_type == "article")
   end
 
+  def self.users_by_count(count)
+    state_is('published').group('user_id').count.select{|key,value| value == count}.keys
+  end
+
   private
 
   def update_preview
@@ -197,6 +210,11 @@ class Item < ActiveRecord::Base
     else
       yield
     end
+  end
+
+  def set_user_delta_flag
+    self.user.delta = true
+    self.user.save
   end
 
 end

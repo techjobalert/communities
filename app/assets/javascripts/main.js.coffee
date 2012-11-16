@@ -142,8 +142,8 @@ $ ->
         form = usearch.closest('form')
         form.submit()
       minLength: 2
-  
-  ssearch = $("#qsearch")
+
+  ssearch = $(".filter:not(.collegues) #qsearch")
   if ssearch.length
     ssearch.autocomplete(
       source: (request,response) ->
@@ -172,6 +172,37 @@ $ ->
         .addClass("qsearch-item")
         .data("item.autocomplete", item)
         .append("<a class='pjax' href=\"" + item.url + "\">" + item.title + "</a>")
+        .appendTo ul
+
+  collegues_search = $('.filter.collegues #qsearch')
+  if collegues_search.length
+    collegues_search.autocomplete(
+      source: (request, response) ->
+        form = collegues_search.closest('form')
+        $.ajax
+          url: "users/search"
+          data:
+            q: collegues_search.val()
+            degree: form.find("#_degree").val()
+            specialization: form.find("#_specialization").val()
+            num_pub: form.find("#_num_pub").val()
+            filter_type: form.find("#_filter_type").val()
+            autocomplete: true
+          type: "GET"
+          success: (data) ->
+            response $.map(data, (user) ->
+              url: "/users/#{user.id}"
+              title: user.full_name
+            )
+      minLength: 3
+      select: (event, ui) ->
+        window.location.assign ui.user.url
+        $(this).autocomplete "close"
+    ).data("autocomplete")._renderItem = (ul, user) ->
+      $("<li></li>")
+        .addClass("qsearch-item")
+        .data("item.autocomplete", user)
+        .append("<a class='pjax' href=\"" + user.url + "\">" + user.title + "</a>")
         .appendTo ul
 
   msearch.closest('form').submit ->
