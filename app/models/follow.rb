@@ -26,9 +26,16 @@ class Follow < ActiveRecord::Base
   private 
 
   def set_item_delta_flag
-    if self.followable_type == 'Item'
-      followable.delta = true
-      followable.save
+    if self.follower_type == 'User'
+      if self.followable_type == 'Item'
+        followable.delta = true
+        followable.save
+      elsif self.followable_type == 'User'
+        followable.delta = true
+        followable.save
+        follower.delta = true
+        follower.save
+      end
     end  
   end
 
