@@ -209,7 +209,16 @@ class UsersController < ApplicationController
 
     options.merge!(:with => filter_options)
     @users = User.search(params[:q], options)
-    render :json => @users if params[:autocomplete]
+    if params[:autocomplete]
+      @users.map! do |user| 
+        {
+          :full_name => user.full_name.truncate(40, :separator => ' '), 
+          :url => polymorphic_path(user)
+        }
+      end
+      render :json => @users
+    end
+    
   end
 
   def validate_card
