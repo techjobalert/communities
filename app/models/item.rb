@@ -30,7 +30,7 @@ class Item < ActiveRecord::Base
 
   # Handlers
   before_create :add_to_contributors
-  around_update :update_preview, :if => :preview_length_changed?
+  around_update :update_preview
   before_destroy :set_user_delta_flag, :if => Proc.new {|item| item.state == 'published' }
 
   belongs_to  :user, :counter_cache => true, class_name: :User, inverse_of: :items
