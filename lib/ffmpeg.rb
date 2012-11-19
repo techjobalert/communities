@@ -49,9 +49,7 @@ module CarrierWave
       convert_to(".mp4", *args)
     end
 
-    def create_video_thumbnail(h="00",m="00",s="01.0")
-      Resque.enqueue(CreatePreview, model.item.id, model.item.preview_length)
-
+    def create_video_thumbnail(h="00",m="00",s="01.0")      
       tmp  = current_path+".jpeg"
       path = File.absolute_path(current_path)
       file = ::FFMPEG::Movie.new(path)
