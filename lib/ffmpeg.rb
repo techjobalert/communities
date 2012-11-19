@@ -50,15 +50,9 @@ module CarrierWave
     end
 
     def create_video_thumbnail(h="00",m="00",s="01.0")
-      # args = [h,m,s]
-      # args.each_with_index do |t, index|
-      #   if index != 0 and d = t.div(60)
-      #     t = t-d*60
-      #     args[index-1] = args[index-1]+d
-      #   end
-      #   t = "0"+t.to_s if t < 10
-      # end
-      # t = Time.at(file.duration/2)
+      
+      Resque.enqueue(CreatePreview, model.item.id, model.item.preview_length)
+
       tmp  = current_path+".jpeg"
       path = File.absolute_path(current_path)
       file = ::FFMPEG::Movie.new(path)
@@ -66,9 +60,7 @@ module CarrierWave
       File.rename tmp, current_path
       self.file.instance_variable_set(:@content_type, "image/jpeg")
       model.file_processing = nil
-      if model.item.paid?
-        Resque.enqueue(CreatePreview, model.item.id, model.item.preview_length)
-      end
+      
       if file
         #if %w(presenter_merged_video regular presentation_video).member? model.attachment_type
         #  Resque.enqueue(SendProcessedMessage, model.item.id)
