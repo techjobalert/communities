@@ -1,6 +1,6 @@
 class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch, :get_pdf_json]
-  before_filter :get_item, :except => [:index, :new, :create, :tags, :get_attachment, :upload_attachment]
+  before_filter :get_item, :except => [:index, :new, :create, :tags, :upload_attachment]
   load_and_authorize_resource :except => :get_pdf_json
 
 
@@ -261,16 +261,6 @@ class ItemsController < InheritedResources::Base
 
     # delete last file by type
     base_upload(klass, params, options)
-  end
-
-  def get_attachment
-    item = Item.find(params[:item_id])
-    if item.can_get_pdf?(current_user)
-      file_path = item.regular_pdf.file.pdf.path
-      send_file file_path, filename: File.basename(file_path), type: "application/pdf"
-    else
-      render status: 404, text: "Attachment not found"
-    end
   end
 
   def merge_presenter_video
