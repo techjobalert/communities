@@ -1,17 +1,68 @@
-- step = "upload" unless ["description", "additional", "preview"].include?(step)
-.b-upload-item
-  .b-upload-item__navigation
-    = link_to raw("Upload content"), "#{@item.id ? edit_item_path(@item.id) : new_item_path()}", :class => "upload-page-upload-btn #{'active' if step == 'upload'} #{'disabled' unless @item.id} pjax"
+.b-upload
+  .b-upload__block.b-upload__wizard
 
-    = link_to raw("Describe your item"), "#{edit_item_path(@item.id, :step => 'description') if @item.id}", :class => "description #{'active' if step == 'description'} #{'disabled' unless @item.id} pjax"
+  .b-upload__block= render :partial => "items/form/upload"
+  = form_for @item, :validate => true, :remote => true do |f|
+    .b-upload__block= render :partial => "items/form/description", :locals => {f: f}
 
-    = link_to raw("Additional information"), "#{edit_item_path(@item.id, :step => 'additional') if @item.id}", :class => "additional #{'active' if step == 'additional'} #{'disabled' unless @item.id && @item.attachments} pjax"
+    .b-upload__block= render :partial => "items/form/additional"
 
-    = link_to raw("Presenter video"), "#{edit_item_path(@item.id, :step => 'preview') if @item.id and @processed}", :class => "#{'active' if step == 'preview'} #{'disabled' unless @item.id and @processed} pjax"
+    .b-upload__block= render :partial => "items/form/commercialization", :locals => {f: f}
 
-  .b-upload-item__step
-    = render :partial => "items/form/#{step}"
+    .b-upload__block.preview{:style => "display: #{@item.price > 0 ? 'block' : 'none'}"}
+      %h2.title Set preview
+      .row
+        = label '_radio', '1', 'Show at most this number of pages', :class => "preview-label"
+        = f.text_field :preview_length, :style => "width: 100px", :type => "number", :min => 0
+      .row.note
+        %strong Note:
+        Show at most this number of pages Show at most thiser of pages
+
+    .b-upload__block
+      %h2.title Copyright Verification
+      .b-copyright
+        .row
+          .label= check_box "verification", "1"
+          = label '_radio', '1', :class => "verify" do
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
+
+    .b-upload__block.tools
+      = f.submit "", :class => 'btn publish', :name => 'publish'
+
+#add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
+  .form{:id => "collegues-add-form"}
+    = form_for "", :url => item_users_search_path(@item), :remote => true, :method => :get do |form|
+      = hidden_field_tag :item_id, @item.id
+      %p
+        = text_field_tag "q", "",:placeholder => "Search persons"
+        = form.submit 'Search', :class => 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover'
+
+  .users-wrapper
+    - if @doctors.present?
+      = render :partial => 'doctors_list', :locals => { :doctors => @doctors }
+
+:javascript
+  $( "#add-collegues-to-item-link:ui-dialog" ).dialog( "destroy" );
+  $( "#add-collegues-to-item" ).dialog({
+    resizable: false,
+    autoOpen: false,
+    width: 410,
+    height: 400,
+    modal: true,
+    buttons: {
+      "Close": function() {
+        $( this ).dialog( "close" );
+      }
+    },
+    open: function(event, ui) { $("#collegues-add-form form").submit()}
+  });
+  $( "#add-collegues-to-item-link" ).click(function() {
+    $( "#add-collegues-to-item").dialog( "open" );
+    return false;
+  });
 
 :javascript
   changeNavigationTab(".tab-item");
-

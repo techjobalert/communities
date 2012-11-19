@@ -6,7 +6,7 @@ class Attachment < ActiveRecord::Base
   has_many   :pdf_images, :dependent => :destroy
   has_one    :document_detail, :dependent => :destroy
 
-  attr_accessible :user, :file, :item_id, :attachment_type
+  attr_accessible :user, :file, :item_id, :attachment_type, :user_id, :file_processing
   store :video_timing, accessors: [ :playback_points ]
   # validates_presence_of :user
 
@@ -21,6 +21,7 @@ class Attachment < ActiveRecord::Base
   before_save     :remove_prev_version
   before_destroy  :destroy_attachments
   after_save :send_notification_mail, :if => :asset_uploaded?
+  #after_save :update_preview
   
 
   def set_type
@@ -108,6 +109,10 @@ class Attachment < ActiveRecord::Base
     if self.item.processed? && self.item.state == "moderated"
       Resque.enqueue(SendProcessedMessage, self.item_id)
     end
+  end
+
+  def update_preview
+    item.update_preview
   end
 
   def asset_uploaded?

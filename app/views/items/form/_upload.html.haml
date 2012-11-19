@@ -1,50 +1,17 @@
-.b-upload-item__title
-  %b Regular (Presentations, Movies, Articles)
+%h2.title.strong Regular (Presentations, Movies, Articles)
+.b-select-file#regular-upcontainer
+  .b-select-file__label Select File      
+  = link_to '', '#', :id => 'regular-pickfiles', :class => 'b-select-file__btn btn upload'
+  .b-select-file__hint
+    It can be presentations,
+    %br
+    movies and articles.    
+  .b-select-file__list.fl-l#filelist
 
-.b-upload-item__uload-regular
-  #regular-upcontainer
-    .select-file Select File
-    .row
-      = link_to '', '#', :id => 'regular-pickfiles', :class => 'btn upload'
-
-      .btn-hint
-        It can be presentations,
-        %br
-        movies and articles.
-    .row
-      .fl-l#filelist
-
-  - if @a_video
-    - if @a_video.file_processing == true
-      .attachment.attachment-video
-        %i
-          Your attachment will be placed here after processings
-    - elsif not @a_video.nil?
-      .attachment.attachment-video
-        = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video}
-
-  - if @a_pdf
-    - if @a_pdf.file_processing == true
-      .attachment.attachment-pdf
-        %i
-          Your attached pdf will be placed here after processings
-    - elsif not @a_pdf.blank?
-      .attachment.attachment-pdf
-        = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
-
-  %p.help
-    Please upload your presentation, movie or article to proceed
-
-- url = @item ? upload_attachment_items_path(:item_id => @item.id) : upload_attachment_items_path
 :javascript
   $(function(){
     var uploaderAttachment = $.initPlupload({
-        url: "#{url}",
-        // filters : [
-        //     {title : "Presentation files", extensions : "key,ppt,pptx"},
-        //     {title : "Document", extensions : "pdf,doc,docx"},
-        //     {title : "Video files", extensions : "3gpp,3gp,mpeg,mpg,mpe,ogv,mov,webm,flv,mng,asx,asf,wmv,avi,mp4,m4v"},
-        // ],
+        url: "#{upload_attachment_items_path(:item_id => @item.id)}",          
         max_file_size: "1000mb",
         browse_button: "regular-pickfiles",
         container: "regular-upcontainer",

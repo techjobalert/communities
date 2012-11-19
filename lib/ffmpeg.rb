@@ -78,6 +78,10 @@ module CarrierWave
         Resque.enqueue(RemoveSourceFile, parent_attachment_source_path.file.path) if parent_attachment_source_path
       end
 
+      if model.item.paid?
+        Resque.enqueue(CreatePreview, model.item.id, model.item.preview_length)
+      end
+
     end
 
     private
@@ -99,8 +103,11 @@ module CarrierWave
       file.transcode(tmp_webm , options)
 
       File.rename tmp_webm, current_path
-      if (format == ".mp4")
-        self.file.instance_variable_set(:@content_type, "video/mp4")        
+      case format
+        when ".mp4"
+          self.file.instance_variable_set(:@content_type, "video/mp4")
+        when ".webm"  
+          self.file.instance_variable_set(:@content_type, "video/webm")
       end
       File.delete( tmp_path )
     end

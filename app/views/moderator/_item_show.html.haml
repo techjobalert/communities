@@ -12,7 +12,10 @@
                   Your attachment will be placed here after processings
             - elsif not @a_video.nil?
               .attachment-video
-                = render :partial => "layouts/video_viewer", :locals => {:attachment => @a_video}
+                - video = @item.paid_view?(current_user)
+
+                - if video
+                  = render partial: "layouts/video_viewer",locals: {:attachment => @item.attachment_type == "article" ? @a_video : video}
           .body
             = image_tag('/assets/logo.png', :width => '200')
             %h2= @item.title
@@ -26,7 +29,9 @@
                   Your attached pdf will be placed here after processings
             -elsif not @a_pdf.blank?
               .attachment-pdf
-                = render :partial => "layouts/pdf_viewer", :locals => { :attachment => @a_pdf}
+                - pdf = @item.paid_view?(current_user)
+                - if pdf
+                  = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
 
         .b-admin-content-keywords
           .b-admin-content-subtitle Keywords:

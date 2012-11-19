@@ -2,8 +2,6 @@
 
   - if @render_items == "relevant"
     $(".list-content").html("#{escape_javascript(render :partial => "items/basic_list", :locals => {:items => @items, :remote => true})}")
-
-
   - else
     var def_selector = $("#ajax-main-container .list-content")
 
@@ -23,8 +21,18 @@
 - else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'iteresting_items')}");
 
+
+console.log("#{@render_items}   #{@following}");
+- tab_name = if @following 
+  - 'tab-item'
+- elsif @render_items == "account_list"
+  - 'tab-account'
+- else
+  - 'tab-home'
+  
+
 $(".main-content .navigation a").removeClass("selected");
-- tab_name = @following ? 'tab-item' : 'tab-home'
+
 $(".#{tab_name}").addClass("selected");
 $(".l-settings-navigation").html("");
 $("#relevant_items").remove();

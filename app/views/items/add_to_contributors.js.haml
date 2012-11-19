@@ -3,5 +3,5 @@
   item.children("a").text("added")
   item.fadeOut("slow")
 
-  $(".b-upload-item__collegues").append("#{ escape_javascript( render :partial => 'items/item_collegue', :locals => {:user => @user, :item => @item}) }" )
+  $(".b-collegues__list").append("#{ escape_javascript( render :partial => 'items/item_collegue', :locals => {:user => @user, :item => @item}) }" )
 showHideNotice("#{@notice[:type]}", "#{@notice[:message]}")
