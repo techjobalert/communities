@@ -7,7 +7,7 @@
       = f.hidden_field "filter_location", :value => "main"
       = f.submit '', :class => 'btn search'
   - if can? :create, Item
-    = link_to new_item_path, :class => 'btn upload popup-cleaner pjax' do
+    = link_to new_item_path, :class => 'btn upload popup-cleaner' do
       Upload
       %span
 
