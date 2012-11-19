@@ -197,6 +197,11 @@ class Item < ActiveRecord::Base
     state_is('published').group('user_id').count.select{|key,value| value == count}.keys
   end
 
+  def set_user_delta_flag
+    self.user.delta = true
+    self.user.save
+  end
+
   private
 
   def update_preview
@@ -222,10 +227,4 @@ class Item < ActiveRecord::Base
     end
 
   end
-
-  def set_user_delta_flag
-    self.user.delta = true
-    self.user.save
-  end
-
 end
