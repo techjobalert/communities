@@ -114,6 +114,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   version :video_thumbnail, :from_version => :mp4 do
     process :create_video_thumbnail
+    
     def full_filename (for_file = model.file.file)
       "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
     end

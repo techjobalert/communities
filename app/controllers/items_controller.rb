@@ -1,6 +1,6 @@
 class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch, :get_pdf_json]
-  before_filter :get_item, :except => [:index, :new, :create, :tags, :get_attachment, :upload_attachment]
+  before_filter :get_item, :except => [:index, :new, :create, :tags, :get_attachment]
   load_and_authorize_resource :except => :get_pdf_json
 
 
@@ -35,11 +35,17 @@ class ItemsController < InheritedResources::Base
   end
 
   def new
+    @item = Item.new(
+      :title        => "[no title]",
+      :description  => "[no abstract]",
+      :user_id      => current_user.id )
 
+    @item.save( :validate => false )
+
+    redirect_to edit_item_path(@item)
   end
 
   def edit
-    @step = params[:step]
     unless @item.attachments.blank?
       @a_pdf, @a_video = @item.regular_pdf, @item.regular_video
       @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
@@ -48,8 +54,6 @@ class ItemsController < InheritedResources::Base
   end
 
   def update
-    @step = params[:step]
-    @current_step = params[:current_step]
     @a_pdf, @a_video = @item.regular_pdf, @item.regular_video if @item.attachments
     @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
     @uuid = SecureRandom.uuid.split("-").join()
@@ -74,32 +78,40 @@ class ItemsController < InheritedResources::Base
 
     @item.attributes = params[:item]
 
-    @item.edit if @item.changed? or tag_list_changed or paypal_account_changed
-
-    if @item.save and @current_step == 'additional'
+    if @item.changed? or tag_list_changed or paypal_account_changed
+      @notice = { :type => "notice", :message => "Item will be published after premoderation." }
+    else
       @notice = { :type => "notice", :message => "Item is saved." }
     end
 
-    if params[:publish]
-      if @item.attachments
-        if @processed
-          @item.moderate
-          @item.save
-          @notice = { :type => "notice",
-              :message => "Item will be published after premoderation." }
-          # @step = @current_step
-          redirect_to(item_path(@item, :notice => @notice))
-        else
-          @notice = { :type => "error",
-            :message => "Please wait for the attached file to be processed. Publishing will be available after processing." }
-          @step = @current_step
-        end
-      else
-        @notice = { :type => "error",
-          :message => "Item can't be published without attached files" }
-        @step = "upload"
-      end
-    end
+    @item.moderate
+    @item.save
+    redirect_to(item_path(@item, :notice => @notice))    
+
+    # if @item.save and @current_step == 'additional'
+    #   @notice = { :type => "notice", :message => "Item is saved." }
+    # end
+
+    # if params[:publish]
+    #   if @item.attachments
+    #     if @processed
+    #       @item.moderate
+    #       @item.save
+    #       @notice = { :type => "notice",
+    #           :message => "Item will be published after premoderation." }
+    #       # @step = @current_step
+    #       redirect_to(item_path(@item, :notice => @notice))
+    #     else
+    #       @notice = { :type => "error",
+    #         :message => "Please wait for the attached file to be processed. Publishing will be available after processing." }
+    #       @step = @current_step
+    #     end
+    #   else
+    #     @notice = { :type => "error",
+    #       :message => "Item can't be published without attached files" }
+    #     @step = "upload"
+    #   end
+    # end
   end
 
   def create
@@ -144,7 +156,7 @@ class ItemsController < InheritedResources::Base
 
     @items  = current_user.items
       .published
-      .page(params[:page]).per(3)
+      .page(params[:page]).per(30)
   end
 
   def relevant
@@ -241,26 +253,19 @@ class ItemsController < InheritedResources::Base
 
     if params[:item_id]
       @item = Item.find(params[:item_id])
-    else
-      @item = Item.new(
-        :title        => "[no title]",
-        :description  => "[no abstract]",
-        :user_id      => current_user.id )
+    
+      options = {
+        :user             => current_user,
+        :user_id          => current_user.id,
+        :file             => params[:file],
+        :attachment_type  => params[:attachment_type] || "regular",
+        :item_id          => @item.id,
+        :file_processing  => true
+      }
 
-      @item.save( :validate => false )
+      # delete last file by type
+      base_upload(klass, params, options)
     end
-
-    options = {
-      :user             => current_user,
-      :user_id          => current_user.id,
-      :file             => params[:file],
-      :attachment_type  => params[:attachment_type] || "regular",
-      :item_id          => @item.id,
-      :file_processing  => true
-    }
-
-    # delete last file by type
-    base_upload(klass, params, options)
   end
 
   def get_attachment

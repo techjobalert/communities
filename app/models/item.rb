@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
   scope :content_type, lambda {|attachment_type| where(:attachment_type => attachment_type)}
 
   # Handlers
-  before_create  :add_to_contributors
+  before_create :add_to_contributors
   around_update :update_preview, :if => :preview_length_changed?
 
   belongs_to  :user, :counter_cache => true, class_name: :User, inverse_of: :items
@@ -62,9 +62,9 @@ class Item < ActiveRecord::Base
       item.number_of_updates += 1
     end
 
-    after_transition :on => :publish do |item|
-      Resque.enqueue(CreatePreview, item.id, item.preview_length) if item.paid?
-    end
+    # after_transition :on => :moderate do |item|
+    #   Resque.enqueue(CreatePreview, item.id, item.preview_length) if item.paid?
+    # end
 
     event :edit do
       transition [:denied, :published, :moderated] => :draft
@@ -141,10 +141,14 @@ class Item < ActiveRecord::Base
 
     attachment = self.attachments.select{|a| a != "presenter_video"}.last
 
-    if attachment.present? and attachment.file.present?
-      attachment.get_thumbnail
+    if attachment.present? 
+      if attachment.file.present?
+        attachment.get_thumbnail
+      else
+        "/assets/default/item_thumb_default.png"
+      end
     else
-      "/assets/default/item_thumb_default.png"
+      "/assets/default/item_thumb_no_file.png"
     end
   end
 
@@ -175,20 +179,27 @@ class Item < ActiveRecord::Base
   private
 
   def update_preview
-    if self.paid? && self.attachment_type.match(/video/)
-      last_attachment = self.attachments.where(:attachment_type => "#{self.attachment_type}_preview").last
-      if last_attachment && last_attachment.file_processing
-        self.errors.add(:preview_length,"can't change preview length before current preview file processing")
-        return false
+
+    if self.attachments.any?
+      if self.paid? && self.attachment_type.match(/video/)
+        last_attachment = self.attachments.where(:attachment_type => "#{self.attachment_type}_preview").last
+        if last_attachment && last_attachment.file_processing
+          self.errors.add(:preview_length,"can't change preview length before current preview file processing")
+          return false
+        else
+          if last_attachment
+            last_attachment.destroy 
+          end  
+          yield
+          Resque.enqueue(CreatePreview, self.id, self.preview_length)
+        end
       else
-        if last_attachment
-          last_attachment.destroy 
-        end  
         yield
       end
     else
       yield
     end
+
   end
 
 end
