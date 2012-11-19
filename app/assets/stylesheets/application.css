@@ -12,6 +12,7 @@
  *= require jquery-ui
  *= require users
  *= require flexpaper
+ *= require upload
 
  *= require jquery.fileupload-ui
  *= require webrecorder
@@ -42,3 +43,7 @@ body {
 
 input, textarea {
   font-family: "Droid Sans", Arial;}
+
+* {
+  font-family: "Droid Sans", "Arial";
+}

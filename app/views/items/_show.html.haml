@@ -57,7 +57,7 @@
 
     - elsif user_signed_in? && item.paid? && !item.purchased?(current_user)
       = link_to "", orders_path, :remote => true, :id => "account-form-dialog", :class => "btn buy-item", :method => :post
-
+  
   - unless @a_video
     .text.pic
       = image_tag('/assets/logo.png', :height => '50')
@@ -73,14 +73,16 @@
             - pdf = @item.paid_view?(current_user)
             -if pdf
               = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
-      - else
+      - elsif @item.attachments.any?
         %i Your attachment will be placed here after processings
+      - else 
+        %i No file
 
   - if @a_video
     .text.video
       .preview
         - if @a_video.file_processing == true
-          .attachment-videoa
+          .attachment-video
             %i Your attachment will be placed here after processings
         - elsif not @a_video.nil?
           .attachment-video
@@ -105,8 +107,9 @@
         - elsif not @a_pdf.blank?
           .attachment-pdf
             - pdf = @item.paid_view?(current_user)
-            -if pdf
+            - if pdf
               = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
+
 - if user_signed_in?
   #comments.b-comments
     %h3 Comments

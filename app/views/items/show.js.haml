@@ -1,5 +1,6 @@
 - if @popup
-  $("body").append("#{escape_javascript(render :partial => 'popup', :locals => {:item => @item})}");
+  - if user_signed_in?
+    $("body").append("#{escape_javascript(render :partial => 'popup', :locals => {:item => @item})}");
 - else
   $("#ajax-main-container").html("#{escape_javascript(render :partial => 'show', :locals => {:item => @item})}");
 
