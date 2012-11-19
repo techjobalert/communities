@@ -1,5 +1,5 @@
 class CreatePreview
-  @queue = :store_asset
+  @queue = :create_preview
 
   def self.perform(item_id, to)
     #from 0 to #(seconds or pages)
@@ -16,6 +16,25 @@ class CreatePreview
       #   dest = File.join(File.dirname(attachment.file.path), "#{hex}-splited.pdf")
       #   system("pdftk A=#{attachment.file.path} cat A1-#{to} output #{dest}")
       when "presenter_merged_video", "presentation_video", "video"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
+        Rails.logger.info "----------------------------------------------------------"
         attachment.file.cache_stored_file! if !attachment.file.cached?
         source = attachment.file.path
         dest = File.join(File.dirname(source), "#{hex}-splited#{File.extname(source)}")

@@ -50,7 +50,6 @@ module CarrierWave
     end
 
     def create_video_thumbnail(h="00",m="00",s="01.0")
-      
       Resque.enqueue(CreatePreview, model.item.id, model.item.preview_length)
 
       tmp  = current_path+".jpeg"
