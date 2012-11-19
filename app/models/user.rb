@@ -142,6 +142,19 @@ class User < ActiveRecord::Base
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
 
+  def get_google_activities
+    google_apikey = 'AIzaSyBB59WRddUJKSwa-7RQvuEMSiMZuTIzj1c'
+    google_user_id = social_account_credential.google_user_id
+    feed = RestClient.get("https://www.googleapis.com/plus/v1/people/#{google_user_id}/activities/public?alt=json&maxResults=50&key=#{google_apikey}").body
+   
+    if feed && feed["error"]
+      feed = nil
+      user_social_account_credential.update_attributes(:google_token  => nil);
+    end
+
+    feed
+  end
+
 
   private
   
