@@ -202,7 +202,7 @@ class UsersController < ApplicationController
     when "followers"
       filter_options.merge!(:following_ids => current_user.id, :role => 'doctor'.to_crc32)
     when "patients"
-      filter_options.merge!(:following_ids => current_user.id, :role => 'patients'.to_crc32)
+      filter_options.merge!(:following_ids => current_user.id, :role => 'patient'.to_crc32)
     when "published_together"
       filter_options.merge!(:id => User.collaborators(current_user).map(&:id))
     end
