@@ -111,10 +111,6 @@ class Attachment < ActiveRecord::Base
     end
   end
 
-  def update_preview
-    item.update_preview
-  end
-
   def asset_uploaded?
     file_tmp_changed? && file_changed? && file_processing_changed? && !created_at_changed?
   end
