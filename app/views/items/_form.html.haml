@@ -9,7 +9,7 @@
 
     .b-upload__block= render :partial => "items/form/commercialization", :locals => {f: f}
 
-    .b-upload__block.preview{:style => "display: #{@item.price > 0 ? 'block' : 'none'}"}
+    .b-upload__block.js-preview{:style => "display: #{@item.price > 0 ? 'block' : 'none'}"}
       %h2.title Set preview
       .row
         = label '_radio', '1', 'Show at most this number of pages', :class => "preview-label"
@@ -45,6 +45,12 @@
       = render :partial => 'doctors_list', :locals => { :doctors => @doctors }
 
 :javascript
+  
+  $(".b-upload").on("keyup", ".js-price", function(e){ 
+    var preview = $(".js-preview");   
+    parseFloat($(e.target).val()) > 0 ? preview.fadeIn() : preview.fadeOut();
+  })
+
   $( "#add-collegues-to-item-link:ui-dialog" ).dialog( "destroy" );
   $( "#add-collegues-to-item" ).dialog({
     resizable: false,

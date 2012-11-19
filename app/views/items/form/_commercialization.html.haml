@@ -3,16 +3,8 @@
 
 .row
   = f.label :price, "Set price", :class => "label"
-  = f.text_field :price, :class => "price"
+  = f.text_field :price, :class => "js-price"
 .row
   = label :price, "PayPal account", :class => "label"
   = text_field_tag "paypal_account", @item.user.paypal_account
   .text-hint Please enter a valid PayPal account. Otherwise money for purchasing your item won't be transfered to your account.
-
-:javascript
-  var preview = $(".preview");
-  var price   = $(".price");
-  var showHidePreview = function(el){
-    parseFloat($(el).val()) > 0 ? preview.fadeIn() : preview.fadeOut();
-  };
-  price.on("change", function(){ showHidePreview(this) })
