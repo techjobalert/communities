@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-         :trackable, :validatable, :confirmable, :recoverable,
+         :trackable, :validatable, :confirmable, :recoverable, :omniauthable,
          :email_regexp =>  /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
 
   # Setup accessible (or protected) attributes for your model
@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
     :conditions => {:blocked => false, :followable_type => 'User'}
 
   has_many :published_items, :class_name => 'Item', :conditions => {:state => 'published'}
+  has_one :social_account_credential
 
   accepts_nested_attributes_for :educations, :allow_destroy => true
 
