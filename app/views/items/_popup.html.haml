@@ -41,7 +41,8 @@
 
     = link_to "", item_path(item), :class => 'btn go-to-article'
     - if item.can_get_pdf?(current_user)
-      = link_to "", item_get_attachment_path(item), :class => 'btn make-pdf'
+      - a_file = item.regular_pdf.file
+      = link_to "", "https://s3-#{a_file.fog_credentials[:region]}.amazonaws.com/#{a_file.fog_directory}/#{a_file.path}", :class => 'btn make-pdf'
     - else
       .btn.make-pdf.disabled
     %div
