@@ -1,5 +1,5 @@
 class CreatePreview
-  @queue = :create_preview
+  @queue = :store_asset
 
   def self.perform(item_id, to)
     #from 0 to #(seconds or pages)
