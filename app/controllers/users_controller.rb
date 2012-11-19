@@ -189,22 +189,36 @@ class UsersController < ApplicationController
   end
 
   def search
-    _users = User.search(params[:q], :star => true)
-    ids = case params[:filter_type]
+    options = {:star => true}
+    filter_options = {}
+    [:degree,:specialization].each do |param_name|
+      filter_options.merge!(param_name => params[param_name].to_crc32) if params[param_name].present?
+    end
+    filter_options.merge!(:id => Item.users_by_count(params[:num_pub].to_i)) if params[:num_pub].present?
+    
+    case params[:filter_type]
     when "following"
-      current_user.following_by_type('User').map{|x| x.id}
-    when "published_together"
-      User.collaborators(current_user).map{|f| f.id}
+      filter_options.merge!(:follower_ids => current_user.id)
     when "followers"
-      current_user.followers.select { |f| f.role?("doctor")}.map{|f| f.id}
+      filter_options.merge!(:following_ids => current_user.id, :role => 'doctor'.to_crc32)
     when "patients"
-      current_user.followers.map {|f| f.id if f.role?("patient")}
+      filter_options.merge!(:following_ids => current_user.id, :role => 'patients'.to_crc32)
+    when "published_together"
+      filter_options.merge!(:id => User.collaborators(current_user).map(&:id))
     end
-    if ids
-      @users = _users.select {|u| u and u.id.in? ids }
-    else
-      @users = _users
+
+    options.merge!(:with => filter_options)
+    @users = User.search(params[:q], options)
+    if params[:autocomplete]
+      @users.map! do |user| 
+        {
+          :full_name => user.full_name.truncate(40, :separator => ' '), 
+          :url => polymorphic_path(user)
+        }
+      end
+      render :json => @users
     end
+    
   end
 
   def validate_card

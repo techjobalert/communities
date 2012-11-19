@@ -142,8 +142,8 @@ $ ->
         form = usearch.closest('form')
         form.submit()
       minLength: 2
-  
-  ssearch = $("#qsearch")
+
+  ssearch = $(".filter:not(.collegues) #qsearch")
   if ssearch.length
     ssearch.autocomplete(
       source: (request,response) ->
