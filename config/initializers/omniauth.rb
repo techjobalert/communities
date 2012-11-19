@@ -1,0 +1,1 @@
+OmniAuth.config.full_host = "http://www.maia360.com"

@@ -21,6 +21,8 @@ gem 'haml-rails'
 gem 'god'
 gem 'fog'
 gem 'excon', '~> 0.16.4'
+gem 'omniauth-google-oauth2'
+gem 'rest-client'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
