@@ -66,7 +66,9 @@ module CarrierWave
       File.rename tmp, current_path
       self.file.instance_variable_set(:@content_type, "image/jpeg")
       model.file_processing = nil
-
+      if model.item.paid?
+        Resque.enqueue(CreatePreview, model.item.id, model.item.preview_length)
+      end
       if file
         #if %w(presenter_merged_video regular presentation_video).member? model.attachment_type
         #  Resque.enqueue(SendProcessedMessage, model.item.id)
@@ -78,9 +80,7 @@ module CarrierWave
         Resque.enqueue(RemoveSourceFile, parent_attachment_source_path.file.path) if parent_attachment_source_path
       end
 
-      if model.item.paid?
-        Resque.enqueue(CreatePreview, model.item.id, model.item.preview_length)
-      end
+      
 
     end
 
