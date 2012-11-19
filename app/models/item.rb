@@ -30,7 +30,7 @@ class Item < ActiveRecord::Base
 
   # Handlers
   before_create :add_to_contributors
-  around_update :update_preview
+  around_update :update_preview, :if => :preview_length_changed?
   before_destroy :set_user_delta_flag, :if => Proc.new {|item| item.state == 'published' }
 
   belongs_to  :user, :counter_cache => true, class_name: :User, inverse_of: :items
@@ -40,7 +40,7 @@ class Item < ActiveRecord::Base
   has_many    :orders
   has_many    :contributions, :order => 'created_at ASC'
   has_many    :contributors, through: :contributions
-  has_many    :attachments, :dependent => :destroy
+  has_many    :attachments, :dependent => :destroy, :before_add => :update_preview
   has_many    :presenter_videos, :dependent => :destroy
   has_many    :follows, :as => :followable, :conditions => {:blocked => false}
 
