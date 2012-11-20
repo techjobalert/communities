@@ -48,7 +48,7 @@
     %div
       - if user_signed_in?
         - if !item.paid? and item.user_id == current_user.id
-          = link_to "", edit_item_path(item.id, :step => "additional"), :class => "btn sell-this-item popup-btn"
+          = link_to "", edit_item_path(item.id), :class => "btn sell-this-item popup-btn"
         - elsif item.user_id != current_user.id and item.paid? and !item.purchased?(current_user) 
-          = link_to "", orders_path, :remote => true, :class => "btn buy-this-item popup-btn", :method => :post 
+          = link_to "", item_path, :remote => true, :class => "btn buy-this-item popup-btn"
   .corner

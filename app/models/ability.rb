@@ -21,8 +21,11 @@ class Ability
     can :update, User, :id => @user.id
     can [:follow, :unfollow], [User, Item]
     can [:follow, :upload_avatar, :crop_avatar, :send_message], User
-    can [:relevant], Item
+    can [:relevant, :following], Item
     can [:purchase,:payments_info], :account
+    can :read, [ Item, Comment ] do |obj|
+      owner_or_published?(obj)
+    end
   end
 
   def doctor

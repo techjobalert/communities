@@ -5,7 +5,7 @@
   = form_for @item, :validate => true, :remote => true do |f|
     .b-upload__block= render :partial => "items/form/description", :locals => {f: f}
 
-    .b-upload__block= render :partial => "items/form/additional"
+    .b-upload__block= render :partial => "items/form/additional", :locals => {f: f}
 
     .b-upload__block= render :partial => "items/form/commercialization", :locals => {f: f}
 
@@ -32,24 +32,40 @@
     .b-upload__block.tools
       = f.submit "", :class => 'btn publish', :name => 'publish'
 
-#add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
-  .form{:id => "collegues-add-form"}
-    = form_for "", :url => item_users_search_path(@item), :remote => true, :method => :get do |form|
-      = hidden_field_tag :item_id, @item.id
-      %p
-        = text_field_tag "q", "",:placeholder => "Search persons"
-        = form.submit 'Search', :class => 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover'
+  #add-collegues-to-item{:style => "display: none;", :title=>"Add persons to item"}
+    .form{:id => "collegues-add-form"}
+      = form_for "", :url => item_users_search_path(@item), :remote => true, :method => :get do |form|
+        = hidden_field_tag :item_id, @item.id
+        %p
+          = text_field_tag "q", "",:placeholder => "Search persons"
+          = form.submit 'Search', :class => 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover'
 
-  .users-wrapper
-    - if @doctors.present?
-      = render :partial => 'doctors_list', :locals => { :doctors => @doctors }
+    .users-wrapper
+      - if @doctors.present?
+        = render :partial => 'doctors_list', :locals => { :doctors => @doctors }
 
 :javascript
   
-  $(".b-upload").on("keyup", ".js-price", function(e){ 
-    var preview = $(".js-preview");   
-    parseFloat($(e.target).val()) > 0 ? preview.fadeIn() : preview.fadeOut();
-  })
+  $(".b-upload")
+    .on("keyup", ".js-price", function(e){ 
+      var preview = $(".js-preview");   
+      parseFloat($(e.target).val()) > 0 ? preview.fadeIn() : preview.fadeOut();
+    });
+
+  $(document)
+    .on("click", ".js-add-contributor", function(e){
+      var parent = $(e.target).closest("li");
+      var li = parent.find(".js-contributor-li").html();
+      if (updateContributors(parent.data("id"),true))
+        $(".b-collegues__list").append(li);
+    })
+
+    .on("click", ".js-delete-contributor", function(e){
+      e.preventDefault();
+      var parent = $(e.target).closest("li");
+      updateContributors(parent.data("id"),false);
+      parent.fadeOut();
+    })
 
   $( "#add-collegues-to-item-link:ui-dialog" ).dialog( "destroy" );
   $( "#add-collegues-to-item" ).dialog({
@@ -65,10 +81,40 @@
     },
     open: function(event, ui) { $("#collegues-add-form form").submit()}
   });
+
   $( "#add-collegues-to-item-link" ).click(function() {
     $( "#add-collegues-to-item").dialog( "open" );
     return false;
   });
 
-:javascript
+  var updateContributors = function(id, is_add){
+    var added = $(".js-added-contributors").val().split(",");
+    var added_index = added.indexOf(id + "");
+    var deleted = $(".js-deleted-contributors").val() == "" ? [] : $(".js-deleted-contributors").val().split(",");
+    var deleted_index = deleted.indexOf(id + "");
+    var response = false;
+
+    if (is_add){
+      if (added_index < 0){
+        added.push(id + "");
+        response = true;
+      }
+      if (deleted_index >= 0)
+        deleted.splice(deleted_index);     
+    } else {
+      if (added_index >= 0){
+        added.splice(added_index);
+        response = true;
+      }
+      if (deleted_index < 0)
+        deleted.push(id + "");
+    }
+    
+    $(".js-added-contributors").val(added.join(","))
+    $(".js-deleted-contributors").val(deleted.join(","))
+
+    return response;
+  }
+  
+
   changeNavigationTab(".tab-item");
