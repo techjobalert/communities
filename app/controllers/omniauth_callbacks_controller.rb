@@ -9,6 +9,7 @@ class OmniauthCallbacksController <  Devise::OmniauthCallbacksController
 
         debug_response = RestClient.get("https://www.google.com/m8/feeds/contacts/default/full&access_token=#{access_token.credentials.token}")
 
+        Rails.logger.info "----#{debug_response}----"
       else 
       	current_user.create_social_account_credential(:google_token => access_token.credentials.token, :google_user_id => access_token.uid)
      	end
