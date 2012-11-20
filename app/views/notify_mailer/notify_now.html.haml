@@ -20,13 +20,15 @@
 
 / Create/Update Item
 - if @notify.subject_type == "Item"
+  - item = Item.find(@notify.subject_id)
   - if @notify.secondary_subject_type == "Order"
     %h3
       User
       = link_to @notify.actor.full_name, user_url(@notify.actor)
       has bought the item
-      - item = Item.find(@notify.subject_id)
       = link_to raw("&laquo;#{item.title}&raquo;"), item_url(item)
+
+      = link_to image_tag(item.attachment_thumb, :width => "265", :height => "200"), item_url(item)
   - else
     %h3
       = link_to @notify.actor.full_name, user_url(@notify.actor)
@@ -35,6 +37,9 @@
       - else
         = "#{@notify.event_type.split("_").first} item"
       = link_to @notify.subject.title, item_url(@notify.subject)
+
+      = link_to image_tag(item.attachment_thumb, :width => "265", :height => "200"), item_url(item)
+
 
 - if @notify.subject_type == "User"
   %h3
@@ -51,12 +56,16 @@
       = "likes #{' your' if @notify.subject.user == @owner} comment"
       = link_to @notify.subject.body, item_url(@notify.subject.commentable)+'#comment-'+"#{@notify.subject.id}"
 
+      = link_to image_tag(@notify.subject.commentable.attachment_thumb, :width => "265", :height => "200"), item_url(@notify.subject.commentable)
+
 - if @notify.subject_type == "Contribution"
   %h3
     = link_to @notify.secondary_subject.user.full_name, user_url(@notify.secondary_subject.user)
     - action = @notify.event_type.split("_").first
     = "has #{action} you #{action == "added" ? 'to' : 'from' } the authors"
     = link_to @notify.secondary_subject.title, item_url(@notify.secondary_subject)
+    
+    = link_to image_tag(@notify.secondary_subject.attachment_thumb, :width => "265", :height => "200"), item_url(@notify.secondary_subject)
 
 %br
 = "Email created #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}"
