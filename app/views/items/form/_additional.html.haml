@@ -4,10 +4,15 @@
 - collegues = @item.contributors
 .row
   .label Published with
-  .b-collegues
+  .b-collegues    
     %ul.b-collegues__list
+      - added_users = []
       - collegues.each do |user|
+        - added_users << user.id
         = render :partial => 'items/item_collegue', :locals => {:user => user, :item => @item}
+
+    = hidden_field_tag :added_users, added_users.join(","), :class => "js-added-contributors"
+    = hidden_field_tag :deleted_users, "", :class => "js-deleted-contributors"
   
     = link_to "Add persons", "", :class => 'add-btn', :id => "add-collegues-to-item-link"
 

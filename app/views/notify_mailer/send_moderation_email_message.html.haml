@@ -3,7 +3,7 @@
 - unless @message_text.blank?
   %p
     Publishing of your item
-    %i= raw "&laquo;#{@item_title}&raquo;"
+    %i= raw "&laquo;#{@item.title}&raquo;"
     has been denied.
   %p
     %strong Deny reason:
@@ -12,7 +12,7 @@
 - else
   %p
     Your item
-    %i= link_to raw("&laquo;#{@item_title}&raquo;"), item_url(@item_id)
+    %i= link_to raw("&laquo;#{@item.title}&raquo;"), item_url(@item.id)
     has been published.
 
 %p
