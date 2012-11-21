@@ -1,5 +1,18 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+class Devise::OmniauthCallbacksController
+  def failure
+
+
+
+
+    Rails.logger.info "__failed_strategy____   #{failed_strategy.name.to_s.humanize}   ______"
+    Rails.logger.info "__failure_message____   #{failure_message}   ______"
+    redirect_to root_path
+  end
+end
+
+
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
