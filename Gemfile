@@ -24,6 +24,7 @@ gem 'excon', '~> 0.16.4'
 gem 'omniauth-google-oauth2'
 gem 'rest-client'
 gem 'google-api-client'
+gem 'omniauth-google-apps'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
