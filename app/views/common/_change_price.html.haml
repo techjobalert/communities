@@ -1,0 +1,33 @@
+= link_to "Sell Item", edit_item_path(item), :class => "btn", :id => "sell_item_button"
+
+%div{ :class => "change-price-dialog", :title=>"Change price", :style => "display: none;" }
+  .form
+    = form_for item, :url => item_change_price_path(item), :remote => true do |f|
+      %p
+        = f.label :price
+        = f.text_field :price
+
+:javascript
+  $( ".change-price-dialog:ui-dialog" ).dialog( "destroy" );
+
+  $( ".change-price-dialog" ).dialog({
+    resizable: false,
+    autoOpen: false,
+    width: 410,
+    modal: true,
+    buttons: {
+      "Change price": function() {
+        $( this ).find('form').submit();
+        $( this ).dialog( "close" );
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+  $( "#sell_item_button" ).click(function(evt) {
+      evt.preventDefault();
+      console.info(evt);
+      $(".change-price-dialog").dialog( "open" );
+      return false;
+    });

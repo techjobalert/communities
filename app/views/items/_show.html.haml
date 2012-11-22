@@ -30,7 +30,7 @@
 
     - if item.user == current_user
       = link_to "", edit_item_path(item), :class => "btn edit-item pjax"
-      .btn.set-preview
+      = render partial: "common/change_price", :locals => {:item => @item}
 
       - content_for :popup_set_preview do
         .b-popup-set-preview.popup-container.top
@@ -224,3 +224,31 @@
   })
 
   changeNavigationTab(".tab-item");
+
+:javascript
+  $( ".change-price-form:ui-dialog" ).dialog( "destroy" );
+
+  $( ".change-price-form" ).dialog({
+    resizable: false,
+    autoOpen: false,
+    width: 410,
+    modal: true,
+    buttons: {
+      "Change price": function() {
+        $( this ).find('form').submit();
+        $( this ).dialog( "close" );
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+  $( "a.change" ).click(function() {
+      var id = $(this).attr("id")
+      $( "#form-" + id ).dialog( "open" );
+      return false;
+    });
+
+
+
+
