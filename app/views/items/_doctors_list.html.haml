@@ -3,10 +3,11 @@
     - if u
       %li{:id => "user-#{u.id}", "data-id" => "#{u.id}"}
         = image_tag u.avatar_url(:thumb_60)
-        = text_with_br u.full_name
-        %br
-        %span.add-btn.js-add-contributor
-          + Add
+        .text
+          .fullname= text_with_br u.full_name
+
+          %span.add-btn.js-add-contributor
+            + Add
         %ul.js-contributor-li{:style => "display: none;"}
           = render :partial => 'items/item_collegue', :locals => {:user => u}
 
