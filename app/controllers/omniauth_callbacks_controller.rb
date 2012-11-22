@@ -1,5 +1,5 @@
 class OmniauthCallbacksController <  Devise::OmniauthCallbacksController
-  before_filter :show_errors, :only => :failure
+  before_filter :show_actions
   def google_oauth2
     # You need to implement the method below in your model
     Rails.logger.info "----------#{request.inspect}--------"
@@ -25,7 +25,5 @@ class OmniauthCallbacksController <  Devise::OmniauthCallbacksController
 
   def show_errors
     Rails.logger.info "----------#{request.inspect}--------"
-    Rails.logger.info "__failed_strategy____   #{failed_strategy.name.to_s.humanize}   ______"
-    Rails.logger.info "__failure_message____   #{failure_message}   ______"
   end
 end
