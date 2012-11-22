@@ -240,6 +240,28 @@
       margin-top: 4px;
       cursor: pointer;
     }
+
+    .text {
+
+    }
+
+    .text {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    img {
+      vertical-align: middle;
+      margin-right: 5px;
+      border: 1px solid #DDD;
+      display: inline-block;
+    }
+
+    .fullname {
+      display: block;
+      width: 100px;
+      overflow: hidden;
+    }
   }
 
   form {
@@ -254,11 +276,7 @@
     height: 258px;
   }
 
-  img {
-    float: left;
-    border: 1px solid #ddd;
-    margin-right: 10px;
-  }
+
 }
 
 .b-buy-item-window {
