@@ -23,7 +23,7 @@ class OmniauthCallbacksController <  Devise::OmniauthCallbacksController
 
   protected
 
-  def show_errors
+  def show_actions
     Rails.logger.info "----------#{request.inspect}--------"
   end
 end
