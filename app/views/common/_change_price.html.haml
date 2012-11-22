@@ -1,13 +1,14 @@
 = link_to "Sell Item", edit_item_path(item), :class => "btn", :id => "sell_item_button"
 
-%div{ :class => "change-price-dialog", :title=>"Change price", :style => "display: none;" }
+%div{ :class => "change-price-dialog", :title=>"Change price", :style => "display: ;" }
   .form
     = form_for item, :url => item_change_price_path(item), :remote => true do |f|
       %p
         = f.label :price
-        = f.text_field :price
+        %span.viewed= f.select :price, [["1",1],["2", 2], ["3", 3]]
 
 :javascript
+  $("div.change-price-dialog form select").chosen();
   $( ".change-price-dialog:ui-dialog" ).dialog( "destroy" );
 
   $( ".change-price-dialog" ).dialog({
