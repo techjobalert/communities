@@ -205,7 +205,6 @@ class Item < ActiveRecord::Base
   private
 
   def update_preview
-
     if self.attachments.any?
       if self.paid? && self.attachment_type.match(/video/)
         last_attachment = self.attachments.where(:attachment_type => "#{self.attachment_type}_preview").last
