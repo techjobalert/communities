@@ -42,7 +42,7 @@
               Show at most this number of pages Show at most thiser of pages
           .corner
       - else
-        = link_to "", "#", :remote => true, :class => "btn sell-item", :method => :post
+        = link_to "", edit_item_path(item, :anchor => "set-price"), :class => "btn sell-item"
 
 
 
