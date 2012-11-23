@@ -18,7 +18,6 @@
 
       - if current_user.present?
         = render :partial => "layouts/search_engine", :inline => true
-        %p= link_to "Click here to add your Google Plus account", user_omniauth_authorize_path(:google_oauth2)
       - else
         = render :partial => "layouts/header_auth", :inline => true
     .clear
