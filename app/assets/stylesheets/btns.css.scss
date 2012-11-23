@@ -63,7 +63,7 @@
     height: 26px; }
 
   &.our-sale {
-    background-position: 0px 85px;
+    background-position: 0px -506px;
     width: 224px;
     height: 44px;
     float: right;
@@ -118,7 +118,7 @@
     height: 39px; }
 
   &.popup-btn {
-    margin-right: 3px; 
+    margin-right: 3px;
   }
 
   &.popup-btn.follow-item {
@@ -213,6 +213,12 @@
     margin-top: 6px;
     margin-left: 2px;
 
+  }
+
+  &.sell-item {
+    background-position: 0px -594px;
+    width: 134px;
+    height: 38px;
   }
 
   &:hover {
