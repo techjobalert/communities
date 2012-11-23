@@ -45,10 +45,10 @@
         = render :partial => 'doctors_list', :locals => { :doctors => @doctors }
 
 :javascript
-  
+
   $(".b-upload")
-    .on("keyup", ".js-price", function(e){ 
-      var preview = $(".js-preview");   
+    .on("keyup", ".js-price", function(e){
+      var preview = $(".js-preview");
       parseFloat($(e.target).val()) > 0 ? preview.fadeIn() : preview.fadeOut();
     });
 
@@ -100,7 +100,7 @@
         response = true;
       }
       if (deleted_index >= 0)
-        deleted.splice(deleted_index);     
+        deleted.splice(deleted_index);
     } else {
       if (added_index >= 0){
         added.splice(added_index);
@@ -109,12 +109,12 @@
       if (deleted_index < 0)
         deleted.push(id + "");
     }
-    
+
     $(".js-added-contributors").val(added.join(","))
     $(".js-deleted-contributors").val(deleted.join(","))
 
     return response;
   }
-  
+
 
   changeNavigationTab(".tab-item");

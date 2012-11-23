@@ -51,7 +51,7 @@ $ ->
       $("#main-search").val($(this).html())
       $("#main-search").closest("form").submit()
       false
-      
+
 
     .on "click", ".notice", ->
       $(this).remove()
@@ -110,14 +110,16 @@ $ ->
     .on "change", "form[data-validate=true][data-remote=true]", ->
       $(this).validate()
 
-  $(".light-button.set-preview").toggle (->
+  $(".btn.set-preview").toggle (->
     obj_offset = $(this).offset()
     $(".b-popup-set-preview").css(
       top: (obj_offset.top + 55) + "px"
       left: (obj_offset.left - 135) + "px"
     ).fadeIn "fast"
   ), ->
-    $(".b-popup-set-preview").fadeOut "fast"
+    if $(".b-popup-set-preview").is(":visible")
+      $(".b-popup-set-preview").fadeOut "fast"
+      $(".b-popup-set-preview form").submit()
 
   msearch = $("#main-search")
   if msearch.length
@@ -154,14 +156,14 @@ $ ->
             term: ssearch.val()
             filter_type: form.find("#_filter_type").val()
             attachment_type: form.find("#_attachment_type").val()
-            price: form.find("#_price").val() 
+            price: form.find("#_price").val()
             date: form.find("#_date").val()
           type: "GET"
           success: (data) ->
             response $.map(data, (item) ->
               url: item.url
               title: item.title
-            )  
+            )
       minLength: 3
       width: 100
       select: (event, ui) ->

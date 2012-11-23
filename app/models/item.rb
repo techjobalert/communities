@@ -6,7 +6,7 @@ class Item < ActiveRecord::Base
                   :views_count, :amount, :price, :state, :moderated_at,
                   :approved_by, :attachments, :preview_length
   validates :title, :description, :presence => true
-  #validate :preview_length_validation, :on => :update
+  validates :preview_length, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0}, :on => :update
 
   acts_as_commentable
   acts_as_taggable
@@ -158,7 +158,7 @@ class Item < ActiveRecord::Base
 
     attachment = self.attachments.select{|a| a != "presenter_video"}.last
 
-    if attachment.present? 
+    if attachment.present?
       if attachment.file.present?
         attachment.get_thumbnail
       else
@@ -179,7 +179,7 @@ class Item < ActiveRecord::Base
 
       return attachments.where("attachment_type like ?", '%preview%').last unless user
 
-      if (paid? and purchased?(user)) or owner?(user) or user.admin?      
+      if (paid? and purchased?(user)) or owner?(user) or user.admin?
         common_video
       else
         attachments.where("attachment_type like ?", '%preview%').last
@@ -214,8 +214,8 @@ class Item < ActiveRecord::Base
           return false
         else
           if last_attachment
-            last_attachment.destroy 
-          end  
+            last_attachment.destroy
+          end
           yield
           Resque.enqueue(CreatePreview, self.id, self.preview_length)
         end

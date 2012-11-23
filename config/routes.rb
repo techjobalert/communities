@@ -41,6 +41,7 @@ Orthodontic::Application.routes.draw do
     post    "merge_presenter_video"
     get     "get_attachment"
     get     "following",          :on => :collection
+    put     "update_preview"
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do
