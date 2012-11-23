@@ -75,7 +75,7 @@ $ ->
       unless $("." + obj_id + ":visible").length
         clearTimeout(timer_popup)
 
-    .on "mouseleave", ".popup-container", ->
+    .on "mouseleave", ".popup-container:not(.b-popup-set-preview)", ->
       $(this).css("display","none")
 
     .on "click", ".b-settings-nav a", ->
@@ -110,8 +110,12 @@ $ ->
     .on "change", "form[data-validate=true][data-remote=true]", ->
       $(this).validate()
 
-  $(".btn.set-preview").toggle (->
-    obj_offset = $(this).offset()
+  $(".b-popup-set-preview form #item_preview_length").data('val',$(".b-popup-set-preview form #item_preview_length").val())
+
+  $(".btn.set-preview").toggle ((e) ->
+
+    obj_offset = $(e.target).offset()
+    console.log($(e.target))
     $(".b-popup-set-preview").css(
       top: (obj_offset.top + 55) + "px"
       left: (obj_offset.left - 135) + "px"
@@ -119,7 +123,10 @@ $ ->
   ), ->
     if $(".b-popup-set-preview").is(":visible")
       $(".b-popup-set-preview").fadeOut "fast"
-      $(".b-popup-set-preview form").submit()
+      popup_input = $(".b-popup-set-preview form #item_preview_length")
+      if popup_input.data('val') != popup_input.val()
+        popup_input.data('val',popup_input.val())
+        popup_input.closest('form').submit()
 
   msearch = $("#main-search")
   if msearch.length
