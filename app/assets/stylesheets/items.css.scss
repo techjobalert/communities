@@ -1,3 +1,37 @@
+div.change-price-dialog {
+  
+  form {
+    
+    label {
+      width: 50px;
+    }
+    img.set-price-logo{
+        float: left;
+        width: 40px;
+    }
+    
+    p {
+      float: right;
+      width: 260px;
+    }
+    hr.hr-set-price-dialog {
+      width: 100%;
+    }
+    input.set-price {
+      background: url(set-price.png);
+      width: 95px;
+      height: 35px;
+      border: none;
+      float: right;
+    }
+  }
+  
+}
+
+div.item-price {
+  float: right;
+}
+
 .b-items {
   margin: 30px;
 

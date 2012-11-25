@@ -1,6 +1,11 @@
 .share-toolbox
   = link_to "", "http://www.facebook.com/sharer/sharer.php?u=#{CGI::escape(item_url(item))}&t=#{CGI::escape(item.title)}", :class => "share-btn facebook", :target => "_blank"
   %a.twitter-share-button{:href => "https://twitter.com/share", "data-size" => "large", "data-count" => "none", "data-hashtags" => "orthodontics360"}
+  .item-price
+    Price: 
+    %span{ class: "item-price-value" }
+      = "Free" unless @item.paid?
+      = @item.price if @item.paid?
 
 :javascript
   initShare();
