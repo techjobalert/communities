@@ -10,12 +10,14 @@
   cursor: pointer;
 
   &.sell-item {
-    background: url(sell-item.png);
+    background: gray; 
+    content: "Sell Item";
     width: 174px;
     height: 38px;
   }
   &.set-new-price {
-    background: url(set-new-price.png);
+    background: gray; /* url(set-new-price.png); */
+    content: "Set New Price";
     width: 174px;
     height: 38px;
   }
