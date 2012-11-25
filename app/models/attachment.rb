@@ -1,5 +1,5 @@
 class Attachment < ActiveRecord::Base
-  
+
   belongs_to :item #, :counter_cache => true
   belongs_to :user #, :counter_cache => true
   has_many   :attachment_previews, :dependent => :destroy
@@ -11,7 +11,7 @@ class Attachment < ActiveRecord::Base
   # validates_presence_of :user
 
   #File upload
-  
+
 
   mount_uploader        :file, FileUploader
   process_in_background :file
@@ -24,7 +24,7 @@ class Attachment < ActiveRecord::Base
   after_save :update_preview, :if => :asset_uploaded?
   # after_save :create_preview, :if => :file_processing_changed?
 
-  # def create_preview 
+  # def create_preview
   #   if attachment_type == "regular" and file_processing == nil
   #     # item.attachments.where(:attachment_type => "video_preview").destroy_all
   #     Resque.enqueue(CreatePreview, self.item.id, self.item.preview_length)
@@ -81,7 +81,7 @@ class Attachment < ActiveRecord::Base
       directory = File.dirname(directory)
       "#{directory}/{page}/page.png"
     else
-      nil  
+      nil
     end
   end
 
@@ -118,10 +118,12 @@ class Attachment < ActiveRecord::Base
     end
   end
 
-  def update_preview 
+  def update_preview
     if attachment_type == "regular"
-      self.item.attachments.where(:attachment_type => "video_preview").destroy_all
-      Resque.enqueue(CreatePreview, self.item.id, self.item.preview_length)
+      previews = self.item.attachments.where(:attachment_type => "video_preview").destroy_all
+      if !previews.empty? && self.item.preview_length > 0
+        Resque.enqueue(CreatePreview, self.item.id, self.item.preview_length, id)
+      end
     end
   end
 
