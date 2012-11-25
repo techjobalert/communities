@@ -8,7 +8,7 @@ class FileUploader < CarrierWave::Uploader::Base
   include CarrierWave::FFMPEG
   include ::CarrierWave::Backgrounder::DelayStorage
   # include CarrierWave::MimeTypes
- 
+
 
   # documents
   version :pdf,                 :if => :is_document?
@@ -25,7 +25,7 @@ class FileUploader < CarrierWave::Uploader::Base
   after :store, :upload_to_s3
   # presentation_video
   #version :presentation_video,  :if => :is_presentation?
-  
+
 
   def default_url
     "/default/item_" + [version_name, "default.png"].compact.join('_')
@@ -95,7 +95,7 @@ class FileUploader < CarrierWave::Uploader::Base
               :threads => 1,
               :custom => "-quality good -b:v 500k -qmin 10 -qmax 42 \
                           -maxrate 500k -bufsize 1000k -vpre libvpx-720p"
-            }      
+            }
     def full_filename (for_file = model.file.file)
       "webm_#{File.basename(for_file, File.extname(for_file))}.webm"
     end
@@ -114,7 +114,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   version :video_thumbnail, :from_version => :mp4 do
     process :create_video_thumbnail
-    
+
     def full_filename (for_file = model.file.file)
       "thumb_#{File.basename(for_file, File.extname(for_file))}.jpeg"
     end
@@ -124,7 +124,7 @@ class FileUploader < CarrierWave::Uploader::Base
   #   process :convert_to_video
   # end
 
-  
+
 
   def upload_to_s3(file)
     if [".pptx", ".key"].member?(File.extname(current_path))
@@ -160,18 +160,18 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def create_pdf_thumbnail
     # move upload to local cache
-    
+
     cache_stored_file! if !cached?
 
     directory = File.dirname( current_path )
     image_path = File.join( directory, "tmp.png")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
-    
-    
+
+
     pdf = Magick::ImageList.new(path).first
     thumb = pdf.resize_to_fill(265, 200, ::Magick::NorthGravity)
     thumb.write image_path
-    
+
     File.delete current_path
     File.rename image_path, current_path
     self.file.instance_variable_set(:@content_type, "image/png")
@@ -179,15 +179,15 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def create_pdf_flash
-    
+
     cache_stored_file! if !cached?
-    
+
     directory = File.dirname( current_path )
     flash_path = File.join( directory, "tmp.swf")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
-    
+
     command =%x[pdf2swf #{path} -o #{flash_path} -f -T 9 -t -s storeallcharacters]
-    
+
     File.delete current_path
     File.rename flash_path, current_path
     model.file_processing = nil
@@ -195,7 +195,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def create_pdf_json
     cache_stored_file! if !cached?
-    
+
     directory = File.dirname( current_path )
     json_path = File.join( directory, "tmp.js")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
@@ -212,7 +212,7 @@ class FileUploader < CarrierWave::Uploader::Base
     model.create_document_detail(page_count: count, page_width: width, page_height: height)
 
     #command =%x[pdf2json -enc UTF-8 -compress #{path} #{json_path}]
-    
+
     File.delete current_path
     File.rename json_path, current_path
     self.file.instance_variable_set(:@content_type, "text/json")

@@ -113,9 +113,7 @@ $ ->
   $(".b-popup-set-preview form #item_preview_length").data('val',$(".b-popup-set-preview form #item_preview_length").val())
 
   $(".btn.set-preview").toggle ((e) ->
-
     obj_offset = $(e.target).offset()
-    console.log($(e.target))
     $(".b-popup-set-preview").css(
       top: (obj_offset.top + 55) + "px"
       left: (obj_offset.left - 135) + "px"
