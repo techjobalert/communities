@@ -30,34 +30,29 @@
 
     - if item.user == current_user
       = link_to "", edit_item_path(item), :class => "btn edit-item pjax"
-      .btn.set-preview
+      - if item.paid?
+        .btn.set-preview
+        - content_for :popup_set_preview do
+          .b-popup-set-preview.popup-container.top
+            .container
+              = form_for item, :url => item_update_preview_path(item), :remote => true do |f|
+                Show at most this number of pages
+                = f.text_field :preview_length
+              %p
+                %strong Note:
+                Show at most this number of pages Show at most thiser of pages
+            .corner
+      - else
+        = link_to "", edit_item_path(item, :anchor => "set-price"), :class => "btn sell-item"
 
-      - content_for :popup_set_preview do
-        .b-popup-set-preview.popup-container.top
-          .container
-            = form_for '/' do |f|
-              %ul
-                %li
-                  = f.radio_button "radio", "1"
-                  = label '_radio', '1', 'Show at most this number of pages', :class => 'checked'
-                  = f.text_field ''
-                %li
-                  = f.radio_button "radio", "2"
-                  = label '_radio', '2', 'Show at most this number of pages'
-                  = f.text_field ''
-                %li
-                  = f.radio_button "radio", "3"
-                  = label '_radio', '3', 'Show at most this number of pages'
-                  = f.text_field ''
-            %p
-              %strong Note:
-              Show at most this number of pages Show at most thiser of pages
 
-          .corner
+
+
+
 
     - elsif user_signed_in? && item.paid? && !item.purchased?(current_user)
       = link_to "", orders_path, :remote => true, :id => "account-form-dialog", :class => "btn buy-item", :method => :post
-  
+
   - unless @a_video
     .text.pic
       = image_tag('/assets/logo.png', :height => '50')
@@ -75,7 +70,7 @@
               = render :partial => "layouts/pdf_viewer", :locals => { :attachment => pdf}
       - elsif @item.attachments.any?
         %i Your attachment will be placed here after processings
-      - else 
+      - else
         %i No file
 
   - if @a_video
@@ -86,7 +81,7 @@
             %i Your attachment will be placed here after processings
         - elsif not @a_video.nil?
           .attachment-video
-            
+
             - video = @item.paid_view?(current_user)
 
             - if video

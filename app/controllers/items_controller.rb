@@ -23,14 +23,14 @@ class ItemsController < InheritedResources::Base
     @items = Item.state_is("published").order("created_at DESC").page(params[:page])
   end
 
-  def following 
+  def following
   end
 
   def get_pdf_json
     detail = Attachment.find(params[:attachment_id]).document_detail
-    count = (@item.preview_length <= detail.page_count) ?  @item.preview_length : detail.page_count   
+    count = (@item.preview_length <= detail.page_count) ?  @item.preview_length : detail.page_count
     width,height = detail.page_width,detail.page_height
-    json_array = Array.new(count) { |i| {"number" => i+1, 
+    json_array = Array.new(count) { |i| {"number" => i+1,
       "fonts" => [], "text" => [], "width" => width, "height" => height} }
     render :json => json_array
   end
@@ -87,11 +87,19 @@ class ItemsController < InheritedResources::Base
     else
       @notice = { :type => "notice", :message => "Item is saved." }
     end
-    
+
     @item.moderate
     @item.save
-    
-    redirect_to(item_path(@item, :notice => @notice))    
+
+    redirect_to(item_path(@item, :notice => @notice))
+  end
+
+  def update_preview
+    if @item.update_attributes(params[:item])
+      @notice = { :type => "notice", :message => "Preview length is updated." }
+    else
+      @notice = {:type => 'error', :message => "#{@item.errors.full_messages.first}."}
+    end
   end
 
   def create
@@ -200,7 +208,7 @@ class ItemsController < InheritedResources::Base
 
     if params[:item_id]
       @item = Item.find(params[:item_id])
-    
+
       options = {
         :user             => current_user,
         :user_id          => current_user.id,
@@ -311,14 +319,14 @@ class ItemsController < InheritedResources::Base
   private
 
   def update_contributors user_ids
-    user_ids ||=[]    
+    user_ids ||=[]
     user_ids.each do |id|
       user = User.find id
       unless @item.contributors.include? user
         @item.contributors << user
       end
     end
-    @item.save!        
+    @item.save!
   end
 
   def delete_from_contributors user_ids
@@ -327,7 +335,7 @@ class ItemsController < InheritedResources::Base
       user = User.find id
       unless user == current_user and @item.contributors.include? user
         @item.contributors.destroy(user.id)
-      end    
+      end
     end
     @item.save!
   end
@@ -346,16 +354,16 @@ class ItemsController < InheritedResources::Base
         render :partial => "layouts/notice", :locals => {:notice => @notice}
       else
         if last_attachment
-          last_attachment.destroy 
-        end  
+          last_attachment.destroy
+        end
         obj = klass.create!(options)
         @item = Item.find options[:item_id]
         @item.moderate
         render :json => {:id => obj.id, :objClass => obj.class.name.underscore, :itemID => options[:item_id]}, :content_type => "text/json; charset=utf-8"
       end
-      
+
     rescue ActiveRecord::RecordInvalid => invalid
-      
+
       Rails.logger.error invalid.inspect
       @notice = {:type => 'error', :message =>
         "#{t current_user.errors.keys.first} #{current_user.errors.values.first.to_s}"

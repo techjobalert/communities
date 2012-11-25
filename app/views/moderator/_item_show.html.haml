@@ -20,7 +20,7 @@
             = image_tag('/assets/logo.png', :width => '200')
             %h2= @item.title
 
-            = @item.description
+            = simple_format @item.description
           .clear
           -if @a_pdf
             -if  @a_pdf and @a_pdf.file_processing == true
