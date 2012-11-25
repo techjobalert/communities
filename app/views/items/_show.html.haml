@@ -6,7 +6,9 @@
       %span.label{:class => "#{@item.state}"}= @item.state
     = item.title
   .share= render :partial => "layouts/share", :locals => {:item => @item}
+    
   .clear
+  
 
   - if user_signed_in?
     - count = (item.user != current_user and (!item.paid? or item.purchased?(current_user))) ? 5 : 4
