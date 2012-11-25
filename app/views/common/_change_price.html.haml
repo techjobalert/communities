@@ -3,7 +3,7 @@
 %div{ :class => "change-price-dialog", :title=>"Change price", :style => "display: ;" }
   .form
     = form_for item, :url => item_change_price_path(item), :remote => true do |f|
-      = image_tag("set-price-logo.png", class: "set-price-logo")
+      - #= image_tag("set-price-logo.png", class: "set-price-logo")
       %p
         = f.label "Price $"
         = f.text_field :price
