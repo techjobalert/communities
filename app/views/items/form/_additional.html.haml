@@ -1,4 +1,4 @@
-%h2.title Additional information
+%h2.title Give credit
 .title-hint If you are not the only author you must give credit
 
 - collegues = @item.contributors
@@ -6,8 +6,13 @@
   .label Published with
   .b-collegues
     %ul.b-collegues__list
+      - added_users = []
       - collegues.each do |user|
-        = render :partial => 'items/item_collegue', :locals => {:user => user, :item => @item}
-  
+        - added_users << user.id
+        = render :partial => 'items/item_collegue', :locals => {:user => user}
+
+    = hidden_field_tag :added_users, added_users.join(","), :class => "js-added-contributors"
+    = hidden_field_tag :deleted_users, "", :class => "js-deleted-contributors"
+
     = link_to "Add persons", "", :class => 'add-btn', :id => "add-collegues-to-item-link"
 

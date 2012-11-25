@@ -21,8 +21,15 @@ class Attachment < ActiveRecord::Base
   before_save     :remove_prev_version
   before_destroy  :destroy_attachments
   after_save :send_notification_mail, :if => :asset_uploaded?
-  #after_save :update_preview
-  
+  after_save :update_preview, :if => :asset_uploaded?
+  # after_save :create_preview, :if => :file_processing_changed?
+
+  # def create_preview 
+  #   if attachment_type == "regular" and file_processing == nil
+  #     # item.attachments.where(:attachment_type => "video_preview").destroy_all
+  #     Resque.enqueue(CreatePreview, self.item.id, self.item.preview_length)
+  #   end
+  # end
 
   def set_type
     type = if is_presentation?
@@ -106,8 +113,15 @@ class Attachment < ActiveRecord::Base
   private
 
   def send_notification_mail
-    if self.item.processed? && self.item.state == "moderated"
+    if self.item.processed? && self.item.state == "moderated" && attachment_type == "regular"
       Resque.enqueue(SendProcessedMessage, self.item_id)
+    end
+  end
+
+  def update_preview 
+    if attachment_type == "regular"
+      self.item.attachments.where(:attachment_type => "video_preview").destroy_all
+      Resque.enqueue(CreatePreview, self.item.id, self.item.preview_length)
     end
   end
 

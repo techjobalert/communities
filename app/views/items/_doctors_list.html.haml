@@ -1,10 +1,13 @@
 %ul
   - doctors.each do |u|
     - if u
-      %li{:id => "user-#{u.id}"}
-        = image_tag u.avatar_url(:thumb_45)
-        = text_with_br u.full_name
-        %br
-        = link_to item_add_to_contributors_path(@item, :user_id => u.id), :class => "add-btn", :remote => true, :method => :post do
-          + Add
-          %span
+      %li{:id => "user-#{u.id}", "data-id" => "#{u.id}"}
+        = image_tag u.avatar_url(:thumb_60)
+        .text
+          .fullname= text_with_br u.full_name
+
+          %span.add-btn.js-add-contributor
+            + Add
+        %ul.js-contributor-li{:style => "display: none;"}
+          = render :partial => 'items/item_collegue', :locals => {:user => u}
+

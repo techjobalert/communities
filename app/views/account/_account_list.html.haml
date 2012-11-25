@@ -1,5 +1,5 @@
 - if items.present?
-  - items.each_with_index do |item, index|   
+  - items.each_with_index do |item, index|
     .item{:class => "#{item.state}", :id => "item-#{item.id}"}
       .tools
         - price = item.paid? ? "#{item.price}$" : 'free'
@@ -13,7 +13,7 @@
           %span
       = link_to item_path(item), :class => "media" do
         -# link =  File.exist?(Rails.root.to_s + "/public#{item.attachment_thumb}") ? item.attachment_thumb : "/assets/default/item_thumb_default.png"
-        = image_tag item.attachment_thumb, :class => 'popup-item-info', :id => "popup-item-#{item.id}", :width => "265", :height => "200"
+        = image_tag item.attachment_thumb, :class => 'popup-item-info item-thumb', :id => "popup-item-#{item.id}", :width => "265", :height => "200"
       .info
         .purchase
           %span

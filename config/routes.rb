@@ -1,12 +1,14 @@
 Orthodontic::Application.routes.draw do
 
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   # mount ImperaviRails::Engine => "/imperavi"
 
   devise_for :users, :controllers => {
-    :registrations => "registrations", :sessions => "sessions", :passwords => "passwords"
+    :registrations => "registrations", :sessions => "sessions", :passwords => "passwords",
+    :omniauth_callbacks => "omniauth_callbacks"
   }
 
   devise_scope :user do
@@ -39,6 +41,7 @@ Orthodontic::Application.routes.draw do
     post    "merge_presenter_video"
     get     "get_attachment"
     get     "following",          :on => :collection
+    put     "update_preview"
   end
 
   resources :users, :only => [:create, :show, :edit, :update, :index], :path_names => { :edit => 'settings' } do

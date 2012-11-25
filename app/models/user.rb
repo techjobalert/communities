@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-         :trackable, :validatable, :confirmable, :recoverable,
+         :trackable, :validatable, :confirmable, :recoverable, :omniauthable,
          :email_regexp =>  /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
 
   # Setup accessible (or protected) attributes for your model
@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
     :conditions => {:blocked => false, :followable_type => 'User'}
 
   has_many :published_items, :class_name => 'Item', :conditions => {:state => 'published'}
+  has_one :social_account_credential
 
   accepts_nested_attributes_for :educations, :allow_destroy => true
 
@@ -139,6 +140,19 @@ class User < ActiveRecord::Base
 
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+  end
+
+  def get_google_activities
+    google_apikey = 'AIzaSyBB59WRddUJKSwa-7RQvuEMSiMZuTIzj1c'
+    google_user_id = social_account_credential.google_user_id
+    feed = RestClient.get("https://www.googleapis.com/plus/v1/people/#{google_user_id}/activities/public?alt=json&maxResults=50&key=#{google_apikey}").body
+   
+    if feed && feed["error"]
+      feed = nil
+      user_social_account_credential.update_attributes(:google_token  => nil);
+    end
+
+    feed
   end
 
 
