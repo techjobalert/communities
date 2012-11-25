@@ -1,12 +1,15 @@
-= link_to "Sell Item", edit_item_path(item), :class => "btn", :id => "sell_item_button"
+= link_to "", edit_item_path(item), :class => "btn sell-item", :id => "sell_item_button"
 
 %div{ :class => "change-price-dialog", :title=>"Change price", :style => "display: ;" }
-  = image_tag("set-price-logo.png", class: "set-price-logo")
   .form
     = form_for item, :url => item_change_price_path(item), :remote => true do |f|
+      = image_tag("set-price-logo.png", class: "set-price-logo")
       %p
         = f.label "Price $"
         = f.text_field :price
+      %hr{ class: "hr-set-price-dialog" }
+      = f.submit("", class: "set-price")
+
 
 :javascript
   $( ".change-price-dialog:ui-dialog" ).dialog( "destroy" );
@@ -15,23 +18,21 @@
     resizable: false,
     autoOpen: false,
     width: 410,
-    modal: true 
-    //,
-    //buttons: {
-      //"Set Price": function() {
-       // $( this ).find('form').submit();
-        //$( this ).dialog( "close" );
-      //}
-      //,
-      // Cancel: function() {
-      //   $( this ).dialog( "close" );
-      // }
-   // }
+    height: 130,  
+    modal: true,
+    
   });
   
   function open_dialog(){
     $(".change-price-dialog").dialog( "open" );
   }
+  $("div.change-price-dialog .form form").submit(function(evt){
+    $(".change-price-dialog").dialog( "close" );
+  });
+
+  open_dialog();
+
+  
 
   $( "#sell_item_button" ).click(function(evt) {
       evt.preventDefault();

@@ -9,6 +9,12 @@
   margin: 0;
   cursor: pointer;
 
+  &.sell-item {
+    background: url(sell-item.png);
+    width: 174px;
+    height: 38px;
+  }
+  
   &.ok {
     background-position: 112px -181px;
     width: 59px;
@@ -194,6 +200,7 @@
     width: 109px;
     height: 38px; }
 
+  
   &.update-keywords {
     background-position: -140px -258px;
     width: 141px;
@@ -215,12 +222,7 @@
 
   }
 
-  &.sell-item {
-    background-position: 0px -594px;
-    width: 134px;
-    height: 38px;
-  }
-
+  
   &:hover {
     opacity: 0.9; }
 
