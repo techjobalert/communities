@@ -1,8 +1,8 @@
 %h2.title Describe your item
 .b-file-description
   .preview
-    = image_tag(@item.attachment_thumb)
-  .b-upload__form    
+    = image_tag(@item.attachment_thumb, :class => "item-thumb")
+  .b-upload__form
     .row
       = f.label :title, :class => "label"
       = f.text_field :title
