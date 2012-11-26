@@ -15,4 +15,12 @@
     = hidden_field_tag :deleted_users, "", :class => "js-deleted-contributors"
 
     = link_to "Add persons", "", :class => 'add-btn', :id => "add-collegues-to-item-link"
+  .row
+    .label Movies credit
+    - unless @gmail_contacts
+      = link_to "Click here to add your Gmail account", user_omniauth_authorize_path(:google_oauth2), :target => "_blank"
+    - else
+      %ul
+        - @gmail_contacts.each do |contact|
+          %li= contact.email
 
