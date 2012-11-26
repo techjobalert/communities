@@ -2,19 +2,19 @@
 - owner_item = attachment.item
 - show_preview = nil
 - if user_signed_in?
-    - if owner_item.paid? && owner_item.user_id != current_user.id && !owner_item.purchased?(current_user)
-        - show_preview = true    
+    - if !current_user.admin? && owner_item.paid? && owner_item.user_id != current_user.id && !owner_item.purchased?(current_user)
+        - show_preview = true
 - else
     - if owner_item.paid?
         - show_preview = true
--# flash = attachment.file.pdf_flash #attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file    
+-# flash = attachment.file.pdf_flash #attachment.is_processed_to_pdf? ? attachment.file.pdf : attachment.file
 -# %div{:id => "viewer_place_holder", :style => "width:770px;height:500px"}
 %div{:id => "document_viewer", :style => "width:100%;height:500px;display:block", :class => "flexpaper_viewer"}
 :javascript
     $(function() {
         $('#document_viewer').FlexPaperViewer(
                    { config : {
-                     JSONFile : '#{ show_preview ? get_pdf_json_path(owner_item.id,attachment.id) : "/" + attachment.file.pdf_json.path }', 
+                     JSONFile : '#{ show_preview ? get_pdf_json_path(owner_item.id,attachment.id) : "/" + attachment.file.pdf_json.path }',
                      IMGFiles : '#{ attachment.get_imgs }',
                      jsDirectory : '/javascripts/flexpaper/',
                      Scale : 0.6,
@@ -41,7 +41,7 @@
                      localeChain: 'en_US',
                      localeDirectory : '/javascripts/flexpaper/',
                      key: '$5a7949586573e07f70d'
-                     
+
                 }}
 
         );
