@@ -2,7 +2,6 @@ class OmniauthCallbacksController <  Devise::OmniauthCallbacksController
   def google_oauth2
     # You need to implement the method below in your model
     access_token = request.env["omniauth.auth"]
-    Rails.logger.info "--------------#{access_token.credentials}-------#{user_signed_in?}-----#{current_user}-----"
     if user_signed_in? && current_user
       if current_user.social_account_credential
       	current_user.social_account_credential.update_attributes!(
