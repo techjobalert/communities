@@ -52,6 +52,7 @@ class ItemsController < InheritedResources::Base
       @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
       @uuid = SecureRandom.uuid.split("-").join()
       if current_user.social_account_credential.present?
+        Rails.logger.info "----yes i have------"
         current_user.refresh_gmail_token
         @gmail_contacts = current_user.gmail_contacts
       else
