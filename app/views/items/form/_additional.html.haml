@@ -27,6 +27,6 @@
           - if contact[:photo_url].present?
             = image_tag contact[:photo_url], style: 'width: 64px; height: 64px;'
           - else
-            = image_tag 'default/user_thumb_70_default', style: 'width: 64px; height: 64px;'
+            = image_tag '/assets/default/user_thumb_70_default', style: 'width: 64px; height: 64px;'
       <% end %>
 
