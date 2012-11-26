@@ -22,5 +22,11 @@
     - else
       %ul
         - @gmail_contacts.each do |contact|
-          %li= contact[:email]
+          %i= friend[:name].present? ? friend[:name] : friend[:email]
+          %br
+          - if friend[:photo_url].present?
+            = image_tag friend[:photo_url], style: 'width: 64px; height: 64px;'
+          - else
+            = image_tag 'default/user_thumb_70_default', style: 'width: 64px; height: 64px;'
+      <% end %>
 
