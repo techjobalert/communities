@@ -50,7 +50,7 @@ sudo (re)start orthodontics360
 1. start/restart server:
 RAILS_ROOT="." RAILS_ENV=production god -c resque.god
 god restart resque
-sudo restart orthodontics360 (restart Foreman's script aded to upstream http://blog.daviddollar.org/2011/05/06/introducing-foreman.html)
+sudo (re)start orthodontics360 (restart Foreman's script aded to upstream http://blog.daviddollar.org/2011/05/06/introducing-foreman.html)
 RAILS_ENV=production rake ts:run (launches Sphinx)
 whenever (refreshes cron's task list)
 
