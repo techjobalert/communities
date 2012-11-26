@@ -27,7 +27,7 @@ class NotifyMailer < ActionMailer::Base
 
   def send_processed_email_message(item_id)
     @item = Item.find(item_id)
-    @file_name = File.basename(@item.attachments.last.file.path)
+    @file_name = File.basename(@item.attachments.where(:file_processing => nil).last.file.path)
     if @item and @file_name
       mail(
         :to => @item.user.email,
