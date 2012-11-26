@@ -56,6 +56,7 @@ class ItemsController < InheritedResources::Base
         current_user.refresh_gmail_token
         @gmail_contacts = current_user.gmail_contacts
       else
+        Rails.logger.info "-no-----no-----no-----"
         @gmail_contacts = nil
       end
     end
