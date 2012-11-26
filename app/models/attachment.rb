@@ -121,8 +121,8 @@ class Attachment < ActiveRecord::Base
   def update_preview
     if attachment_type == "regular"
       previews = self.item.attachments.where(:attachment_type => "video_preview").destroy_all
-      if !previews.empty? && self.item.preview_length > 0
-        Resque.enqueue(CreatePreview, self.item.id, self.item.preview_length, id)
+      if self.item.preview_length > 0
+        Resque.enqueue(CreatePreview, self.item.id, self.item.preview_length)
       end
     end
   end

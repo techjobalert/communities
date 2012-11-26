@@ -1,21 +1,16 @@
 class CreatePreview
   @queue = :store_asset
 
-  def self.perform(item_id, to, source_attachment=nil)
+  def self.perform(item_id, to)
     #from 0 to #(seconds or pages)
     item = Item.find item_id
 
     unless item.attachments.where(:attachment_type => "#{item.attachment_type}_preview").last
-      if source_attachment
-        attachment = Attachment.find(source_attachment)
-      else
-        attachment = item.common_video
-      end
+      attachment = item.common_video
       source = nil
       dest = nil
       hex = SecureRandom.hex
 
-      Rails.logger.debug "------------#{attachment.file}--------------"
       case item.attachment_type
       # when "pdf"
       #   # pdftk A=one.pdf B=two.pdf cat A1-7 B1-5 A8 output combined.pdf
@@ -25,9 +20,7 @@ class CreatePreview
         attachment.file.cache_stored_file! if !attachment.file.cached?
         source = attachment.file.path
         dest = File.join(File.dirname(source), "#{hex}-splited#{File.extname(source)}")
-        Rails.logger.debug "________source___#{source}___________dest____#{dest}_______"
-        msg = system("ffmpeg -y -i #{source} -ss 0 -t #{to} #{dest}")
-        Rails.logger.debug "________msg___#{msg}________"
+        system("ffmpeg -y -i #{source} -ss 0 -t #{to} #{dest}")
       end
 
       if dest
