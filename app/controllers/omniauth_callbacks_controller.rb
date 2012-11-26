@@ -5,13 +5,13 @@ class OmniauthCallbacksController <  Devise::OmniauthCallbacksController
     Rails.logger.info "--------------#{access_token.credentials}-------#{user_signed_in?}-----#{current_user}-----"
     if user_signed_in? && current_user
       if current_user.social_account_credential
-      	current_user.social_account_credential.update_attributes(
+      	current_user.social_account_credential.update_attributes!(
           :google_token => access_token.credentials.token,
           :google_user_id => access_token.uid,
           :google_refresh_token => access_token.credentials.refresh_token
         )
       else
-      	current_user.create_social_account_credential(
+      	current_user.create_social_account_credential!(
           :google_token => access_token.credentials.token,
           :google_user_id => access_token.uid,
           :google_refresh_token => access_token.credentials.refresh_token
