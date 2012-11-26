@@ -216,7 +216,9 @@ class Item < ActiveRecord::Base
             last_attachment.destroy
           end
           yield
-          Resque.enqueue(CreatePreview, self.id, self.preview_length)
+          if self.preview_length > 0 && processed?
+            Resque.enqueue(CreatePreview, self.id, self.preview_length)
+          end
         end
       else
         yield
