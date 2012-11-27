@@ -1,4 +1,4 @@
-class CreateInvites
+class SendInvites
   @queue = :notifications_queue
 
   def self.perform(user_id,invites)
