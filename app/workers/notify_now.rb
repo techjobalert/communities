@@ -30,6 +30,11 @@ class NotifyNow
 
     if event.subject_type == "Item"
       item = event.subject
+
+      if event.secondary_subject_type == "Price"
+        receivers << item.followers
+      end
+
       if event.secondary_subject_type == "Order"
         receivers << event.actor.followers.select{|f| f.following_bought_item }
       elsif item and item.state == "published"

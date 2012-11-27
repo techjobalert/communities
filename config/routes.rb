@@ -99,6 +99,7 @@ Orthodontic::Application.routes.draw do
   #   :constraints => { :extension => /(pdf|webm|mp4)/ }
 
   root :to => "home#index"
+  mount Resque::Server, at: "/resque"
 
 
   # ----------------------------------------------------------------------------

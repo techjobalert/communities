@@ -85,7 +85,7 @@ gem 'whenever'
 # nested obj, parents, childrens...
 gem 'ancestry'
 # Q redis client
-gem 'resque'
+gem 'resque', :require => 'resque/server'
 
 # https://github.com/mbleigh/acts-as-taggable-on
 gem 'acts-as-taggable-on'

@@ -54,8 +54,19 @@ class Item < ActiveRecord::Base
                           :secondary_subject => :self,
                           :if => lambda { |item| item.state == "published" and item.moderated_at > (Time.zone.now() - 10.second) }
 
-  # fires :destroyed_item,  :on     => :destroy,
-  #                         :actor  => :user
+  fires :item_price_changed,  :on     => :update,
+                              :actor  => :user,
+                              :secondary_subject => "Price"
+                              :if => lambda { |item| item.price_changed? }
+  
+  def price_changed?
+    changed.include? "price"
+  end
+
+  def change_price price
+    self.price = price
+    save
+  end
 
   state_machine :state, :initial => :draft do
 

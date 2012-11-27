@@ -1,7 +1,7 @@
 class ItemsController < InheritedResources::Base
   before_filter :authenticate_user!, :except => [:show, :index, :search, :qsearch, :get_pdf_json]
   before_filter :get_item, :except => [:index, :new, :create, :tags, :upload_attachment]
-
+  
   load_and_authorize_resource :except => :get_pdf_json
 
 
@@ -265,7 +265,8 @@ class ItemsController < InheritedResources::Base
     @content  = page.raw_content
   end
 
-  def change_price
+  #TODO: clean up!
+  def _change_price
     @item = Item.find(params[:item_id])
     @item.attributes = params[:item]
 
@@ -279,6 +280,19 @@ class ItemsController < InheritedResources::Base
         :type => "notice",
         :message => "Item is updated.#{additional_message}" }
     end
+  end
+
+  def change_price
+    #extract parameters
+    item_id = params[:item_id]
+    price = params[:item][:price]
+    
+    #execute business logic
+    item_service.change_price(item_id, price)
+
+    @notice = {
+        :type => "notice",
+        :message => "Item price is updated" }
   end
 
   def change_keywords
@@ -317,6 +331,10 @@ class ItemsController < InheritedResources::Base
   end
 
   private
+
+  def item_service
+    ItemService.new
+  end
 
   def update_contributors user_ids
     user_ids ||=[]
