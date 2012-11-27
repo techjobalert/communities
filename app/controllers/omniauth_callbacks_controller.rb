@@ -17,6 +17,6 @@ class OmniauthCallbacksController <  Devise::OmniauthCallbacksController
         )
      	end
     end
-    render :nothing => true
+    redirect_to get_contacts_path
   end
 end

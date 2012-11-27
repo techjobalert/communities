@@ -1,0 +1,69 @@
+
+<% if @gmail_contacts.present? %>
+  <input type="checkbox" class="checkall" /> Select All
+  <ul>
+    <% @gmail_contacts.each do |friend| %>
+      <li style="height: 100px; border-left: 1px solid gray; padding-left: 10px">
+        <input class='selall' type='checkbox' id='<%= friend[:email] %>' name='checkbox' value='<%= friend[:email] %>' data-username='<%= friend[:name] %>'><br />
+        <i><%= friend[:name].present? ? friend[:name] : friend[:email] %></i><br />
+        <% if friend[:photo_url].present? %>
+          <%= image_tag friend[:photo_url], style: 'width: 64px; height: 64px;' %>
+        <% else %>
+          <%= image_tag '/assets/default/user_thumb_60_default.png', style: 'width: 64px; height: 64px;' %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <input type="button" onclick="sendRequestToRecipients(); return false;" value="Send an Email to your colleague" />
+<% end %>
+
+<script>
+  function sendRequestToRecipients() {
+    var frnd_invite_list = new Array();
+    var checked_boxes=$(".selall:checked");
+
+	  checked_boxes.each( function() {
+	    frnd_invite_list.push({email: $(this).attr('id'), username: $(this).data('username') });
+	  });
+
+    $.post("<%= send_invites_path %>", { invites: frnd_invite_list });
+
+    window.close();
+  }
+
+  $(function(){
+    var checked_all = false;
+
+    $('.checkall').bind('click', function(){
+
+      if (checked_all) {
+
+        $('.selall').each(function(key, value) {
+          $(value).removeAttr('checked');
+        });
+
+        checked_all = false;
+
+      } else {
+
+        $('.selall').each(function(key, value) {
+          $(value).attr('checked', 'checked');
+        });
+
+        checked_all = true;
+      }
+
+    });
+  });
+</script>
+
+<style>
+  ul li {
+    list-style-type: none;
+  }
+
+  ul li {
+    width: 250px;
+    display: inline-block;
+  }
+</style>

@@ -16,12 +16,19 @@
 
     = link_to "Add persons", "", :class => 'add-btn', :id => "add-collegues-to-item-link"
   .row
-    .label Movies credit
     #b-collegues-from-gmail
-      - unless @gmail_contacts
-        = link_to "Add your Gmail account", user_omniauth_authorize_path(:google_oauth2), :target => "_blank"
-        = link_to "Find your colleague through gmail", get_contacts_path, :remote => true
-      - else
-        %ul.b-collegues__list
-          = render :partial => 'account/gmail_contacts', :locals => {:contacts => @gmail_contacts}
+      %span
+        Your colleagues are not in the site? Give them a credit by Email
+      = link_to "Find your colleague through gmail", find_contacts_path, :remote => true
+      -# = link_to "Send your colleague an Email", "#", :remote => true, :method => true
+      -# else
+      -#   = link_to "Add your Gmail account", user_omniauth_authorize_path(:google_oauth2), :target => "_blank"
+    -# .label Movies credit
+
+    -#  - unless @gmail_contacts
+    -#    = link_to "Add your Gmail account", user_omniauth_authorize_path(:google_oauth2), :target => "_blank"
+    -#    = link_to "Find your colleague through gmail", get_contacts_path, :remote => true
+    -#  - else
+    -#    %ul.b-collegues__list
+    -#      = render :partial => 'account/gmail_contacts', :locals => {:contacts => @gmail_contacts}
 

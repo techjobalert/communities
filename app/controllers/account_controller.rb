@@ -32,9 +32,17 @@ class AccountController < ApplicationController
       end
       @gmail_contacts = current_user.gmail_contacts
     else
-      @notice = {:type => 'error', :message => "You do not have the authority to obtain contacts" }
-      render :partial => "layouts/notice", :locals => {:notice => @notice}
+      @gmail_contacts = nil
     end
+  end
+
+  def find_contacts
+  end
+
+  def send_invites
+    #Resque.enqueue(SendInvites,current_user.id,params[:invites])
+    Rails.logger.info "--------------#{params[:invites]}-----------------"
+    render :nothing => true
   end
 
   def payments_info
