@@ -4,5 +4,7 @@
       - if contact[:photo_url].present?
         = image_tag contact[:photo_url]
       - else
-        = image_tag '/assets/default/user_thumb_70_default.png'
-      %i= contact[:name].present? ? contact[:name] : contact[:email]
+        = image_tag '/assets/default/user_thumb_60_default.png'
+      .text
+        %input{class: 'selall', type: 'checkbox', id: "#{contact[:email]}",  name: 'checkbox', value: "#{contact[:email]}"}
+        %span.fullname= contact[:name].present? ? contact[:name] : contact[:email]
