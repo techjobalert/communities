@@ -54,7 +54,7 @@ class ItemsController < InheritedResources::Base
     end
     if current_user.social_account_credential.present?
       current_user.refresh_gmail_token
-      @gmail_contacts = current_user.gmail_contacts.select {|c| c[:email]}
+      @gmail_contacts = current_user.gmail_contacts.select {|c| !c[:email].blank? }
     else
       @gmail_contacts = nil
     end

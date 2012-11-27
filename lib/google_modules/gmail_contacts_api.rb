@@ -1,5 +1,9 @@
 module GmailContactsApi
   def gmail_contacts
+    unless Rails.env.production?
+      return Array.new(5) {|i| {:name => "Test User #{i}", :email => "test_user#{i}@gmail.com"} }
+    end
+
     response = send_request
 
   	gmail_contacts = []

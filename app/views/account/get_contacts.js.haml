@@ -1,0 +1,2 @@
+if($("#b-collegues-from-gmail .b-collegues__list").length == 0) $("#b-collegues-from-gmail").append('<ul class="b-collegues__list"></ul>');
+$("#b-collegues-from-gmail .b-collegues__list").html("#{escape_javascript(render :partial => 'account/gmail_contacts', :locals => {:contacts => @gmail_contacts})}");

@@ -1,0 +1,8 @@
+- if contacts.present?
+  - contacts.each do |contact|
+    %li.b-collegues__item
+      - if contact[:photo_url].present?
+        = image_tag contact[:photo_url]
+      - else
+        = image_tag '/assets/default/user_thumb_70_default.png'
+      %i= contact[:name].present? ? contact[:name] : contact[:email]

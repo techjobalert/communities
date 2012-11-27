@@ -1,5 +1,6 @@
 module GmailTokensApi
   def refresh_gmail_token
+    return unless Rails.env.production?
     response = send_refresh_token_request
     token_attrs = ActiveSupport::JSON.decode(response)
 

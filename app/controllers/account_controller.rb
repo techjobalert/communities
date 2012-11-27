@@ -25,6 +25,18 @@ class AccountController < ApplicationController
 
   end
 
+  def get_contacts
+    if current_user.social_account_credential
+      if current_user.social_account_credential.updated_at < Time.zone.now - 1.hour
+        current_user.refresh_gmail_token
+      end
+      @gmail_contacts = current_user.gmail_contacts
+    else
+      @notice = {:type => 'error', :message => "You do not have the authority to obtain contacts" }
+      render :partial => "layouts/notice", :locals => {:notice => @notice}
+    end
+  end
+
   def payments_info
     @transactions = OrderTransaction.by_user current_user
     if current_user.role? "doctor"

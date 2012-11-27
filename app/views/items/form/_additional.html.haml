@@ -17,17 +17,11 @@
     = link_to "Add persons", "", :class => 'add-btn', :id => "add-collegues-to-item-link"
   .row
     .label Movies credit
-    - unless @gmail_contacts
-      = link_to "Click here to add your Gmail account", user_omniauth_authorize_path(:google_oauth2), :target => "_blank"
-    - else
-      %ul
-        - @gmail_contacts.each do |contact|
-          %li
-            %i= contact[:name].present? ? contact[:name] : contact[:email]
-            %br
-            - if contact[:photo_url].present?
-              = image_tag contact[:photo_url], style: 'width: 64px; height: 64px;'
-            - else
-              = image_tag '/assets/default/user_thumb_70_default.png', style: 'width: 64px; height: 64px;'
-      <% end %>
+    #b-collegues-from-gmail
+      - unless @gmail_contacts
+        = link_to "Add your Gmail account", user_omniauth_authorize_path(:google_oauth2), :target => "_blank"
+        = link_to "Find your colleague through gmail", get_contacts_path, :remote => true
+      - else
+        %ul.b-collegues__list
+          = render :partial => 'account/gmail_contacts', :locals => {:contacts => @gmail_contacts}
 
