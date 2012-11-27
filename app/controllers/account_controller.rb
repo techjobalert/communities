@@ -40,8 +40,7 @@ class AccountController < ApplicationController
   end
 
   def send_invites
-    #Resque.enqueue(SendInvites,current_user.id,params[:invites])
-    Rails.logger.info "--------------#{params[:invites]}-----------------"
+    Resque.enqueue(SendInvites,current_user.id,params[:invites].values)
     render :nothing => true
   end
 

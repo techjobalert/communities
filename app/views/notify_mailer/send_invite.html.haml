@@ -1,0 +1,10 @@
+- if @reciever_name.present?
+  %h2= "Dear, #{@receiver_name}!"
+
+%p
+  #{@from_user.full_name} invites you to
+  = link_to root_url
+
+%p
+  %i
+    Email created and sended #{DateTime.now.strftime("%d %B %Y %H:%M:%S")}
