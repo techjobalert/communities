@@ -5,7 +5,7 @@ class SendInvites
     user = User.find(user_id)
     invites.each do |invite|
       if invite[:email].present?
-        NotifyMailer.send_invite(user,invite[:name],invite[:email])
+        NotifyMailer.send_invite(user,invite[:name],invite[:email]).deliver!
       end
     end
   end
