@@ -18,11 +18,14 @@ div.change-price-dialog {
       width: 100%;
     }
     input.set-price {
-      background: gray /* url(set-price.png)*/;
+      background: url(set-price.png);
       width: 95px;
       height: 35px;
       border: none;
       float: right;
+      position: relative;
+      left: 5px;
+      top: 3px;
     }
   }
   

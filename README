@@ -33,5 +33,31 @@ sudo apt-get install swftools
 
 #############################################
 
+Start/Restart production environment:
+
+# start god (monitoring server)
+
+
+# re/start Resque 
+god restart resque
+
+# (re)start ortodontics360 (placed in /etc/init/)
+# see also http://blog.daviddollar.org/2011/05/06/introducing-foreman.html
+sudo (re)start orthodontics360 
+
+# start Sphinx server
+
+1. start/restart server:
+RAILS_ROOT="." RAILS_ENV=production god -c resque.god
+god restart resque
+sudo (re)start orthodontics360 (restart Foreman's script aded to upstream http://blog.daviddollar.org/2011/05/06/introducing-foreman.html)
+RAILS_ENV=production rake ts:run (launches Sphinx)
+whenever (refreshes cron's task list)
+
+2 start/restart env
+  RAILS_ENV=production rake assets:clean &&  rake assets:precompile && god restart resque && sudo restart orthodontics360
+
+
+
 
 
