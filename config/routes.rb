@@ -69,7 +69,7 @@ Orthodontic::Application.routes.draw do
   match 'account/purchased_items' => 'account#purchased_items', :via => :get, :as => :purchased_items_account
   match 'account/get_contacts'    => 'account#get_contacts',    :via => :get, :as => :get_contacts
   match 'account/find_contacts'   => 'account#find_contacts',   :via => :get, :as => :find_contacts
-  match 'account/send_invites'    => 'account#send_invites',    :via => :get, :as => :send_invites
+  match 'account/send_invites'    => 'account#send_invites',    :via => :post, :as => :send_invites
 
   # Search logic
   match '/search'              => "search#index"

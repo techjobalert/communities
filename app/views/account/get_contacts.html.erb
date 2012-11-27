@@ -26,7 +26,7 @@
 	    frnd_invite_list.push({email: $(this).attr('id'), username: $(this).data('username') });
 	  });
 
-    $.post("<%= send_invites_path %>", { invites: frnd_invite_list });
+    $.post("<%= send_invites_path %>", { invites: frnd_invite_list }, function(data) { window.close(); });
 
     //window.close();
   }
