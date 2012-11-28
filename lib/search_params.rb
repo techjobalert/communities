@@ -97,7 +97,7 @@ class SearchParams
     end
     if params[:following]
       opt.push(items_by_follower(params[:following]))
-    end  
+    end
     opt.push(items_relevant_item(params))
     opt.push(items_views_filter(params))
     opt.push(items_price_filter(params))
@@ -123,7 +123,7 @@ class SearchParams
   def items_relevant_item params
     if params[:relevant_item_id].present?
       item = Item.find params[:relevant_item_id]
-      { :without_ids => [*item.id], :with_all => { :tag_ids => item.tag_ids }, :classes => [Item]}
+      { :without_ids => [*item.id], :with => { :tag_ids => item.tag_ids }, :classes => [Item]}
     end
   end
 
