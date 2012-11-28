@@ -3,7 +3,7 @@ class NotifyNow
 
   def self.perform(event_id)
   	event = TimelineEvent.find(event_id)
-
+	Rails.logger.info("worker: #{self}")
   	receivers = []
     subjects_list = %w(Comment Follow Item Contribution)
 
