@@ -15,9 +15,9 @@ class NotifyMailer < ActionMailer::Base
   	mail(:to => @to_user.email, :subject => "[orthodontics360] Direct message from #{@from_user.full_name}")
   end
 
-  def send_invite(from_user,reciever_name,receiver_email)
+  def send_invite(from_user,receiver_name,receiver_email)
     @from_user = from_user
-    @reciever_name = reciever_name
+    @receiver_name = receiver_name
     mail(:to => receiver_email, :subject => "[orthodontics360] Direct message from #{from_user.full_name}")
   end
 
