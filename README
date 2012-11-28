@@ -48,6 +48,7 @@ sudo (re)start orthodontics360
 # start Sphinx server
 
 1. start/restart server:
+###########################################################################
 
 cd projects/Orthodontics360
 RAILS_ROOT="." RAILS_ENV=production god -c resque.god
