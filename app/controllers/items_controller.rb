@@ -52,6 +52,12 @@ class ItemsController < InheritedResources::Base
       @processed = ((@a_video and not @a_video.file_processing? == true) or (@a_pdf and not @a_pdf.file_processing? == true))
       @uuid = SecureRandom.uuid.split("-").join()
     end
+    # if current_user.social_account_credential.present?
+    #   current_user.refresh_gmail_token
+    #   @gmail_contacts = current_user.gmail_contacts.select {|c| !c[:email].blank? }
+    # else
+    #   @gmail_contacts = nil
+    # end
   end
 
   def update

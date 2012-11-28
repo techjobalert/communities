@@ -167,14 +167,14 @@ class UsersController < ApplicationController
         end
       end
       user_followers.map!(&:id)
-      user_collaborators = User.collaborators(current_user).map(&:id) - user_followers 
+      user_collaborators = User.collaborators(current_user).map(&:id) - user_followers
       user_collaborators.each do |c|
         options = params[:message].merge!({:receiver_id => c, :user_id => current_user.id})
         @message = Message.new(options, params)
         if @message.save
           sended_messages_count += 1
           Resque.enqueue(SendMessage, @message.id)
-        end 
+        end
       end
       if sended_messages_count != 0
         @notice = {:type => 'notice',
@@ -195,7 +195,7 @@ class UsersController < ApplicationController
       filter_options.merge!(param_name => params[param_name].to_crc32) if params[param_name].present?
     end
     filter_options.merge!(:id => Item.users_by_count(params[:num_pub].to_i)) if params[:num_pub].present?
-    
+
     case params[:filter_type]
     when "following"
       filter_options.merge!(:follower_ids => current_user.id)
@@ -210,15 +210,15 @@ class UsersController < ApplicationController
     options.merge!(:with => filter_options)
     @users = User.search(params[:q], options)
     if params[:autocomplete]
-      @users.map! do |user| 
+      @users.map! do |user|
         {
-          :full_name => user.full_name.truncate(40, :separator => ' '), 
+          :full_name => user.full_name.truncate(40, :separator => ' '),
           :url => polymorphic_path(user)
         }
       end
       render :json => @users
     end
-    
+
   end
 
   def validate_card

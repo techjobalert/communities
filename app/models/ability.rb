@@ -22,7 +22,7 @@ class Ability
     can [:follow, :unfollow], [User, Item]
     can [:follow, :upload_avatar, :crop_avatar, :send_message], User
     can [:relevant, :following], Item
-    can [:purchase,:payments_info], :account
+    can [:purchase,:payments_info, :get_contacts, :find_contacts, :send_invites], :account
     can :read, [ Item, Comment ] do |obj|
       owner_or_published?(obj)
     end
