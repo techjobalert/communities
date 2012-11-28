@@ -1,6 +1,6 @@
 class ItemService 
   
-  def change_price
+  def change_price item_id, price
     item = Item.find(item_id)
     
     item.change_price(price)
