@@ -31,7 +31,7 @@ class NotifyNow
     if event.subject_type == "Item"
       item = event.subject
 
-      if event.secondary_subject_type == "Price"
+      if event.event_type == "item_price_changed"
         receivers << item.followers
       end
 
