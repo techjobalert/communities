@@ -51,6 +51,8 @@ sudo (re)start orthodontics360
 ###########################################################################
 
 cd projects/Orthodontics360
+git pull origin master
+rake db:migrate
 RAILS_ROOT="." RAILS_ENV=production god -c resque.god
 god restart resque
 sudo start orthodontics360
@@ -59,7 +61,9 @@ RAILS_ENV=production rake ts:run
 whenever 
 
 2 start/restart env
-  RAILS_ENV=production rake assets:clean &&  rake assets:precompile && god restart resque && sudo restart orthodontics360
+  RAILS_ENV=production rake assets:clean &&  rake assets:precompile 
+  god restart resque 
+  sudo restart orthodontics360
 
 
 
