@@ -56,7 +56,7 @@ class Item < ActiveRecord::Base
 
   fires :item_price_changed,  :on     => :update,
                               :actor  => :user,
-                              :secondary_subject => "Price"
+                              :secondary_subject => "Price",
                               :if => lambda { |item| item.price_changed? }
   
   def price_changed?
