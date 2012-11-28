@@ -25,6 +25,25 @@ class AccountController < ApplicationController
 
   end
 
+  def get_contacts
+    if current_user.social_account_credential
+      if current_user.social_account_credential.updated_at < Time.zone.now - 1.hour
+        current_user.refresh_gmail_token
+      end
+      @gmail_contacts = current_user.gmail_contacts
+    else
+      @gmail_contacts = nil
+    end
+  end
+
+  def find_contacts
+  end
+
+  def send_invites
+    Resque.enqueue(SendInvites,current_user.id,params[:invites].values)
+    render :nothing => true
+  end
+
   def payments_info
     @transactions = OrderTransaction.by_user current_user
     if current_user.role? "doctor"

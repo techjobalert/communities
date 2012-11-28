@@ -1,0 +1,7 @@
+- unless current_user.social_account_credential
+  window.open("#{user_omniauth_authorize_url(:google_oauth2)}", '_blank');
+- else
+  window.open("#{get_contacts_url}", '_blank')
+window.focus();
+
+

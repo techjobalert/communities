@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+Dir["#{Rails.root}/lib/google_modules/*.rb"].each {|file| require file }
 class User < ActiveRecord::Base
+  include GmailContactsApi
+  include GmailTokensApi
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
@@ -41,7 +44,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :attachments, :dependent => :destroy
   has_many :presenter_videos, :dependent => :destroy
-  has_many :follower_users, :class_name => 'Follow', :as => :followable, 
+  has_many :follower_users, :class_name => 'Follow', :as => :followable,
     :conditions => {:blocked => false, :follower_type => 'User'}
   has_many :following_users, :class_name => 'Follow', :as => :follower,
     :conditions => {:blocked => false, :followable_type => 'User'}
@@ -146,7 +149,7 @@ class User < ActiveRecord::Base
     google_apikey = 'AIzaSyBB59WRddUJKSwa-7RQvuEMSiMZuTIzj1c'
     google_user_id = social_account_credential.google_user_id
     feed = RestClient.get("https://www.googleapis.com/plus/v1/people/#{google_user_id}/activities/public?alt=json&maxResults=50&key=#{google_apikey}").body
-   
+
     if feed && feed["error"]
       feed = nil
       user_social_account_credential.update_attributes(:google_token  => nil);
@@ -155,9 +158,21 @@ class User < ActiveRecord::Base
     feed
   end
 
+  def google_token
+    social_account_credential.google_token
+  end
+
+  def google_refresh_token
+    social_account_credential.google_refresh_token
+  end
+
+  def google_user_id
+    social_account_credential.google_user_id
+  end
+
 
   private
-  
+
   #   def reprocess_avatar
   #     self.avatar.recreate_versions!
   #   end

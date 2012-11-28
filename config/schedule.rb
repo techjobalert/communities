@@ -7,16 +7,16 @@
 #
 # set :output, "/path/to/my/cron_log.log"
 #
-every 1.day, :at => '12:30 am' do
+every 1.day, :at => '01:30 am' do
   rake "ts:rebuild"
   runner "CarrierWave.clean_cached_files!"
 end
 
-every 2.minutes do
+every 1.day, :at => '02:00 am' do
   rake "paypal:transfer"
 end
 
-every 30.minutes do
+every 6.hours do
   rake "thinking_sphinx:index"
 end
 

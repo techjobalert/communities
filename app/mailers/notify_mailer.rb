@@ -15,6 +15,12 @@ class NotifyMailer < ActionMailer::Base
   	mail(:to => @to_user.email, :subject => "[orthodontics360] Direct message from #{@from_user.full_name}")
   end
 
+  def send_invite(from_user,receiver_name,receiver_email)
+    @from_user = from_user
+    @receiver_name = receiver_name
+    mail(:to => receiver_email, :subject => "[orthodontics360] Direct message from #{from_user.full_name}")
+  end
+
   def send_moderation_email_message(message_id)
     @message = Message.find(message_id)
     @to_user = @message.receiver
