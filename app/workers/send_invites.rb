@@ -4,9 +4,8 @@ class SendInvites
   def self.perform(user_id,invites)
     user = User.find(user_id)
     invites.each do |invite|
-      if invite[:email].present?
-        Rails.logger.info "----1-1-1-1-1-1-1---"
-        NotifyMailer.send_invite(user,invite[:name],invite[:email]).deliver!
+      if invite["email"].present?
+        NotifyMailer.send_invite(user,invite["username"],invite["email"]).deliver!
       end
     end
   end
