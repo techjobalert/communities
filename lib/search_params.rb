@@ -21,7 +21,9 @@ class SearchParams
     if Item.in? [*@gparams[:classes]]
       options.merge!(get_item_options(@gparams) )
     end
-    ThinkingSphinx.search @query, options
+    
+    result = search_service.search @query, options
+    return result
   end
 
   def by_relevance
@@ -194,6 +196,12 @@ class SearchParams
 
   def items_only_published(params)
     { :with => {:state => "published".to_crc32} }
+  end
+
+  private
+
+  def search_service
+    SearchService.new
   end
 
 end

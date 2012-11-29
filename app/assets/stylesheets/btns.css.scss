@@ -225,8 +225,14 @@
 
 .share-toolbox {
   display: inline-block;
-  height: 32px;
+  width: 110px;
+  height: 60px;
+  margin-right: 5px;
   padding-top: 3px;
+
+  .item-price {
+    margin-right: 5px;
+  }
 }
 
 .share-btn {
@@ -250,5 +256,5 @@
   content: "Set New Price";
   height: 42px;
   width: 160px;
-  margin-top: 11px;
+  margin-top: 10px;
 }
