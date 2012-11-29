@@ -232,6 +232,13 @@
 
   .item-price {
     margin-right: 5px;
+    color: gray;
+    font-family: 'Droid Sans', Arial;
+    float: left;
+    .item-price-value {
+      color: #2a9484;
+      font-weight: bold;
+    }
   }
 }
 
