@@ -23,6 +23,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
 
   after :store, :upload_to_s3
+  before :cache, :check_pdf_access
   # presentation_video
   #version :presentation_video,  :if => :is_presentation?
 
@@ -130,6 +131,16 @@ class FileUploader < CarrierWave::Uploader::Base
     if [".pptx", ".key"].member?(File.extname(current_path))
       uuid_filename = [SecureRandom.uuid, File.basename(current_path)].join("-")
       Resque.enqueue(PowerPointConvert, File.extname(current_path),uuid_filename, current_path, model.id)
+    end
+  end
+
+  def check_pdf_access(new_file)
+    extension = new_file.extension.to_s
+    if extension == 'pdf'
+      output = `pdfinfo #{new_file.file}`
+      unless $?.success?
+        raise CarrierWave::IntegrityError, "Can't process protected PDF"
+      end
     end
   end
 
