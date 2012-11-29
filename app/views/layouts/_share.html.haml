@@ -5,7 +5,7 @@
     Price: 
     %span{ class: "item-price-value" }
       = "Free" unless @item.paid?
-      = @item.price if @item.paid?
+      = "$#{@item.price}" if @item.paid?
 
 :javascript
   initShare();
