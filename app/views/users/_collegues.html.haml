@@ -2,7 +2,7 @@
   %h3
     Your Colleagues
   - if current_user.role? "doctor" and @tab != 'following'
-    %span.btn.send-your-followers-message#send-message-dialog
+    %span.btn#send-message-dialog{:class => "send-your-#{@tab == 'published_together' ? 'collaborators' : @tab}-message"}
   .clear
 
   .list
