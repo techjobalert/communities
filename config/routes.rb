@@ -49,7 +49,7 @@ Orthodontic::Application.routes.draw do
     post    "upload_avatar/crop" => 'users#crop_avatar'
     post    "follow"
     post    "send_message"
-    post    "send_message_to_followers"
+    post    "send_message_to_colleagues"
     delete  "unfollow"
     get     "search", :on => :collection
   end

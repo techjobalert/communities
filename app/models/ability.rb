@@ -33,7 +33,7 @@ class Ability
 
     can :create, Item
     can :create, Comment
-    can :send_message_to_followers, User
+    can :send_message_to_colleagues, User
     can :read, Item do |item|
       owner_or_published?(item)
     end
