@@ -11,6 +11,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
 
   # documents
+
   version :pdf,                 :if => :is_document?
   version :pdf_thumbnail,       :if => :is_pdf?
   version :pdf_json,            :if => :is_pdf?
@@ -134,10 +135,13 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
+
+
+
   def check_pdf_access(new_file)
     extension = new_file.extension.to_s
-    if extension == 'pdf'
-      output = `pdfinfo #{new_file.file}`
+    if extension == 'pdf' and new_file.file.is_a?(ActionDispatch::Http::UploadedFile)
+      output = `pdfinfo #{new_file.file.tempfile.path}`
       unless $?.success?
         raise CarrierWave::IntegrityError, "Can't process protected PDF"
       end
@@ -211,32 +215,24 @@ class FileUploader < CarrierWave::Uploader::Base
     json_path = File.join( directory, "tmp.js")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
 
-
-
     output = `pdfinfo #{path}`
-    Rails.logger.debug "--output---#{output}"
     if $? == 0
       encrypted_field = output.split("\n").select{|i| i =~ /\AEncrypted:/}.first
-      Rails.logger.debug "--encrypted_field---#{encrypted_field}"
     end
     encrypted = encrypted_field.match(/\AEncrypted:\s*([a-z]+)/).captures.first == 'yes'
-    Rails.logger.debug "--encrypted---#{encrypted}"
     encrypted_params = {}
     if encrypted
       encrypted_value = encrypted_field.match(/\AEncrypted:\s*yes\s*\((.+)\)/).captures.first
-      Rails.logger.debug "--encrypted_value---#{encrypted_value}"
       encrypted_value.split(' ').each do |enc_param|
         key,value = *enc_param.split(':')
         encrypted_params[key] = value
       end
     end
-    Rails.logger.debug "--encrypted_params---#{encrypted_params}"
 
     need_to_unlock = encrypted_params['copy'] == 'no'
     if need_to_unlock
       dirbase = File.join(File.dirname(path),File.basename(path,".*"))
       source_for_json = "#{dirbase}_unlocked.pdf"
-      Rails.logger.debug "--source_for_json---#{source_for_json}"
       %x[gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=#{source_for_json} -c .setpdfwrite -f #{path}]
     else
       source_for_json = path
@@ -253,9 +249,6 @@ class FileUploader < CarrierWave::Uploader::Base
     # end
 
     model.create_document_detail(page_count: count, page_width: width, page_height: height)
-
-
-
 
     command =%x[pdf2json -enc UTF-8 -compress #{source_for_json} #{json_path}]
     File.delete(source_for_json) if need_to_unlock
