@@ -152,36 +152,35 @@ class UsersController < ApplicationController
 
   end
 
-  def send_message_to_followers
+  def send_message_to_colleagues
     sended_messages_count = 0
     @notice = {}
     if params[:message].blank? || params[:message][:body].blank?
       @notice = {:type => 'error', :message => "Message text can't be blank."}
     else
-      user_followers = current_user.followers.each do |f|
-        options = params[:message].merge!({:receiver_id => f.id, :user_id => current_user.id})
+      receivers = case params[:colleagues_type]
+      when "followers"
+        current_user.followers.select { |f| f.role == 'doctor'}
+      when "published_together"
+        User.collaborators(current_user)
+      when "patients"
+        current_user.followers.select { |f| f.role == 'patient'}
+      end
+      receivers.each do |r|
+        options = params[:message].merge!({:receiver_id => r.id, :user_id => current_user.id})
         @message = Message.new(options, params)
         if @message.save
           sended_messages_count += 1
           Resque.enqueue(SendMessage, @message.id)
         end
       end
-      user_followers.map!(&:id)
-      user_collaborators = User.collaborators(current_user).map(&:id) - user_followers
-      user_collaborators.each do |c|
-        options = params[:message].merge!({:receiver_id => c, :user_id => current_user.id})
-        @message = Message.new(options, params)
-        if @message.save
-          sended_messages_count += 1
-          Resque.enqueue(SendMessage, @message.id)
-        end
-      end
+      receivers_title = params[:colleagues_type] == 'published_together' ? 'collaborators' : params[:colleagues_type]
       if sended_messages_count != 0
         @notice = {:type => 'notice',
-        :message => "Messages was successfully sended to #{sended_messages_count} followers"}
+        :message => "Messages was successfully sended to #{sended_messages_count} #{receivers_title}"}
       elsif sended_messages_count == 0
         @notice = {:type => 'error',
-        :message => "Messages isn't sended because you haven't followers"}
+        :message => "Messages isn't sended because you haven't #{receivers_title}"}
       else
         @notice = {:type => 'error',:message => "Error. Messages send."}
       end

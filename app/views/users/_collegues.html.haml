@@ -1,8 +1,8 @@
 .b-colleagues
   %h3
     Your Colleagues
-  - if current_user.role? "doctor"
-    %span.btn.send-your-followers-message#send-message-dialog
+  - if current_user.role? "doctor" and @tab != 'following'
+    %span.btn#send-message-dialog{:class => "send-your-#{@tab == 'published_together' ? 'collaborators' : @tab}-message"}
   .clear
 
   .list
@@ -45,14 +45,14 @@
       .clear
       .list-content
         = render :partial => "collegues_list", :locals => {:users => @users}
-
-  %div{ :id => "send-message", :title=>"Send message to your followers", :style=>"display:none;" }
-    %p
-      %textarea
+    - if @tab != 'following'
+      %div{ :id => "send-message", :title=>"Send message to your #{@tab == 'published_together' ? 'collaborators' : @tab}", :style=>"display:none;" }
+        %p
+          %textarea
+        %input{:type => "hidden", :value => "#{@tab}"}
 
 - if current_user.role? "doctor"
   :javascript
-    $( "#send-message:ui-dialog" ).dialog( "destroy" );
 
     $( "#send-message" ).dialog({
       resizable: false,
@@ -63,8 +63,9 @@
         "Send message": function() {
           $.ajax({
             type: 'POST',
-            url: '#{user_send_message_to_followers_path(current_user)}',
-            data: { 'message': {'body': $( "#send-message>p>textarea")[0].value } },
+            url: '#{user_send_message_to_colleagues_path(current_user)}',
+            data: { 'message': {'body': $( "#send-message>p>textarea")[0].value },
+              'colleagues_type': $("#send-message input").val() },
             dataType: 'script'
           });
         },
@@ -76,7 +77,6 @@
 
     $( "#send-message-dialog" ).click(function() {
       $( "#send-message" ).dialog( "open" );
-
       return false;
     });
 

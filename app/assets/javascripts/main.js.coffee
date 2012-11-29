@@ -19,6 +19,8 @@ $ ->
     .on "pjax:start", ->
       clearTimeout(timer_popup)
       $(".popup-container").css("display","none")
+      $( "#send-message:ui-dialog" ).dialog("destroy")
+      $( "#send-message" ).remove()
     .on "pjax:end", ->
       clearTimeout(timer_popup)
       $(".popup-container").css("display","none")
