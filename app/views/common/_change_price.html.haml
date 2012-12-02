@@ -30,7 +30,7 @@
   }
   $("div.change-price-dialog .form form").submit(function(evt){
     
-    $("span.item-price-value").html($("#item_price_value_field").val());
+    $("span.item-price-value").html("$" + $("#item_price_value_field").val());
     $(".change-price-dialog").dialog( "close" );
     
   });
