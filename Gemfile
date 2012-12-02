@@ -14,6 +14,7 @@ group :assets do
 end
 
 # Use unicorn as the web server
+
 gem 'unicorn'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -30,7 +31,7 @@ gem 'excon', '~> 0.16.4'
 
 # Heroku
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', git: 'git@github.com:rspec/rspec-rails.git'
   gem 'heroku'
   gem 'sqlite3'
   gem 'thin'

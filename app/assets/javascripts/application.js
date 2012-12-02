@@ -50,6 +50,7 @@
 //= require jquery.validate
 //= require mediaelement_rails
 //= require main
+//= require community
 
 function showHideNotice(type,message){
 

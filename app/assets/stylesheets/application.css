@@ -8,6 +8,7 @@
  *= require btns
  *= require pages
  *= require items
+ *= require community
  *= require jquery-ui
  *= require users
  *= require flexpaper

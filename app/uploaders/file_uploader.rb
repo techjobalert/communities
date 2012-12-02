@@ -6,7 +6,8 @@ class FileUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   include CarrierWave::RMagick
   include CarrierWave::FFMPEG
-  include ::CarrierWave::Backgrounder::DelayStorage
+  include Carrierwave::Backgrounder::Delay
+  #include ::CarrierWave::Backgrounder::DelayStorage
   # include CarrierWave::MimeTypes
   # process :set_content_type
 

@@ -3,5 +3,32 @@
     .center
       = link_to 'Logout', destroy_user_session_path, :method => 'DELETE' if user_signed_in?
       = link_to 'admin', '/moderator' if current_user and current_user.admin?
-
+      = link_to 'Your Communities', '#', class: 'dropdown-button', id: 'btn_communities' if user_signed_in?
       .clear
+
+- if user_signed_in?      
+  #community_selector.dropdown-checklist-container{ style: "" }      
+    .dropdown-checklist{ title: "Select Communities"}
+      .dropdown-selectbox.redir
+        - if current_user && current_user.communities
+          - current_user.communities.each do |com|
+            = radio_button_tag com.name, com.id, request.host_with_port.include?(com.subdomain), class: 'chkcomm', id: dom_id(com)
+            = label_tag dom_id(com), com.name, icon: com.icon, subdomain: com.subdomain 
+            %br
+        %hr
+        %a{ href: '#', id: 'comm_subscribe' }Subscribe to more communities
+  
+
+  #update_communities.dropdown-checklist-container.hidden.dialog{ title: "Select Communities" }
+    = form_for(current_user, namespace: "update_communities_form") do |f|
+      .dropdown-selectbox.multiselect{ title: "Select Communities", style: "width: 310px;" }
+        = hidden_field_tag "user[community_ids][]", nil
+        - Community.all.each do |com|
+          = check_box_tag "user[community_ids][]", com.id, current_user.community_ids.include?(com.id), id: "#{dom_id(com)}_multiselect"
+          = label_tag "#{dom_id(com)}_multiselect", com.name, icon: "#{com.icon}"
+          %br
+        %hr
+        Can’t find your specialized medical community? 
+        Ask Maia to establish it. (email 
+        %a{ href: "mailto:team@maia360.com" }team@maia360.com)
+        .hidden= f.submit ""

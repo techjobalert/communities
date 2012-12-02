@@ -1,3 +1,24 @@
+.dropdown-checklist-container {
+	& .dropdown-textbox {
+		background: #FFF url("/assets/dropdown_arrow.png") no-repeat right;
+	}
+	& .dropdown-selectbox {
+		background: #FFF; 
+		z-index: 9999;
+		display: block; 
+		position: absolute; 
+		border: solid black 1px;
+		padding: 5px;
+	}
+	button {
+		position: relative;
+		top: -5px;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+	}
+}
+
 .b-auth {
   position: relative;
   background: url("/assets/auth-bg.gif") no-repeat scroll 0 124px transparent;
@@ -1011,4 +1032,3 @@
   .message { display: inline-block; width: auto; }
   .inputs { &>div { margin-top: 10px; } }
 }
-

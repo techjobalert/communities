@@ -39,8 +39,9 @@ class Item < ActiveRecord::Base
   has_many    :contributors, through: :contributions
   has_many    :attachments, :dependent => :destroy
   has_many    :presenter_videos, :dependent => :destroy
+  has_and_belongs_to_many :communities
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, :communities
 
   # fires :created_item,    :on     => :create,
   #                         :actor  => :user

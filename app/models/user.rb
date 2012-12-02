@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :bio,
                   :full_name, :profession_and_degree, :role, :avatar, :specialization,
-                  :birthday, :educations, :educations_attributes, :admin, :paypal_account,
+                  :birthday, :educations, :educations_attributes, :admin, :paypal_account, 
+                  :communities, :community_ids,
 
                   # Settings
                   :following_me, :following_published, :added_as_author,
@@ -26,9 +27,10 @@ class User < ActiveRecord::Base
 
   #has_many :items, :dependent => :destroy
   has_many :comments, :as => :commentable, :dependent => :destroy
-
+  
   has_many :messages_sended, :class_name => 'Message',
            :dependent => :destroy, foreign_key: :user_id
+           
   has_many :messages_received, :class_name => 'Message',
            :dependent => :destroy, foreign_key: :receiver_id,
             inverse_of: :user
@@ -42,8 +44,12 @@ class User < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   has_many :presenter_videos, :dependent => :destroy
 
+  has_and_belongs_to_many :communities
+  accepts_nested_attributes_for :communities
+  
   accepts_nested_attributes_for :educations, :allow_destroy => true
 
+  
   store :settings, accessors: [
         :following_me,          #Someone following me
         :following_published,   #Someone of my following has published something
@@ -75,8 +81,8 @@ class User < ActiveRecord::Base
   validates :password, :confirmation => true,
             :unless => Proc.new { |a| a.password.blank? }
   validates :email, :presence => true, :allow_blank => false #,:uniqueness => true
-  validates :profession_and_degree, :length => { :minimum => 2, :maximum => 40 },
-            :allow_blank => false, :unless => Proc.new { |a| a.role == "patient" }
+  #validates :profession_and_degree, :length => { :minimum => 2, :maximum => 40 },
+  #          :allow_blank => false, :unless => Proc.new { |a| a.role == "patient" }
   validates :role, :inclusion => %w(doctor patient moderator)
   validates :birthday, :date => {
             :after => Proc.new { Time.now - 100.year },
@@ -117,7 +123,11 @@ class User < ActiveRecord::Base
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
-
+  
+  def get_communities
+    
+  end
+  
   # private
   #   def reprocess_avatar
   #     self.avatar.recreate_versions!
