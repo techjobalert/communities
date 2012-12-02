@@ -6,15 +6,13 @@
       = image_tag("/assets/set-price-logo.png", class: "set-price-logo")
       %p
         = f.label "Price $"
-        = f.text_field :price
+        = f.text_field :price, :id => "item_price_value_field"
       %hr{ class: "hr-set-price-dialog" }
       = f.submit("", class: "set-price")
 
 
 :javascript
-  function price_value(){
-    return $("span.item-price-value");
-  }
+  
 
   $( ".change-price-dialog:ui-dialog" ).dialog( "destroy" );
 
@@ -31,7 +29,10 @@
     $(".change-price-dialog").dialog( "open" );
   }
   $("div.change-price-dialog .form form").submit(function(evt){
+    
+    $("span.item-price-value").html($("#item_price_value_field").val());
     $(".change-price-dialog").dialog( "close" );
+    
   });
 
   $( "#sell_item_button" ).click(function(evt) {
