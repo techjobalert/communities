@@ -10,7 +10,6 @@
 //= require jquery-ui
 //
 //  Jquery*
-//= require jquery.ui.widget
 //=	require jquery.iframe-transport
 //= require jquery.fileupload
 //= require jquery.textext
@@ -50,6 +49,12 @@
 //= require jquery.validate
 //= require mediaelement_rails
 //= require main
+
+function $_(){
+  //= require jquery.ui.widget
+}
+
+
 
 function showHideNotice(type,message){
 
