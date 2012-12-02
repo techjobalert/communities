@@ -331,6 +331,7 @@ class ItemsController < InheritedResources::Base
   protected
 
   def get_item
+    Rails.logger.info params
     @item = if params[:id].present?
       Item.find(params[:id])
     elsif params[:item_id].present?
