@@ -14,7 +14,9 @@ Devise.setup do |config|
   # config.mailer = "Devise::Mailer"
 
   # Automatically apply schema changes in tableless databases
-  config.apply_schema = false
+  #[DEVISE] Devise.apply_schema is deprecated and has no effect. Please remove it.
+  # -- removed by Dorian Oct 31, 2012
+  #config.apply_schema = false
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -117,7 +119,9 @@ Devise.setup do |config|
 
   # If true, uses the password salt as remember token. This should be turned
   # to false if you are not using database authenticatable.
-  config.use_salt_as_remember_token = true
+  #[DEVISE] Devise.use_salt_as_remember_token is deprecated and has no effect. Please remove it.
+  # -- removed by Dorian Oct 31, 2012
+  #config.use_salt_as_remember_token = true
 
   # Options to be passed to the created cookie. For instance, you can set
   # :secure => true in order to force SSL only cookies.

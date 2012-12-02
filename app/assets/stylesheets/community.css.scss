@@ -1,0 +1,17 @@
+// Place all the styles related to the Community controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#community_selector {
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0;
+	width: 60%;
+	& .ui-selecting { background: #FECA40; }
+	& .ui-selected { background: #F39814; color: white; }
+	& li { 
+		margin: 3px;
+		padding: 0.4em;
+		font-size: 1.4em; 
+		height: 18px;
+	}
+}

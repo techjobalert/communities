@@ -49,6 +49,7 @@
 //= require jquery.validate
 //= require mediaelement_rails
 //= require main
+//= require community
 
 function $_(){
   //= require jquery.ui.widget
