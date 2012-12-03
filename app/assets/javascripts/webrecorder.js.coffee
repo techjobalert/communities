@@ -1,6 +1,6 @@
 $ ->
-  recorder = document.getElementById("recorder");
-  if recorder.lenght
+  recorder = $("#recorder");
+  if recorder.length
     recordind = false
 
     $(".link rec-start").on "click", (->

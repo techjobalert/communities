@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:show]
   load_and_authorize_resource
 
+
   def index
     @tab = if current_user.role?("doctor")
       params[:tab].present? ? params[:tab] : 'followers'
@@ -119,7 +120,7 @@ class UsersController < ApplicationController
       @following_user = User.find(following_user_id)
       current_user.follow(@following_user)
     else
-      @message = "You can't follow your self."
+      @message = "You cannot follow yourself."
     end
   end
 
@@ -129,7 +130,7 @@ class UsersController < ApplicationController
     if current_user.following?(@following_user)
       current_user.stop_following(@following_user)
     else
-      @message = "Some error."
+      @message = "You are not following #{@following_user}"
     end
   end
 
@@ -143,10 +144,10 @@ class UsersController < ApplicationController
     else
       if @message.save
         @notice = {:type => 'notice',
-          :message => "Message was successfully sended."}
+          :message => "Message was successfully sent."}
         Resque.enqueue(SendMessage, @message.id)
       else
-        @notice = {:type => 'error',:message => "Error. Message not created."}
+        @notice = {:type => 'error',:message => "Error. Message was not created."}
       end
     end
 
@@ -177,10 +178,10 @@ class UsersController < ApplicationController
       receivers_title = params[:colleagues_type] == 'published_together' ? 'collaborators' : params[:colleagues_type]
       if sended_messages_count != 0
         @notice = {:type => 'notice',
-        :message => "Messages was successfully sended to #{sended_messages_count} #{receivers_title}"}
+        :message => "Messages were successfully sent to #{sended_messages_count} followers"}
       elsif sended_messages_count == 0
         @notice = {:type => 'error',
-        :message => "Messages isn't sended because you haven't #{receivers_title}"}
+        :message => "Messages was not sent because you do not have any followers"}
       else
         @notice = {:type => 'error',:message => "Error. Messages send."}
       end

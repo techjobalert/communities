@@ -42,9 +42,13 @@ class Item < ActiveRecord::Base
   has_many    :contributors, through: :contributions
   has_many    :attachments, :dependent => :destroy, :after_add => :update_preview
   has_many    :presenter_videos, :dependent => :destroy
+
   has_many    :follows, :as => :followable, :conditions => {:blocked => false}
 
-  accepts_nested_attributes_for :attachments
+  has_and_belongs_to_many :communities
+
+
+  accepts_nested_attributes_for :attachments, :communities
 
   # fires :created_item,    :on     => :create,
   #                         :actor  => :user
