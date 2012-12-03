@@ -12,8 +12,10 @@
       .dropdown-selectbox.redir
         - if current_user && current_user.communities
           - current_user.communities.each do |com|
-            =# radio_button_tag com.name, com.id, request.host_with_port.include?(com.subdomain), class: 'chkcomm', id: dom_id(com)
-            = label_tag dom_id(com), com.name, icon: com.icon, subdomain: com.subdomain 
+            = link_to "#{com.name}", com 
+            = radio_button_tag com.name, com.id, current_community?, class: 'chkcomm', id: dom_id(com)
+
+            = label_tag dom_id(com), com.name, icon: com.icon #, subdomain: com.subdomain 
             %br
         %hr
         %a{ href: '#', id: 'comm_subscribe' }Subscribe to more communities
