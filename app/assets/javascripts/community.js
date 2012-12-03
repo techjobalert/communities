@@ -3,7 +3,7 @@
 var commButtonUnchecked = "url(/assets/communities/##ICON##.png)";
 var commButtonChecked = "url(/assets/communities/##ICON##_checked.png)";
 var currUrl = window.location.toString();
-var ACTIVATE_SKINING = true;
+//var ACTIVATE_SKINING = true;
 
 //toggle individual community selection button image on click
 $(function() {
@@ -81,7 +81,11 @@ $(function() {
 
 // initialize dropdown implementation
 function dropdown_init() {
-	$(".dropdown-selectbox").hide();
+	var dropdown = $(".dropdown-selectbox");
+	var multiselect = $(".dropdown-selectbox.multiselect");
+	multiselect.width(213);
+
+	dropdown.hide();
 
 	hide_checkboxes();
 
@@ -91,21 +95,18 @@ function dropdown_init() {
 	label.each(function() {
 		set_icon_multiselect(this, get_checkbox_status(this));
 	});
+
+
 	
 }
 
 function hide_checkboxes() {
-	if (!ACTIVATE_SKINING) return;
 	$(".dropdown-selectbox input:checkbox, .dropdown-selectbox input:radio").hide();
 }
 
 
 function adjust_label(label) {
-	if (!ACTIVATE_SKINING) return;
 	label.text("");
-	label.width(283);
-	label.height(85);
-	label.css("display", "block");
 }
 
 function get_checkbox_status(label) {
@@ -116,7 +117,6 @@ function get_checkbox_status(label) {
 
 
 function set_icon_multiselect(label, imgToggle) {
-	if (!ACTIVATE_SKINING) return;
 	var iconUrl = imgToggle ? commButtonChecked : commButtonUnchecked;
 	$(label).css("background-image", iconUrl.replace("##ICON##", $(label).attr("icon")));
 }
