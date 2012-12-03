@@ -46,6 +46,8 @@ end
 group :production do
 end
 
+gem "friendly_id", "~> 4.0.1"
+
 # Permissions and Authorization
 # permissions
 gem 'cancan'

@@ -35,6 +35,21 @@ div.item-price {
   float: right;
 }
 
+
+@mixin item-shadow {
+   -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow:    1px 1px 3px rgba(0, 0, 0, 0.75);
+    box-shadow:         1px 1px 3px rgba(0, 0, 0, 0.75);
+}
+div.list-content {
+  div.info, a.media {
+   @include item-shadow;
+  }
+
+}
+
+
+
 .b-items {
   margin: 30px;
 

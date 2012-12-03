@@ -1,7 +1,5 @@
 Orthodontic::Application.routes.draw do
-
-  get "community/index"
-
+  #get "community/index"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -106,6 +104,8 @@ Orthodontic::Application.routes.draw do
   root :to => "home#index"
   mount Resque::Server, at: "/resque"
 
+  resources :communities, :only => :show
+  
 
   # ----------------------------------------------------------------------------
   # ----------------------------------------------------------------------------
