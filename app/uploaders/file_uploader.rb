@@ -11,6 +11,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
 
   # documents
+
   version :pdf,                 :if => :is_document?
   version :pdf_thumbnail,       :if => :is_pdf?
   version :pdf_json,            :if => :is_pdf?
@@ -23,6 +24,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
 
   after :store, :upload_to_s3
+  before :cache, :check_pdf_access
   # presentation_video
   #version :presentation_video,  :if => :is_presentation?
 
@@ -134,6 +136,19 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
 
+
+
+  def check_pdf_access(new_file)
+    extension = new_file.extension.to_s
+    if extension == 'pdf' and new_file.file.is_a?(ActionDispatch::Http::UploadedFile)
+      output = `pdfinfo #{new_file.file.tempfile.path}`
+      unless $?.success?
+        raise CarrierWave::IntegrityError, "Can't process protected PDF"
+      end
+    end
+  end
+
+
   protected
 
   def convert_to_pdf
@@ -199,19 +214,44 @@ class FileUploader < CarrierWave::Uploader::Base
     directory = File.dirname( current_path )
     json_path = File.join( directory, "tmp.js")
     path = model.file.pdf.path.nil? ? current_path : File.absolute_path(model.file.pdf.path)
+
+    output = `pdfinfo #{path}`
+    if $? == 0
+      encrypted_field = output.split("\n").select{|i| i =~ /\AEncrypted:/}.first
+    end
+    encrypted = encrypted_field.match(/\AEncrypted:\s*([a-z]+)/).captures.first == 'yes'
+    encrypted_params = {}
+    if encrypted
+      encrypted_value = encrypted_field.match(/\AEncrypted:\s*yes\s*\((.+)\)/).captures.first
+      encrypted_value.split(' ').each do |enc_param|
+        key,value = *enc_param.split(':')
+        encrypted_params[key] = value
+      end
+    end
+
+    need_to_unlock = encrypted_params['copy'] == 'no'
+    if need_to_unlock
+      dirbase = File.join(File.dirname(path),File.basename(path,".*"))
+      source_for_json = "#{dirbase}_unlocked.pdf"
+      %x[gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=#{source_for_json} -c .setpdfwrite -f #{path}]
+    else
+      source_for_json = path
+    end
+
     result = populate_pages_preview_images(path)
     width, height, count = result[0], result[1], result[2]
-    images = []
-    count.times do |n|
-      images << {"number" => n+1, "fonts" => [], "text" => [], "width" => width, "height" => height}
-    end
-    File.open(json_path,"w") do |f|
-      f.write(images.to_json)
-    end
+    # images = []
+    # count.times do |n|
+    #   images << {"number" => n+1, "fonts" => [], "text" => [], "width" => width, "height" => height}
+    # end
+    # File.open(json_path,"w") do |f|
+    #   f.write(images.to_json)
+    # end
 
     model.create_document_detail(page_count: count, page_width: width, page_height: height)
 
-    #command =%x[pdf2json -enc UTF-8 -compress #{path} #{json_path}]
+    command =%x[pdf2json -enc UTF-8 -compress #{source_for_json} #{json_path}]
+    File.delete(source_for_json) if need_to_unlock
 
     File.delete current_path
     File.rename json_path, current_path
