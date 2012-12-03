@@ -390,9 +390,7 @@ class ItemsController < InheritedResources::Base
     rescue ActiveRecord::RecordInvalid => invalid
 
       Rails.logger.error invalid.inspect
-      @notice = {:type => 'error', :message =>
-        "#{t current_user.errors.keys.first} #{current_user.errors.values.first.to_s}"
-      }
+      @notice = {:type => 'error', :message => invalid.message}
       render :partial => "layouts/notice", :locals => {:notice => @notice}
     end
   end
