@@ -17,12 +17,7 @@
       = form_for(User.new, :as => User.new, :url => registration_path(:user), :validate => true) do |f|
         / = devise_error_messages!
         .inputs
-          .toggler
-            %b I am:
-            = f.radio_button :role, "doctor"
-            = f.label :role_doctor, 'a Doctor', :class => 'doctor checked'
-            = f.radio_button :role, "patient"
-            = f.label :role_patient, 'a Patient', :class => 'patient'
+          %p= f.text_field :full_name, :placeholder => 'Full Name', :validate => true
           %p= f.text_field :full_name, :placeholder => 'Full Name', :validate => true
           .dropdown-checklist-container
             %p.doctor-only= f.text_field :profession_and_degree, placeholder: 'Profession and degree', class: "dropdown-textbox", autocomplete: :off 
