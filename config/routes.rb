@@ -1,4 +1,8 @@
 Orthodontic::Application.routes.draw do
+  get "widgets/index"
+
+  get "widgets/communities"
+
   #get "community/index"
 
   devise_for :admin_users, ActiveAdmin::Devise.config
