@@ -17,7 +17,7 @@
       = form_for(User.new, :as => User.new, :url => registration_path(:user), :validate => true) do |f|
         / = devise_error_messages!
         .inputs
-          %p= f.text_field :full_name, :placeholder => 'Full Name', :validate => true
+          = render "common/pick_community"
           %p= f.text_field :full_name, :placeholder => 'Full Name', :validate => true
           .dropdown-checklist-container
             %p.doctor-only= f.text_field :profession_and_degree, placeholder: 'Profession and degree', class: "dropdown-textbox", autocomplete: :off 

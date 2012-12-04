@@ -1,0 +1,19 @@
+%form
+  %select{id: "chosen", multiple: true, :"data-placeholder" => "Pick Your Community" }
+    
+    - @communities.each do |c|
+      %option{ value: "#{c.id}", class: "pick_community_option"}
+        = c.name
+        
+:javascript
+  $(init_drop_down);
+  function init_drop_down(){
+      $(".chzn-container .chzn-drop ul.chzn-results li").each(function(el){
+
+      $this = $(this);
+      var text = $this.text().trim().toLowerCase();
+      $this.addClass(text);
+
+    });
+  }
+  

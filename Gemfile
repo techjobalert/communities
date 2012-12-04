@@ -41,6 +41,8 @@ group :development, :test do
   gem 'thin'
   gem 'turn', :require => false
   gem 'rails-erd'
+  gem 'pry'
+  gem 'pry-rails'
 end
 
 group :production do

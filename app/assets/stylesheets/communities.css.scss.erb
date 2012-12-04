@@ -1,0 +1,24 @@
+.chzn-container .chzn-drop {
+  
+  border: none;
+
+  ul.chzn-results {
+    width: 230px;
+    text-indent: -9999px;  
+    <% #TODO: inspect assets and initialize the list of communities %>
+    <% communities = %w(endodontics implants orthodontics periodontics) %>
+    <% communities.each do |c| %>
+    li.<%= c %> {
+      background: url(/assets/communities/<%= c %>.png) no-repeat;
+      height: 35px;
+      &:hover {
+        background: url(/assets/communities/<%= c %>_checked.png) no-repeat;
+      };
+    }
+    <% end %>
+  }
+}
+
+.chzn-container .chzn-results .highlighted {
+  background-color: white;
+}
