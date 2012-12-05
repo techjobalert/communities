@@ -1,26 +1,71 @@
+
+
+
 @mixin hide_text {
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
 
+@mixin auth_adjust {
+  padding: 5px;
+  border: 1px solid #D4DEE0;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 8px;
+  width: 210px;
+  font-size: 14px;
+  -webkit-box-shadow: 0 -2px 1px #837A81;
+  -moz-box-shadow: 0 -2px 1px #837a81;
+  box-shadow: 0 -2px 1px #837A81;
+
+  box-sizing: border-box;
+
+  line-height: normal;
+
+  margin: 0;
+  vertical-align: baseline;
+
+  background-color: #FAFFBD;
+  background-image: none;
+  color: black;
+}
+a.dropdown {
+  white-space: nowrap;
+  overflow: ellipsis;
+  padding: 0;
+  border: none;
+}
+.communities_dropdown_wrapper ul {
+  opacity: 1;
+}
 .communities_dropdown_wrapper {
+
+  @include auth_adjust;
+
+
+  opacity: 1;
   ul li {
+    opacity: 1;
     width: 230px;
     @include hide_text;
     <% #TODO: inspect assets and initialize the list of communities %>
     <% communities = %w(endodontics implants orthodontics periodontics) %>
     <% communities.each do |c| %>
     a.<%= c %> {
+
       background: url(/assets/communities/<%= c %>.png) no-repeat;
       height: 35px;
+      opacity: 1;
       &:hover {
-        background: url(/assets/communities/<%= c %>_checked.png) no-repeat;
+        opacity: 0.5;
       };
 
       &.checked {
         background: url(/assets/communities/<%= c %>_checked.png) no-repeat;
       };
+
     }
 
     <% end %>
