@@ -1,3 +1,26 @@
+@mixin hide_text {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.communities_dropdown_wrapper {
+  ul li {
+    width: 230px;
+    @include hide_text;
+    <% #TODO: inspect assets and initialize the list of communities %>
+    <% communities = %w(endodontics implants orthodontics periodontics) %>
+    <% communities.each do |c| %>
+    a.<%= c %> {
+      background: url(/assets/communities/<%= c %>.png) no-repeat;
+      height: 35px;
+      &:hover {
+        background: url(/assets/communities/<%= c %>_checked.png) no-repeat;
+      };
+    }
+    <% end %>
+  }
+}
 
 
 .chzn-container .chzn-drop {

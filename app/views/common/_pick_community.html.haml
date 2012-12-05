@@ -1,5 +1,4 @@
 %form
-%input{ :id => "communities_output", :class => "communities_output", :placeholder => "Pick a community"  }
 
 %div.community_menu_container
   %select.community_list{ name: "communities", multiple: true, placeholder: "Pick a community" }
@@ -16,6 +15,11 @@
       'class_dropdown_wrapper' : 'communities_dropdown_wrapper' 
     });
 
+    $(".communities_dropdown_wrapper ul li a").each(function(){
+      $this = $(this);
+      var text = $this.text().trim().toLowerCase();
+      $this.addClass(text);
+    });
 
     // $(".my_custom_dropdown_wrapper ul li a").css({
     //   "background": "url(/assets/communities/orthodontics.png)"

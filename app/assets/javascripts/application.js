@@ -19,6 +19,7 @@
 //= require jquery.plugins
 //= require jquery.extensions.min
 //= require jquery.simplemodal.1.4.3.min
+//= require jquery.dropp
 //
 // Flex paper pdf viewer*
 //= require flexpaper
