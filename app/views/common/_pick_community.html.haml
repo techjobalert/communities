@@ -1,19 +1,25 @@
 %form
-  %select{id: "chosen", multiple: true, :"data-placeholder" => "Pick Your Community" }
-    
+%input{ :id => "communities_output", :class => "communities_output", :placeholder => "Pick a community"  }
+
+%div.community_menu_container
+  %select.community_list{ name: "communities", multiple: true, placeholder: "Pick a community" }
     - @communities.each do |c|
-      %option{ value: "#{c.id}", class: "pick_community_option"}
+      %option.community_option{ value: c.id }
         = c.name
-        
+        -# %img{ src: "/assets/communities/#{c.slug}.png" }
+
 :javascript
-  $(init_drop_down);
-  function init_drop_down(){
-      $(".chzn-container .chzn-drop ul.chzn-results li").each(function(el){
+  $(main);
 
-      $this = $(this);
-      var text = $this.text().trim().toLowerCase();
-      $this.addClass(text);
-
+  function main(){
+    $("select.community_list").dropp({ 
+      'class_dropdown_wrapper' : 'communities_dropdown_wrapper' 
     });
+
+
+    // $(".my_custom_dropdown_wrapper ul li a").css({
+    //   "background": "url(/assets/communities/orthodontics.png)"
+    // });
+
   }
-  
+

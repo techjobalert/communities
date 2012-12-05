@@ -21,6 +21,8 @@
  *= require jquery.Jcrop
  *= require colorbox
  *= require mediaelement_rails
+
+ *= require communities
  * and optionally:
  *= require mediaelement_rails/mejs-skins
 */

@@ -21,6 +21,7 @@ development:
   password: root
   host: localhost
   timeout: 5000
+  socket: /Applications/MAMP/tmp/mysql/mysql.sock
 
 
 # Warning: The database defined as "test" will be erased and
