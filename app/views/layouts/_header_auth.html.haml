@@ -17,20 +17,11 @@
       = form_for(User.new, :as => User.new, :url => registration_path(:user), :validate => true) do |f|
         / = devise_error_messages!
         .inputs
-          = render "common/pick_community"
           %p= f.text_field :full_name, :placeholder => 'Full Name', :validate => true
+          = render "common/pick_community"
           .dropdown-checklist-container
-            %p.doctor-only= f.text_field :profession_and_degree, placeholder: 'Profession and degree', class: "dropdown-textbox", autocomplete: :off 
-            .dropdown-selectbox.multiselect{ title: "Select Communities", style: "width: 310px;" }
-              - Community.all.each do |com|
-                = check_box_tag "user[community_ids][]", com.id, false, id: dom_id(com)
-                = label_tag dom_id(com), com.name, icon: "#{com.icon}"
-                %br
-              Didn’t ﬁnd your specialized medical community? 
-              Ask Maia to establish it. (email 
-              %a{ href: "mailto:team@maia360.com" }team@maia360.com)
-              %hr
-              %button Done
+            %p.doctor-only= f.text_field :profession_and_degree, placeholder: 'Profession and degree', autocomplete: :off 
+            
           %p= f.text_field :email, :placeholder => 'Email Address'
           %p= f.password_field :password, :placeholder => 'Password', :id => 'sign_up_user_password'
           %p= f.password_field :password_confirmation, :placeholder => 'Verify Password', :id => 'sign_up_user_password_confirmation'

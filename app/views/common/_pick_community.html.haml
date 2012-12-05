@@ -1,7 +1,7 @@
 %form
 
 %div.community_menu_container
-  %select.community_list{ name: "communities", multiple: true, placeholder: "Pick a community" }
+  %select.community_list{ name: "communities", multiple: true, placeholder: "Pick Your Communities" }
     - @communities.each do |c|
       %option.community_option{ value: c.id }
         = c.name
@@ -25,7 +25,7 @@
     });
 
     community_elements.click(function(){ $(this).toggleClass("checked") });
-
+    $("ul.dropp_dropdown_list li a").click(function(){ $("ul.dropp_dropdown_list").hide() });
 
   }
 

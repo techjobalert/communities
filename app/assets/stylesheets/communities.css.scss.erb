@@ -1,5 +1,11 @@
 
-
+ul.dropdown_list.dropp_dropdown_list {
+  background: white;
+  border: none;
+  box-shadow: -3px -3px 3px rgba(100, 50, 25, 0.5);
+  border-radius: 10px;
+  padding: 10px 0px 5px 5px;
+}
 
 @mixin hide_text {
   text-indent: 100%;
@@ -33,9 +39,10 @@
 }
 a.dropdown {
   white-space: nowrap;
-  overflow: ellipsis;
+  overflow: hidden;
   padding: 0;
   border: none;
+  color: #888;
 }
 .communities_dropdown_wrapper ul {
   opacity: 1;
