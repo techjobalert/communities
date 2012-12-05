@@ -15,15 +15,17 @@
       'class_dropdown_wrapper' : 'communities_dropdown_wrapper' 
     });
 
-    $(".communities_dropdown_wrapper ul li a").each(function(){
+    var community_elements = $(".communities_dropdown_wrapper ul li a");
+    
+    community_elements.each(function(){
       $this = $(this);
       var text = $this.text().trim().toLowerCase();
       $this.addClass(text);
+
     });
 
-    // $(".my_custom_dropdown_wrapper ul li a").css({
-    //   "background": "url(/assets/communities/orthodontics.png)"
-    // });
+    community_elements.click(function(){ $(this).toggleClass("checked") });
+
 
   }
 
