@@ -35,7 +35,7 @@ gem 'omniauth-google-apps'
 
 # Heroku
 group :development, :test do
-  gem 'rspec-rails', git: 'git@github.com:rspec/rspec-rails.git'
+  gem 'rspec-rails'#, git: 'git@github.com:rspec/rspec-rails.git'
   gem 'heroku'
   gem 'sqlite3'
   gem 'thin'

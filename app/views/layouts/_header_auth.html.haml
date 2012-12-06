@@ -14,7 +14,7 @@
         Maia is a marketplace for specialized doctors to explore, share, create and sell original content.
       .media= image_tag "/assets/tmp/p1.jpg"
     #sign-up.sign-up-tab.sign-tab
-      = form_for(User.new, :as => User.new, :url => registration_path(:user), :validate => true) do |f|
+      = form_for(User.new, :url => registration_path(:user), :validate => true, :html => { id: "sign_up_form", class: "sign_up_form" }) do |f|
         / = devise_error_messages!
         .inputs
           %p= f.text_field :full_name, :placeholder => 'Full Name', :validate => true
@@ -28,11 +28,11 @@
           
           .hidden= f.submit ""
 
-        = link_to '#', :class => 'submit-btn', :onclick=>"$(this).closest('form').submit(); return false;" do
+        = link_to '#', :class => 'submit-btn', :onclick=>"$('#sign_up_form').submit(); return false;" do
           SIGN UP
           %span to create an account
     .sign-in-tab.sign-tab.hidden
-      = form_for User.new, :as => User.new, :url => session_path(:user) do |f|
+      = form_for User.new, :url => session_path(:user), :html => { id: "sign_in_form", class: "sign_in_form" } do |f|
         .inputs
           %p= f.text_field :email, :placeholder => 'Email Address'
           %p= f.password_field :password, :placeholder => 'Password', :id => 'sign_in_user_password'

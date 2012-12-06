@@ -41,11 +41,13 @@ Start/Restart production environment:
 # re/start Resque 
 god restart resque
 
+# start Sphinx server
+RAILS_ENV=production rake ts:run 
+
 # (re)start ortodontics360 (placed in /etc/init/)
 # see also http://blog.daviddollar.org/2011/05/06/introducing-foreman.html
 sudo (re)start orthodontics360 
 
-# start Sphinx server
 
 1. start/restart server:
 ###########################################################################
