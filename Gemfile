@@ -117,6 +117,7 @@ gem 'rack-pjax'
 gem 'rack-ssl-enforcer'
 # https://github.com/yob/pdf-reader
 gem 'pdf-reader'
+gem 'docsplit'
 gem 'russian'
 # https://github.com/streamio/streamio-ffmpeg
 gem 'streamio-ffmpeg'

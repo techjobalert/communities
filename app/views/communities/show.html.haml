@@ -1,1 +1,3 @@
+- content_for :logo do
+  = link_to '', community_path(@community), :class => "logo #{@community.slug}"
 = render :partial => 'home/iteresting_items'

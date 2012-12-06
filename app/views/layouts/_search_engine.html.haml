@@ -1,5 +1,5 @@
 .b-search-engine.center
-  = link_to '', root_path, :class => 'logo'
+  = yield :logo #link_to '', root_path, :class => 'logo'
   .search-container
     = form_for "", :url => search_items_path, :remote => true, :method => :get do |f|
       = f.text_field "q", :value => params[:q], :placeholder => 'Search for presentations, articles & movies', :class => 'text-input', :id => "main-search"

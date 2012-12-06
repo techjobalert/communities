@@ -1,3 +1,15 @@
+<% @communities = Community.all %>
+<% @communities.each do |community| %>
+  .logo.<%= "#{community.slug}" %> {
+    width: 281px;
+    height: 88px;
+    background: url("/assets/communities/<%= "#{community.slug}_logo.png" %>") no-repeat center transparent;
+    display: block;
+}
+<% end %>
+
+
+
 
 ul.dropdown_list.dropp_dropdown_list {
   background: white;
