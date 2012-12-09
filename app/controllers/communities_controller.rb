@@ -9,11 +9,9 @@ class CommunitiesController < ApplicationController
   end
 
   def show
-    Rails.logger.info params
     slug = params[:id]
-    @community = Community.find_by_slug(slug) #where(slug: slug).first
+    @community = Community.find_by_slug(slug) 
     display_404 unless @community
-
   end
 
 end
