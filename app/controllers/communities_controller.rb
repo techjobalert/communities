@@ -1,17 +1,22 @@
 class CommunitiesController < ApplicationController
-  #index all communities
+
+  before_filter :init_communities
+  
   def index
-    @communities = Community.all
+    
   end
   
-  def self.get_communities
-    Community.all
-  end
-
   def show
     slug = params[:id]
     @community = Community.find_by_slug(slug) 
-    display_404 unless @community
+    #redirect to suggest_community
   end
+
+  private
+
+  def init_communities
+    @communities = Community.all
+  end
+
 
 end

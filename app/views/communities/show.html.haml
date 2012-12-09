@@ -1,3 +1,6 @@
+- content_for :title do
+  = @community.name
+
 - content_for :logo do 
   = link_to '', community_path(@community), :class => "logo #{@community.slug}"
 

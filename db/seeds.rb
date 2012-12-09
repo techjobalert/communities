@@ -32,4 +32,19 @@ end
     puts "[NEW] #{def_text}"
   end
 end
+
+community_slugs = %w(endodontics implants orthodontics periodontics) 
+community_slugs.each do |slug|
+  Community.create do |c|
+    title = slug.titleize
+    
+    c.name = title
+    c.slug = slug
+    c.icon = slug
+    c.logo = slug
+
+  end
+end
+
+
 puts "[FINISH] DATABASE-SEED"

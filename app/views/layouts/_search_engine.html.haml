@@ -1,5 +1,5 @@
 .b-search-engine.center
-  = yield :logo
+  = content_for :logo
 
   .search-container
     = form_for "", :url => search_items_path, :remote => true, :method => :get do |f|
