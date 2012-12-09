@@ -1,3 +1,7 @@
+- unless content_for? :logo 
+  - content_for :logo do 
+    = link_to '', root_path, :class => 'logo b-admin-header-logo' 
+
 .b-search-engine.center
   = content_for :logo
 
