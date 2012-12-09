@@ -76,25 +76,15 @@
               = link_to "", "#", :class => 'btn change-password', :id => "btn-change-password"
               = f.submit '', :class => 'btn save-changes'
 
-      .b-privacy.b-settings-tab.hidden
-        .b-settings-title Select profile settings to show everyone:
+      .b-communities.b-settings-tab.hidden
         = form_for(current_user, :remote => true) do |f|
           %ul
-            %li
-              = f.check_box :show_bio
-              = label "_radio", "show_bio", "Biography"
-            %li
-              = f.check_box :show_educations
-              = label "_radio", "show_educations", "Education"
-            %li
-              = f.check_box :show_birthday
-              = label "_radio", "show_birthday", "Birthday"
-
-            %li.submit
-              = link_to "", "#", :class => 'btn change-password', :id => "btn-change-password"
-              = f.submit '', :class => 'btn save-changes'
-
-            
+            - Community.all.each do |c|
+              %li
+                = f.check_box_tag "user[community_ids][]", c.id
+                %span{ class: "icon #{c.slug}" }
+                
+         
 
 - if current_user.role? "doctor"
   %div{ :id => "popup-change-password", :title=>"Change Password", :style => "display: none" }

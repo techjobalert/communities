@@ -162,10 +162,23 @@
     line-height: 30px;
     font-weight: normal;
     margin: 15px 0 20px;
+/*    height: 400px;
+    padding: 0 0 0 150px;
+    */
+  }
+
+  @mixin settings-box {
+    margin: 0 0 80px 230px;
+  }
+  
+  .b-communities {
+    @include settings-box;
   }
 
   .b-notification, .b-privacy {
-    margin-left: 230px;
+
+    @include settings-box;
+
     ul {
       margin: 0;
       padding: 0;

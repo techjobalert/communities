@@ -6,6 +6,17 @@
     background: url("/assets/communities/<%= "#{community.slug}_logo.png" %>") no-repeat center transparent;
     display: block;
 }
+  .icon.<%= "#{community.slug}" %> {
+    width: 281px;
+    height: 88px;
+    background: url("/assets/communities/<%= "#{community.slug}.png" %>") no-repeat center transparent;
+    display: block;
+
+    &:hover {
+      opacity: 0.5;
+    }
+}
+  
 <% end %>
 
 
