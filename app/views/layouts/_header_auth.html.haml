@@ -1,5 +1,10 @@
+- unless content_for? :logo 
+  - content_for :logo do 
+    = link_to '', root_path, :class => 'logo b-admin-header-logo' 
+
 .b-auth.center
   = content_for :logo
+
   .buttons
     = link_to '#sign-up', :class => 'sign-up selected' do
       SIGN UP
