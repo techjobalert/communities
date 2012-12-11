@@ -33,3 +33,5 @@ Gemfile.lock
 
 
 dump.rdb
+Vagrantfile
+
