@@ -16,8 +16,57 @@
       opacity: 0.5;
     }
 }
-  
+
 <% end %>
+
+div.community_list {
+  border: 10px solid white; 
+  border-radius: 10px; 
+}
+
+div.community_elem {
+  width: 250px;
+  height: 50px;
+  background: white;
+  position: relative;
+
+  input[type='checkbox'].community_checkbox {
+    opacity: 0;
+    width: 0;
+    &+label {
+      
+      /* 'stretch and glue' */
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      
+      <% @communities.each do |community| %>
+        &.<%= community.slug %> {
+          background: url(/assets/communities/<%= community.slug %>.png) no-repeat;
+        }
+      <% end %>
+      
+      &:hover {
+        opacity: 0.5;
+      }
+      
+    }
+    &:checked+label{
+    <% @communities.each do |community| %>
+        &.<%= community.slug %> {
+      background: url(/assets/communities/<%= community.slug %>_checked.png) no-repeat;
+      }
+      <% end %>
+    };
+  }
+}
+
+
+
+
+
 
 
 

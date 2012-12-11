@@ -2,46 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-div.community_elem {
 
-	margin: 10px;
-	
-	input[type='checkbox'].community_checkbox {
-		&+label {
-			border-style: solid;
-		}
-	}
-}
 
-/*
-div.community_list {
-	border: 10px solid blue; 
-	border-radius: 10px; 
-}*/
-/*
-div.community_elem {
-		width: 200px;
-		height: 40px;
-}
-*/
-/*input[type='checkbox'].community_checkbox {
-	opacity: 0.5;
-	width: 10px;
-	&+label {*/
-		/* image replacement */
-		/*text-indent: 100%;
-		white-space: nowrap;
-		overflow: hidden;		
 
-		background: url(/assets/communities/implants.png);
-		&:hover {
-			opacity: 0.5;
-		}
-		&:active {
-			background: url(/assets/communities/orthodontics.png);
-		}*/
-/*	}
-}*/
 
 #community_selector {
 	list-style-type: none; 

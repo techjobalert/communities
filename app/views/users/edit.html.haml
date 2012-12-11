@@ -82,9 +82,9 @@
           .community_list
             - Community.all.each do |c|
               .community_elem
-                %label{ class: "community_label", for: "cb_#{dom_id(c)}"} 
-                  = c.name
                 = check_box_tag("user[community_ids][]", c.id, current_user.community_ids.include?(c.id), id: "cb_#{dom_id(c)}", class: "community_checkbox") 
+                %label{ class: "community_label #{c.slug}", for: "cb_#{dom_id(c)}"} 
+                  -#= c.name
                 
                 -#%span{ class: "icon #{c.slug}" }
                 
