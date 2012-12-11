@@ -77,12 +77,15 @@
               = f.submit '', :class => 'btn save-changes'
 
       .b-communities.b-settings-tab.hidden
-        = form_for(current_user, :remote => true) do |f|
+        = form_for(current_user, :remote => true, html: { id: "user_communities_form" } ) do |f|
+          = hidden_field_tag "user[community_ids][]", nil
           %ul
             - Community.all.each do |c|
               %li
-                = f.check_box_tag "user[community_ids][]", c.id
-                %span{ class: "icon #{c.slug}" }
+                = check_box_tag("user[community_ids][]", c.id, current_user.community_ids.include?(c.id), id: dom_id(c), class: "community_checkbox") 
+                %label{ class: "community_label", for: "#{dom_id(c)}"} 
+                  = c.name
+                -#%span{ class: "icon #{c.slug}" }
                 
          
 

@@ -51,6 +51,7 @@
 //= require mediaelement_rails
 //= require main
 //= require community
+//= require communities
 
 function $_(){
   //= require jquery.ui.widget
