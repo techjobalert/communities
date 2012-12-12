@@ -15,6 +15,15 @@
         = text_area_tag :tag_list, "", :rows => 1
       .clear
       .text-hint Press "Enter" keyboard button to submit new or use existing keyword
+    .row
+      = f.label "Communities", class: "label"
+      -#.community_list
+      - current_user.communities.each do |c|
+        .community_elem
+          = check_box_tag("item[community_ids][]", c.id, @item.community_ids.include?(c.id), id: "cb_#{dom_id(c)}", class: "community_checkbox") 
+          %label{ class: "community_label #{c.slug}", for: "cb_#{dom_id(c)}"} 
+
+
 
   :javascript
     $('#tag_list').textext({

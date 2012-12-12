@@ -4,7 +4,8 @@ class Item < ActiveRecord::Base
 
   attr_accessible :title, :description, :tag_list, :paid, :user, :user_id,
                   :views_count, :amount, :price, :state, :moderated_at,
-                  :approved_by, :attachments, :preview_length
+                  :approved_by, :attachments, :preview_length, 
+                  :community_items, :community_item_ids, :communities, :community_ids
   validates :title, :description, :presence => true
   validates :preview_length, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0}, :on => :update
 

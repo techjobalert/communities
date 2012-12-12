@@ -2,7 +2,7 @@
 
 %div.community_menu_container
   %select.community_list{ name: "user[community_ids][]", multiple: true, placeholder: "Pick Your Communities" }
-    - @communities.each do |c|
+    - Community.all.each do |c|
       %option.community_option{ value: c.id }
         = c.name
         -# %img{ src: "/assets/communities/#{c.slug}.png" }
