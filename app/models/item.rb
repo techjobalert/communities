@@ -131,6 +131,7 @@ class Item < ActiveRecord::Base
     has "CRC32(attachment_type)", :as => :attachment_type, :type => :integer
     has price, :type => :integer
     has taggings.tag_id, :as => :tag_ids
+    has community_items.community_id, :as => :community_ids
     has follows.follower_id, :as => :follower_ids
     # has "CRC32(tags.name)", :as => :tags, :type => integer
     # where "state = 'published'"

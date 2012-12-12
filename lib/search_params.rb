@@ -103,6 +103,8 @@ class SearchParams
     opt.push(items_relevant_item(params))
     opt.push(items_views_filter(params))
     opt.push(items_price_filter(params))
+    #communities
+    opt.push(items_community_filter(params))
     options = {}
     opt.each do |o|
       next if o.nil?
@@ -183,6 +185,10 @@ class SearchParams
         { :without => {:price => 0} }
       end
     end
+  end
+
+  def items_community_filter(params)
+    { :with => { :community_ids => params[:community_ids] } }
   end
 
 

@@ -161,6 +161,7 @@ class ItemsController < InheritedResources::Base
     @items = SearchParams.new(params).get_search_results
   end
 
+
   def search
     @content_type = params[:attachment_type] || 'video'
     @following = params[:following]
@@ -168,6 +169,8 @@ class ItemsController < InheritedResources::Base
     params[:current_user_id] = current_user.id if @render_items == "account"
     params.merge!({SearchParams.per_page_param => 30}) if @filter_location != "main"
     params.merge!({:classes => [Item]})
+    #add current community
+    params.merge!({:community_ids => [ session[:community_id] ]})
     @items = SearchParams.new(params).get_search_results
   end
 

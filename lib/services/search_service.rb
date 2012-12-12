@@ -7,6 +7,7 @@ class SearchService
     result = []
 
     begin
+      Rails.logger.info({ query: query, options: options })
       result = ThinkingSphinx.search query, options
     rescue Riddle::ConnectionError, ThinkingSphinx::SphinxError => e
       Rails.logger.error e
