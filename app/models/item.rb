@@ -8,6 +8,7 @@ class Item < ActiveRecord::Base
                   :community_items, :community_item_ids, :communities, :community_ids
   validates :title, :description, :presence => true
   validates :preview_length, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0}, :on => :update
+  validates :communities, length: { minimum: 1 }
 
   acts_as_commentable
   acts_as_taggable

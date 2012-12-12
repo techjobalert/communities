@@ -16,7 +16,7 @@
       .clear
       .text-hint Press "Enter" keyboard button to submit new or use existing keyword
     .row
-      = f.label "Communities", class: "label"
+      = f.label "Communities*", class: "label"
       -#.community_list
       .b-tags
         - current_user.communities.each do |c|
