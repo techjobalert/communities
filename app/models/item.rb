@@ -45,8 +45,9 @@ class Item < ActiveRecord::Base
 
   has_many    :follows, :as => :followable, :conditions => {:blocked => false}
 
-  has_and_belongs_to_many :communities
-
+  #has_and_belongs_to_many :communities
+  has_many :community_items
+  has_many :communities, through: :community_items
 
   accepts_nested_attributes_for :attachments, :communities
 
