@@ -3,6 +3,7 @@
     .center
       = link_to 'Logout', destroy_user_session_path, :method => 'DELETE' if user_signed_in?
       = link_to 'admin', '/moderator' if current_user and current_user.admin?
+      .clear
       = link_to 'Your Communities', '#', class: 'dropdown-button', id: 'btn_communities' if user_signed_in?
       .clear
 
