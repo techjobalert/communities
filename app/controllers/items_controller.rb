@@ -201,6 +201,7 @@ class ItemsController < InheritedResources::Base
         _params.merge!({param_name => params[param_name]})
       end
     end
+    add_community_id_to_params(_params)
     search_params = SearchParams.new(_params)
     results = search_params.get_search_results || []
     @search_results = results.select{|r| r.state == "published"}.map do |item|
