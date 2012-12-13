@@ -170,9 +170,18 @@ class ItemsController < InheritedResources::Base
     params.merge!({SearchParams.per_page_param => 30}) if @filter_location != "main"
     params.merge!({:classes => [Item]})
     #add current community
-    params.merge!({:community_ids => [ session[:community_id] ]})
+    add_community_id_to_params(params)
     @items = SearchParams.new(params).get_search_results
   end
+
+  def add_community_id_to_params params
+    community_id = session[:community_id]
+    if(community_id)
+      params.merge!({:community_ids => [ community_id ]})
+    end
+  end
+
+  private :add_community_id_to_params
 
   def users_search
     @item = Item.find(params[:item_id])
