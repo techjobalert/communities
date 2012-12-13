@@ -188,7 +188,11 @@ class SearchParams
   end
 
   def items_community_filter(params)
-    { :with => { :community_ids => params[:community_ids] } }
+    if params[:community_ids] 
+      { :with => { :community_ids => params[:community_ids] } } 
+    else 
+      {}
+    end 
   end
 
 

@@ -175,7 +175,10 @@ class ItemsController < InheritedResources::Base
   end
 
   def add_community_id_to_params params
-    community_id = session[:community_id]
+    
+    community_id = session[:community_id] if session[:community_id]
+    community_id = params[:community_id] if params[:community_id]
+    
     if(community_id)
       params.merge!({:community_ids => [ community_id ]})
     end
