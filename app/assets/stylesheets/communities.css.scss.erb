@@ -1,5 +1,7 @@
 <% @communities = Community.all %>
 <% @communities.each do |community| %>
+
+
   .logo.<%= "#{community.slug}" %> {
     width: 281px;
     height: 88px;
@@ -18,6 +20,10 @@
 }
 
 <% end %>
+
+
+
+
 
 div.community_list {
   border: 10px solid white; 
@@ -56,7 +62,7 @@ div.community_elem {
     &:checked+label{
     <% @communities.each do |community| %>
         &.<%= community.slug %> {
-      background: url(/assets/communities/<%= community.slug %>_checked.png) no-repeat;
+        background: url(/assets/communities/<%= community.slug %>_checked.png) no-repeat;
       }
       <% end %>
     };
@@ -64,7 +70,11 @@ div.community_elem {
 }
 
 
-
+<% @communities.each do |community| %>
+li.community_item.<%= "#{community.slug}" %>  {
+        
+}
+<% end %>
 
 
 

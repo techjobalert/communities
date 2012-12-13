@@ -4,7 +4,18 @@
       = link_to 'Logout', destroy_user_session_path, :method => 'DELETE' if user_signed_in?
       = link_to 'admin', '/moderator' if current_user and current_user.admin?
       .clear
-      = link_to 'Your Communities', '#', class: 'dropdown-button', id: 'btn_communities' if user_signed_in?
+      - if user_signed_in?
+        %span.community_switch
+          = current_community_name
+        .community_menu_container
+          %ul.community_menu
+            - current_user.communities.each do |c|
+              - unless c == controller.current_community
+                %li{ class: "community_item #{c.slug}" } 
+                  = link_to c.name, c
+
+
+
       .clear
 
 - if user_signed_in?      

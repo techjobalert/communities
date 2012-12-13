@@ -53,10 +53,16 @@
 //= require community
 //= require communities
 
-function $_(){
-  //= require jquery.ui.widget
-}
-
+$(function(){
+  
+  $("span.community_switch").click(function(){
+    $(".community_menu_container").toggle();
+  });
+ 
+  $(".community_menu_container").mouseleave(function(){
+    $(this).hide();
+  });
+});
 
 
 function showHideNotice(type,message){

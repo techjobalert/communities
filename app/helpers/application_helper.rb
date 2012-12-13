@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+  def current_community_name
+    controller.current_community.try(:name) ? controller.current_community.try(:name) : "Your Communities"
+  end
+
   def date_format(date)
     date.strftime('%m/%d/%Y') if date.present?
   end

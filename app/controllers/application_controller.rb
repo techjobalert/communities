@@ -17,5 +17,11 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  def current_community
+    community = nil
+    id = session[:community_id]
+    community = Community.where(id: id).first if id
+  end
+
 
 end

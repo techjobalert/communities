@@ -56,11 +56,48 @@ div.center {
   position: relative;
 }
 
-a#btn_communities {
+span.community_switch {
   position: absolute;
   width: 120px;
   left: 50%;
+  top: 50%;
   margin-left: -60px;
+  margin-bottom: 10px;
   text-align: center;
-  top: 0;
+  text-transform: uppercase;
+  color: white;
+  font-size: 0.8em;
+  cursor: pointer;
+  &+.community_menu_container {
+    display: none;
+    border: solid white;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    
+    z-index: 1;
+    & ul.community_menu {
+      list-style: none;
+      background: white;
+
+      li.community_item {
+        background: gray;
+
+        a {
+          color: blue;
+        }
+        /*width: 250px;
+        height: 50px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;*/
+        /*background: url(/assets/communities/orthodontics.png) no-repeat center;*/
+      }
+    }
+  };
+
 }

@@ -7,4 +7,8 @@ class Community < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: :slugged
+
+  def include? user
+    users.include? user
+  end
 end
